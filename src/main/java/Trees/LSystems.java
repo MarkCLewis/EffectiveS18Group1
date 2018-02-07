@@ -4,16 +4,15 @@ import java.util.Scanner;
 
 public class LSystems {
 
-	public String a, b, inputA, inputB, start;
+	public String inputA, inputB, start;
 
 	public int levels;
 
 	public Scanner sc;
 
 	public void LSystems(){
-		a="";
+		
 		inputA="";
-		b="";
 		inputB="";
 		levels=0;
 		start="";
