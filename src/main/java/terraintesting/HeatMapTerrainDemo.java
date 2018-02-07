@@ -85,6 +85,10 @@ public class HeatMapTerrainDemo extends Application {
 		//TODO
 		
 	}
+
+    public static void triangleRender() {
+        //TODO
+    }
 	
 	/*
 	 *  returns a random elevation between 0 and the maxElevation
