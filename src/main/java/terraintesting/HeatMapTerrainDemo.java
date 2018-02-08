@@ -86,8 +86,12 @@ public class HeatMapTerrainDemo extends Application {
 		
 	}
 
+    /*
+     * tesselates the square domain into a triangular grid because triangles are always coplaner
+     * @param 
+     */
     public static void triangleRender() {
-        //TODO
+        
     }
 	
 	/*
