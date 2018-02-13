@@ -7,12 +7,18 @@ Put in some description of what you are trying to do here.
 * Silas  
 * Miranda  
 
-Tony    - Cities  
+**Cities**
+* Tony
 
-Carlos  - Trees  
+**Trees**
+* Carlos
 
-Jon     - Graphics  
+**Graphics**
+* Jon
 
-Reed    - Water  
+**Water**
+* Reed
 
-Colby   - Roads
+**Roads**
+* Colby
+
