@@ -5,6 +5,9 @@ import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.Sphere;
@@ -22,11 +25,44 @@ public class TriangleMeshDemo extends Application {
 	public void start(Stage stage) {
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
+		scene.setFill(Color.GRAY);
+		
+		//Camera
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		Group cameraGroup = new Group();
 		cameraGroup.getChildren().add(camera);
 		mainGroup.getChildren().add(cameraGroup);
+		
+		//Camera Movement
+		double camSpeed = 1.0;
+		scene.setOnKeyPressed(event ->{
+			KeyCode key = event.getCode();
+			 if(key == KeyCode.W) {camera.setTranslateZ(camera.getTranslateZ() + camSpeed);}
+			 if(key == KeyCode.S) {camera.setTranslateZ(camera.getTranslateZ() - camSpeed);}
+			 if(key == KeyCode.A) {camera.setTranslateX(camera.getTranslateX() - camSpeed);}
+			 if(key == KeyCode.D) {camera.setTranslateX(camera.getTranslateX() + camSpeed);}
+		});
+		
+		double x1;
+		double y2;
+		double x2 = event.getSceneX();
+        double y2 = event.getSceneY();
+        double dx;
+        double dy;
+	    scene.setOnMouseMoved((MouseEvent event) -> {
+	        if(pressed){
+	             x1 = x2;
+	             y1 = y2;
+	             x2 = event.getSceneX();
+	             y2 = event.getSceneY();
+	             dx = x2 -x1;
+	             dy = y2 -y1;
+
+	             camera.setTranslateX(camera.getTranslateX() - dx*0.1);
+	             camera.setTranslateY(camera.getTranslateY() - dy*0.1);      
+	        }           
+	    });
 		
 		mainGroup.getChildren().add(getTestMesh());
 		
