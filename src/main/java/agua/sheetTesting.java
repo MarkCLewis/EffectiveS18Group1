@@ -4,17 +4,24 @@ package agua;
 import java.awt.AWTException;
 import java.awt.Robot;
 
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Transform;
 import javafx.scene.paint.*;
 import javafx.scene.shape.DrawMode;
+import javafx.scene.shape.Mesh;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 
@@ -40,6 +47,8 @@ public class sheetTesting extends Application {
 		Group sceneRoot = new Group();
 		Scene scene = new Scene(sceneRoot, 1280, 720);
 		scene.setFill(Color.BEIGE);
+		
+		
 		
 		 // Camera stuff
 		PerspectiveCamera camera = new PerspectiveCamera(true);
@@ -103,32 +112,91 @@ public class sheetTesting extends Application {
 		 
 		 float h = 3;                    // Height
 		 float s = 3;                    // Side
-		 float[] test = {0,    0,    0,            // Point 0 - Top
-				 		 0,    h,    -s/2,         // Point 1 - Front
-				 		 -s/2, h,    0,            // Point 2 - Left
-				 		 s/2,  h,    0,            // Point 3 - Back
-				 		 0,    h,    s/2};           // Point 4 - Right
+		 float[] test = {0f, 0f, -0.951057f, 
+			        0f, 0f, 0.951057f, 
+			        -0.850651f, 0f, -0.425325f, 
+			        0.850651f, 0f, 0.425325f, 
+			        0.688191f, -0.5f, -0.425325f, 
+			        0.688191f, 0.5f, -0.425325f, 
+			        -0.688191f, -0.5f, 0.425325f, 
+			        -0.688191f, 0.5f, 0.425325f, 
+			        -0.262866f, -0.809017f, -0.425325f, 
+			        -0.262866f, 0.809017f, -0.425325f, 
+			        0.262866f, -0.809017f, 0.425325f, 
+			        0.262866f, 0.809017f, 0.425325f};         
 		 
-		 int [] faceTest = {0,0,  2,0,  1,0,          // Front left face // array must be within the range of the number of vertices in the points array (0 to points.length / 3 - 1)
-			        		0,0,  1,0,  3,0,          // Front right face
-			        		0,0,  3,0,  4,0,          // Back right face
-			        		0,0,  1,0,  2,0,          // Back left face
-			        		4,0,  1,0,  2,0,          // Bottom rear face
-			        		4,0,  3,0,  1,0 };         // Bottom front face
+		 int [] faceTest = {1, 6, 11, 5, 7, 0, 
+		            1, 12, 7, 11, 6, 5, 
+		            1, 7, 6, 6, 10, 1, 
+		            1, 13, 10, 12, 3, 6, 
+		            1, 8, 3, 7, 11, 2,
+		            4, 14, 8, 13, 0, 7, 
+		            5, 9, 4, 8, 0, 3, 
+		            9, 15, 5, 14, 0, 8, 
+		            2, 10, 9, 9, 0, 4, 
+		            8, 16, 2, 15, 0, 9,
+		            11, 5, 9, 6, 7, 12,
+		            7, 11, 2, 12, 6, 17, 
+		            6, 6, 8, 7, 10, 13, 
+		            10, 12, 4, 13, 3, 18, 
+		            3, 7, 5, 8, 11, 14,
+		            4, 13, 10, 14, 8, 19, 
+		            5, 8, 3, 9, 4, 15, 
+		            9, 14, 11, 15, 5, 20, 
+		            2, 9, 7, 10, 9, 16, 
+		            8, 15, 6, 16, 2, 21};   
+		 float [] testCoords = {
+				 0.181818f, 0f, 
+		            0.363636f, 0f, 
+		            0.545455f, 0f, 
+		            0.727273f, 0f, 
+		            0.909091f, 0f,
+		            0.0909091f, 0.333333f,
+		            0.272727f, 0.333333f, 
+		            0.454545f, 0.333333f, 
+		            0.636364f, 0.333333f, 
+		            0.818182f, 0.333333f, 
+		            1f, 0.333333f, 
+		            0f, 0.666667f, 
+		            0.181818f, 0.666667f, 
+		            0.363636f, 0.666667f, 
+		            0.545455f, 0.666667f, 
+		            0.727273f, 0.666667f, 
+		            0.909091f, 0.666667f, 
+		            0.0909091f, 1f, 
+		            0.272727f, 1f, 
+		            0.454545f, 1f, 
+		            0.636364f, 1f, 
+		            0.818182f, 1f
+		 };
 		 
 
 		sceneRoot.getChildren().add(camera);
-		sceneRoot.getChildren().add(createMeshView(test, faceTest, 0, 0, 10 ));
+		MeshView mv = createMeshView(test,testCoords, faceTest, 0, 0, 10 );
+		RotateTransition rotator = rotator(mv);
+        rotator.play();
+		sceneRoot.getChildren().add(mv);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 	
-private MeshView createMeshView(float [] Points, int[] Faces, int X, int Y, int Z) {
+private RotateTransition rotator(Node temp) {
+	        RotateTransition rotator = new RotateTransition(Duration.millis(10000), temp);
+	        
+	        rotator.setAxis(Rotate.Y_AXIS); //Z/X/Y axis
+	        
+	        rotator.setFromAngle(0);
+	        rotator.setToAngle(360); // causes it to spin in a circle
+	        rotator.setInterpolator(Interpolator.LINEAR); // DISCRETE, EASE_BOTH, EASE_IN, EASE_OUT
+	        rotator.setCycleCount(100);
+
+	        return rotator;
+	    }
+	
+private MeshView createMeshView(float [] Points,float[] texCoords, int[] Faces, int X, int Y, int Z) {
 		TriangleMesh mesh = new TriangleMesh();
 
-		mesh.getTexCoords().addAll(0,0);
-		
-		//double testdub = 10;
+		mesh.getTexCoords().addAll(texCoords);
 		
 		mesh.getPoints().addAll(Points);
 		
@@ -136,10 +204,15 @@ private MeshView createMeshView(float [] Points, int[] Faces, int X, int Y, int 
 		
 		MeshView meshView = new MeshView(mesh);
 		meshView.setDrawMode(DrawMode.FILL);
-		meshView.setMaterial(new PhongMaterial(Color.BLUE));
+		//meshView.setMaterial(new PhongMaterial(Color.BLUE));
+		PhongMaterial mat = new PhongMaterial();
+		mat.setDiffuseMap(new Image(getClass().getResourceAsStream("waldo.png")));
+		meshView.setMaterial(mat);
 		meshView.setTranslateX(X/*200*/);
 		meshView.setTranslateY(Y/*100*/);
 		meshView.setTranslateZ(Z/*200*/);
+		//Transform mesh3d = meshView.getLocalToSceneTransform();
+		//mesh3d.deltaTransform(X*2, Y*2, Z*2);
 		
 		return meshView;
 		
