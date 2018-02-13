@@ -30,7 +30,7 @@ public class ShapesDemo extends Application{
 		mainGroup.getChildren().add(cameraGroup);
 		*/
 
-		Cylinder cyl = makeCylinder(200, 100);
+		Cylinder cyl = makeCylinder(200, 100, Color.LIGHTBLUE, Color.BLUE);
 		mainGroup.getChildren().add(cyl);
 
 		primaryStage.setScene(scene);
@@ -40,11 +40,11 @@ public class ShapesDemo extends Application{
 		primaryStage.show();
 	}
 	
-	public Cylinder makeCylinder(int h, int w){
+	public Cylinder makeCylinder(int h, int w, Color color1, Color color2){
 		Cylinder cylinder = new Cylinder(h,w);
 		PhongMaterial blueStuff = new PhongMaterial();
-		blueStuff.setDiffuseColor(Color.LIGHTBLUE);
-		blueStuff.setSpecularColor(Color.BLUE);
+		blueStuff.setDiffuseColor(color1);
+		blueStuff.setSpecularColor(color2);
 		cylinder.setMaterial(blueStuff);
 		
 		cylinder.setTranslateX(350);
