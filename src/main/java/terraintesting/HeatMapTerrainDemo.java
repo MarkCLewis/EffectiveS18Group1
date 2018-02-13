@@ -30,7 +30,7 @@ public class HeatMapTerrainDemo extends Application {
 		Group group = new Group();
 		Canvas canvas = new Canvas(width,height);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		//buildElevation(); 
+		buildElevation(); 
 		buildHeatMap();
 		drawHeatMap(gc);
 		group.getChildren().add(canvas);
@@ -42,13 +42,53 @@ public class HeatMapTerrainDemo extends Application {
 		launch();
 	}
 	
-	/*
 	public static void buildElevation() {
+		neighborAverageSmoothing(); //Modify this method call to try out different strategies
+	}
+	
+	public static void neighborAverageSmoothing() {
 		for(int x=0; x<width; x++)
 			for(int y=0; y<height; y++)
-				elevation[x][y]= simpleHillAndValley(x,y); //Modify this method call to try out different strategies
+				elevation[x][y]= randomElevation();
+		for(int x=0; x<width; x++)
+			for(int y=0; y<height; y++) 
+				elevation[x][y]= getNeighborAvg(x,y);
+		/*for(int x=0; x<width; x++)
+			for(int y=0; y<height; y++)
+				elevation[x][y] = maxElevation % (elevation[x][y]+randomElevation()/100);*/
 	}
-	*/
+	
+	private static int getNeighborAvg(int x, int y) {
+		int sum = 0;
+		int count = 0;
+		int[] points = new int[8];
+		points[0] = getNeighborElev(x, y, -1, -1);
+		points[1] = getNeighborElev(x, y, -1, 0);
+		points[2] = getNeighborElev(x, y, -1, 1);
+		points[3] = getNeighborElev(x, y, 0, -1);
+		points[4] = getNeighborElev(x, y, 0, 1);
+		points[5] = getNeighborElev(x, y, 1, -1);
+		points[6] = getNeighborElev(x, y, 1, 0);
+		points[7] = getNeighborElev(x, y, 1, 1);
+		
+		for(int i=0; i<points.length; i++) {
+			if(points[i]!=-1) {
+				sum+=points[i];
+				count++;
+			}
+		}
+		
+		return sum/count;
+	}
+	
+	private static int getNeighborElev(int x, int y, int deltaX, int deltaY) {
+		int x2 = x+deltaX;
+		int y2 = y+deltaY;
+		if(x2<0 || y2<0 || x2>=width || y2>=height)
+			return -1;
+		else
+			return elevation[x2][y2];
+	}
 	
 	/*
 	 * diamond square algorithm to construct terrain (works with squares only)
@@ -116,9 +156,11 @@ public class HeatMapTerrainDemo extends Application {
 				pw.setColor(x,y,heatMap[x][y]);
 	}
 	
-	public static int simpleHillAndValley(int x, int y) {
-		return (int) (maxElevation/4*Math.sin((double)x/maxElevation)+maxElevation/4) + 
-		(int) (maxElevation/4*Math.sin((double)y/maxElevation)+maxElevation/4);
+	public static void simpleHillAndValley() {
+		for(int x=0; x<width; x++)
+			for(int y=0; y<height; y++)
+				elevation[x][y]= (int) ((maxElevation/4*Math.sin((double)x/width*12)+maxElevation/4) + 
+						 (maxElevation/4*Math.sin((double)y/height*12)+maxElevation/4));;
 	}
 	
 	//converts an int to a color representing its intensity given a specified max
