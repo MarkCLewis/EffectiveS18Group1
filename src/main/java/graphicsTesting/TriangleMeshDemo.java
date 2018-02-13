@@ -7,6 +7,7 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
+import javafx.scene.shape.Sphere;
 import javafx.scene.shape.TriangleMesh;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
@@ -39,8 +40,8 @@ public class TriangleMeshDemo extends Application {
 
 		pyramidMesh.getTexCoords().addAll(0,0);
 		
-		float h = 150;                    // Height
-		float s = 300;                    // Side
+		float h = 1;                    // Height
+		float s = 3;                    // Side
 		pyramidMesh.getPoints().addAll(
 		        0,    0,    0,            // Point 0 - Top
 		        0,    h,    -s/2,         // Point 1 - Front
@@ -63,7 +64,7 @@ public class TriangleMeshDemo extends Application {
 		pyramid.setMaterial(new PhongMaterial(Color.BLUE));
 		pyramid.setTranslateX(0/*200*/);
 		pyramid.setTranslateY(0/*100*/);
-		pyramid.setTranslateZ(0/*200*/);
+		pyramid.setTranslateZ(10/*200*/);
 		
 		return pyramid;
 		
