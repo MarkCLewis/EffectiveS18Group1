@@ -2,19 +2,23 @@
 
 Put in some description of what you are trying to do here.
 
+**Terrain**
+* Daniel
+* Silas  
+* Miranda  
 
-Daniel  - Terrain 
+**Cities**
+* Tony
 
-Silas   - Terrain  
+**Trees**
+* Carlos
 
-Miranda - Terrain  
+**Graphics**
+* Jon
 
-Tony    - Cities  
+**Water**
+* Reed
 
-Carlos  - Trees  
+**Roads**
+* Colby
 
-Jon     - Graphics  
-
-Reed    - Water  
-
-Colby   - Roads

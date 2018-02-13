@@ -45,12 +45,12 @@ public class Main extends Application {
 		
 		Group sceneRoot = new Group();
 		Scene scene = new Scene(sceneRoot, 1000, 850);
-		scene.setFill(Color.BLACK);
+		scene.setFill(Color.AQUA);
 		PerspectiveCamera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
-		camera.setTranslateZ(-1000);
-		camera.setFarClip(100000);
-		camera.setNearClip(0.1);
+//		camera.setTranslateZ(-1000);
+//		camera.setFarClip(100000);
+//		camera.setNearClip(0.1);
 		
 		Rotate xRotate = new Rotate(0,0,0,0,Rotate.X_AXIS);
 		Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
@@ -78,26 +78,26 @@ public class Main extends Application {
 		 
 		TriangleMesh sheet = new TriangleMesh();
 		sheet.setVertexFormat(VertexFormat.POINT_TEXCOORD);
-		float[] points = {
-                -5, 5, 0,
-                -5, -5, 0,
-                5, 5, 0,
-                5, -5, 0
-        };
-        float[] texCoords = {
-                0, 0,
-                0, 1,
-                1, 0,
-                1, 1
-        };
-        int[] faces = {
-                0, 0, 1, 1, 2, 2,
-                2, 2, 3, 3, 1, 1
-        };
-        
-		sheet.getTexCoords().addAll(texCoords);
-		sheet.getPoints().addAll(points);
-		sheet.getFaces().addAll(faces);
+		sheet.getTexCoords().addAll(0,0);
+
+		float h = 1;                    // Height
+		float s = 3;                    // Side
+		sheet.getPoints().addAll(
+		        0,    0,    0,            // Point 0 - Top
+		        0,    h,    -s/2,         // Point 1 - Front
+		        -s/2, h,    0,            // Point 2 - Left
+		        s/2,  h,    0,            // Point 3 - Back
+		        0,    h,    s/2           // Point 4 - Right
+		    );
+		
+		sheet.getFaces().addAll(
+		        0,0,  2,0,  1,0,          // Front left face
+		        0,0,  1,0,  3,0,          // Front right face
+		        0,0,  3,0,  4,0,          // Back right face
+		        0,0,  4,0,  2,0,          // Back left face
+		        4,0,  1,0,  2,0,          // Bottom rear face
+		        4,0,  3,0,  1,0           // Bottom front face
+		    );
 		//Smoothing group adjusts the normal on the vertices for the face to either be smooth or faceted.
 		//If every single face has a differing smoothing group, 
 		//then the mesh will be very faceted. 
@@ -106,9 +106,16 @@ public class Main extends Application {
 		javafx.scene.shape.MeshView sheetView = new javafx.scene.shape.MeshView(); // Issue with using mesh view (?)
 		sheetView.setDrawMode(DrawMode.FILL);
 		sheetView.setCullFace(CullFace.BACK);
-	    PhongMaterial material = new PhongMaterial();
-	    material.setSpecularColor(Color.WHITE);
-	    material.setDiffuseColor(Color.BEIGE);
+		
+		sheetView.setTranslateX(0);
+		sheetView.setTranslateY(0);
+		sheetView.setTranslateZ(10);
+		sheetView.setMaterial(new PhongMaterial(Color.BLUE));
+
+		
+	  //   PhongMaterial material = new PhongMaterial();
+	  //  material.setSpecularColor(Color.WHITE);
+	  //  material.setDiffuseColor(Color.BEIGE);
 
 		
 		 scene.setOnKeyPressed(event-> {
@@ -159,12 +166,15 @@ public class Main extends Application {
 		 Group shapes = new Group(cylinder, cube);
 		 
 		 //sceneRoot.getChildren().addAll(cylinder,cube);
-		 sheetView.setMaterial(material);
+		 //sheetView.setMaterial(material);
 		 sceneRoot.getChildren().add(sheetView);
+		 sceneRoot.getChildren().add(camera);
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+	
+
 	
 	public static void main(String[] args) {
 		launch(args);
