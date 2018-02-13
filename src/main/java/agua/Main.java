@@ -1,4 +1,4 @@
-package application;
+package agua;
 	
 
 import java.awt.AWTException;
@@ -17,11 +17,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.CullFace;
 import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.shape.VertexFormat;
 import javafx.scene.transform.Rotate;
-import javafx.scene.paint.Material;
 import javafx.scene.paint.*;
 
 
@@ -55,8 +56,6 @@ public class Main extends Application {
 		Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
 		camera.getTransforms().addAll(xRotate,yRotate);
 
-		
-		
 		
 		final Cylinder cylinder = new Cylinder(50, 100);
 		cylinder.setVisible(true);
@@ -103,9 +102,14 @@ public class Main extends Application {
 		//If every single face has a differing smoothing group, 
 		//then the mesh will be very faceted. 
 		//If every single face has the same smoothing group, then the mesh will look very smooth.
-		MeshView sheetView = new MeshView(); // Issue with using mesh view (?)
 		
-		
+		javafx.scene.shape.MeshView sheetView = new javafx.scene.shape.MeshView(); // Issue with using mesh view (?)
+		sheetView.setDrawMode(DrawMode.FILL);
+		sheetView.setCullFace(CullFace.BACK);
+	    PhongMaterial material = new PhongMaterial();
+	    material.setSpecularColor(Color.WHITE);
+	    material.setDiffuseColor(Color.BEIGE);
+
 		
 		 scene.setOnKeyPressed(event-> {
 			 double change = cameraQuantity;
@@ -154,8 +158,10 @@ public class Main extends Application {
 		 
 		 Group shapes = new Group(cylinder, cube);
 		 
-		 sceneRoot.getChildren().addAll(cylinder,cube);
-		 sceneRoot.getChildren().add(sheet);
+		 //sceneRoot.getChildren().addAll(cylinder,cube);
+		 sheetView.setMaterial(material);
+		 sceneRoot.getChildren().add(sheetView);
+
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
