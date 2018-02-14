@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.PointLight;
 import javafx.scene.Scene;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
@@ -116,9 +117,9 @@ public class sheetTesting extends Application {
 		 // Camera stuff
 		PerspectiveCamera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
-		camera.setTranslateZ(0);
-		camera.setFarClip(100000);
-		camera.setNearClip(0.1);
+		camera.setTranslateZ(-100);
+		camera.setFarClip(10000);
+		camera.setNearClip(7.5);
 		
 		Rotate xRotate = new Rotate(0,0,0,0,Rotate.X_AXIS);
 		Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
@@ -163,13 +164,15 @@ public class sheetTesting extends Application {
 			 	}
 			 if(event.getEventType() == MouseEvent.MOUSE_CLICKED)
 			 {
+				 mouse.mouseMove(
+						 (int)scene.getWidth()/2,
+						 (int)scene.getHeight()/2);
+				 //camera.setTranslateX(change);
 				 //sceneRoot.getChildren().add(createMeshView(test, faceTest, camera.getTranslateX()+10, camera.getTranslateY(), camera.getTranslateZ() ));
 			 }
 			 if(event.getEventType() == MouseEvent.MOUSE_EXITED)
 			 {
-				 mouse.mouseMove(
-						 (int)scene.getWidth()/2,
-						 (int)scene.getHeight()/2);
+				
 			 }
 		});
 		 
@@ -177,14 +180,18 @@ public class sheetTesting extends Application {
 		 
 
 		sceneRoot.getChildren().add(camera);
-		int numWaves = 25;
-		int numWaveRows = 4;
-		MeshView[] wavePool = buildBody(numWaves, numWaveRows);
-		for(int i=0;i<numWaves;i++)
+		int numWaves = 10;
+		int numWaveRows = 13;
+		MeshView[][] wavePool = buildBody(numWaves, numWaveRows);
+		for(int z=0; z<numWaveRows;z++)
 		{
-			RotateTransition rotator = rotator(wavePool[i]);
-	        rotator.play();
-	        sceneRoot.getChildren().add(wavePool[i]);
+			for(int i=0;i<numWaves;i++)
+			{
+				RotateTransition rotator = rotator(wavePool[z][i]);
+				//scene.strokePolygon(z, i, 6);
+				rotator.play();
+				sceneRoot.getChildren().add(wavePool[z][i]);
+			}
 		}
 /*		MeshView mv = createMeshView(test,testCoords, faceTest, 0, 0, 10 );
 		RotateTransition rotator = rotator(mv);
@@ -215,6 +222,7 @@ private RotateTransition rotator(Node temp) {
 	        
 	        rotator.setFromAngle(0);
 	        rotator.setToAngle(360); // causes it to spin in a circle
+	        rotator.autoReverseProperty();
 	        rotator.setInterpolator(Interpolator.LINEAR); // DISCRETE, EASE_BOTH, EASE_IN, EASE_OUT
 	        rotator.setCycleCount(100);
 
@@ -232,25 +240,42 @@ private MeshView createMeshView(float [] Points, float[] texCoords, int[] Faces,
 	mesh.getFaces().addAll(Faces);
 	
 	MeshView meshView = new MeshView(mesh);
-	meshView.setDrawMode(DrawMode.FILL);
-	meshView.setMaterial(new PhongMaterial(Color.BLUE));
+	//meshView.setDrawMode(DrawMode.FILL);
+	//meshView.setMaterial(new PhongMaterial(Color.BLUE));
+	
+	PhongMaterial imageMat = new PhongMaterial();
+    imageMat.setDiffuseMap(new Image(getClass().getResourceAsStream("testsurface_04.png")));
+    meshView.setMaterial(imageMat);
+    
 	meshView.setTranslateX(X/*200*/);
 	meshView.setTranslateY(Y/*100*/);
 	meshView.setTranslateZ(Z/*200*/);
 	
+	meshView.setBlendMode(BlendMode.DARKEN);
+	
 	return meshView;
 	
 }
-private MeshView[] buildBody(int numOfParts, int numRows)
+private MeshView[][] buildBody(int numOfParts, int numRows)
 {
-	MeshView[] wave = new MeshView[numOfParts];
-	
-	for(int z=1; z<numRows*2; z+=2)
+	MeshView[][] wave = new MeshView[numRows+1][numOfParts+1];
+	//int rowxcolumn = numOfParts/numRows;
+	double shake;
+	for(int z = 0; z<numRows; z++)
 	{
 		for(int i = 0; i<numOfParts; i++)
 		{
-			wave[i] = createMeshView(test,testCoords, faceTest, i*.5, 0, z*.25);
-			// Need to add the row creating capability
+
+			if(i%2==0) 
+				if(z%2==0)
+					shake = (z)*-.025;
+				else
+					shake = (z)*-.03;
+			else
+				shake = (z)*.025;
+			wave[z][i] = createMeshView(test,testCoords, faceTest, i*1.33, shake, z*3);
+																// ^         ^      ^Eventually this will be an array with coordinates based on the escalation (that were procedurally generated)
+																//					 Right now they are random 
 		}
 	}
 	return wave;
