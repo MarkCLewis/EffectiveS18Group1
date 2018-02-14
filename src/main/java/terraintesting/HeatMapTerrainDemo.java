@@ -43,7 +43,7 @@ public class HeatMapTerrainDemo extends Application {
 	}
 	
 	public static void buildElevation() {
-		neighborAverageSmoothing(); //Modify this method call to try out different strategies
+		simpleHillAndValleyWNeighborAvgSmoothing();//neighborAverageSmoothing(); //Modify this method call to try out different strategies
 	}
 	
 	public static void neighborAverageSmoothing() {
@@ -57,6 +57,7 @@ public class HeatMapTerrainDemo extends Application {
 			for(int y=0; y<height; y++)
 				elevation[x][y] = maxElevation % (elevation[x][y]+randomElevation()/100);*/
 	}
+	
 	
 	private static int getNeighborAvg(int x, int y) {
 		int sum = 0;
@@ -88,6 +89,20 @@ public class HeatMapTerrainDemo extends Application {
 			return -1;
 		else
 			return elevation[x2][y2];
+	}
+	
+	public static void simpleHillAndValleyWNeighborAvgSmoothing() {
+		for(int x=0; x<width; x++)
+			for(int y=0; y<height; y++)
+				elevation[x][y] = simpleHillAndValley(x,y);
+		for(int x=0; x<width; x+=2)
+			for(int y=0; y<height; y+=2)
+				elevation[x][y] = getNeighborAvg(x,y);
+	}
+	
+	public static int simpleHillAndValley(int x, int y) {
+		return (int) ((maxElevation/4*Math.sin((double)x/width*12)+maxElevation/4) + 
+		 (maxElevation/4*Math.sin((double)y/height*12)+maxElevation/4));
 	}
 	
 	/*
