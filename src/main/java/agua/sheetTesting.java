@@ -9,10 +9,12 @@ import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.AmbientLight;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
+import javafx.scene.PointLight;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -39,6 +41,67 @@ public class sheetTesting extends Application {
 	 private double mouseYold = 0;
 	 private final double cameraYlimit = 15;
 	 private final double rotateModifier = 25; 
+	 
+	 float h = 3;                    // Height
+	 float s = 3;                    // Side
+	 float[] test = {0f, 0f, -0.951057f, 
+		        0f, 0f, 0.951057f, 
+		        -0.850651f, 0f, -0.425325f, 
+		        0.850651f, 0f, 0.425325f, 
+		        0.688191f, -0.5f, -0.425325f, 
+		        0.688191f, 0.5f, -0.425325f, 
+		        -0.688191f, -0.5f, 0.425325f, 
+		        -0.688191f, 0.5f, 0.425325f, 
+		        -0.262866f, -0.809017f, -0.425325f, 
+		        -0.262866f, 0.809017f, -0.425325f, 
+		        0.262866f, -0.809017f, 0.425325f, 
+		        0.262866f, 0.809017f, 0.425325f};         
+	 
+	 int [] faceTest = {1, 6, 11, 5, 7, 0, 
+	            1, 12, 7, 11, 6, 5, 
+	            1, 7, 6, 6, 10, 1, 
+	            1, 13, 10, 12, 3, 6, 
+	            1, 8, 3, 7, 11, 2,
+	            4, 14, 8, 13, 0, 7, 
+	            5, 9, 4, 8, 0, 3, 
+	            9, 15, 5, 14, 0, 8, 
+	            2, 10, 9, 9, 0, 4, 
+	            8, 16, 2, 15, 0, 9,
+	            11, 5, 9, 6, 7, 12,
+	            7, 11, 2, 12, 6, 17, 
+	            6, 6, 8, 7, 10, 13, 
+	            10, 12, 4, 13, 3, 18, 
+	            3, 7, 5, 8, 11, 14,
+	            4, 13, 10, 14, 8, 19, 
+	            5, 8, 3, 9, 4, 15, 
+	            9, 14, 11, 15, 5, 20, 
+	            2, 9, 7, 10, 9, 16, 
+	            8, 15, 6, 16, 2, 21};
+	 
+	 float [] testCoords = {
+			 0.181818f, 0f, 
+	            0.363636f, 0f, 
+	            0.545455f, 0f, 
+	            0.727273f, 0f, 
+	            0.909091f, 0f,
+	            0.0909091f, 0.333333f,
+	            0.272727f, 0.333333f, 
+	            0.454545f, 0.333333f, 
+	            0.636364f, 0.333333f, 
+	            0.818182f, 0.333333f, 
+	            1f, 0.333333f, 
+	            0f, 0.666667f, 
+	            0.181818f, 0.666667f, 
+	            0.363636f, 0.666667f, 
+	            0.545455f, 0.666667f, 
+	            0.727273f, 0.666667f, 
+	            0.909091f, 0.666667f, 
+	            0.0909091f, 1f, 
+	            0.272727f, 1f, 
+	            0.454545f, 1f, 
+	            0.636364f, 1f, 
+	            0.818182f, 1f
+	 };
 	 
 	
 	@Override
@@ -110,72 +173,37 @@ public class sheetTesting extends Application {
 			 }
 		});
 		 
-		 float h = 3;                    // Height
-		 float s = 3;                    // Side
-		 float[] test = {0f, 0f, -0.951057f, 
-			        0f, 0f, 0.951057f, 
-			        -0.850651f, 0f, -0.425325f, 
-			        0.850651f, 0f, 0.425325f, 
-			        0.688191f, -0.5f, -0.425325f, 
-			        0.688191f, 0.5f, -0.425325f, 
-			        -0.688191f, -0.5f, 0.425325f, 
-			        -0.688191f, 0.5f, 0.425325f, 
-			        -0.262866f, -0.809017f, -0.425325f, 
-			        -0.262866f, 0.809017f, -0.425325f, 
-			        0.262866f, -0.809017f, 0.425325f, 
-			        0.262866f, 0.809017f, 0.425325f};         
 		 
-		 int [] faceTest = {1, 6, 11, 5, 7, 0, 
-		            1, 12, 7, 11, 6, 5, 
-		            1, 7, 6, 6, 10, 1, 
-		            1, 13, 10, 12, 3, 6, 
-		            1, 8, 3, 7, 11, 2,
-		            4, 14, 8, 13, 0, 7, 
-		            5, 9, 4, 8, 0, 3, 
-		            9, 15, 5, 14, 0, 8, 
-		            2, 10, 9, 9, 0, 4, 
-		            8, 16, 2, 15, 0, 9,
-		            11, 5, 9, 6, 7, 12,
-		            7, 11, 2, 12, 6, 17, 
-		            6, 6, 8, 7, 10, 13, 
-		            10, 12, 4, 13, 3, 18, 
-		            3, 7, 5, 8, 11, 14,
-		            4, 13, 10, 14, 8, 19, 
-		            5, 8, 3, 9, 4, 15, 
-		            9, 14, 11, 15, 5, 20, 
-		            2, 9, 7, 10, 9, 16, 
-		            8, 15, 6, 16, 2, 21};   
-		 float [] testCoords = {
-				 0.181818f, 0f, 
-		            0.363636f, 0f, 
-		            0.545455f, 0f, 
-		            0.727273f, 0f, 
-		            0.909091f, 0f,
-		            0.0909091f, 0.333333f,
-		            0.272727f, 0.333333f, 
-		            0.454545f, 0.333333f, 
-		            0.636364f, 0.333333f, 
-		            0.818182f, 0.333333f, 
-		            1f, 0.333333f, 
-		            0f, 0.666667f, 
-		            0.181818f, 0.666667f, 
-		            0.363636f, 0.666667f, 
-		            0.545455f, 0.666667f, 
-		            0.727273f, 0.666667f, 
-		            0.909091f, 0.666667f, 
-		            0.0909091f, 1f, 
-		            0.272727f, 1f, 
-		            0.454545f, 1f, 
-		            0.636364f, 1f, 
-		            0.818182f, 1f
-		 };
 		 
 
 		sceneRoot.getChildren().add(camera);
-		MeshView mv = createMeshView(test,testCoords, faceTest, 0, 0, 10 );
+		int numWaves = 25;
+		int numWaveRows = 4;
+		MeshView[] wavePool = buildBody(numWaves, numWaveRows);
+		for(int i=0;i<numWaves;i++)
+		{
+			RotateTransition rotator = rotator(wavePool[i]);
+	        rotator.play();
+	        sceneRoot.getChildren().add(wavePool[i]);
+		}
+/*		MeshView mv = createMeshView(test,testCoords, faceTest, 0, 0, 10 );
 		RotateTransition rotator = rotator(mv);
-        rotator.play();
-		sceneRoot.getChildren().add(mv);
+        rotator.play();*/
+
+        
+        /*PointLight pointLight = new PointLight(Color.WHITE);
+        pointLight.setTranslateX(camera.getTranslateX());
+        pointLight.setTranslateY(camera.getTranslateY());
+        pointLight.setTranslateZ(camera.getTranslateZ());
+        pointLight.setRotate(90);*/
+        
+        AmbientLight ambience = new AmbientLight(); // default color white
+        ambience.setLightOn(true); // switch it off and everything is black
+        
+        //sceneRoot.getChildren().add(pointLight);
+        sceneRoot.getChildren().add(ambience);
+		//sceneRoot.getChildren().add(mv);
+
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
@@ -183,7 +211,7 @@ public class sheetTesting extends Application {
 private RotateTransition rotator(Node temp) {
 	        RotateTransition rotator = new RotateTransition(Duration.millis(10000), temp);
 	        
-	        rotator.setAxis(Rotate.Y_AXIS); //Z/X/Y axis
+	        rotator.setAxis(Rotate.X_AXIS); //Z/X/Y axis
 	        
 	        rotator.setFromAngle(0);
 	        rotator.setToAngle(360); // causes it to spin in a circle
@@ -193,35 +221,11 @@ private RotateTransition rotator(Node temp) {
 	        return rotator;
 	    }
 	
-private MeshView createMeshView(float [] Points,float[] texCoords, int[] Faces, int X, int Y, int Z) {
-		TriangleMesh mesh = new TriangleMesh();
-
-		mesh.getTexCoords().addAll(texCoords);
-		
-		mesh.getPoints().addAll(Points);
-		
-		mesh.getFaces().addAll(Faces);
-		
-		MeshView meshView = new MeshView(mesh);
-		meshView.setDrawMode(DrawMode.FILL);
-		//meshView.setMaterial(new PhongMaterial(Color.BLUE));
-		PhongMaterial mat = new PhongMaterial();
-		mat.setDiffuseMap(new Image(getClass().getResourceAsStream("waldo.png")));
-		meshView.setMaterial(mat);
-		meshView.setTranslateX(X/*200*/);
-		meshView.setTranslateY(Y/*100*/);
-		meshView.setTranslateZ(Z/*200*/);
-		//Transform mesh3d = meshView.getLocalToSceneTransform();
-		//mesh3d.deltaTransform(X*2, Y*2, Z*2);
-		
-		return meshView;
-		
-	}
 	
-private MeshView createMeshView(float [] Points, int[] Faces, double X, double Y, double Z) {
+private MeshView createMeshView(float [] Points, float[] texCoords, int[] Faces, double X, double Y, double Z) {
 	TriangleMesh mesh = new TriangleMesh();
 
-	mesh.getTexCoords().addAll(0,0);
+	mesh.getTexCoords().addAll(texCoords);
 
 	mesh.getPoints().addAll(Points);
 	
@@ -237,7 +241,21 @@ private MeshView createMeshView(float [] Points, int[] Faces, double X, double Y
 	return meshView;
 	
 }
+private MeshView[] buildBody(int numOfParts, int numRows)
+{
+	MeshView[] wave = new MeshView[numOfParts];
 	
+	for(int z=1; z<numRows*2; z+=2)
+	{
+		for(int i = 0; i<numOfParts; i++)
+		{
+			wave[i] = createMeshView(test,testCoords, faceTest, i*.5, 0, z*.25);
+			// Need to add the row creating capability
+		}
+	}
+	return wave;
+	
+}
 	public static void main(String[] args) {
 		launch(args);
 	}
