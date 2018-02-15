@@ -3,6 +3,7 @@ package agua;
 
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
@@ -204,21 +205,18 @@ public class distantRendering extends Application {
 		 
 		 
 		 
-
 		sceneRoot.getChildren().add(camera);
-		int numWaves = 25;
-		int numWaveRows = 25;
-		MeshView[][] wavePool = buildBody(numWaves, numWaveRows);
-		for(int z=0; z<numWaveRows;z++)
-		{
-			for(int i=0;i<numWaves;i++)
-			{
-				RotateTransition rotator = rotator(wavePool[z][i]);
-				//scene.strokePolygon(z, i, 6);
-				rotator.play();
-				sceneRoot.getChildren().add(wavePool[z][i]);
-			}
-		}
+		int numWaveX = 4;
+		int numWaveY = 4;
+		MeshView[][] wavePool = buildBody(numWaveX, numWaveY, 0, 0, Color.BLUE);
+		MeshView[][] wavePoolTwo = buildBody(numWaveX, numWaveY, 150, 150, Color.BLUE);
+		MeshView[][] wavePoolThree = buildBody(numWaveX, numWaveY, 300, 300, Color.BLUE);
+		MeshView[][] wavePoolFour = buildBody(numWaveX, numWaveY, 450, 450, Color.BLUE);
+		addBody(wavePool, numWaveX, numWaveY, sceneRoot, 0);
+		addBody(wavePoolTwo, numWaveX, numWaveY, sceneRoot, 150);
+		addBody(wavePoolThree, numWaveX, numWaveY, sceneRoot, 300);
+		addBody(wavePoolFour, numWaveX, numWaveY, sceneRoot, 450);
+		
 /*		MeshView mv = createMeshView(test,testCoords, faceTest, 0, 0, 10 );
 		RotateTransition rotator = rotator(mv);
         rotator.play();*/
@@ -246,19 +244,21 @@ private RotateTransition rotator(Node temp) {
 	        RotateTransition rotator = new RotateTransition(Duration.millis(10000), temp);
 	        
 	        rotator.setAxis(Rotate.X_AXIS); //Z/X/Y axis
-	        
-	        rotator.setFromAngle(90);
-	        rotator.setToAngle(180); // causes it to spin in a circle
+	        int randomRate = ThreadLocalRandom.current().nextInt(1, 4 + 1);
+	        int randomAngleStart = ThreadLocalRandom.current().nextInt(0, 90 + 1);
+	        int randomAngleEnd = ThreadLocalRandom.current().nextInt(100, 240);
+	        rotator.setFromAngle(randomAngleStart);
+	        rotator.setToAngle(randomAngleEnd); // causes it to spin in a circle
 	        rotator.setAutoReverse(true);
-	        rotator.setInterpolator(Interpolator.EASE_IN); // DISCRETE, EASE_BOTH, EASE_IN, EASE_OUT
-	        rotator.setRate(5);
+	        rotator.setInterpolator(Interpolator.EASE_OUT); // DISCRETE, EASE_BOTH, EASE_IN, EASE_OUT
+	        rotator.setRate(randomRate);
 	        rotator.setCycleCount(100);
 
 	        return rotator;
 	    }
 	
 	
-private MeshView createMeshView(float [] Points, float[] texCoords, int[] Faces, double X, double Y, double Z) {
+private MeshView createMeshView(float [] Points, float[] texCoords, int[] Faces, double X, double Y, double Z, Color COLOR) {
 	TriangleMesh mesh = new TriangleMesh();
 
 	mesh.getTexCoords().addAll(texCoords);
@@ -268,16 +268,17 @@ private MeshView createMeshView(float [] Points, float[] texCoords, int[] Faces,
 	mesh.getFaces().addAll(Faces);
 	
 	MeshView meshView = new MeshView(mesh);
-	meshView.setDrawMode(DrawMode.LINE);
-	meshView.setMaterial(new PhongMaterial(Color.BLUE));
-	meshView.setScaleX(100);
-	meshView.setScaleY(5);
+	/*meshView.setDrawMode(DrawMode.FILL);
+	meshView.setMaterial(new PhongMaterial(COLOR));*/
+	meshView.setScaleX(50*2);
+	meshView.setScaleZ(15*2);
+	meshView.setScaleY(15*2);
 	//meshView.setScaleZ(50); really really trippy
+	//meshView.setDrawMode(DrawMode.LINE);
 	
-	//PhongMaterial imageMat = new PhongMaterial();
-	
-    //imageMat.setDiffuseMap(new Image(getClass().getResourceAsStream("testsurface_04.png")));
-    //meshView.setMaterial(imageMat);
+	PhongMaterial imageMat = new PhongMaterial();
+    imageMat.setDiffuseMap(new Image(getClass().getResourceAsStream("testsurface_withWhite.png")));
+    meshView.setMaterial(imageMat);
     
 	meshView.setTranslateX(X/*200*/);
 	meshView.setTranslateY(Y/*100*/);
@@ -288,7 +289,7 @@ private MeshView createMeshView(float [] Points, float[] texCoords, int[] Faces,
 	return meshView;
 	
 }
-private MeshView[][] buildBody(int numOfParts, int numRows)
+private MeshView[][] buildBody(int numOfParts, int numRows, int xPos, int zPos, Color COLOR)
 {
 	MeshView[][] wave = new MeshView[numRows+1][numOfParts+1];
 	//int rowxcolumn = numOfParts/numRows;
@@ -305,14 +306,31 @@ private MeshView[][] buildBody(int numOfParts, int numRows)
 					shake = (z)*-.03;
 			else
 				shake = (z)*.025;*/
-
-			wave[z][i] = createMeshView(test,testCoords, faceTest, -i*1.33, 0, z*1.5);
+			shake = z;
+			if(z > numRows/2)
+				shake = z*(-1/7);
+			wave[z][i] = createMeshView(test,testCoords, faceTest, (i*-1.5)+xPos, 0, 0, COLOR);
 																// ^         ^      ^Eventually this will be an array with coordinates based on the escalation (that were procedurally generated)
 																//					 Right now they are random 
 		}
 	}
 	return wave;
 	
+}
+
+public void addBody(MeshView[][] cells, int numWaveRows, int numWaves, Group sceneGroup, int xCoord)
+{
+	for(int z=0; z<numWaveRows;z++)
+	{
+		for(int i=0;i<numWaves;i++)
+		{
+			//cells[z][i].setTranslateX(xCoord);
+			RotateTransition rotator = rotator(cells[z][i]);
+			//scene.strokePolygon(z, i, 6);
+			rotator.play(); // begins the rotations (add parameters later and eventually randomize)
+			sceneGroup.getChildren().add(cells[z][i]);
+		}
+	}
 }
 
 // This code is borrowed from the heatmap demo
