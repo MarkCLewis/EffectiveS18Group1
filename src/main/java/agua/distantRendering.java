@@ -35,7 +35,7 @@ import javafx.scene.text.Text;
 
 
 @SuppressWarnings("restriction")
-public class sheetTesting extends Application {
+public class distantRendering extends Application {
 	
 	private PerspectiveCamera camera;
 	 private final double cameraModifier = 50.0;
