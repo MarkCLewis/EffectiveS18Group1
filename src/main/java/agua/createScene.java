@@ -1,53 +1,29 @@
 package agua;
-import javafx.application.Application;
 import java.awt.AWTException;
 import java.awt.Robot;
 
-import javafx.animation.Interpolator;
-import javafx.animation.RotateTransition;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import javafx.scene.AmbientLight;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
-import javafx.scene.PointLight;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Transform;
-import javafx.scene.paint.*;
-import javafx.scene.shape.DrawMode;
-import javafx.scene.shape.Mesh;
-import javafx.scene.shape.MeshView;
-import javafx.scene.shape.TriangleMesh;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
-
-//
-//
-//			Testing closeup generation of water
-//			Likely, this will involve some sort of difficult math to create multiple meshes that are then sewn together to form a body of water
-//
 
 
 public class createScene {
 		
-	Group sceneRoot = new Group();
-	Scene scene = new Scene(sceneRoot, 1280, 720);
+	
+	public final Scene mainScene;
 	///scene.setFill(Color.BEIGE);
 	
 	cameraSettings cameraSetup = new cameraSettings();
 	PerspectiveCamera camera = cameraSetup.getCamera();
-	public Scene createScene() throws AWTException
+	//public Scene createScene() throws AWTException {	return getScene();}
+	public createScene() throws AWTException
 	{
+		Group sceneRoot = new Group();
+		Scene scene = new Scene(sceneRoot, 1280, 720);
 		scene.setOnKeyPressed(event-> {
 			double change = cameraSetup.cameraQuantity;
 			if(event.isShiftDown()) { change = cameraSetup.cameraModifier;}
@@ -102,7 +78,7 @@ public class createScene {
 	 
 		sceneRoot.getChildren().add(camera);
 		
-		return scene;
+		this.mainScene = scene;
 	}
 
 }

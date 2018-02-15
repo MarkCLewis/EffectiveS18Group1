@@ -135,7 +135,8 @@ public class distantRendering extends Application {
 		 // Camera stuff
 		PerspectiveCamera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
-		camera.setTranslateZ(-100);
+		camera.setTranslateZ(0);
+		camera.setTranslateY(-20);
 		camera.setFarClip(10000);
 		camera.setNearClip(7.5);
 		
@@ -205,8 +206,8 @@ public class distantRendering extends Application {
 		 
 
 		sceneRoot.getChildren().add(camera);
-		int numWaves = 10;
-		int numWaveRows = 13;
+		int numWaves = 25;
+		int numWaveRows = 25;
 		MeshView[][] wavePool = buildBody(numWaves, numWaveRows);
 		for(int z=0; z<numWaveRows;z++)
 		{
@@ -246,10 +247,11 @@ private RotateTransition rotator(Node temp) {
 	        
 	        rotator.setAxis(Rotate.X_AXIS); //Z/X/Y axis
 	        
-	        rotator.setFromAngle(0);
-	        rotator.setToAngle(360); // causes it to spin in a circle
-	        rotator.autoReverseProperty();
-	        rotator.setInterpolator(Interpolator.LINEAR); // DISCRETE, EASE_BOTH, EASE_IN, EASE_OUT
+	        rotator.setFromAngle(90);
+	        rotator.setToAngle(180); // causes it to spin in a circle
+	        rotator.setAutoReverse(true);
+	        rotator.setInterpolator(Interpolator.EASE_IN); // DISCRETE, EASE_BOTH, EASE_IN, EASE_OUT
+	        rotator.setRate(5);
 	        rotator.setCycleCount(100);
 
 	        return rotator;
@@ -266,8 +268,11 @@ private MeshView createMeshView(float [] Points, float[] texCoords, int[] Faces,
 	mesh.getFaces().addAll(Faces);
 	
 	MeshView meshView = new MeshView(mesh);
-	meshView.setDrawMode(DrawMode.FILL);
+	meshView.setDrawMode(DrawMode.LINE);
 	meshView.setMaterial(new PhongMaterial(Color.BLUE));
+	meshView.setScaleX(100);
+	meshView.setScaleY(5);
+	//meshView.setScaleZ(50); really really trippy
 	
 	//PhongMaterial imageMat = new PhongMaterial();
 	
@@ -301,7 +306,7 @@ private MeshView[][] buildBody(int numOfParts, int numRows)
 			else
 				shake = (z)*.025;*/
 
-			wave[z][i] = createMeshView(test,testCoords, faceTest, i*1.33, z, z*3);
+			wave[z][i] = createMeshView(test,testCoords, faceTest, -i*1.33, 0, z*1.5);
 																// ^         ^      ^Eventually this will be an array with coordinates based on the escalation (that were procedurally generated)
 																//					 Right now they are random 
 		}
