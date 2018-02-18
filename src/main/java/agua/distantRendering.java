@@ -8,6 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.application.Application;
+import javafx.collections.ObservableFloatArray;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.AmbientLight;
@@ -29,6 +30,7 @@ import javafx.scene.paint.*;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.Mesh;
 import javafx.scene.shape.MeshView;
+import javafx.scene.shape.ObservableFaceArray;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -208,14 +210,16 @@ public class distantRendering extends Application {
 		sceneRoot.getChildren().add(camera);
 		int numWaveX = 4;
 		int numWaveY = 4;
-		MeshView[][] wavePool = buildBody(numWaveX, numWaveY, 0, 0, Color.BLUE);
-		MeshView[][] wavePoolTwo = buildBody(numWaveX, numWaveY, 150, 150, Color.BLUE);
-		MeshView[][] wavePoolThree = buildBody(numWaveX, numWaveY, 300, 300, Color.BLUE);
-		MeshView[][] wavePoolFour = buildBody(numWaveX, numWaveY, 450, 450, Color.BLUE);
+		/*MeshView[][] wavePool = buildBody(numWaveX, numWaveY, 0, 0, Color.AQUAMARINE);
+		MeshView[][] wavePoolTwo = buildBody(numWaveX, numWaveY, 150, 150, Color.AQUAMARINE);
+		MeshView[][] wavePoolThree = buildBody(numWaveX, numWaveY, 300, 300, Color.MEDIUMAQUAMARINE);
+		MeshView[][] wavePoolFour = buildBody(numWaveX, numWaveY, 450, 450, Color.AQUAMARINE);
 		addBody(wavePool, numWaveX, numWaveY, sceneRoot, 0);
 		addBody(wavePoolTwo, numWaveX, numWaveY, sceneRoot, 150);
 		addBody(wavePoolThree, numWaveX, numWaveY, sceneRoot, 300);
-		addBody(wavePoolFour, numWaveX, numWaveY, sceneRoot, 450);
+		addBody(wavePoolFour, numWaveX, numWaveY, sceneRoot, 450);*/
+		
+		buildLake(2,2, sceneRoot);
 		
 /*		MeshView mv = createMeshView(test,testCoords, faceTest, 0, 0, 10 );
 		RotateTransition rotator = rotator(mv);
@@ -260,25 +264,33 @@ private RotateTransition rotator(Node temp) {
 	
 private MeshView createMeshView(float [] Points, float[] texCoords, int[] Faces, double X, double Y, double Z, Color COLOR) {
 	TriangleMesh mesh = new TriangleMesh();
-
+	
+	
 	mesh.getTexCoords().addAll(texCoords);
-
 	mesh.getPoints().addAll(Points);
-	
 	mesh.getFaces().addAll(Faces);
-	
+	normalizeMesh(mesh);
 	MeshView meshView = new MeshView(mesh);
-	/*meshView.setDrawMode(DrawMode.FILL);
-	meshView.setMaterial(new PhongMaterial(COLOR));*/
+	meshView.setDrawMode(DrawMode.FILL);
+	int randomColor = ThreadLocalRandom.current().nextInt(1, 30 + 1);
+	if(randomColor%3==0)
+		meshView.setMaterial(new PhongMaterial(Color.ALICEBLUE));
+	else
+		meshView.setMaterial(new PhongMaterial(COLOR));
+	
+	meshView.setBlendMode(BlendMode.COLOR_DODGE);
+		
+	//meshView.setBlendMode(BlendMode.COLOR_BURN);
+	//meshView.setOpacity(10000);
 	meshView.setScaleX(50*2);
 	meshView.setScaleZ(15*2);
 	meshView.setScaleY(15*2);
 	//meshView.setScaleZ(50); really really trippy
 	//meshView.setDrawMode(DrawMode.LINE);
 	
-	PhongMaterial imageMat = new PhongMaterial();
+	/*PhongMaterial imageMat = new PhongMaterial();
     imageMat.setDiffuseMap(new Image(getClass().getResourceAsStream("testsurface_withWhite.png")));
-    meshView.setMaterial(imageMat);
+    meshView.setMaterial(imageMat);*/
     
 	meshView.setTranslateX(X/*200*/);
 	meshView.setTranslateY(Y/*100*/);
@@ -309,7 +321,7 @@ private MeshView[][] buildBody(int numOfParts, int numRows, int xPos, int zPos, 
 			shake = z;
 			if(z > numRows/2)
 				shake = z*(-1/7);
-			wave[z][i] = createMeshView(test,testCoords, faceTest, (i*-1.5)+xPos, 0, 0, COLOR);
+			wave[z][i] = createMeshView(test,testCoords, faceTest, (i*-1.5)+xPos, zPos, 0, COLOR);
 																// ^         ^      ^Eventually this will be an array with coordinates based on the escalation (that were procedurally generated)
 																//					 Right now they are random 
 		}
@@ -333,7 +345,66 @@ public void addBody(MeshView[][] cells, int numWaveRows, int numWaves, Group sce
 	}
 }
 
+public void buildLake(int x, int y, Group g)
+{
+	for(int i=0; i<x; i++)
+	{
+		for(int k=0; k<y; k++)
+		{
+			MeshView[][] wavePool = buildBody(2, 2, i*150, k*30, Color.AQUAMARINE);
+			/*MeshView[][] wavePoolTwo = buildBody(numWaveX, numWaveY, 150, 150, Color.AQUAMARINE);
+			MeshView[][] wavePoolThree = buildBody(numWaveX, numWaveY, 300, 300, Color.MEDIUMAQUAMARINE);
+			MeshView[][] wavePoolFour = buildBody(numWaveX, numWaveY, 450, 450, Color.AQUAMARINE);*/
+			addBody(wavePool, 2, 2, g, 0); // 6x6 = 36 shapes on top of eachother. this greatly increases polygon count, but makes the movement better and more liquid like
+			/*addBody(wavePoolTwo, numWaveX, numWaveY, sceneRoot, 150);
+			addBody(wavePoolThree, numWaveX, numWaveY, sceneRoot, 300);
+			addBody(wavePoolFour, numWaveX, numWaveY, sceneRoot, 450);*/
+		}
+	}
+}
 // This code is borrowed from the heatmap demo
+
+
+public void normalizeMesh(TriangleMesh t)
+{
+	// this is to make the mesh actually smooth like water
+	
+	//In geometry, a normal is an object such as a line or vector that is perpendicular to a given object. 
+	//For example, in the two-dimensional case, the normal line to a curve at a given point is the line perpendicular to the tangent line to the curve at the point.
+	
+	
+	//Since a normal is defined as being the vector perpendicular to all vectors within a given plane (in N dimensions), you need a plane to calculate a normal. 
+	//A vertex position is just a point and thus singular, so you actually need a face to calculate the normal. 
+	//Thus, naively, one could assume that normals are per face as the first step in normal calculation is determining the face normals, by evaluating the cross product of the faces edges.
+	ObservableFloatArray observablefloatarray = null;
+	//t.getFaceSmoothingGroups();
+	//t.getNormals();
+	
+	ObservableFaceArray pts = t.getFaces();
+	float[] floatarray = null;
+	//t.getNormals().toArray(floatarray);
+	//pts.get()
+	//pts.toArray(intarray);
+	for(int i = 0; i<pts.size(); i++)
+	{
+		System.out.println("float: " + floatarray[i]);
+		//System.out.println("face: "+ pts.get(i));
+	}
+	//HOW TO GET THE FACE NORMAL
+	//Say you have a triangle with points A, B, C, 
+	//then these points have position vectors ^A, ^B, ^C and the edges have vectors ^B - ^A and ^C - ^A 
+	//so the face normal vector is ^Nf = (^B - ^A) x (^C - ^A)
+	
+	
+	//linear combination of faces, because the faces share vertices (aka they each share a vertex )
+	//^Nv = E p ^Nf ; where p is a weighting for each face.
+	//p = weight of each face
+	//get the vertex normal vector by simply summing up all the face normals.
+	//t.getNormals().addAll();
+	//Adding the normal vectors of the adjacent triangles for each vertex and then normalising is the way to go
+	
+	//http://www.geometrie.tugraz.at/wallner/3curv.pdf
+}
 
 public static void buildElevation() {
 	simpleHillAndValleyWNeighborAvgSmoothing();//neighborAverageSmoothing(); //Modify this method call to try out different strategies
