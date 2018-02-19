@@ -9,39 +9,38 @@ import javafx.scene.transform.Rotate;
 
 @SuppressWarnings("restriction")
 public class cameraSettings {
-	 private PerspectiveCamera camera;
-	 final double cameraModifier = 50.0;
-	 final double cameraQuantity = 2.0;
-	 private final double sceneWidth = 1280;
-	 private final double sceneHeight = 720;
+	 public PerspectiveCamera camera = new PerspectiveCamera(true);
+	 double cameraModifier = 50.0;
+	 double cameraQuantity = 2.0;
+	 double sceneWidth = 1280;
+	 double sceneHeight = 720;
 	 double mouseXold = 0;
 	 double mouseYold = 0;
-	 final double cameraYlimit = 15;
-	 final double rotateModifier = 25; 
-	 private final double cameraZ = 0;
-	 private final double cameraX = 0;
-	 private final double cameraY = 0;
-	 private final double cameraFarClip = 10000;
-	 private final double cameraNearClip = 3;
-	 final Rotate xRotate = new Rotate(0,0,0,0,Rotate.X_AXIS);
-	 final Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
+	 double cameraYlimit = 15;
+	 double rotateModifier = 25; 
+	 double cameraZ = 0;
+	 double cameraX = 0;
+	 double cameraY = 0;
+	 double cameraFarClip = 10000;
+	 double cameraNearClip = 3;
+	 Rotate xRotate = new Rotate(0,0,0,0,Rotate.X_AXIS);
+	 Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
 	 
 	 public PerspectiveCamera cameraSettings() 
 	 {
-		return getCamera();
-	 }
-	 
-	 public PerspectiveCamera getCamera() 
-	 {
-		 
 		camera.setTranslateX(cameraX);
 		camera.setTranslateY(cameraY);
 		camera.setTranslateZ(cameraZ);
 		camera.setFarClip(cameraFarClip);
 		camera.setNearClip(cameraNearClip);
-		
-		
+			
 		camera.getTransforms().addAll(xRotate,yRotate);
+		return camera;
+		//return getCamera();
+	 }
+	 
+	 public PerspectiveCamera getCamera() 
+	 {
 		
 		return camera;
 		

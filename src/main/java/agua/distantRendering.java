@@ -387,8 +387,8 @@ public void normalizeMesh(TriangleMesh t)
 	//pts.toArray(intarray);
 	for(int i = 0; i<pts.size(); i++)
 	{
-		System.out.println("float: " + floatarray[i]);
-		//System.out.println("face: "+ pts.get(i));
+		//System.out.println("float: " + floatarray[i]);
+		System.out.println("face: "+ pts.get(i));
 	}
 	//HOW TO GET THE FACE NORMAL
 	//Say you have a triangle with points A, B, C, 
