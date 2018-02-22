@@ -29,27 +29,56 @@ public class ShapesDemo extends Application{
 		cameraGroup.getChildren().add(camera);
 		mainGroup.getChildren().add(cameraGroup);
 		*/
-
-		Cylinder cyl = makeCylinder(200, 100, Color.LIGHTBLUE, Color.BLUE);
+/*
+		Cylinder cyl = makeCylinder(200, 100, Color.LIGHTBLUE, Color.BLUE, 350, 300, 200);
 		mainGroup.getChildren().add(cyl);
 
+		//Cylinder cyl2 = makeCylinder(200, 100, Color.RED, Color.DARKRED, 900, 300, 200);
+		//mainGroup.getChildren().add(cyl2);
+
+		Cylinder cyl2 = makeCylinder(200, 100, Color.RED, Color.DARKRED, 250, 350, 0);
+		mainGroup.getChildren().add(cyl2);
+*/	
+		int myX = 1000;
+		int myY = 100;
+		int myZ = 600;
+		for(int i = 0; i < 6; i++){
+				//Cylinder cyl = makeCylinder(200, 100, Color.SANDYBROWN, Color.BROWN, myX, myY, myZ);
+				Cylinder cyl = makeCylinder(200, 100, Color.LIGHTBLUE, Color.BLUE, myX, myY, myZ);
+				mainGroup.getChildren().add(cyl);
+				myX -= 50;
+				myY += 50;
+				myZ -= 200;
+		}
+	
+		myX = 500;
+		myY = 100;
+		myZ = 600;
+		for(int i = 0; i < 6; i++){
+				//Cylinder cyl = makeCylinder(200, 100, Color.SANDYBROWN, Color.BROWN, myX, myY, myZ);
+				Cylinder cyl = makeCylinder(200, 100, Color.LIGHTBLUE, Color.BLUE, myX, myY, myZ);
+				mainGroup.getChildren().add(cyl);
+				myX -= 50;
+				myY += 50;
+				myZ -= 200;
+		}
+		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		primaryStage.setScene(scene);
-		primaryStage.show();
 	}
 	
-	public Cylinder makeCylinder(int h, int w, Color color1, Color color2){
-		Cylinder cylinder = new Cylinder(h,w);
+	
+	public Cylinder makeCylinder(int w, int h, Color color1, Color color2, int x, int y, int z){
+		Cylinder cylinder = new Cylinder(w,h);
 		PhongMaterial blueStuff = new PhongMaterial();
 		blueStuff.setDiffuseColor(color1);
 		blueStuff.setSpecularColor(color2);
 		cylinder.setMaterial(blueStuff);
 		
-		cylinder.setTranslateX(350);
-		cylinder.setTranslateY(300);
-		cylinder.setTranslateZ(100);
+		cylinder.setTranslateX(x);
+		cylinder.setTranslateY(y);
+		cylinder.setTranslateZ(z);
 		return cylinder;
 		//mainGroup.getChildren().add(cylinder);
 	}
