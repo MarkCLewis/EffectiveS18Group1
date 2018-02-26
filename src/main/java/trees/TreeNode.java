@@ -1,5 +1,9 @@
+package trees;
+
 import java.util.ArrayList;
 import java.util.List;
+
+
 public class TreeNode<T>{
     private T data = null;
     private List<TreeNode> children = new ArrayList<>();
