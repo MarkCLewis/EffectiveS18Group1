@@ -3,7 +3,6 @@ package trees;
 import java.util.*;
 import java.io.InputStream;
 
-
 /*
  * This program constructs the basis of an LSystem (represented by an arraylist).
  * It will be used as the structure to create Trees
@@ -45,10 +44,10 @@ public class LSystem {
         String level="";
         int stringSize=0;
 
-         TreeNode<String> temp = new TreeNode<String>(null);
-        TreeNode<String> axiomNode = new TreeNode<String>(axiom); //node root
+        // TreeNode<String> temp = new TreeNode<String>(null);
+       // TreeNode<String> axiomNode = new TreeNode<String>(axiom); //node root
             levels.add(0,"a");
-        temp=axiomNode;
+      //  temp=axiomNode;
 
         //Levels to be created (the root is included as the 1st level)
             for (int i=0; i<times-1; i++){
@@ -65,10 +64,7 @@ public class LSystem {
                 for (int j=0; j<stringSize;j++){
 
                     chars.add(letters[j]);
-                    temp.addChild(letters[j]);
-
-
-
+                  //  temp.addChild(letters[j]);
 
 
                     if(chars.get(j).charAt(0)=='a'){
@@ -80,10 +76,7 @@ public class LSystem {
                     level=level+chars.get(j);
 
                 }
-                for(TreeNode node : temp.getChildren()) {
-                    System.out.print(node.getData());
-                }
-
+             
                 levels.add(level);
                 System.out.println(levels);
                 level="";
