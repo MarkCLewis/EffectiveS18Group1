@@ -1,6 +1,7 @@
 package agua;
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javafx.application.Application;
@@ -80,8 +81,8 @@ public class closeupRendering extends Application {
 		cameraSettings cameraSetup = new cameraSettings();
 		PerspectiveCamera camera = cameraSetup.cameraSettings(); // creates camera with preset settings
 		
-		//AmbientLight ambience = new AmbientLight(); // default color white
-	    //ambience.setLightOn(true); // switch it off and everything is black
+		AmbientLight ambience = new AmbientLight(); // default color white
+	    ambience.setLightOn(true); // switch it off and everything is black
 		
 		Group sceneGroup = new Group();
 		//sceneGroup.getChildren().add(ambience);
@@ -89,12 +90,12 @@ public class closeupRendering extends Application {
         pointLight.setTranslateX(0);
         pointLight.setTranslateY(0);
         pointLight.setTranslateZ(0);
-        //pointLight.setRotate(90);
+        pointLight.setRotate(90);
         sceneGroup.getChildren().add(pointLight);
 		sceneGroup.getChildren().add(camera);
 		Scene scene = new Scene(sceneGroup, 1280, 720);
 		scene.setCamera(camera);
-		scene.setFill(Color.BISQUE);
+		scene.setFill(Color.DARKBLUE);
 		
 		// The camera controls, these cannot be hidden away without causing major issues		
 		scene.setOnKeyPressed(event-> {
@@ -131,11 +132,27 @@ public class closeupRendering extends Application {
 		
 		
 		
-		
-		
-		
 		MeshView test = createMeshView(points, texCoords, faces, 0, 0, 0, Color.BROWN);
-		sceneGroup.getChildren().add(test);
+		generateTerrain testPlot = new generateTerrain();
+		float[][] temp = testPlot.generateCoordinates(200, 200, 200);
+		TriangleMesh testGenerate = testPlot.generateTerrain(200, 10, temp);
+		MeshView meshView = new MeshView(testGenerate);
+		PhongMaterial material = new PhongMaterial();
+        material.setDiffuseColor(Color.AQUA);
+        material.setSpecularColor(Color.ANTIQUEWHITE.brighter());
+		meshView.setDrawMode(DrawMode.FILL);
+		
+		meshView.setScaleX(10);
+		meshView.setScaleZ(10);
+		meshView.setScaleY(100);
+		meshView.setTranslateX(0);
+		meshView.setTranslateY(0);
+		meshView.setTranslateZ(0);
+		meshView.setMaterial(material);
+		
+		sceneGroup.getChildren().add(meshView);
+		
+		//sceneGroup.getChildren().add(test);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
@@ -144,7 +161,7 @@ public class closeupRendering extends Application {
 	private MeshView createMeshView(float [] Points, float[] textCoords, int[] Faces, double X, double Y, double Z, Color COLOR) {
 		//ObservableIntegerArray t = null ;
 		//t.resize(Faces.length+1);
-		
+	
 		TriangleMesh mesh = new TriangleMesh();
 		mesh.getTexCoords().addAll(textCoords);
 		mesh.getPoints().addAll(Points);
@@ -152,16 +169,21 @@ public class closeupRendering extends Application {
         PhongMaterial material = new PhongMaterial();
         material.setDiffuseColor(Color.ANTIQUEWHITE);
         material.setSpecularColor(Color.ANTIQUEWHITE.brighter());
+        ObservableIntegerArray test;
+        int[] smoothing = new int[Faces.length+1];
         
-
-
+        mesh.getFaces().toArray(smoothing);
+        
+        Arrays.fill(smoothing, 1);
+        //mesh.getFaceSmoothingGroups().addAll(smoothing);
 		//In smooth surfaces vertices are shared between faces (or you could say those faces share a vertex). 
 		//In that case the normal at the vertex is not one of the face normals of the faces it is part of, but a linear combination of them:
 		ObservableFloatArray normals = mesh.getNormals(); //normals array where each normal is represented by 3 float values nx, ny and nz, in that order.
 		// adjacent pair of faces shared a smoothing group
-		//mesh.getFaceSmoothingGroups().addAll(); //If faceSmoothingGroups is not empty, its size must be equal to number of faces.
+		 //If faceSmoothingGroups is not empty, its size must be equal to number of faces.
         mesh.getNormals().addAll(
-        		0,1,1, 
+        ///		X Y Z
+        		1,1,1, 
         		0,1,1, 
         		0,1,1, 
         		0,1,1,
@@ -181,6 +203,8 @@ public class closeupRendering extends Application {
 		meshView.setDrawMode(DrawMode.FILL);
 		//meshView.setMaterial(new PhongMaterial(Color.ALICEBLUE));
 		
+
+		
 		meshView.setScaleX(50*2);
 		meshView.setScaleZ(15*2);
 		meshView.setScaleY(15*2);
@@ -193,7 +217,7 @@ public class closeupRendering extends Application {
 		return meshView;
 		
 	}
-	
+
 	
 
 	public static void main(String[] args) {
