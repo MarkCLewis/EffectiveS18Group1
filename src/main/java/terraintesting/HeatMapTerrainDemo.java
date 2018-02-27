@@ -43,118 +43,8 @@ public class HeatMapTerrainDemo extends Application {
 	}
 	
 	public static void buildElevation() {
-		simpleHillAndValleyWNeighborAvgSmoothing();//neighborAverageSmoothing(); //Modify this method call to try out different strategies
-	}
-	
-	public static void neighborAverageSmoothing() {
-		for(int x=0; x<width; x++)
-			for(int y=0; y<height; y++)
-				elevation[x][y]= randomElevation();
-		for(int x=0; x<width; x++)
-			for(int y=0; y<height; y++) 
-				elevation[x][y]= getNeighborAvg(x,y);
-		/*for(int x=0; x<width; x++)
-			for(int y=0; y<height; y++)
-				elevation[x][y] = maxElevation % (elevation[x][y]+randomElevation()/100);*/
-	}
-	
-	
-	private static int getNeighborAvg(int x, int y) {
-		int sum = 0;
-		int count = 0;
-		int[] points = new int[8];
-		points[0] = getNeighborElev(x, y, -1, -1);
-		points[1] = getNeighborElev(x, y, -1, 0);
-		points[2] = getNeighborElev(x, y, -1, 1);
-		points[3] = getNeighborElev(x, y, 0, -1);
-		points[4] = getNeighborElev(x, y, 0, 1);
-		points[5] = getNeighborElev(x, y, 1, -1);
-		points[6] = getNeighborElev(x, y, 1, 0);
-		points[7] = getNeighborElev(x, y, 1, 1);
-		
-		for(int i=0; i<points.length; i++) {
-			if(points[i]!=-1) {
-				sum+=points[i];
-				count++;
-			}
-		}
-		
-		return sum/count;
-	}
-	
-	private static int getNeighborElev(int x, int y, int deltaX, int deltaY) {
-		int x2 = x+deltaX;
-		int y2 = y+deltaY;
-		if(x2<0 || y2<0 || x2>=width || y2>=height)
-			return -1;
-		else
-			return elevation[x2][y2];
-	}
-	
-	public static void simpleHillAndValleyWNeighborAvgSmoothing() {
-		for(int x=0; x<width; x++)
-			for(int y=0; y<height; y++)
-				elevation[x][y] = simpleHillAndValley(x,y);
-		for(int x=0; x<width; x+=2)
-			for(int y=0; y<height; y+=2)
-				elevation[x][y] = getNeighborAvg(x,y);
-	}
-	
-	public static int simpleHillAndValley(int x, int y) {
-		return (int) ((maxElevation/4*Math.sin((double)x/width*12)+maxElevation/4) + 
-		 (maxElevation/4*Math.sin((double)y/height*12)+maxElevation/4));
-	}
-	
-	/*
-	 * diamond square algorithm to construct terrain (works with squares only)
-	 * @ param squareWidth - the width of the square you're making terrain with
-	 * @ param ulX - the upperleft hand corner of the square you're making terrain with
-	 * @ param ulY - the upperright hand corner of the square you're making terrain with
-	 */
-	public static void buildFractalElevation(int squareWidth, int ulX, int ulY) {
-		if (squareWidth >= 2) {
-			diamondStep(squareWidth, ulX, ulY);
-			//TODO
-			
-		}
-		
-	}
-
-	private static void diamondStep(int squareWidth, int ulX, int ulY) {
-		elevation[ulX][ulY] = randomElevation();
-		elevation[ulX][ulY + squareWidth] = randomElevation();
-		elevation[ulX + squareWidth][ulY] = randomElevation();
-		elevation[ulX + squareWidth][ulY + squareWidth] = randomElevation();
-		
-		int averageElevation = (elevation[ulX][ulY] + 
-								elevation[ulX][ulY + squareWidth] + 
-								elevation[ulX + squareWidth][ulY] +
-								elevation[ulX + squareWidth][ulY + squareWidth]) / 4;
-		
-		//TODO
-		int peturbation = 0;
-		elevation[ulX + squareWidth/2][ulY + squareWidth/2] = averageElevation + peturbation;
-	}
-	
-	public static void squareStep(int squareWidth, int ulX, int ulY) {
-		//TODO
-		
-	}
-
-    /*
-     * tesselates the square domain into a triangular grid because triangles are always coplaner
-     * @param 
-     */
-    public static void triangleRender() {
-        
-    }
-	
-	/*
-	 *  returns a random elevation between 0 and the maxElevation
-	 *  @ return an elevation
-	 */
-	public static int randomElevation() {
-		return (int) (maxElevation * Math.random());
+		TerrainGenerationAlgorithm terrainAlgorithm = new NeighborAverageSmoothing();
+		terrainAlgorithm.generateTerrain(elevation, maxElevation);
 	}
 	
 	public static void buildHeatMap() {
@@ -171,28 +61,20 @@ public class HeatMapTerrainDemo extends Application {
 				pw.setColor(x,y,heatMap[x][y]);
 	}
 	
-	public static void simpleHillAndValley() {
-		for(int x=0; x<width; x++)
-			for(int y=0; y<height; y++)
-				elevation[x][y]= (int) ((maxElevation/4*Math.sin((double)x/width*12)+maxElevation/4) + 
-						 (maxElevation/4*Math.sin((double)y/height*12)+maxElevation/4));;
-	}
-	
 	//converts an int to a color representing its intensity given a specified max
 	//min is assumed to be 0
 	//assumes 0<=i<=max
 	//There's a lot of conversions b/t ints and doubles to avoid integer division (it doesn't work with all ints)
 	public static Color intToColor(int i, int max) {
-		double red; double green; double blue;
+		double red = -1; double green = -1; double blue = -1;
 		double iDouble = (double)i;
 		double maxDouble = (double)max;
 		//TODO
-		/*
-		if(i > max) {
+		
+		if(i == 0) {
 			
 		}
-		*/
-		if(iDouble <= maxDouble/4) {
+		else if(iDouble <= maxDouble/4) {
 			red = 0;
 			green = iDouble/(maxDouble/4)*255; // 0 when i = 0, 255 when i = max/4
 			blue = 255;
