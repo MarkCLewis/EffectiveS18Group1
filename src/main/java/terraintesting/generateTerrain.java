@@ -1,17 +1,39 @@
-package agua;
+package terraintesting;
 
 import javafx.animation.RotateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableFloatArray;
 import javafx.collections.ObservableIntegerArray;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.Mesh;
+import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import agua.distantRendering;
+
+
 import java.util.Random;
 
 import agua.SimplexNoise_octave;
 
+
+
+
+// Here is an example of how this class is used:
+//
+// generateTerrain testPlot = new generateTerrain();
+// float[][] temp = testPlot.generateCoordinates(200, 200, 200);
+// TriangleMesh testGenerate = testPlot.generateTerrain(200, 10, temp);
+// MeshView meshView = new MeshView(testGenerate);
+// PhongMaterial material = new PhongMaterial();
+// material.setDiffuseColor(Color.AQUA);
+// meshView.setDrawMode(DrawMode.LINE);
+// meshView.setMaterial(material);
+// meshView.setScaleX(10);
+// meshView.setScaleZ(10);
+// meshView.setScaleY(100);
+// sceneGroup.getChildren().add(meshView);
 public class generateTerrain {
 	
 	public float[][] generateCoordinates(int xRes, int yRes, int zRes)

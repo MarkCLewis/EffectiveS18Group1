@@ -105,9 +105,9 @@ public class closeupRendering extends Application {
         material.setSpecularColor(Color.ANTIQUEWHITE.brighter());
 		meshView.setDrawMode(DrawMode.LINE);
 		
-		meshView.setScaleX(100);
-		meshView.setScaleZ(100);
-		meshView.setScaleY(10000); // this should scale with the SimplexNoise function.
+		meshView.setScaleX(10);
+		meshView.setScaleZ(10);
+		meshView.setScaleY(100); // this should scale with the SimplexNoise function.
 								  // The x and z scale are always the same (they only change the dimensions of the terrain)
 								  // The y scale matters because it is how high the elevation at certain parts are (in combination with the "persistence" passed to the SimplexNoise function)
 		meshView.setTranslateX(0);
