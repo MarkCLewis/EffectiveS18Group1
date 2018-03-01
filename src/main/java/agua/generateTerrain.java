@@ -1,11 +1,13 @@
 package agua;
 
+import javafx.animation.RotateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableFloatArray;
 import javafx.collections.ObservableIntegerArray;
+import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.Mesh;
 import javafx.scene.shape.TriangleMesh;
-
+import agua.distantRendering;
 import java.util.Random;
 
 import agua.SimplexNoise_octave;
@@ -21,7 +23,7 @@ public class generateTerrain {
 		double zStart = 0;
 		double zEnd = 500;
 		
-		SimplexNoise simplexNoise = new SimplexNoise(750,0.72,3838);
+		SimplexNoise simplexNoise = new SimplexNoise(10000,0.60,3838); //.5 = a bit rough, .35 = choppy water, .70 is rocky mountains
 		float[][] generatedCoordinates = new float[xRes][zRes];
 		
 		for(int x=0;x<xRes;x++){
@@ -31,7 +33,7 @@ public class generateTerrain {
 	        		int xx=(int)(xStart+x*((xEnd-xStart)/xRes));
 	                int yy=(int)(yStart+y*((yEnd-yStart)/yRes));
 	                int zz=(int)(zStart+z*((zEnd-zStart)/zRes));
-	        		generatedCoordinates[x][z] = (float)(0.5*(1+simplexNoise.getNoise(xx, yy, zz)));
+	        		generatedCoordinates[x][z] = (float)(1*(simplexNoise.getNoise(xx, yy, zz)));
 	        	}
 	        }
 		}
@@ -52,6 +54,7 @@ public class generateTerrain {
 		{
 			for (int z = 0; z < dimension; z++)  // the z coordinate iterator
 			{
+
 				float tmpX = x * scale;
 				float tmpY = generatedCoordinates[x][z] * scale;
 				float tmpZ = z * scale;
@@ -142,7 +145,9 @@ public class generateTerrain {
 			}
 			
 		}
+		
 		TriangleMesh mesh = new TriangleMesh();
+
 		mesh.getTexCoords().addAll(0, 0);
 		mesh.getPoints().addAll(points);
 		mesh.getFaces().addAll(faces);
