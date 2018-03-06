@@ -1,61 +1,52 @@
 package terraintesting;
 
-public class QuadTree<Key extends Comparable<Key>, Value> {
+import javafx.scene.Camera;
+
+public class QuadTree {
 	
 	private Node root;
 	
 	//Node class stores four children, key location, and value
 	private class Node {
-		Key cx, cy;
+		Double x; Double y;
 		Node north, east, south, west;
-		Value value; 
+		Double size; 
 		
 		//Node constructor takes coordinates and a value
-		private Node (Key x, Key y, Value v) {
-			cx = x;
-			cy = y;
-			value = v;
+		private Node (Double x, Double y, Double s) {
+			this.x = x;
+			this.y = y;
+			this.size = s;
 		}
 		
-		public Key getX(Node node) {
-			return node.cx;
+		public Double getX(Node node) {
+			return node.x;
 		}
 		
-		public Key getY(Node node) {
-			return node.cy;
+		public Double getY(Node node) {
+			return node.y;
 		}
 		
-		public Value getVal(Node node) {
-			return node.value;
+		public Double getSize(Node node) {
+			return node.size;
 		}
 	}
 	
-	//checks to see if the key k1 is less than the key k2
-	//use !less to check greater than or equal to
-	private boolean less(Key k1, Key k2) { 
-		return k1.compareTo(k2) <  0; 
-	}
-    
-	//checks to see if the key k1 is equal to the key k2
-	private boolean eq (Key k1, Key k2) { 
-		return k1.compareTo(k2) == 0; 
-    }
-
 	//sets the root equal to an initial value
-	public void insert(Key x, Key y, Value v) {
-		root = new Node(x, y, v);
+	public void insert(Double x, Double y, Double s) {
+		root = new Node(x, y, s);
 	}
 	
 	//inserts a node in the correct place
-	public Node insert(Key x, Key y, Value v, Node n) {
+	public Node insert(Double x, Double y, Double s, Node n) {
 		//if no node is passed in, a new node is created
-		if (n == null) return new Node(x, y, v);
+		if (n == null) return new Node(x, y, s);
 		
 		//recursively calls insert until the node has been inserted into the correct place
-		else if (less(x, n.cx) && less(y, n.cy))   n.west  = insert(x, y, v, n.west);
-		else if (less(x, n.cx) && !less(y, n.cy))  n.north = insert(x, y, v, n.north);
-		else if (!less(x, n.cx) && less(y, n.cy))  n.east  = insert(x, y, v, n.east);
- 		else if (!less(x, n.cx) && !less(y, n.cy)) n.south = insert(x, y, v, n.south);
+		else if (x < n.x && y < n.y)   n.west  = insert(x, y, s, n.west);
+		else if (x < n.x && y >= n.y)  n.north = insert(x, y, s, n.north);
+		else if (x >= n.x && y < n.y)  n.east  = insert(x, y, s, n.east);
+ 		else if (x >= n.x && y >= n.y) n.south = insert(x, y, s, n.south);
 		
 		return n;
 	}
@@ -64,12 +55,20 @@ public class QuadTree<Key extends Comparable<Key>, Value> {
 		
 	}
 	
-	public static void updateCameraLocation() {
+	public static void updateCameraLocation(Camera camera) {
 		
 	}
 	
-	public static void recursiveFunc() {
+	public static void recursiveFunc(Camera camera) {
 		//(cameraX - radius) < (xMax + size/2) && (cameraX + radius) > (xMin - size/2)
+	}
+	
+	public static void visitAllNeighbors(double distance) {
+		
+	}
+	
+	public static void visitNeighbors(double distance) {
+		
 	}
 		
 	
@@ -96,16 +95,20 @@ public class QuadTree<Key extends Comparable<Key>, Value> {
 		
 		
 		
-		
+	/*
+	//checks to see if the key k1 is less than the key k2
+	//use !less to check greater than or equal to
+	private boolean less(Key k1, Key k2) { 
+		return k1.compareTo(k2) <  0; 
 	}
+    
+	//checks to see if the key k1 is equal to the key k2
+	private boolean eq (Key k1, Key k2) { 
+		return k1.compareTo(k2) == 0; 
+    }
+	*/
 	
-	public static void visitAllNeighbors(double distance) {
-		
-	}
 	
-	public static void visitNeighbors(double distance) {
-		
-	}
 		/*
 		Node (int value) {
 		this.value = value;
