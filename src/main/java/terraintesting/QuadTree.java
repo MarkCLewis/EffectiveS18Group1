@@ -1,11 +1,7 @@
 package terraintesting;
 
-import java.util.List;
-
-//class QuadtreeNeightborVisitor[A <% Int => Double] (
-//		List<?> p) extends NeightborVisitor<E>(2) {
-
 public class QuadTree<Key extends Comparable<Key>, Value> {
+	
 	private Node root;
 	
 	//Node class stores four children, key location, and value
@@ -64,6 +60,22 @@ public class QuadTree<Key extends Comparable<Key>, Value> {
 		return n;
 	}
 	
+	public static void findAllInRange() {
+		
+	}
+	
+	public static void updateCameraLocation() {
+		
+	}
+	
+	public static void recursiveFunc() {
+		//(cameraX - radius) < (xMax + size/2) && (cameraX + radius) > (xMin - size/2)
+	}
+		
+	
+	//find all in range
+	//update camera location
+	//
 	
 	/*
 	public class LNode extends Node {
