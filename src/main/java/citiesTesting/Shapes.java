@@ -26,9 +26,14 @@ public class Shapes {
 		return cylinder;
 		//mainGroup.getChildren().add(cylinder);
 	}
+	/*
+	public static Shapes tallBuilding(int l, int w, int h, Color color1, Color color2, int height){
+		TODO
+	}
+	*/
 	
 	public static Box makeBox(int l, int w, int h, Color color1, Color color2, int x, int y, int z){
-		Box box = new Box(100, 100, 100);
+		Box box = new Box(l, w, h);
 		PhongMaterial material = new PhongMaterial();
 		material.setDiffuseColor(color1);
 		material.setSpecularColor(color2);
@@ -72,15 +77,11 @@ public class Shapes {
 		return pyramid;
 	}
 	
-	public static Rectangle makeRectangle(int w, int h, int x, int y, Color color1, Color color2){
+	public static Rectangle makeRectangle(int w, int h, int x, int y, Color color1){
 		Rectangle rect = new Rectangle();
 		//TODO-find out how to set color
-		/*
-		PhongMaterial material = new PhongMaterial();
-		material.setDiffuseColor(color1);
-		material.setSpecularColor(color2);
-		//rect.setMaterial(material);
-		*/
+		
+		rect.setFill(color1);
 		rect.setX(x);
 		rect.setY(y);
 		rect.setWidth(w);
