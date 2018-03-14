@@ -150,6 +150,7 @@ public class ShapesDemo extends Application {
 		mainGroup.getChildren().add(cyl);
 		*/
 		//makeFences(mainGroup, 400, 800, Color.BROWN, Color.BROWN, 50, 600, -500);
+		//makeHouse2(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, 300, 200, 200);
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -188,55 +189,9 @@ public class ShapesDemo extends Application {
 			newZ -= 100;
 		}
 	}
-	/*
-	
-	//TODO-fix fences
-	//x, y, and z should be the x, y, z values of the bottom left part of the city
-	//Makes a fence around a city given the city's length and width
-	public void makeFences(Group mg, int l, int w, Color color1, Color color2, int x, int y, int z){
-		int newL = l + 200;
-		int newW = w + 200;
-			
-		int newX = x - 100;
-		int newZ = z - 100;
-
-		//make front fences
-		for(int i = 0; i < newL / 100; i++){
-		//for(int i = newX; i < newX + newL; i+=50){
-		//while(newX < newX + newL){
-			mg.getChildren().add(Shapes.makeCylinder(10, 100, color1, color2, newX, y, newZ));
-			newX += 100;
-		}
-			
-		//make left fences
-		for(int i = 0; i < newW / 100; i++){
-		//for(int i = newZ; i < newZ + newW; i+= 50){
-		//while(newZ < newZ + newW){
-			mg.getChildren().add(Shapes.makeCylinder(10, 100, color1, color2, newX, y, newZ));
-			newZ += 100;
-		}
-			
-		//make back fences
-		for(int i = 0; i < newL / 100; i++){
-		//for(int i = newX; i > newX - newL; i-=50){
-		//while(newX > newX - newL){
-			mg.getChildren().add(Shapes.makeCylinder(10, 100, color1, color2, newX, y, newZ));
-			newX -= 100;
-		}
-			
-		//make right fences
-		for(int i = 0; i < newW / 100; i++){
-		//for(int i = newZ; i > newZ - newW; i-= 50){
-		//while(newZ > newZ - newW){
-			mg.getChildren().add(Shapes.makeCylinder(10, 100, color1, color2, newX, y, newZ));
-			newZ -= 100;
-		}
-			
-	}
-	*/
 	
 	
-	public void makeHouse(Group mg, Color roof1, Color roof2, Color house1, Color house2, int x, int y, int z) {
+	public void makeHouse1(Group mg, Color roof1, Color roof2, Color house1, Color house2, int x, int y, int z) {
 		Box b = Shapes.makeBox(100, 100, 100, house1, house2, x, y, z);
 		b.setRotationAxis(Rotate.Y_AXIS);
 		b.setRotate(25);
@@ -245,6 +200,16 @@ public class ShapesDemo extends Application {
 		MeshView p = Shapes.makePyramid(100, 250, roof1, roof2, x, y - 150, z);
 		mg.getChildren().add(p);
 		// return temp;
+	}
+	
+	public void makeHouse2(Group mg, Color roof1, Color roof2, Color house1, Color house2, int x, int y, int z) {
+		Box b = Shapes.makeBox(100, 100, 100, house1, house2, x, y, z);
+		b.setRotationAxis(Rotate.Y_AXIS);
+		b.setRotate(25);
+		mg.getChildren().add(b);
+
+		Cylinder c = Shapes.makeCylinder(100, 50, roof1, roof2, x, y-75, z);
+		mg.getChildren().add(c);
 	}
 	
 	public void makeRect(Group mg, int l, int h, Color color1, Color color2, int x, int y, int z){
@@ -291,6 +256,20 @@ public class ShapesDemo extends Application {
 		for(int i = 0; i < 9; i++){
 			mg.getChildren().add(Shapes.makeCylinder(100, 25, color3, color4, x, temp, z));
 			temp += 50;
+		}
+	}
+	
+	public void makeCentralCone(Group mg, Color color1, Color color2, int x, int y, int z, int w){
+		/*
+		int tempX = 500;
+		int tempY = 600;
+		int tempW = 400;
+		*/
+		for(int i = 0; i < 7; i++){
+			mg.getChildren().add(Shapes.makeCylinder(w, 100, color1, color2, x, y, z));
+			x += 15;
+			y -= 100;
+			w -= 50;
 		}
 	}
 }

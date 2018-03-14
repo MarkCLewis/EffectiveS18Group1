@@ -35,7 +35,7 @@ public class CityMaker extends Application{
 	}
 	
 	
-	public void makeHouse(Group mg, Color roof1, Color roof2, Color house1, Color house2, int x, int y, int z) {
+	public void makeHouse1(Group mg, Color roof1, Color roof2, Color house1, Color house2, int x, int y, int z) {
 		Box b = Shapes.makeBox(100, 100, 100, house1, house2, x, y, z);
 		b.setRotationAxis(Rotate.Y_AXIS);
 		b.setRotate(25);
@@ -43,6 +43,16 @@ public class CityMaker extends Application{
 
 		MeshView p = Shapes.makePyramid(100, 250, roof1, roof2, x, y - 150, z);
 		mg.getChildren().add(p);
+	}
+	
+	public void makeHouse2(Group mg, Color roof1, Color roof2, Color house1, Color house2, int x, int y, int z) {
+		Box b = Shapes.makeBox(100, 100, 100, house1, house2, x, y, z);
+		b.setRotationAxis(Rotate.Y_AXIS);
+		b.setRotate(25);
+		mg.getChildren().add(b);
+
+		Cylinder c = Shapes.makeCylinder(100, 50, roof1, roof2, x, y-75, z);
+		mg.getChildren().add(c);
 	}
 	
 	public void makeGate(Group mg, Color cColor1, Color cColor2, Color rColor1, Color rColor2, int x, int y, int z){
