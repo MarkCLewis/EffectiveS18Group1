@@ -9,7 +9,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.MeshView;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
@@ -28,6 +27,8 @@ public class CityMaker extends Application{
 		//int b = rand.nextInt(10)+1;
 		//TODO-use random int values to create random cities
 		//one for how many buildings, and one for what type of building
+		
+		//TODO-n.b. do not change y-values
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -58,8 +59,61 @@ public class CityMaker extends Application{
 		
 	}
 	
-	//TODO-One of the things for the center of a town
-	public void makeThing(Group mg, Color color1, Color color2, Color color3, Color color4, int x, int y, int z){
+	//TODO-fix fences
+	//x, y, and z should be the x, y, z values of the bottom left part of the city
+	//Makes a fence around a city given the city's length and width
+	public void makeFences(Group mg, int l, int w, Color color1, Color color2, int x, int y, int z){
+		int newL = l + 200;
+		int newW = w + 200;
+			
+		int newX = x - 100;
+		int newZ = z - 100;
+		
+		//make front fences
+		while(newX <= (x-100) + newL){
+			mg.getChildren().add(Shapes.makeCylinder(10, 100, color1, color2, newX, y, newZ));
+			newX += 100;
+		}
+			
+		//make left fences
+		while(newZ <= (z-100) + newW){
+			mg.getChildren().add(Shapes.makeCylinder(10, 100, color1, color2, newX, y, newZ));
+			newZ += 100;
+		}
+			
+		//make back fences
+		while(newX >= (x-100)){
+			mg.getChildren().add(Shapes.makeCylinder(10, 100, color1, color2, newX, y, newZ));
+			newX -= 100;
+		}
+			
+		//make right fences
+		while(newZ >= (z-100)){
+			mg.getChildren().add(Shapes.makeCylinder(10, 100, color1, color2, newX, y, newZ));
+			newZ -= 100;
+		}
+	}
+	
+	////////////////////////////////
+	//TODO-Central items for cities:
+	
+	
+	public void makeCentralCone(Group mg, Color color1, Color color2, int x, int y, int z, int w){
+		/*
+		int tempX = 500;
+		int tempY = 600;
+		int tempW = 400;
+		*/
+		for(int i = 0; i < 7; i++){
+			mg.getChildren().add(Shapes.makeCylinder(w, 100, color1, color2, x, y, z));
+			x += 15;
+			y -= 100;
+			w -= 50;
+		}
+	}
+	
+	//TODO-One of the objects for the center of a town
+	public void makeCentralSpiral(Group mg, Color color1, Color color2, Color color3, Color color4, int x, int y, int z){
 		MeshView p = Shapes.makePyramid(100, 250, color3, color4, x, y-350, z);
 		mg.getChildren().add(p);
 		

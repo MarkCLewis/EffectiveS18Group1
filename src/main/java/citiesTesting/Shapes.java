@@ -32,8 +32,8 @@ public class Shapes {
 	}
 	*/
 	
-	public static Box makeBox(int l, int w, int h, Color color1, Color color2, int x, int y, int z){
-		Box box = new Box(l, w, h);
+	public static Box makeBox(int l, int h, int w, Color color1, Color color2, int x, int y, int z){
+		Box box = new Box(l, h, w);
 		PhongMaterial material = new PhongMaterial();
 		material.setDiffuseColor(color1);
 		material.setSpecularColor(color2);
