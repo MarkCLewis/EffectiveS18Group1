@@ -1,5 +1,7 @@
 package citiesTesting;
 
+import java.util.Random;
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -118,17 +120,16 @@ public class ShapesDemo extends Application {
 		Cylinder cyl = Shapes.makeCylinder(400, 100, Color.CRIMSON, Color.DARKKHAKI, 500, 500, 200);
 		mainGroup.getChildren().add(cyl);
 		*/
+
+		
+		makeGate(mainGroup, Color.ORANGE, Color.CORAL, Color.RED, Color.DARKRED, 100, 400, -500);
 		
 		
-		
-		//makeGate(mainGroup, Color.ORANGE, Color.CORAL, Color.RED, Color.DARKRED, 100, 400, -500);
-		
-		/*
 		int tempX = 450;
 		int tempY = 200;
 		int tempZ = 300;
 		for (int i = 0; i < 4; i++) {
-			makeHouse(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, tempX, tempY, tempZ);
+			makeHouse1(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, tempX, tempY, tempZ);
 			tempX -= 100;
 			tempY += 100;
 			tempZ -= 200;
@@ -138,19 +139,19 @@ public class ShapesDemo extends Application {
 		tempY = 200;
 		tempZ = 300;
 		for (int i = 0; i < 4; i++) {
-			makeHouse(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, tempX, tempY, tempZ);
+			makeHouse2(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, tempX, tempY, tempZ);
 			tempX -= 100;
 			tempY += 100;
 			tempZ -= 200;
 		}
-		*/
+		
 		
 		/*
 		Cylinder cyl = Shapes.makeCylinder(10, 100, Color.BROWN, Color.BROWN, 500, 300, 200);
 		mainGroup.getChildren().add(cyl);
 		*/
 		//makeFences(mainGroup, 400, 800, Color.BROWN, Color.BROWN, 50, 600, -500);
-		//makeHouse2(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, 300, 200, 200);
+		
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
