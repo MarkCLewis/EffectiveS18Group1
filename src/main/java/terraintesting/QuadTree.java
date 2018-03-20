@@ -1,58 +1,64 @@
 package terraintesting;
 
-import javafx.scene.Camera;
+import java.util.ArrayList;
+import java.util.List;
 
-public class QuadTree {
+import javafx.scene.Camera;
+import virtualworld.WorldObject;
+
+public class QuadTree implements Element {
 	
 	private Node root;
 	
 	//Node class stores four children, key location, and value
-	private class Node {
-		Double x; Double y;
-		Node north, east, south, west;
-		Double size; 
+	static class Node {
+		double x; double y;
+		List<Node> children = new ArrayList<Node>();
+		double size; 
 		
 		//Node constructor takes coordinates and a value
-		private Node (Double x, Double y, Double s) {
+		public Node (double x, double y, double s) {
 			this.x = x;
 			this.y = y;
 			this.size = s;
 		}
 		
-		public Double getX(Node node) {
+		public double getX(Node node) {
 			return node.x;
 		}
 		
-		public Double getY(Node node) {
+		public double getY(Node node) {
 			return node.y;
 		}
 		
-		public Double getSize(Node node) {
+		public double getSize(Node node) {
 			return node.size;
+		}
+		public int getChild (Double x, Double y) {
+			int child = 0;
+			if (x > this.x) child |= 1;
+			if (y > this.y) child |= 2;
+			return child;
 		}
 	}
 	
 	//sets the root equal to an initial value
-	public void insert(Double x, Double y, Double s) {
+	public void insert(double x, double y, double s) {
 		root = new Node(x, y, s);
 	}
 	
 	//inserts a node in the correct place
-	public Node insert(Double x, Double y, Double s, Node n) {
+	public Node insert(double x, double y, double s, Node n) {
 		//if no node is passed in, a new node is created
 		if (n == null) return new Node(x, y, s);
-		
 		//recursively calls insert until the node has been inserted into the correct place
-		else if (x < n.x && y < n.y)   n.west  = insert(x, y, s, n.west);
-		else if (x < n.x && y >= n.y)  n.north = insert(x, y, s, n.north);
-		else if (x >= n.x && y < n.y)  n.east  = insert(x, y, s, n.east);
- 		else if (x >= n.x && y >= n.y) n.south = insert(x, y, s, n.south);
-		
+		else {
+			//finds the child
+			int child = n.getChild(x, y);
+			//sets the child to the recursive call
+			n.children.set(child, insert(x, y, s, n.children.get(child)));
+		}
 		return n;
-	}
-	
-	public static void findAllInRange() {
-		
 	}
 	
 	public static void updateCameraLocation(Camera camera) {
@@ -70,53 +76,9 @@ public class QuadTree {
 	public static void visitNeighbors(double distance) {
 		
 	}
-		
-	
-	//find all in range
-	//update camera location
-	//
-	
-	/*
-	public class LNode extends Node {
-		List<?> pnts;
-		public LNode (double x, double y, double s, List<?> pnts) {
-			super (x, y, s);
-			this.pnts = pnts;
-		}
+
+	@Override
+	public void accept(final ElementVisitor visitor) {
+		//visitor.visit(n);		
 	}
-	
-	public class INode extends Node {
-		List<?> pnts;
-		public INode (double x, double y, double s, List<?> pnts) {
-			super (x, y, s);
-			this.pnts = pnts;
-		}
-		
-		
-		
-		
-	/*
-	//checks to see if the key k1 is less than the key k2
-	//use !less to check greater than or equal to
-	private boolean less(Key k1, Key k2) { 
-		return k1.compareTo(k2) <  0; 
-	}
-    
-	//checks to see if the key k1 is equal to the key k2
-	private boolean eq (Key k1, Key k2) { 
-		return k1.compareTo(k2) == 0; 
-    }
-	*/
-	
-	
-		/*
-		Node (int value) {
-		this.value = value;
-		this.north = null;
-		this.east = null;
-		this.south = null;
-		this.west = null;
-	}
-	
-*/
 }

@@ -30,11 +30,35 @@ public class TreeNode<T>{
         }
         this.children.addAll(children);
     }
+    
+   
+    
+    public TreeNode<T> getChildAt(int index) {
+  
+    	return children.get(index);
+    }
+    
+//    public void List<TreeNode> getChildren() {
+//  	  for(int i=0; i<children.size();i++){
+//  		  System.out.print(children.get(i));
+//  	  }
+//      //return children;
+//  }
+//  
+
+//    public void getChildren() {
+//    	  for(int i=0; i<children.size();i++){
+//    		 
+//    		  System.out.print(children.get(i).getData());
+//    		  System.out.print(",");
+//    	  }
+//        //return children;
+//    }
 
     public List<TreeNode> getChildren() {
         return children;
     }
-
+    
     public T getData() {
         return data;
     }
