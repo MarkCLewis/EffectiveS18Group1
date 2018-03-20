@@ -14,6 +14,7 @@ public class QuadTree implements Element {
 	static class Node {
 		double x; double y;
 		List<Node> children = new ArrayList<Node>();
+		List<WorldObject> contents = new ArrayList<WorldObject>();
 		double size; 
 		
 		//Node constructor takes coordinates and a value
@@ -43,20 +44,26 @@ public class QuadTree implements Element {
 	}
 	
 	//sets the root equal to an initial value
-	public void insert(double x, double y, double s) {
+	public void insert(WorldObject item) {
+		double x = item.getX();
+		double y = item.getY();
+		double s = item.getSize();
 		root = new Node(x, y, s);
 	}
 	
 	//inserts a node in the correct place
-	public Node insert(double x, double y, double s, Node n) {
+	private Node insert(WorldObject item, Node n) {
 		//if no node is passed in, a new node is created
+		double x = item.getX();
+		double y = item.getY();
+		double s = item.getSize();
 		if (n == null) return new Node(x, y, s);
 		//recursively calls insert until the node has been inserted into the correct place
 		else {
 			//finds the child
 			int child = n.getChild(x, y);
 			//sets the child to the recursive call
-			n.children.set(child, insert(x, y, s, n.children.get(child)));
+			n.children.set(child, insert(item, n));
 		}
 		return n;
 	}
