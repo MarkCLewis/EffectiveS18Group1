@@ -96,9 +96,8 @@ public class closeupRendering extends Application {
 		
 		
 		//MeshView test = createMeshView(points, texCoords, faces, 0, 0, 0, Color.BROWN);
-		
 		generateTerrain testPlot = new generateTerrain();
-		float[][] temp = testPlot.generateCoordinates(200, 200, 200, 1000, (float).60, 3838); //int xRes, int yRes, int zRes, int scale, float noiseLevel, int seed
+		float[][] temp = testPlot.generateCoordinates(200, 200, 200);
 		TriangleMesh testGenerate = testPlot.generateTerrain(200, 10, temp);
 		MeshView meshView = new MeshView(testGenerate);
 		PhongMaterial material = new PhongMaterial();
