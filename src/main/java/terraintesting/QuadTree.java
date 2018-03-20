@@ -6,7 +6,7 @@ import java.util.List;
 import javafx.scene.Camera;
 import virtualworld.WorldObject;
 
-public class QuadTree {
+public class QuadTree implements Element {
 	
 	private Node root;
 	
@@ -61,10 +61,6 @@ public class QuadTree {
 		return n;
 	}
 	
-	public static void findAllInRange() {
-		
-	}
-	
 	public static void updateCameraLocation(Camera camera) {
 		
 	}
@@ -79,5 +75,10 @@ public class QuadTree {
 	
 	public static void visitNeighbors(double distance) {
 		
+	}
+
+	@Override
+	public void accept(final ElementVisitor visitor) {
+		//visitor.visit(n);		
 	}
 }
