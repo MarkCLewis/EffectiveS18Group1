@@ -14,7 +14,7 @@ import agua.SimplexNoise_octave;
 
 public class generateTerrain {
 	
-	public float[][] generateCoordinates(int xRes, int yRes, int zRes)
+	public float[][] generateCoordinates(int xRes, int yRes, int zRes, int scale, float noiseLevel, int seed)
 	{
 		double xStart = 0;
 		double xEnd = 500; // these will end up needing to be passed in, eventually
@@ -23,7 +23,7 @@ public class generateTerrain {
 		double zStart = 0;
 		double zEnd = 500;
 											
-		SimplexNoise simplexNoise = new SimplexNoise(1000,0.60,3838); //.5 = a bit rough, .35 = choppy water, .70 is rocky mountains
+		SimplexNoise simplexNoise = new SimplexNoise(scale,noiseLevel, seed); //.5 = a bit rough, .35 = choppy water, .70 is rocky mountains
 		float[][] generatedCoordinates = new float[xRes][zRes];
 		
 		for(int x=0;x<xRes;x++){
