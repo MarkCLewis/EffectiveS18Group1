@@ -7,20 +7,18 @@ public class PrintVisitor implements ElementVisitor {
 
 	@Override
 	public void visit(Node n) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("This is a node");
 	}
 
 	@Override
 	public void visit(WorldObject item) {
-		// TODO Auto-generated method stub
+		System.out.println("This is a WorldObject");
 		
 	}
 
 	@Override
 	public boolean cares(Node n) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	
 }
