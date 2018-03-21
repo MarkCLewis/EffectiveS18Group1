@@ -150,6 +150,5 @@ package terraintesting;
 	public static int randomElevation() {
 		return (int) (maxElevation * Math.random());
 	}
-	*/
 }
 */
