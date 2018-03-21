@@ -17,12 +17,12 @@ public class cameraSettings {
 	 double mouseXold = 0;
 	 double mouseYold = 0;
 	 double cameraYlimit = 15;
-	 double rotateModifier = 25; 
+	 double rotateModifier = 60; 
 	 double cameraZ = 0;
 	 double cameraX = 0;
 	 double cameraY = 0;
-	 double cameraFarClip = 10000;
-	 double cameraNearClip = 3;
+	 double cameraFarClip = 40000;
+	 double cameraNearClip = 1;
 	 Rotate xRotate = new Rotate(0,0,0,0,Rotate.X_AXIS);
 	 Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
 	 

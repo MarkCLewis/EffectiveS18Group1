@@ -244,7 +244,7 @@ public class distantRendering extends Application {
 		primaryStage.show();
 	}
 	
-private RotateTransition rotator(Node temp) {
+public RotateTransition rotator(Node temp) {
 	        RotateTransition rotator = new RotateTransition(Duration.millis(10000), temp);
 	        
 	        rotator.setAxis(Rotate.X_AXIS); //Z/X/Y axis

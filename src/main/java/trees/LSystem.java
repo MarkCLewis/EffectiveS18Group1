@@ -1,7 +1,11 @@
 package trees;
 
+
+
 import java.util.*;
 import java.io.InputStream;
+
+
 
 /*
  * This program constructs the basis of an LSystem (represented by an arraylist).
@@ -11,89 +15,133 @@ import java.io.InputStream;
  *
  */
 
-public class LSystem {
-
-    private String productionA, productionB, axiomLetter;
-
-    public Scanner sc;
-
-    private int times;
+public class LSystem{
 
 
+	private String productionA, productionB, axiomLetter;
 
+	public Scanner sc;
+	public Queue <TreeNode>q;
+	public ArrayList <TreeNode> nodes=new ArrayList<TreeNode>();
 
-    public void buildTree(){
-        ArrayList<String> chars = new ArrayList<String>();
-        ArrayList<String> levels=new ArrayList<String>();
-
-       // sc=new Scanner(System.in);
-
-       // System.out.print("What do you want to axiom with (type a or b)? ");
-        String axiom= "a";
-
-        //System.out.print("enter productions for a: ");
-        String productionA="aba";
-
-        //System.out.print("enter productions for b: ");
-        String productionB="ba";
-
-
-        times = 4;
-
-
-        String level="";
-        int stringSize=0;
-
-        // TreeNode<String> temp = new TreeNode<String>(null);
-       // TreeNode<String> axiomNode = new TreeNode<String>(axiom); //node root
-            levels.add(0,"a");
-      //  temp=axiomNode;
-
-        //Levels to be created (the root is included as the 1st level)
-            for (int i=0; i<times-1; i++){
-
-            	//Splits the most recent level String into characters and places them into Array "letters"
-                String[] letters=levels.get(i).split("");
-                stringSize=letters.length;
-
-                //Adds each element on array "letters" to the arraylist "chars".
-                //Replaces the element for what its value is
-                //Makes a new level by joining the replaced elements
-                //Adds the new element to the arraylist "Levels"
-
-                for (int j=0; j<stringSize;j++){
-
-                    chars.add(letters[j]);
-                  //  temp.addChild(letters[j]);
-
-
-                    if(chars.get(j).charAt(0)=='a'){
-                        chars.set(j,productionA);
-                    }
-                    if(chars.get(j).charAt(0)=='b'){
-                        chars.set(j,productionB);
-                    }
-                    level=level+chars.get(j);
-
-                }
-             
-                levels.add(level);
-                System.out.println(levels);
-                level="";
-
-                chars.clear();
-
-            }
+	private int times, lvl, id, parentid;
 
 
 
 
-    }
+	public void buildTree(){
+		q=new LinkedList<>();
 
-    public static void main(String args[]) {
-    	//TEST
-        LSystem test= new LSystem();
-        test.buildTree();
 
-    }
+		TreeNode<String> axiom= new TreeNode<String>("a");
+		q.add(axiom);
+
+
+
+		//  System.out.println(axiom.getData());
+
+		String productionA="ab";
+
+		String productionB="ba";
+
+
+		ArrayList<String> chars = new ArrayList<String>();
+		ArrayList<String> levels=new ArrayList<String>();
+
+
+
+		//  TreeNode<String> axiomNode = new TreeNode<String>(axiom);
+		//  TreeNode<String> child = new TreeNode<String>(null);
+		times = 3;
+
+
+		String level="";
+		int stringSize=0;
+
+
+		levels.add(0,"a");
+
+
+		//Levels to be created (the root is included as the 1st level)
+	for (int i=0; i< Math.pow(productionA.length(),times)-1; i++){
+	
+			TreeNode<String> parent=q.poll();
+			
+
+
+			//Adds each element on array "letters" to the arraylist "chars".
+			//Replaces the element for what its value is
+			//Makes a new level by joining the replaced elements
+			//Adds the new element to the arraylist "Levels"
+
+
+
+
+				if(parent.getData().equals("a")){
+
+
+					// chars.set(j,productionA);
+
+					for(int k=0; k<productionA.length(); k++){
+						parent.addChild(Character.toString(productionA.charAt(k)));
+						q.add(parent.getChildAt(k));
+
+					}
+
+
+
+				}
+				else if(parent.getData().equals("b")){
+				//	chars.set(j,productionB);
+
+					for(int k=0; k<productionB.length(); k++){
+						parent.addChild(Character.toString(productionB.charAt(k)));
+						q.add(parent.getChildAt(k));
+
+					}
+
+				}
+				//        level=level+chars.get(j);
+
+			
+
+
+			//levels.add(level);
+			//System.out.println(levels);
+			level="";
+			System.out.println("Parent: "+parent.getData());
+			//parent.getChildren();
+			
+			for(TreeNode<String> node : parent.getChildren()) {
+				System.out.print("Parent:");
+			    System.out.println(node.getData());
+			    System.out.println(parent.getChildren());
+			    System.out.println("--------");
+			    
+			}
+
+			System.out.println(q.size());
+			chars.clear();
+
+
+		}
+
+
+
+
+
+
+
+	}
+
+	public static void main(String args[]) {
+		//TEST
+		LSystem test= new LSystem();
+		test.buildTree();
+
+
+
+
+
+	}
 }

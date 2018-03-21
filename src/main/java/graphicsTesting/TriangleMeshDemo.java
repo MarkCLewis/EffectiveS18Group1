@@ -56,11 +56,33 @@ public class TriangleMeshDemo extends Application {
 		//Camera Movement
 		double camSpeed = 1.0;
 		scene.setOnKeyPressed(event ->{
-			KeyCode key = event.getCode();
-			 if(key == KeyCode.W) {camera.setTranslateZ(camera.getTranslateZ() + camSpeed);}
-			 if(key == KeyCode.S) {camera.setTranslateZ(camera.getTranslateZ() - camSpeed);}
-			 if(key == KeyCode.A) {camera.setTranslateX(camera.getTranslateX() - camSpeed);}
-			 if(key == KeyCode.D) {camera.setTranslateX(camera.getTranslateX() + camSpeed);}
+		 KeyCode key = event.getCode();
+		 double z = camera.getTranslateZ();
+		 double x = camera.getTranslateX();
+		 double theta = yRotate.getAngle()/360.0*2*Math.PI; 
+		 if(key == KeyCode.W) {
+			 camera.setTranslateZ(z+camSpeed*Math.cos(theta));
+			 camera.setTranslateX(x+camSpeed*Math.sin(theta));
+		 }
+		 if(key == KeyCode.S) {
+			 camera.setTranslateZ(z-camSpeed*Math.cos(theta));
+			 camera.setTranslateX(x-camSpeed*Math.sin(theta));
+		 }
+		 if(key == KeyCode.A) {
+			 camera.setTranslateZ(z+Math.sin(theta));
+			 camera.setTranslateX(x-Math.cos(theta));
+		 }
+		 if(key == KeyCode.D) {
+			 camera.setTranslateZ(z-Math.sin(theta));
+			 camera.setTranslateX(x+Math.cos(theta));
+		 }
+		 
+		 if(key == KeyCode.RIGHT) {
+			 yRotate.setAngle(yRotate.getAngle()+10);
+		 }
+		 if(key == KeyCode.LEFT) {
+			 yRotate.setAngle(yRotate.getAngle()-10);
+		 }
 		});
 
 		scene.addEventHandler(MouseEvent.ANY, event -> {
@@ -86,27 +108,7 @@ public class TriangleMeshDemo extends Application {
 				y1 = y2;
 				scene.setCursor(Cursor.NONE);
 		 	}
-		});
-/*		
-		scene.setOnMousePressed((MouseEvent event) -> {
-			pressed = true;
-	        x2 = event.getSceneX();
-	        y2 = event.getSceneY();
-	    });
-		
-	    scene.setOnMouseMoved((MouseEvent event) -> {
-	    	if(pressed) {
-	    		x1 = x2;
-	        	y1 = y2;
-	        	x2 = event.getSceneX();
-	        	y2 = event.getSceneY();
-	        	dx = x2 -x1;
-	        	dy = y2 -y1;
-	    	}
-	        camera.setTranslateX(camera.getTranslateX() - dx*0.1);
-	        camera.setTranslateY(camera.getTranslateY() - dy*0.1);      
-	    });
-	*/	
+		});	
 		mainGroup.getChildren().add(getTestMesh());
 		
 		stage.setScene(scene);

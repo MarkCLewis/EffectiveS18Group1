@@ -33,44 +33,7 @@ import javafx.stage.Stage;
 public class closeupRendering extends Application {
     // THESE ARE TEST COORDINATES
 	// coordinates (and explanation) were found here: http://www.lagers.org.uk/javafx/usemeshview.html
-	int[] faces =
-    	{
-    		    0, 0, 3, 5, 2, 6, // Front face
-    	        0, 0, 2, 2, 1, 3, // Right face 
-    	        0, 0, 1, 1, 4, 2, // Back face
-    	        0, 0, 4, 4, 3, 5, // Left right face
-    	        2, 9, 3, 8, 4, 7, // Bottom face
-    	        2, 9, 4, 7, 1, 10 // Bottom face
-        };
-    
-    float[] texCoords = 
-    	{
-    		0.504f, 0.524f,     // 0
-            0.701f, 0,          // 1
-            0.126f, 0,          // 2
-            0,      0.364f,     // 3
-            0,      0.608f,     // 4
-            0.165f, 1,          // 5
-            0.606f, 1,          // 6
-            0.575f, 0.420f,     // 7
-            0.575f, 0.643f,     // 8
-            0.740f, 0.643f,     // 9
-            0.740f, 0.420f      // 10  
-        };
-    int w = 20; // width (X)
-    int h = 18; // height (Y)
-    int d = 10; // depth (Z)
-    
-    // These points are the vertex coordinates
-    //http://www.lagers.org.uk/javafx/images/pryamid01/verts0.png
-    float[] points = {
-    	//  A         B       C
-    		0,     -h / 2,    0,        // 0 VERTEX 0 (TOP OF PYRAMID)
-    	    w / 2,  h / 2,    d / 2,    // 1 VERTEX IS BACK RIGHT
-    	    w / 2,  h / 2,    -d / 2,   // 2 VERTEX IS FRONT RIGHT
-    	    -w / 2, h / 2,    -d / 2,   // 3 VERTEX IS FRONT LEFT
-    	    -w / 2, h / 2,    d / 2     // 4 VERTEX IS BACK LEFT
-        };
+	
 	
 	@Override
 	public void start(Stage primaryStage) throws AWTException {
@@ -81,8 +44,8 @@ public class closeupRendering extends Application {
 		cameraSettings cameraSetup = new cameraSettings();
 		PerspectiveCamera camera = cameraSetup.cameraSettings(); // creates camera with preset settings
 		
-		AmbientLight ambience = new AmbientLight(); // default color white
-	    ambience.setLightOn(true); // switch it off and everything is black
+		//AmbientLight ambience = new AmbientLight(); // default color white
+	    //ambience.setLightOn(true); // switch it off and everything is black
 		
 		Group sceneGroup = new Group();
 		//sceneGroup.getChildren().add(ambience);
@@ -91,7 +54,7 @@ public class closeupRendering extends Application {
         pointLight.setTranslateY(0);
         pointLight.setTranslateZ(0);
         pointLight.setRotate(90);
-        sceneGroup.getChildren().add(pointLight);
+        //sceneGroup.getChildren().add(pointLight);
 		sceneGroup.getChildren().add(camera);
 		Scene scene = new Scene(sceneGroup, 1280, 720);
 		scene.setCamera(camera);
@@ -132,7 +95,7 @@ public class closeupRendering extends Application {
 		
 		
 		
-		MeshView test = createMeshView(points, texCoords, faces, 0, 0, 0, Color.BROWN);
+		//MeshView test = createMeshView(points, texCoords, faces, 0, 0, 0, Color.BROWN);
 		generateTerrain testPlot = new generateTerrain();
 		float[][] temp = testPlot.generateCoordinates(200, 200, 200);
 		TriangleMesh testGenerate = testPlot.generateTerrain(200, 10, temp);
@@ -140,11 +103,13 @@ public class closeupRendering extends Application {
 		PhongMaterial material = new PhongMaterial();
         material.setDiffuseColor(Color.AQUA);
         material.setSpecularColor(Color.ANTIQUEWHITE.brighter());
-		meshView.setDrawMode(DrawMode.FILL);
+		meshView.setDrawMode(DrawMode.LINE);
 		
 		meshView.setScaleX(10);
 		meshView.setScaleZ(10);
-		meshView.setScaleY(100);
+		meshView.setScaleY(100); // this should scale with the SimplexNoise function.
+								  // The x and z scale are always the same (they only change the dimensions of the terrain)
+								  // The y scale matters because it is how high the elevation at certain parts are (in combination with the "persistence" passed to the SimplexNoise function)
 		meshView.setTranslateX(0);
 		meshView.setTranslateY(0);
 		meshView.setTranslateZ(0);
@@ -200,7 +165,7 @@ public class closeupRendering extends Application {
 		
 		//normalizeMesh(mesh);
 		MeshView meshView = new MeshView(mesh);
-		meshView.setDrawMode(DrawMode.FILL);
+		meshView.setDrawMode(DrawMode.LINE);
 		//meshView.setMaterial(new PhongMaterial(Color.ALICEBLUE));
 		
 

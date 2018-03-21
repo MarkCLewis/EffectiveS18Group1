@@ -1,26 +1,42 @@
-package agua;
+package terraintesting;
 
 import javafx.animation.RotateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableFloatArray;
 import javafx.collections.ObservableIntegerArray;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.Mesh;
+import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import agua.distantRendering;
+
+
 import java.util.Random;
 
 import agua.SimplexNoise_octave;
 
+
+
+
+// Here is an example of how this class is used:
+//
+// generateTerrain testPlot = new generateTerrain();
+// float[][] temp = testPlot.generateCoordinates(200, 200, 200);
+// TriangleMesh testGenerate = testPlot.generateTerrain(200, 10, temp);
+// MeshView meshView = new MeshView(testGenerate);
+// PhongMaterial material = new PhongMaterial();
+// material.setDiffuseColor(Color.AQUA);
+// meshView.setDrawMode(DrawMode.LINE);
+// meshView.setMaterial(material);
+// meshView.setScaleX(10);
+// meshView.setScaleZ(10);
+// meshView.setScaleY(100);
+// sceneGroup.getChildren().add(meshView);
 public class generateTerrain {
 	
-	
 	public float[][] generateCoordinates(int xRes, int yRes, int zRes)
-	{
-		return generateCoordinates(xRes, yRes, zRes, 1000, (float)0.60, 3838);
-	}
-	
-	public float[][] generateCoordinates(int xRes, int yRes, int zRes, int scale, float noiseLevel, int seed)
 	{
 		double xStart = 0;
 		double xEnd = 500; // these will end up needing to be passed in, eventually
@@ -28,9 +44,8 @@ public class generateTerrain {
 		double yEnd = 500;
 		double zStart = 0;
 		double zEnd = 500;
-		
-		SimplexNoise simplexNoise = new SimplexNoise(scale, noiseLevel, seed);
-		//SimplexNoise simplexNoise = new SimplexNoise(1000,0.60,3838); //.5 = a bit rough, .35 = choppy water, .70 is rocky mountains
+											
+		SimplexNoise simplexNoise = new SimplexNoise(1000,0.60,3838); //.5 = a bit rough, .35 = choppy water, .70 is rocky mountains
 		float[][] generatedCoordinates = new float[xRes][zRes];
 		
 		for(int x=0;x<xRes;x++){
