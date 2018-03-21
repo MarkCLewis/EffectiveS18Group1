@@ -86,7 +86,7 @@ public class QuadTree implements Element {
 
 	private void accept(final ElementVisitor visitor, Node n) {
 		if (visitor.cares(n)) {
-			
+			visitor.visit(n);
 		}
 	}
 	

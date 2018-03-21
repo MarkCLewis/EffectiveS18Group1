@@ -1,9 +1,13 @@
 package quad;
 
+import virtualworld.ExampleObject;
+
 public class QuadTreeTester {
 	QuadTree quad = new QuadTree();
 	
-	//quad.insert(2, 3, 4);
+	ExampleObject testOb = new ExampleObject(0, 0, 5);
+	
+	//quad.insert(testOb);
 	
 	PrintVisitor printTest = new PrintVisitor();
 	
