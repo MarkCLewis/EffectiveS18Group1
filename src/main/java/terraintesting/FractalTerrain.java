@@ -2,9 +2,11 @@ package terraintesting;
 
 public class FractalTerrain implements TerrainGenerationAlgorithm {
 	@Override
-	public void generateTerrain(double[][] heightMap, double maxElev) {
+	/*public void generateTerrain(double[][] heightMap, double maxElev) {
 		//TODO
 		//make methods static???
+		//figure out initial square width
+		//figure out how to do steps for each subsequent generated square
 
 		//count of what iteration it is (matters for roughness)
 		private double iter = 0.0;
@@ -34,9 +36,7 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 			heightMap[x + squareWidth][y + squareWidth] = generateRandom(); //x4
 		}
 
-		//createNewCorners(){}
-
-		private double avgCorners(double x, double y){
+		private double avgCorners(double squareWidth, double x, double y){
 			private double average = ((heightMap[x][y] + heightMap[x + squareWidth][y] +
 					  heightMap[x][y + squareWidth] +
 					  heightMap[x + squareWidth][y + squareWidth])/4);
@@ -48,14 +48,20 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 			heightMap[x + (squareWidth/2)][y + (squareWidth/2)] = avgCorners(x,y);
 		}
 
-		//squareStep(double x, double y){}
+		//squareStep(double x, double y){
+			//assignHeights(passed in with squareWidth divided by 2);
+			//avgCorners(passed in with squareWidth divided by 2);
+		//}
 
 		//diamond and square step get repeated over and over
+		//squareWidth should be passed in halved every time
 
 		//recursiveFunction(){
 			//if ()
 			//diamondStep
 			//squareStep
+			//iter = iter + 1;
+			//square width passed in halved into recursive call
 		//}
 	}
 
