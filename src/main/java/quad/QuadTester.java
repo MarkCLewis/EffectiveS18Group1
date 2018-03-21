@@ -1,4 +1,4 @@
-package terraintesting;
+package quad;
 
 import javafx.application.Application;
 import javafx.scene.Group;

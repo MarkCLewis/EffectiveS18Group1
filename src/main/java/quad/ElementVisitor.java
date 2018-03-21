@@ -1,4 +1,4 @@
-package terraintesting;
+package quad;
 
 import virtualworld.WorldObject;
 
@@ -8,6 +8,7 @@ import virtualworld.WorldObject;
  * Each visit() method accepts a single argument - a pointer or reference to an original Element derived class.
  */
 public interface ElementVisitor {
-	public boolean visit(QuadTree.Node n);
-	public boolean visit(WorldObject item);
+	public void visit(QuadTree.Node n);
+	public void visit(WorldObject item);
+	public boolean cares(QuadTree.Node n);
 }

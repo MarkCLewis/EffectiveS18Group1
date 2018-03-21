@@ -1,4 +1,4 @@
-package terraintesting;
+package quad;
 
 /*
  * accept() is defined to receive a single argument 

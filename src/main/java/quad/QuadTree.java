@@ -1,4 +1,4 @@
-package terraintesting;
+package quad;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,8 +84,14 @@ public class QuadTree implements Element {
 		
 	}
 
+	private void accept(final ElementVisitor visitor, Node n) {
+		if (visitor.cares(n)) {
+			
+		}
+	}
+	
 	@Override
 	public void accept(final ElementVisitor visitor) {
-		//visitor.visit(n);		
+		accept(visitor, root);
 	}
 }
