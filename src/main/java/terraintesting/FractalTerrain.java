@@ -1,8 +1,8 @@
 package terraintesting;
 
-public class FractalTerrain implements TerrainGenerationAlgorithm {
+/*public class FractalTerrain implements TerrainGenerationAlgorithm {
 	@Override
-	/*public void generateTerrain(double[][] heightMap, double maxElev) {
+	public void generateTerrain(double[][] heightMap, double maxElev) {
 		//TODO
 		//make methods static???
 		//figure out initial square width
@@ -59,7 +59,7 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 		//recursiveFunction(){
 			//if ()
 			//diamondStep
-			//squareStep
+			//squareStep //call multiple times???
 			//iter = iter + 1;
 			//square width passed in halved into recursive call
 		//}
@@ -152,3 +152,4 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 	}
 	*/
 }
+*/
