@@ -3,20 +3,24 @@ package quad;
 import quad.QuadTree.Node;
 import virtualworld.WorldObject;
 
-public class PrintVisitor implements ElementVisitor {
+public class PositionVisitor implements ElementVisitor{
 
 	@Override
 	public void visit(Node n) {
-		System.out.println("This is a node");
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void visit(WorldObject item) {
-		System.out.println("This is a WorldObject");
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public boolean cares(Node n) {
-		return true;
+		// TODO Auto-generated method stub
+		return false;
 	}
+
 }
