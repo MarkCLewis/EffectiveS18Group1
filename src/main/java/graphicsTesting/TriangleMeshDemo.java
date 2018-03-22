@@ -116,6 +116,17 @@ public class TriangleMeshDemo extends Application {
 		
 	}
 	
+	public MeshView getMeshView(TriangleMesh tMesh, PhongMaterial material, int transX, int transY, int transZ) {
+		MeshView mv = new MeshView(tMesh);
+		mv.setDrawMode(DrawMode.FILL);
+		mv.setMaterial(material);
+		mv.setTranslateX(transX);
+		mv.setTranslateY(transY);
+		mv.setTranslateZ(transZ);
+		
+		return mv;
+	}
+	
 	private MeshView getTestMesh() {
 		TriangleMesh pyramidMesh = new TriangleMesh();
 
@@ -140,14 +151,16 @@ public class TriangleMeshDemo extends Application {
 		        4,0,  3,0,  1,0           // Bottom front face
 		    );
 		
+		return getMeshView(pyramidMesh, new PhongMaterial(Color.BLUE), 0, 0 , 10);
+		/*
 		MeshView pyramid = new MeshView(pyramidMesh);
 		pyramid.setDrawMode(DrawMode.FILL);
 		pyramid.setMaterial(new PhongMaterial(Color.BLUE));
-		pyramid.setTranslateX(0/*200*/);
-		pyramid.setTranslateY(0/*100*/);
-		pyramid.setTranslateZ(10/*200*/);
+		pyramid.setTranslateX(0);
+		pyramid.setTranslateY(0);
+		pyramid.setTranslateZ(10);
 		
 		return pyramid;
-		
+		*/
 	}
 }
