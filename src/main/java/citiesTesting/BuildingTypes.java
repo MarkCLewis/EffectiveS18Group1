@@ -12,15 +12,15 @@ import java.util.Set;
 
 public class BuildingTypes {
 	//City type 1: square city
-	public static void makeCity1(Group mg, Color roof1, Color roof2, Color house1, Color house2, int x, int y, int z){
+	public static void makeCity1(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z){
 		Random rand = new Random();
 		
 		int rows = rand.nextInt(16)+4;
 		int cols = rand.nextInt(16)+4;
 		
-		int tempX = x;
-		//int tempY = y;
-		int tempZ = z;
+		double tempX = x;
+		//double tempY = y;
+		double tempZ = z;
 		for(int i = 0; i < cols; i++){
 			for(int j = 0; j < rows; j ++){
 				if(rand.nextInt(2)+1 == 1){
@@ -29,16 +29,16 @@ public class BuildingTypes {
 				else{
 					BuildingTypes.makeHouse2(mg, roof1, roof2, house1, house2, tempX, y, tempZ);
 				}
-				tempX += 200;
+				tempX += 200.0;
 			}
 			tempX = x;
-			tempZ -= 200;
+			tempZ -= 200.0;
 		}
 		
 		//Makes fences around the city
 		//TODO-check to see if it works
 		if(rand.nextInt(4)+1 == 1) {
-			BuildingTypes.makeFences(mg, rows*200, cols*200, BuildingTypes.colorAssignment(rand), BuildingTypes.colorAssignment(rand), x-100, y, tempZ-100);
+			BuildingTypes.makeFences(mg, rows*200, cols*200, BuildingTypes.colorAssignment(rand), BuildingTypes.colorAssignment(rand), x-100.0, y, tempZ-100.0);
 		}
 		
 		//Makes a big gate in front of the city
@@ -49,9 +49,22 @@ public class BuildingTypes {
 		}
 	}
 	
+	//City type 2: Circular city
+	//TODO
+	public static void makeCity2(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z){
+		Random rand = new Random();
+		
+		double tempX = x;
+		double tempY = y;
+		double tempZ = z;
+		
+		if(rand.nextInt(2)+1 == 1){
+			
+		}
+	}
 	
 	
-	public static void makeHouse1(Group mg, Color roof1, Color roof2, Color house1, Color house2, int x, int y, int z) {
+	public static void makeHouse1(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z) {
 		Box b = Shapes.makeBox(100, 100, 100, house1, house2, x, y, z);
 		b.setRotationAxis(Rotate.Y_AXIS);
 		b.setRotate(25);
@@ -61,7 +74,7 @@ public class BuildingTypes {
 		mg.getChildren().add(p);
 	}
 	
-	public static void makeHouse2(Group mg, Color roof1, Color roof2, Color house1, Color house2, int x, int y, int z) {
+	public static void makeHouse2(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z) {
 		Box b = Shapes.makeBox(100, 100, 100, house1, house2, x, y, z);
 		b.setRotationAxis(Rotate.Y_AXIS);
 		b.setRotate(25);
@@ -71,7 +84,7 @@ public class BuildingTypes {
 		mg.getChildren().add(c);
 	}
 	
-	public static void makeGate(Group mg, Color cColor1, Color cColor2, Color rColor1, Color rColor2, int x, int y, int z){
+	public static void makeGate(Group mg, Color cColor1, Color cColor2, Color rColor1, Color rColor2, double x, double y, double z){
 		//height = 500;
 		Cylinder cyl = Shapes.makeCylinder(50, 500, cColor1, cColor2, x, y, z); 
 		mg.getChildren().add(cyl);
@@ -88,17 +101,17 @@ public class BuildingTypes {
 	//TODO-fix fences
 	//x, y, and z should be the x, y, z values of the bottom left part of the city
 	//Makes a fence around a city given the city's length and width
-	public static void makeFences(Group mg, int l, int w, Color color1, Color color2, int x, int y, int z){
+	public static void makeFences(Group mg, int l, int w, Color color1, Color color2, double x, double y, double z){
 		int newL = l + 200;
 		int newW = w + 200;
 			
-		int newX = x - 100;
-		int newZ = z - 100;
+		double newX = x - 100.0;
+		double newZ = z - 100.0;
 		
 		//make front fences
-		while(newX <= (x-100) + newL){
+		while(newX <= (x-100.0) + newL){
 			mg.getChildren().add(Shapes.makeCylinder(10, 100, color1, color2, newX, y, newZ));
-			newX += 100;
+			newX += 100.0;
 		}
 			
 		//make left fences
@@ -120,11 +133,30 @@ public class BuildingTypes {
 		}
 	}
 	
+	public static void makeRect(Group mg, int l, int h, Color color1, Color color2, double x, double y, double z){
+		double tmpX = x;
+		double tmpY = y;
+		if(l > h){
+			int len = l / h;
+			for(int i = 0; i < len; i++){
+				mg.getChildren().add(Shapes.makeBox(h, h, h, color1, color2, tmpX, y, z));
+				tmpX += 100;
+			}
+		}
+		else if (l < h){
+			int height = h / l;
+			for(int i = 0; i < height; i ++){
+				mg.getChildren().add(Shapes.makeBox(l, l, l, color1, color2, x, tmpY, z));
+				tmpY -= 100;
+			}
+		}
+	}
+	
 	////////////////////////////////
 	//TODO-Central items for cities:
 	
 	
-	public static void makeCone(Group mg, Color color1, Color color2, int x, int y, int z, int w){
+	public static void makeCone(Group mg, Color color1, Color color2, double x, double y, double z, int w){
 		/*
 		int tempX = 500;
 		int tempY = 600;
@@ -132,24 +164,30 @@ public class BuildingTypes {
 		*/
 		for(int i = 0; i < 7; i++){
 			mg.getChildren().add(Shapes.makeCylinder(w, 100, color1, color2, x, y, z));
-			x += 15;
-			y -= 100;
+			x += 15.0;
+			y -= 100.0;
 			w -= 50;
 		}
 	}
 	
+	public static void makeObelisk(Group mg, Color color1, Color color2, double x, double y, double z){
+		makeRect(mg, 100, 500, color1, color1, x, y, z);
+		MeshView py = Shapes.makePyramid(200, 100, color2, color2, x, y-650.0, z);
+		mg.getChildren().add(py);
+	}
+	
 	//TODO-One of the objects for the center of a town
-	public static void makeSpiral(Group mg, Color color1, Color color2, Color color3, Color color4, int x, int y, int z){
+	public static void makeSpiral(Group mg, Color color1, Color color2, Color color3, Color color4, double x, double y, double z){
 		MeshView p = Shapes.makePyramid(100, 250, color3, color4, x, y-350, z);
 		mg.getChildren().add(p);
 		
 		Cylinder cyl = Shapes.makeCylinder(50, 500, color1,color2, x, y, z); 
 		mg.getChildren().add(cyl);
 		
-		int temp = y - 200;
+		double temp = y - 200.0;
 		for(int i = 0; i < 9; i++){
 			mg.getChildren().add(Shapes.makeCylinder(100, 25, color3, color4, x, temp, z));
-			temp += 50;
+			temp += 50.0;
 		}
 	}
 

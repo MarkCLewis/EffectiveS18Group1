@@ -27,13 +27,14 @@ public class CityMaker extends Application{
 		int a = 1;
 		//int b = rand.nextInt(100)+15;
 		//how many cities ^
+		
 		//TODO-use random int values to create random cities
 		//one for how many buildings, and one for what type of building
 		
 		//TODO-randomize x, y, z based on the world
-		int x = 300;
-		int y = 200;
-		int z = 200;
+		double x = 300.0;
+		double y = 200.0;
+		double z = 200.0;
 		
 		/*
 		Color roof1 = Color.PINK;
@@ -48,8 +49,6 @@ public class CityMaker extends Application{
 		Color house2 = BuildingTypes.secondaryColod(house1);
 		//Color fen = BuildingTypes.colorAssignment(rand);
 		
-		//TODO-make it so that I don't need these variables
-		
 		
 		//city type 1 (square city)
 		if(a == 1 ){
@@ -57,7 +56,7 @@ public class CityMaker extends Application{
 		}
 		//city type 2 (circular city)
 		else if (a == 2){
-			
+			//TODO-make circular city
 		}
 		
 		//BuildingTypes.makeHouse1(mainGroup, Color.HOTPINK, Color.PINK, Color.LIGHTSKYBLUE, Color.CADETBLUE, 300, 200, 200);
@@ -67,6 +66,7 @@ public class CityMaker extends Application{
 		primaryStage.show();
 	}
 
+	
 
 	protected boolean isInWater(Box box, float posX, float posY){		
 		return false;

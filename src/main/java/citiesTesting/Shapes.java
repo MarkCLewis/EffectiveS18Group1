@@ -13,7 +13,7 @@ import javafx.scene.shape.TriangleMesh;
 public class Shapes {
 
 	
-	public static Cylinder makeCylinder(int w, int h, Color color1, Color color2, int x, int y, int z){
+	public static Cylinder makeCylinder(int w, int h, Color color1, Color color2, double x, double y, double z){
 		Cylinder cylinder = new Cylinder(w,h);
 		PhongMaterial material = new PhongMaterial();
 		material.setDiffuseColor(color1);
@@ -32,7 +32,7 @@ public class Shapes {
 	}
 	*/
 	
-	public static Box makeBox(int l, int h, int w, Color color1, Color color2, int x, int y, int z){
+	public static Box makeBox(int l, int h, int w, Color color1, Color color2, double x, double y, double z){
 		Box box = new Box(l, h, w);
 		PhongMaterial material = new PhongMaterial();
 		material.setDiffuseColor(color1);
@@ -45,7 +45,7 @@ public class Shapes {
 		return box;
 	}
 	
-	public static MeshView makePyramid(int h, int s, Color color1, Color color2, int x, int y, int z){
+	public static MeshView makePyramid(int h, int s, Color color1, Color color2, double x, double y, double z){
 		TriangleMesh pyramidMesh = new TriangleMesh();
 		PhongMaterial material = new PhongMaterial();
 		material.setDiffuseColor(color1);
@@ -77,7 +77,7 @@ public class Shapes {
 		return pyramid;
 	}
 	
-	public static Rectangle makeRectangle(int w, int h, int x, int y, Color color1){
+	public static Rectangle makeRectangle(int w, int h, double x, double y, Color color1){
 		Rectangle rect = new Rectangle();
 		//TODO-find out how to set color
 		

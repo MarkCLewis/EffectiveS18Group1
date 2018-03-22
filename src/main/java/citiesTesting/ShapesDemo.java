@@ -115,12 +115,20 @@ public class ShapesDemo extends Application {
 		//TODO - in the real version, do not change y value
 		//the Y is only changed to show depth
 		
-		//makeThing(mainGroup, Color.LIGHTBLUE, Color.BLUE, Color.PURPLE, Color.LIGHTPINK, 500, 200, 300);
+		
 		/*
 		Cylinder cyl = Shapes.makeCylinder(400, 100, Color.CRIMSON, Color.DARKKHAKI, 500, 500, 200);
 		mainGroup.getChildren().add(cyl);
 		*/
 
+		//public void makeRect(Group mg, int l, int h, Color color1, Color color2, int x, int y, int z)
+		//TODO
+		/*
+		makeRect(mainGroup, 100, 500, Color.CADETBLUE, Color.CADETBLUE, 500, 700, 300);
+		MeshView py = Shapes.makePyramid(200, 100, Color.CADETBLUE, Color.CADETBLUE, 500, 50, 300);
+		mainGroup.getChildren().add(py);
+		*/
+		
 		
 		makeGate(mainGroup, Color.ORANGE, Color.CORAL, Color.RED, Color.DARKRED, 100, 400, -500);
 		
@@ -258,6 +266,10 @@ public class ShapesDemo extends Application {
 			mg.getChildren().add(Shapes.makeCylinder(100, 25, color3, color4, x, temp, z));
 			temp += 50;
 		}
+	}
+	
+	public void makeObelisk(Group mg, Color square1, Color square2, Color pyr1, Color pyr2, double x, double y, double z){
+		
 	}
 	
 	public void makeCentralCone(Group mg, Color color1, Color color2, int x, int y, int z, int w){
