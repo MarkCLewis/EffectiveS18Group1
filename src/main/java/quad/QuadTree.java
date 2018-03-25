@@ -77,7 +77,7 @@ public class QuadTree implements Element {
 	}
 	
 	public static void visitAllNeighbors(double distance) {
-		
+		// TODO Auto-generated method stub
 	}
 	
 	public static void visitNeighbors(double distance) {
