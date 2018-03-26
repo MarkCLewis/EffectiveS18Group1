@@ -7,31 +7,31 @@ import javafx.scene.Camera;
 import virtualworld.WorldObject;
 
 public class QuadTree implements Element {
-	
+
 	private Node root;
-	
+
 	//Node class stores four children, key location, and value
 	static class Node {
 		double x; double y;
 		List<Node> children = new ArrayList<Node>();
 		List<WorldObject> contents = new ArrayList<WorldObject>();
-		double size; 
-		
+		double size;
+
 		//Node constructor takes coordinates and a value
 		public Node (double x, double y, double s) {
 			this.x = x;
 			this.y = y;
 			this.size = s;
 		}
-		
+
 		public double getX(Node node) {
 			return node.x;
 		}
-		
+
 		public double getY(Node node) {
 			return node.y;
 		}
-		
+
 		public double getSize(Node node) {
 			return node.size;
 		}
@@ -42,7 +42,7 @@ public class QuadTree implements Element {
 			return child;
 		}
 	}
-	
+
 	//sets the root equal to an initial value
 	public void insert(WorldObject item) {
 		double x = item.getX();
@@ -50,7 +50,7 @@ public class QuadTree implements Element {
 		double s = item.getSize();
 		root = new Node(x, y, s);
 	}
-	
+
 	//inserts a node in the correct place
 	private Node insert(WorldObject item, Node n) {
 		//if no node is passed in, a new node is created
@@ -67,21 +67,21 @@ public class QuadTree implements Element {
 		}
 		return n;
 	}
-	
+
 	public static void updateCameraLocation(Camera camera) {
-		
+
 	}
-	
+
 	public static void recursiveFunc(Camera camera) {
 		//(cameraX - radius) < (xMax + size/2) && (cameraX + radius) > (xMin - size/2)
 	}
-	
+
 	public static void visitAllNeighbors(double distance) {
 		// TODO Auto-generated method stub
 	}
-	
+
 	public static void visitNeighbors(double distance) {
-		
+
 	}
 
 	private void accept(final ElementVisitor visitor, Node n) {
@@ -89,9 +89,14 @@ public class QuadTree implements Element {
 			visitor.visit(n);
 		}
 	}
-	
+
 	@Override
 	public void accept(final ElementVisitor visitor) {
 		accept(visitor, root);
+	}
+
+	//purely for testing purposes, hardcoded in
+	public void print(Node n, String tab) {
+		
 	}
 }
