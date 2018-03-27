@@ -21,10 +21,18 @@ public class ExampleObject implements WorldObject {
 	public double getY() {
 		return this.y;
 	}
+	
+	@Override
+	public double getZ() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public double getSize() {
 		return this.size;
 	}
+
+	
 
 }
