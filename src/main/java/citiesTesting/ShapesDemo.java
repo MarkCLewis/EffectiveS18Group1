@@ -131,18 +131,19 @@ public class ShapesDemo extends Application {
 		
 		
 		makeGate(mainGroup, Color.ORANGE, Color.CORAL, Color.RED, Color.DARKRED, 100, 400, -500);
-		
+		//makeHouse1(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, 450, 200, 300);
 		
 		int tempX = 450;
 		int tempY = 200;
 		int tempZ = 300;
 		for (int i = 0; i < 4; i++) {
 			makeHouse1(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, tempX, tempY, tempZ);
-			tempX -= 100;
-			tempY += 100;
-			tempZ -= 200;
+			tempX -= 50;
+			tempY += 50;
+			tempZ -= 100;
 
 		}
+		
 		tempX = 850;
 		tempY = 200;
 		tempZ = 300;
@@ -201,12 +202,12 @@ public class ShapesDemo extends Application {
 	
 	
 	public void makeHouse1(Group mg, Color roof1, Color roof2, Color house1, Color house2, int x, int y, int z) {
-		Box b = Shapes.makeBox(100, 100, 100, house1, house2, x, y, z);
+		Box b = Shapes.makeBox(50, 50, 50, house1, house2, x, y, z);
 		b.setRotationAxis(Rotate.Y_AXIS);
 		b.setRotate(25);
 		mg.getChildren().add(b);
 
-		MeshView p = Shapes.makePyramid(100, 250, roof1, roof2, x, y - 150, z);
+		MeshView p = Shapes.makePyramid(50, 100, roof1, roof2, x, y - 75, z);
 		mg.getChildren().add(p);
 		// return temp;
 	}

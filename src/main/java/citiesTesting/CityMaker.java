@@ -32,6 +32,8 @@ public class CityMaker extends Application{
 		//one for how many buildings, and one for what type of building
 		
 		//TODO-randomize x, y, z based on the world
+		//TODO- change x, y, z so that
+		//1 double = 1 meter
 		double x = 300.0;
 		double y = 200.0;
 		double z = 200.0;
@@ -44,9 +46,9 @@ public class CityMaker extends Application{
 		Color fen = Color.BROWN;
 		*/
 		Color roof1 = BuildingTypes.colorAssignment(rand);
-		Color roof2 = BuildingTypes.secondaryColod(roof1);
+		Color roof2 = BuildingTypes.secondaryColor(roof1);
 		Color house1 = BuildingTypes.colorAssignment(rand);
-		Color house2 = BuildingTypes.secondaryColod(house1);
+		Color house2 = BuildingTypes.secondaryColor(house1);
 		//Color fen = BuildingTypes.colorAssignment(rand);
 		
 		
