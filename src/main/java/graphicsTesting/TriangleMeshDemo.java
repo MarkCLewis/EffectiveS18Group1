@@ -109,25 +109,28 @@ public class TriangleMeshDemo extends Application {
 				scene.setCursor(Cursor.NONE);
 		 	}
 		});	
-		mainGroup.getChildren().add(getTestMesh());
-		
+		//mainGroup.getChildren().add(getTestMesh());
+		addMesh(mainGroup, getTestMesh(), new PhongMaterial(Color.BLUE), new int[]{0, 0, 10});
 		stage.setScene(scene);
 		stage.show();
 		
 	}
+	public void addMesh(Group group, TriangleMesh tMesh, PhongMaterial material, int[] transCords) {
+		group.getChildren().add(getMeshView(tMesh, material, transCords));
+	}
 	
-	public MeshView getMeshView(TriangleMesh tMesh, PhongMaterial material, int transX, int transY, int transZ) {
+	private MeshView getMeshView(TriangleMesh tMesh, PhongMaterial material, int[] transCords) {
 		MeshView mv = new MeshView(tMesh);
 		mv.setDrawMode(DrawMode.FILL);
 		mv.setMaterial(material);
-		mv.setTranslateX(transX);
-		mv.setTranslateY(transY);
-		mv.setTranslateZ(transZ);
+		mv.setTranslateX(transCords[0]);
+		mv.setTranslateY(transCords[1]);
+		mv.setTranslateZ(transCords[2]);
 		
 		return mv;
 	}
 	
-	private MeshView getTestMesh() {
+	private TriangleMesh getTestMesh() {
 		TriangleMesh pyramidMesh = new TriangleMesh();
 
 		pyramidMesh.getTexCoords().addAll(0,0);
@@ -151,7 +154,7 @@ public class TriangleMeshDemo extends Application {
 		        4,0,  3,0,  1,0           // Bottom front face
 		    );
 		
-		return getMeshView(pyramidMesh, new PhongMaterial(Color.BLUE), 0, 0 , 10);
+		return pyramidMesh;
 		/*
 		MeshView pyramid = new MeshView(pyramidMesh);
 		pyramid.setDrawMode(DrawMode.FILL);
