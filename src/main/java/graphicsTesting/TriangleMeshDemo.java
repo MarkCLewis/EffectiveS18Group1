@@ -128,7 +128,7 @@ public class TriangleMeshDemo extends Application {
 		return mv;
 	}
 	
-	private TriangleMesh getTestMesh() {
+	public TriangleMesh getTestMesh() {
 		TriangleMesh pyramidMesh = new TriangleMesh();
 
 		pyramidMesh.getTexCoords().addAll(0,0);

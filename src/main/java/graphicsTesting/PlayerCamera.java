@@ -1,6 +1,10 @@
 package graphicsTesting;
 
+import javafx.scene.Cursor;
 import javafx.scene.PerspectiveCamera;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.transform.Rotate;
 
 public class PlayerCamera extends PerspectiveCamera {
@@ -15,17 +19,69 @@ public class PlayerCamera extends PerspectiveCamera {
     private double cameraFarClip;
 	private double cameraNearClip;
 	
-	public PlayerCamera() {
-		x1 = 0;
-		y1 = 0;
+	public static class Builder {
+		private double x1 = 0;
+		private double y1 = 0;
+		private double x2 = x1;
+		private double y2 = x2;
+		private Rotate xRotate = new Rotate(0,0,0,0,Rotate.X_AXIS);
+		private Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
+		private double rotateModifier = 25;
+		private double cameraYlimit = 15;
+		private double cameraFarClip = 10000;
+		private double cameraNearClip = 3;
+		
+		public Builder() {}
+		
+		public Builder mouseX(double val) {
+			x1 = val;
+			return this;
+		}
+		public Builder mouseY(double val) {
+			y1 = val;
+			return this;
+		}
+		public Builder xRotate(Rotate val) {
+			xRotate = val;
+			return this;
+		}
+		public Builder yRotate(Rotate val) {
+			yRotate = val;
+			return this;
+		}
+		public Builder rotateModifier(double val) {
+			rotateModifier = val;
+			return this;
+		}
+		public Builder cameraYlimit(double val) {
+			cameraYlimit = val;
+			return this;
+		}
+		public Builder cameraFarClip(double val) {
+			cameraFarClip = val;
+			return this;
+		}
+		public Builder cameraNearClip(double val) {
+			cameraNearClip = val;
+			return this;
+		}
+		
+		public PlayerCamera build() {
+			return new PlayerCamera(this);
+		}
+		
+	}
+	public PlayerCamera(Builder builder) {
+		x1 = builder.x1;
+		y1 = builder.y1;
 		x2 = x1;
 	    y2 = x2;
-		xRotate = new Rotate(0,0,0,0,Rotate.X_AXIS);
-	    yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
-	    rotateModifier = 25;
-	    cameraYlimit = 15;
-	    cameraFarClip = 10000;
-		cameraNearClip = 3;
+		xRotate = builder.xRotate;
+	    yRotate = builder.yRotate;
+	    rotateModifier = builder.rotateModifier;
+	    cameraYlimit = builder.cameraYlimit;
+	    cameraFarClip = builder.cameraFarClip;
+		cameraNearClip = builder.cameraNearClip;
 		this.setFarClip(cameraFarClip);
 		this.setNearClip(cameraNearClip);		
 		this.getTransforms().addAll(xRotate,yRotate);
@@ -68,5 +124,17 @@ public class PlayerCamera extends PerspectiveCamera {
 	}
 	public void setYRotateAngle(double newVal) {
 		yRotate.setAngle(newVal);
+	}
+	public double getRotateModifier() {
+		return rotateModifier;
+	}
+	public void setRotateModifier(double newVal) {
+		rotateModifier = newVal;
+	}
+	public double getYLimit() {
+		return cameraYlimit;
+	}
+	public void setYLimit(double newVal) {
+		cameraYlimit = newVal;
 	}
 }
