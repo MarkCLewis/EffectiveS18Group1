@@ -1,10 +1,6 @@
 package graphicsTesting;
 
-import javafx.scene.Cursor;
 import javafx.scene.PerspectiveCamera;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.transform.Rotate;
 
 public class PlayerCamera extends PerspectiveCamera {

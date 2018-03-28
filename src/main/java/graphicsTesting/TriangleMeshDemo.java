@@ -1,5 +1,8 @@
 package graphicsTesting;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+
 import javafx.application.Application;
 import javafx.scene.Camera;
 import javafx.scene.Cursor;
@@ -105,6 +108,13 @@ public class TriangleMeshDemo extends Application {
 				x1 = x2;
 				y1 = y2;
 				scene.setCursor(Cursor.NONE);
+				try {
+					Robot bot = new Robot();
+					bot.mouseMove(960,540);
+				} catch (AWTException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		 	}
 		});	
 		//mainGroup.getChildren().add(getTestMesh());
