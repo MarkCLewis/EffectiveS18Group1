@@ -28,8 +28,6 @@ public class TriangleMeshDemo extends Application {
 	private double y1 = 0;
 	private double x2;
     private double y2;
-    private double dx;
-    private double dy;
     private Rotate xRotate = new Rotate(0,0,0,0,Rotate.X_AXIS);
     private Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
     private double rotateModifier = 25;

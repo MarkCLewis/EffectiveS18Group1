@@ -8,9 +8,9 @@ import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.MeshView;
 import javafx.scene.transform.Rotate;
-import java.util.Set;
+import virtualworld.WorldObject;
 
-public class BuildingTypes {
+public class BuildingTypes implements WorldObject {
 	//City type 1: square city
 	public static void makeCity1(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z){
 		Random rand = new Random();
@@ -38,14 +38,14 @@ public class BuildingTypes {
 		//Makes fences around the city
 		//TODO-check to see if it works
 		if(rand.nextInt(4)+1 == 1) {
-			BuildingTypes.makeFences(mg, rows*200, cols*200, BuildingTypes.colorAssignment(rand), BuildingTypes.colorAssignment(rand), x-100.0, y, tempZ-100.0);
+			BuildingTypes.makeFences(mg, rows*200, cols*200, BuildingTypes.colorAssignment(rand), BuildingTypes.colorAssignment(rand), x, y, tempZ);
 		}
 		
 		//Makes a big gate in front of the city
 		if(rand.nextInt(10)+1 == 1){
 			Color cColor1 = BuildingTypes.colorAssignment(rand);
 			Color rColor1 = BuildingTypes.colorAssignment(rand);
-			BuildingTypes.makeGate(mg, cColor1, BuildingTypes.secondaryColod(cColor1), rColor1, BuildingTypes.secondaryColod(rColor1), x + ((cols*200)/2), y, tempZ - 400);
+			BuildingTypes.makeGate(mg, cColor1, BuildingTypes.secondaryColor(cColor1), rColor1, BuildingTypes.secondaryColor(rColor1), x + ((cols*200)/2), y, tempZ - 400);
 		}
 	}
 	
@@ -101,9 +101,9 @@ public class BuildingTypes {
 	//TODO-fix fences
 	//x, y, and z should be the x, y, z values of the bottom left part of the city
 	//Makes a fence around a city given the city's length and width
-	public static void makeFences(Group mg, int l, int w, Color color1, Color color2, double x, double y, double z){
-		int newL = l + 200;
-		int newW = w + 200;
+	public static void makeFences(Group mg, double l, double w, Color color1, Color color2, double x, double y, double z){
+		double newL = l + 200.0;
+		double newW = w + 200.0;
 			
 		double newX = x - 100.0;
 		double newZ = z - 100.0;
@@ -133,18 +133,18 @@ public class BuildingTypes {
 		}
 	}
 	
-	public static void makeRect(Group mg, int l, int h, Color color1, Color color2, double x, double y, double z){
+	public static void makeRect(Group mg, double l, double h, Color color1, Color color2, double x, double y, double z){
 		double tmpX = x;
 		double tmpY = y;
 		if(l > h){
-			int len = l / h;
+			double len = l / h;
 			for(int i = 0; i < len; i++){
 				mg.getChildren().add(Shapes.makeBox(h, h, h, color1, color2, tmpX, y, z));
 				tmpX += 100;
 			}
 		}
 		else if (l < h){
-			int height = h / l;
+			double height = h / l;
 			for(int i = 0; i < height; i ++){
 				mg.getChildren().add(Shapes.makeBox(l, l, l, color1, color2, x, tmpY, z));
 				tmpY -= 100;
@@ -157,11 +157,6 @@ public class BuildingTypes {
 	
 	
 	public static void makeCone(Group mg, Color color1, Color color2, double x, double y, double z, int w){
-		/*
-		int tempX = 500;
-		int tempY = 600;
-		int tempW = 400;
-		*/
 		for(int i = 0; i < 7; i++){
 			mg.getChildren().add(Shapes.makeCylinder(w, 100, color1, color2, x, y, z));
 			x += 15.0;
@@ -223,7 +218,7 @@ public class BuildingTypes {
 	}
 
 	//Gives a secondary color based on the first color
-	public static Color secondaryColod(Color item){
+	public static Color secondaryColor(Color item){
 		if(item == Color.RED){
 			item = Color.DARKRED;
 		}
@@ -247,6 +242,31 @@ public class BuildingTypes {
 		}
 		return item;
 	}
+
+	@Override
+	public double getX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getZ() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public double getSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 	/*
 	public static void multColorAssignment(Color item1, Color item2, Random rand) {
