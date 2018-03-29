@@ -219,7 +219,7 @@ public class distantRendering extends Application {
 		addBody(wavePoolThree, numWaveX, numWaveY, sceneRoot, 300);
 		addBody(wavePoolFour, numWaveX, numWaveY, sceneRoot, 450);*/
 		
-		buildLake(2,2, sceneRoot);
+		buildLake(5,5, sceneRoot);
 		
 /*		MeshView mv = createMeshView(test,testCoords, faceTest, 0, 0, 10 );
 		RotateTransition rotator = rotator(mv);
@@ -274,7 +274,7 @@ private MeshView createMeshView(float [] Points, float[] texCoords, int[] Faces,
 	meshView.setDrawMode(DrawMode.FILL);
 	int randomColor = ThreadLocalRandom.current().nextInt(1, 30 + 1);
 	if(randomColor%3==0)
-		meshView.setMaterial(new PhongMaterial(Color.ALICEBLUE));
+		meshView.setMaterial(new PhongMaterial(Color.BLUE));
 	else
 		meshView.setMaterial(new PhongMaterial(COLOR));
 	
