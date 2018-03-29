@@ -23,9 +23,9 @@ public class CameraTesting extends Application{
 		scene.setFill(Color.GRAY);
 		
 		PlayerCamera camera = new PlayerCamera.Builder().build();
-		scene.setCamera(camera);
+		//scene.setCamera(camera);
 		Group cameraGroup = new Group();
-		cameraGroup.getChildren().add(camera);
+		//cameraGroup.getChildren().add(camera);
 		mainGroup.getChildren().add(cameraGroup);
 		
 		//camera.moveCamera(scene);

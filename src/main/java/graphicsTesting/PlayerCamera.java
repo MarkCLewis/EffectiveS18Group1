@@ -1,9 +1,11 @@
 package graphicsTesting;
 
+import javafx.scene.Camera;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.transform.Rotate;
 
-public class PlayerCamera extends PerspectiveCamera {
+public class PlayerCamera {
+	private Camera camera;
 	private double x1;
 	private double y1;
 	private double x2;
@@ -16,6 +18,7 @@ public class PlayerCamera extends PerspectiveCamera {
 	private double cameraNearClip;
 	
 	public static class Builder {
+		private Camera camera = new PerspectiveCamera();
 		private double x1 = 0;
 		private double y1 = 0;
 		private double x2 = x1;
@@ -68,6 +71,7 @@ public class PlayerCamera extends PerspectiveCamera {
 		
 	}
 	public PlayerCamera(Builder builder) {
+		camera = builder.camera;
 		x1 = builder.x1;
 		y1 = builder.y1;
 		x2 = x1;
@@ -78,9 +82,9 @@ public class PlayerCamera extends PerspectiveCamera {
 	    cameraYlimit = builder.cameraYlimit;
 	    cameraFarClip = builder.cameraFarClip;
 		cameraNearClip = builder.cameraNearClip;
-		this.setFarClip(cameraFarClip);
-		this.setNearClip(cameraNearClip);		
-		this.getTransforms().addAll(xRotate,yRotate);
+		camera.setFarClip(cameraFarClip);
+		camera.setNearClip(cameraNearClip);		
+		camera.getTransforms().addAll(xRotate,yRotate);
 	}
 	//Builder pattern goes here
 	//public PlayerCamera(){}
