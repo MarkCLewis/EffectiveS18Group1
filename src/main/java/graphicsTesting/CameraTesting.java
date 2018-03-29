@@ -28,7 +28,7 @@ public class CameraTesting extends Application{
 		cameraGroup.getChildren().add(camera);
 		mainGroup.getChildren().add(cameraGroup);
 		
-		camera.moveCamera(scene);
+		//camera.moveCamera(scene);
 		
 		TriangleMesh pyramidMesh = new TriangleMesh();
 
