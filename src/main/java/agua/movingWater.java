@@ -67,7 +67,7 @@ public class movingWater extends Application {
 	generateTerrain testPlot = new generateTerrain();
 	float[][] coords = testPlot.generateCoordinates(cds[0], cds[1], cds[2], scale, noiseLevel, seed); //int xRes, int yRes, int zRes, int scale, float noiseLevel, int seed
 	
-	float[][] endCoords = testPlot.generateCoordinates(cds[0], cds[1], cds[2], scale, noiseLevel, seed+45);;
+	float[][] endCoords = testPlot.generateCoordinates(cds[0], cds[1], cds[2], scale, noiseLevel*1.5, seed+45);;
 	
 	TriangleMesh mesh = testPlot.generateTerrain(cds[0], scale, coords);
 	
