@@ -85,20 +85,7 @@ System.out.println(nodes.size());
 
 	}
 	
-	@Override
-	public double getX() {
-		return this.x;
-	}
-
-	@Override
-	public double getY() {
-		return this.y;
-	}
-
-	@Override
-	public double getSize() {
-		return this.size;
-	}
+	
 	
 	public void start(Stage primaryStage) throws Exception {
 		
@@ -135,12 +122,28 @@ System.out.println(nodes.size());
 	public static void main(String args[]) {
 	launch(args);
 		
-		
-		
-		
-		
 
+	}
+	
+	@Override
+	public double getX() {
+		return this.x;
+	}
 
+	@Override
+	public double getY() {
+		return this.y;
+	}
+
+	@Override
+	public double getSize() {
+		return this.size;
+	}
+
+	@Override
+	public double getZ() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
