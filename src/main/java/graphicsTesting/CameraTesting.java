@@ -22,13 +22,13 @@ public class CameraTesting extends Application{
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 		scene.setFill(Color.GRAY);
 		
-		PlayerCamera camera = new PlayerCamera.Builder().build();
-		scene.setCamera(camera);
-		Group cameraGroup = new Group();
-		cameraGroup.getChildren().add(camera);
-		mainGroup.getChildren().add(cameraGroup);
+		//CameraController pCam = new CameraController.Builder().build();
+		//scene.setCamera(camera);
+		//Group cameraGroup = new Group();
+		//cameraGroup.getChildren().add(camera);
+		//mainGroup.getChildren().add(cameraGroup);
 		
-		camera.moveCamera(scene);
+		//camera.moveCamera(scene);
 		
 		TriangleMesh pyramidMesh = new TriangleMesh();
 
