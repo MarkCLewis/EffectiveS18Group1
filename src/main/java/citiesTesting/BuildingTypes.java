@@ -12,18 +12,18 @@ import virtualworld.WorldObject;
 
 public class BuildingTypes implements WorldObject {
 	//City type 1: square city
-	public static void makeCity1(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z){
-		Random rand = new Random();
+	public static void makeCity1(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z, Random r){
+		//Random rand = new Random();
 		
-		int rows = rand.nextInt(16)+4;
-		int cols = rand.nextInt(16)+4;
+		int rows = r.nextInt(16)+4;
+		int cols = r.nextInt(16)+4;
 		
 		double tempX = x;
 		//double tempY = y;
 		double tempZ = z;
 		for(int i = 0; i < cols; i++){
 			for(int j = 0; j < rows; j ++){
-				if(rand.nextInt(2)+1 == 1){
+				if(r.nextInt(2)+1 == 1){
 					BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, tempX, y, tempZ);
 				}
 				else{
@@ -37,14 +37,14 @@ public class BuildingTypes implements WorldObject {
 		
 		//Makes fences around the city
 		//TODO-check to see if it works
-		if(rand.nextInt(3)+1 == 1) {
-			BuildingTypes.makeFences(mg, rows*47, cols*47, BuildingTypes.colorAssignment(rand), BuildingTypes.colorAssignment(rand), x, y, tempZ);
+		if(r.nextInt(3)+1 == 1) {
+			BuildingTypes.makeFences(mg, rows*47, cols*47, BuildingTypes.colorAssignment(r), BuildingTypes.colorAssignment(r), x, y, tempZ);
 		}
 		
 		//Makes a big gate in front of the city
-		if(rand.nextInt(6)+1 == 1){
-			Color cColor1 = BuildingTypes.colorAssignment(rand);
-			Color rColor1 = BuildingTypes.colorAssignment(rand);
+		if(r.nextInt(6)+1 == 1){
+			Color cColor1 = BuildingTypes.colorAssignment(r);
+			Color rColor1 = BuildingTypes.colorAssignment(r);
 			BuildingTypes.makeGate(mg, cColor1, BuildingTypes.secondaryColor(cColor1), rColor1, BuildingTypes.secondaryColor(rColor1), x + ((rows*47)/2), y, tempZ - 60);
 			BuildingTypes.makeGate(mg, cColor1, BuildingTypes.secondaryColor(cColor1), rColor1, BuildingTypes.secondaryColor(rColor1), x + ((rows*47)/2), y, tempZ + (cols*47)+60);
 			//might take out ^ the second gate
@@ -54,35 +54,33 @@ public class BuildingTypes implements WorldObject {
 	
 	//City type 2: Circular city
 	//TODO
-	public static void makeCity2(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z){
-		Random rand = new Random();
+	public static void makeCity2(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z, int num, Random r){
+		//Random rand = new Random();
 		
 		//double tempX = x;
 		//double tempY = y;
 		//double tempZ = z;
 		
-		int layers = rand.nextInt(5)+3;
+		int layers = r.nextInt(5)+3;
 		
 		//Making the central object
-		if(rand.nextInt(2)+1 == 1){
-			makeObelisk(mg, BuildingTypes.colorAssignment(rand), BuildingTypes.colorAssignment(rand), x, y-60, z);
+		if(num == 1){
+			makeObelisk(mg, BuildingTypes.colorAssignment(r), BuildingTypes.colorAssignment(r), x, y-60, z);
 			//TODO-check why the y value is messed up
 		}
-		else {
-			if(rand.nextInt(2)+1 == 1){
-				Color color1 = BuildingTypes.colorAssignment(rand);
-				Color color2 = BuildingTypes.colorAssignment(rand);
-				makeSpiral(mg, color1, BuildingTypes.secondaryColor(color1), color2, BuildingTypes.secondaryColor(color2), x, y-60, z);
-				//TODO-check why the y value is messed up
-			}
+		else if(num == 2){
+			Color color1 = BuildingTypes.colorAssignment(r);
+			Color color2 = BuildingTypes.colorAssignment(r);
+			makeSpiral(mg, color1, BuildingTypes.secondaryColor(color1), color2, BuildingTypes.secondaryColor(color2), x, y-60, z);
 		}
+		
 
 		for (int i = 0; i < layers; i++){
 			double radius = 40 * i;
 			//TODO-more radius distance testing
 			
 			////make north house////
-			if(rand.nextInt(2)+1 == 1){
+			if(r.nextInt(2)+1 == 1){
 				BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x, y, z+radius);
 			}
 			else{
@@ -90,7 +88,7 @@ public class BuildingTypes implements WorldObject {
 			}
 
 			////make NE house////
-			if(rand.nextInt(2)+1 == 1){
+			if(r.nextInt(2)+1 == 1){
 				BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x + (radius*Math.cos(45)), y, z + (radius*Math.sin(45)));
 			}
 			else{
@@ -99,7 +97,7 @@ public class BuildingTypes implements WorldObject {
 
 			
 			////make east house////
-			if(rand.nextInt(2)+1 == 1){
+			if(r.nextInt(2)+1 == 1){
 				BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x+radius, y, z);
 			}
 			else{
@@ -107,7 +105,7 @@ public class BuildingTypes implements WorldObject {
 			}
 			
 			////make SE house////
-			if(rand.nextInt(2)+1 == 1){
+			if(r.nextInt(2)+1 == 1){
 				BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x + (radius*Math.cos(45)), y, z - (radius*Math.sin(45)));
 			}
 			else{
@@ -115,7 +113,7 @@ public class BuildingTypes implements WorldObject {
 			}
 			
 			////make south house////
-			if(rand.nextInt(2)+1 == 1){
+			if(r.nextInt(2)+1 == 1){
 				BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x, y, z-radius);
 			}
 			else{
@@ -123,7 +121,7 @@ public class BuildingTypes implements WorldObject {
 			}
 			
 			////make SW house////
-			if(rand.nextInt(2)+1 == 1){
+			if(r.nextInt(2)+1 == 1){
 				BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x - (radius*Math.cos(45)), y, z - (radius*Math.sin(45)));
 			}
 			else{
@@ -131,7 +129,7 @@ public class BuildingTypes implements WorldObject {
 			}
 			
 			////make west house////
-			if(rand.nextInt(2)+1 == 1){
+			if(r.nextInt(2)+1 == 1){
 				BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x-radius, y, z);
 			}
 			else{
@@ -139,7 +137,7 @@ public class BuildingTypes implements WorldObject {
 			}
 			
 			/////make NW house////
-			if(rand.nextInt(2)+1 == 1){
+			if(r.nextInt(2)+1 == 1){
 				BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x + (radius*Math.cos(45)), y, z + (radius*Math.sin(45)));
 			}
 			else{
@@ -195,7 +193,6 @@ public class BuildingTypes implements WorldObject {
 		
 	}
 	
-	//TODO-fix fences
 	//x, y, and z should be the x, y, z values of the bottom left part of the city
 	//Makes a fence around a city given the city's length and width
 	public static void makeFences(Group mg, double l, double w, Color color1, Color color2, double x, double y, double z){
@@ -252,7 +249,7 @@ public class BuildingTypes implements WorldObject {
 	*/
 	
 	////////////////////////////////
-	//TODO-Central items for cities:
+	//Central items for cities:
 	
 	
 	public static void makeCone(Group mg, Color color1, Color color2, double x, double y, double z, int w){
@@ -273,7 +270,7 @@ public class BuildingTypes implements WorldObject {
 		mg.getChildren().add(py);
 	}
 	
-	//TODO-One of the objects for the center of a town
+	//One of the objects for the center of a town
 	public static void makeSpiral(Group mg, Color color1, Color color2, Color color3, Color color4, double x, double y, double z){
 		MeshView p = Shapes.makePyramid(30, 60, color3, color4, x, y-100, z);
 		mg.getChildren().add(p);

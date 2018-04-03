@@ -22,6 +22,9 @@ public class CityMaker extends Application{
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 		
+		
+		//TODO-make a seed when generating cities to make sure
+		//that they remain the same once you leave and come back
 		Random rand = new Random();
 		int a = rand.nextInt(2)+1;
 		//int a = 2;
@@ -34,8 +37,8 @@ public class CityMaker extends Application{
 		//TODO-randomize x, y, z based on the world
 		//TODO- change x, y, z so that
 		//1 double = 1 meter
-		double x = 300.0;
-		double y = 200.0;
+		double x = 400.0;
+		double y = 300.0;
 		double z = 200.0;
 		
 		/*
@@ -54,12 +57,12 @@ public class CityMaker extends Application{
 		
 		//city type 1 (square city)
 		if(a == 1 ){
-			BuildingTypes.makeCity1(mainGroup, roof1, roof2, house1, house2, x, y, z);
+			BuildingTypes.makeCity1(mainGroup, roof1, roof2, house1, house2, x, y, z, rand);
 		}
 		//city type 2 (circular city)
 		else if (a == 2){
 			//TODO-make circular city
-			BuildingTypes.makeCity2(mainGroup, roof1, roof2, house1, house2, x, y, z);
+			BuildingTypes.makeCity2(mainGroup, roof1, roof2, house1, house2, x, y, z, rand.nextInt(3)+1, rand);
 		}
 		
 		//BuildingTypes.makeHouse1(mainGroup, Color.HOTPINK, Color.PINK, Color.LIGHTSKYBLUE, Color.CADETBLUE, 300, 200, 200);
