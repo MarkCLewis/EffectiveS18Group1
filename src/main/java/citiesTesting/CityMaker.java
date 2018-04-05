@@ -23,8 +23,8 @@ public class CityMaker extends Application{
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 		
 		Random rand = new Random();
-		//int a = rand.nextInt(2)+1;
-		int a = 1;
+		int a = rand.nextInt(2)+1;
+		//int a = 2;
 		//int b = rand.nextInt(100)+15;
 		//how many cities ^
 		
@@ -59,6 +59,7 @@ public class CityMaker extends Application{
 		//city type 2 (circular city)
 		else if (a == 2){
 			//TODO-make circular city
+			BuildingTypes.makeCity2(mainGroup, roof1, roof2, house1, house2, x, y, z);
 		}
 		
 		//BuildingTypes.makeHouse1(mainGroup, Color.HOTPINK, Color.PINK, Color.LIGHTSKYBLUE, Color.CADETBLUE, 300, 200, 200);

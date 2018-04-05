@@ -22,11 +22,19 @@ public class CameraTesting extends Application{
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 		scene.setFill(Color.GRAY);
 		
+<<<<<<< HEAD
 		//CameraController pCam = new CameraController.Builder().build();
 		//scene.setCamera(camera);
 		//Group cameraGroup = new Group();
 		//cameraGroup.getChildren().add(camera);
 		//mainGroup.getChildren().add(cameraGroup);
+=======
+		PlayerCamera camera = new PlayerCamera.Builder().build();
+		//scene.setCamera(camera);
+		Group cameraGroup = new Group();
+		//cameraGroup.getChildren().add(camera);
+		mainGroup.getChildren().add(cameraGroup);
+>>>>>>> 68e15285eba16dec9212fb17709c88b0eba93f24
 		
 		//camera.moveCamera(scene);
 		

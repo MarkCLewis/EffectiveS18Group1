@@ -83,6 +83,7 @@ public class CameraController {
 		}
 		
 	}
+	
 	private CameraController(Builder builder) {
 		camera = builder.camera;
 		x1 = builder.x1;
