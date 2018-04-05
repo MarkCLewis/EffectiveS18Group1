@@ -1,5 +1,5 @@
 package terraintesting;
-
+/*
 public class FractalTerrain implements TerrainGenerationAlgorithm {
 	@Override
 	public static void generateTerrain(double[][] heightMap, double maxElev) {
@@ -29,7 +29,7 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 			return rand;
 		}
 
-		//assigns the random heights from 0 to the maxElev
+		//assigns gthe random heights from 0 to the maxElev
 		private static void assignHeights(double x, double y, double squareWidth){
 			heightMap[x][y] = generateRandom(); //x1
 			heightMap[x + squareWidth][y] = generateRandom(); //x2
@@ -155,3 +155,4 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 		return (int) (maxElevation * Math.random());
 	}
 }
+*/
