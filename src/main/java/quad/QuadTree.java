@@ -11,6 +11,7 @@ import virtualworld.WorldObject;
 public class QuadTree implements Element {
 
 	private Node root;
+	private int count = 0;
 
 	//Node class stores four children, key location, and value
 	static class Node {
@@ -37,6 +38,14 @@ public class QuadTree implements Element {
 		public double getSize(Node node) {
 			return node.size;
 		}
+		
+		/**
+		 * Gets the number of the child from a given coordinate
+		 * 
+		 * @param x x-coordinate
+		 * @param y y-coordinate
+		 * @return child the int value of the child node
+		 */
 		public int getChild (Double x, Double y) {
 			int child = 0;
 			if (x > this.x) child |= 1;
@@ -45,28 +54,57 @@ public class QuadTree implements Element {
 		}
 	}
 
-	//sets the root equal to an initial value
-	public void insert(WorldObject item) {
+	/**
+     * Returns a reference to the tree's root node.  Callers shouldn't modify nodes, directly.
+     *
+     * @return Node The root node.
+     */
+	public Node getRootNode() {
+		return this.root;
+	}
+	
+	/**
+	 * Returns the number of nodes in the tree
+	 * 
+	 * @return the number of the nodes in the tree
+	 */
+	public int getCount() {
+		return this.count;
+	}
+	
+	/**
+	 * Sets the root equal to an initial value
+	 * 
+	 * @param item A WorldObject to be encapsulated by a node
+	 * @return root The root of the QuadTree, which has just been made
+	 */
+	public Node insert(WorldObject item) {
 		double x = item.getX();
 		double y = item.getY();
 		double s = item.getSize();
-		root = new Node(x, y, s);
+		count++;
+		return root = new Node(x, y, s);
 	}
 
-	//inserts a node in the correct place
+	/**
+	 * Inserts a node in the correct place, if the node passed in is null,
+	 * then the WorldObject gets passed to the other insert function, if the 
+	 * node is valid, then the WorldObject gets inserted into the correct child.
+	 * 
+	 * @param item A WorldObject to be encapsulated by a node
+	 * @param n A node to encapsulate the WorldObject
+	 * @return The parent node
+	 */
 	Node insert(WorldObject item, Node n) {
-		//if no node is passed in, a new node is created
 		double x = item.getX();
 		double y = item.getY();
 		double s = item.getSize();
-		if (n == null) return new Node(x, y, s);
-		//recursively calls insert until the node has been inserted into the correct place
+		if (n == null) return insert(item);
 		else {
-			//finds the child
 			int child = n.getChild(x, y);
-			//sets the child to the recursive call
 			n.children.set(child, insert(item, n));
 		}
+		count++;
 		return n;
 	}
 
@@ -86,18 +124,32 @@ public class QuadTree implements Element {
 
 	}
 
+	/**
+	 * Accepts the visitor into the QuadTree and passes it to the other accept function
+	 * 
+	 * @param visitor the visitor being accepted
+	 */
+	@Override
+	public void accept(final ElementVisitor visitor) {
+		accept(visitor, root);
+	}
+	
+	/**
+	 * Checks if the visitor cares about the node, then recursively visits
+	 * all of the nodes that the visitor cares about.
+	 * 
+	 * @param visitor the visitor being accepted
+	 * @param n the node that is being visited
+	 */
 	private void accept(final ElementVisitor visitor, Node n) {
 		if (visitor.cares(n)) {
 			visitor.visit(n);
 		}
 	}
 
-	@Override
-	public void accept(final ElementVisitor visitor) {
-		accept(visitor, root);
-	}
-
-	//purely for testing purposes, hardcoded in
+	/**
+	 * Purely for testing purposes, prints out the structure of the QuadTree
+	 */
 	public void print() {
 		if (root == null) {
 			System.out.println("The tree is currently empty");

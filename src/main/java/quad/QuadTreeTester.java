@@ -6,10 +6,7 @@ import virtualworld.WorldObject;
 
 public class QuadTreeTester {
 	
-	
-	public static QuadTree addToTree() {
-		QuadTree quad = new QuadTree();
-		
+	public static QuadTree addToTree(QuadTree quad) {
 		/**
 		for (int a = 0; a <= 10; a++) {
 			for (int b = 0; b <= 10; b++) {
@@ -25,7 +22,6 @@ public class QuadTreeTester {
 		}
 		**/
 		
-		
 		Node node = new Node (1, 1, 5);
 		WorldObject testObject1 = new ExampleObject(1.0, 1.0, 5.0);
 		WorldObject testObject2 = new ExampleObject(5, 5, 5);
@@ -37,9 +33,10 @@ public class QuadTreeTester {
 	}
 	
 	public static void main(String[] args) {
-		QuadTree quad = addToTree();
+		QuadTree quad = new QuadTree();
+		QuadTree addedQuad = addToTree(quad);
 		//PrintVisitor printTest = new PrintVisitor();
 		//quad.accept(printTest);
-		quad.print();
+		addedQuad.print();
 	}
 }
