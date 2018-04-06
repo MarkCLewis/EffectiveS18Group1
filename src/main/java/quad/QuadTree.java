@@ -1,7 +1,9 @@
 package quad;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import javafx.scene.Camera;
 import virtualworld.WorldObject;
@@ -52,7 +54,7 @@ public class QuadTree implements Element {
 	}
 
 	//inserts a node in the correct place
-	private Node insert(WorldObject item, Node n) {
+	Node insert(WorldObject item, Node n) {
 		//if no node is passed in, a new node is created
 		double x = item.getX();
 		double y = item.getY();
@@ -96,7 +98,27 @@ public class QuadTree implements Element {
 	}
 
 	//purely for testing purposes, hardcoded in
-	public void print(Node n, String tab) {
-		
+	public void print() {
+		if (root == null) {
+			System.out.println("The tree is currently empty");
+			return;
+		} else {
+			Queue<Node> queue =new LinkedList<Node>();
+			queue.add(root);
+			while (true) {
+				int count = queue.size();
+				if (count == 0) break;
+				while (count > 0) {
+					Node node = queue.peek();
+					System.out.println(node.size + " ");
+					queue.remove();
+					for (Node child : node.children) {
+						queue.add(child);
+					}
+					count--;
+				}
+				System.out.println();
+			}
+		}
 	}
 }

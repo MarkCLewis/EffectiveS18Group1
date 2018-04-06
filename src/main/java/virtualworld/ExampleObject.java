@@ -3,13 +3,15 @@ package virtualworld;
 public class ExampleObject implements WorldObject {
 
 	double x;
+	double z;
 	double y;
 	double size;
 	
-	public ExampleObject (double x, double y, double s) {
+	public ExampleObject (double x, double z, double y) {
 		this.x = x;
+		this.z = z;
 		this.y = y;
-		this.size = s;
+		this.size = x*z;
 	}
 	
 	@Override
@@ -24,8 +26,7 @@ public class ExampleObject implements WorldObject {
 	
 	@Override
 	public double getZ() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.z;
 	}
 
 	@Override
