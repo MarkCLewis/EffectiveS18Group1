@@ -137,6 +137,22 @@ public class CameraController {
 		camera.setTranslateX(x+Math.cos(theta));
 	}
 	
+	public void rotateRight() {
+		yRotate.setAngle(yRotate.getAngle()+camSpeed);
+	}
+	
+	public void rotateLeft() {
+		yRotate.setAngle(yRotate.getAngle()-camSpeed);
+	}
+	
+	public void rotateUp() {
+		xRotate.setAngle(xRotate.getAngle()+camSpeed);
+	}
+	
+	public void rotateDown() {
+		xRotate.setAngle(xRotate.getAngle()-camSpeed);
+	}
+	
 	public void moveUp() {
 		camera.setTranslateY((camera.getTranslateY()-camSpeed));
 	}

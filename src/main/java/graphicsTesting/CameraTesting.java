@@ -4,6 +4,7 @@ import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.DrawMode;
@@ -21,22 +22,48 @@ public class CameraTesting extends Application{
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 		scene.setFill(Color.GRAY);
-		
-<<<<<<< HEAD
-		//CameraController pCam = new CameraController.Builder().build();
-		//scene.setCamera(camera);
-		//Group cameraGroup = new Group();
-		//cameraGroup.getChildren().add(camera);
-		//mainGroup.getChildren().add(cameraGroup);
-=======
-		PlayerCamera camera = new PlayerCamera.Builder().build();
-		//scene.setCamera(camera);
+		Camera camera = new PerspectiveCamera(true);
+		scene.setCamera(camera);
 		Group cameraGroup = new Group();
-		//cameraGroup.getChildren().add(camera);
+		cameraGroup.getChildren().add(camera);
 		mainGroup.getChildren().add(cameraGroup);
->>>>>>> 68e15285eba16dec9212fb17709c88b0eba93f24
 		
-		//camera.moveCamera(scene);
+		CameraController pCam = new CameraController.Builder(camera).build();
+		
+		scene.setOnKeyPressed(event ->{
+			 KeyCode key = event.getCode();
+			 if(key == KeyCode.W) {
+				 pCam.moveForward();
+			 }
+			 if(key == KeyCode.S) {
+				 pCam.moveBackward();
+			 }
+			 if(key == KeyCode.A) {
+				 pCam.moveLeft();
+			 }
+			 if(key == KeyCode.D) {
+				 pCam.moveRight();
+			 }
+			 
+			 if(key == KeyCode.RIGHT) {
+				 pCam.rotateRight();
+			 }
+			 if(key == KeyCode.LEFT) {
+				 pCam.rotateLeft();
+			 }
+			 if(key == KeyCode.UP) {
+				 pCam.rotateUp();
+			 }
+			 if(key == KeyCode.DOWN) {
+				 pCam.rotateDown();
+			 }
+			 if(key == KeyCode.R) {
+				 pCam.moveUp();
+			 }
+			 if(key == KeyCode.F) {
+				 pCam.moveDown();
+			 }
+			});
 		
 		TriangleMesh pyramidMesh = new TriangleMesh();
 
@@ -66,6 +93,8 @@ public class CameraTesting extends Application{
 		pyramid.setTranslateX(0);
 		pyramid.setTranslateY(0);
 		pyramid.setTranslateZ(10);
+		
+		mainGroup.getChildren().add(pyramid);
 		stage.setScene(scene);
 		stage.show();
 	}
