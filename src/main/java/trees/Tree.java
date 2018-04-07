@@ -37,8 +37,10 @@ public class Tree extends Application implements WorldObject{
 		productionB="ba";
 		
 		Random times=new Random();
-		loops=(int)(Math.pow(3,(times.nextInt((8 - 3) + 1) + 3)-1)+Math.pow(2,(times.nextInt((8 - 3) + 1) + 3)-1));
-		
+		int nTimes=(times.nextInt((4 - 3) + 1) + 3)-1;
+		loops=(int)((Math.pow(3,nTimes-1)+Math.pow(2,nTimes-1)-1));
+		System.out.println("Type A tree generated");
+		System.out.println("Tree size: "+nTimes+" levels");
 	}
 	
 	
@@ -46,11 +48,14 @@ public class Tree extends Application implements WorldObject{
 	public void treeB(){
 		
 		axiom= new Branch("b",ix,iz,iz,s);
+		
 		productionA="ab";
 		productionB="ba";
 		Random times=new Random();
-		
-		loops=(int)(Math.pow(2,(times.nextInt((8 - 3) + 1) + 3)-1));
+		int nTimes=(times.nextInt((4 - 3) + 1) + 3)-1;
+		loops=(int)(Math.pow(2,nTimes)-1);
+		System.out.println("Type B tree generated");
+		System.out.println("Tree size: "+nTimes+" levels");
 		
 	}
 	
@@ -105,7 +110,7 @@ public class Tree extends Application implements WorldObject{
 			
 			for(Branch node : parent.getChildren()) {
 				
-			    System.out.print(node.getType()+ " ");
+			    System.out.println(node.getType()+ " ");
 			    
 			}
 
@@ -119,10 +124,10 @@ public class Tree extends Application implements WorldObject{
 		
 	
 
-		axiom.setInitialCoordinates(250, 500, 3);
+		
 		
 		Tree tree = new Tree();
-		tree.treeA();
+		
 		tree.buildTree();
 		
 		primaryStage.setTitle("Tree");
@@ -130,31 +135,6 @@ public class Tree extends Application implements WorldObject{
 		Scene scene = new Scene(mainGroup, 500, 500, true);
 		
 
-		Cylinder b = new Cylinder();
-		Cylinder a = new Cylinder();
-		Cylinder c = new Cylinder();
-
-
-			a.setRadius(3);
-			a.setHeight(50);
-			a.setTranslateX(axiom.getIx());
-			a.setTranslateY(axiom.getIy()-a.getHeight()/2);
-
-			b.setRadius(2);
-			b.setHeight(a.getHeight()/2);
-			b.setTranslateX(a.getTranslateX()+a.getHeight()/4);
-			b.setTranslateY(a.getTranslateY()-a.getHeight());
-			b.getTransforms().add(new Rotate(45));
-
-			c.setRadius(2);
-			c.setHeight(b.getHeight()/2);
-			c.setTranslateX(b.getTranslateX()+b.getHeight()/2);
-			c.setTranslateY(b.getTranslateY()-b.getHeight()/4);
-			c.getTransforms().add(new Rotate(90));
-
-			mainGroup.getChildren().add(a);
-			mainGroup.getChildren().add(b);
-			mainGroup.getChildren().add(c);
 		
 
 		primaryStage.setScene(scene);
