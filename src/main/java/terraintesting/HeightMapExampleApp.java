@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.transform.Rotate;
@@ -45,6 +47,11 @@ public class HeightMapExampleApp extends Application {
 		HeightMapExample hme = new HeightMapExample(screenW, screenH, tga, 0); 
 		TriangleMesh tm = TerrainToTriangleMesh.getTriangleMesh(hme, triangleWidth);
 		MeshView mv = new MeshView(tm);
+		mv.setDrawMode(DrawMode.FILL);
+		mv.setMaterial(new PhongMaterial(Color.BLUE));
+		mv.setTranslateX(0);
+		mv.setTranslateY(10);
+		mv.setTranslateZ(10);
 		
  
 		// NOT my code - copied from John's graphics code
@@ -170,7 +177,7 @@ class ExampleTGA implements TerrainGenerationAlgorithm {
 	public void generateTerrain(int[][] heightMap, int maxElev) {
 		for(int x=0; x<heightMap.length; x++) {
 			for(int z=0; z<heightMap[0].length; z++) {
-				heightMap[x][z] = 0;
+				heightMap[x][z] = x*z;
 			}
 		}
 		
