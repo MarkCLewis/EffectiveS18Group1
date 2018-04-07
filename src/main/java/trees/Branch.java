@@ -5,9 +5,9 @@ import java.util.List;
 
 
 public class Branch{
-    private String type = null;
-    public double ix,iy,iz,fx,fy,fz;
-    public String t;
+	
+	private String t;
+    private double ix,iy,iz, s;
     private List<Branch> children = new ArrayList<>();
     private Branch parent = null;
 
@@ -15,21 +15,19 @@ public class Branch{
       
     }
     
-    public  Branch(String t,double ix, double iy, double iz, double fx, double fy, double fz){
+    public  Branch(String t,double ix, double iy, double iz, double s){
 		this.t=t;
 		this.ix=ix;
 		this.iy=iy;
 		this.iz=iz;
-		this.fx=fx;
-		this.fy=fy;
-		this.fz=fz;
+		this.s=s;
 		
 	}
 	
 
 
     public void addChild(String t) {
-        Branch newChild = new Branch(t,0,0,0,0,0,0);
+        Branch newChild = new Branch(t,0,0,0,0);
         newChild.setParent(this);
         children.add(newChild);
     }
@@ -61,31 +59,22 @@ public class Branch{
 		this.iy=iy;
 		this.iz=iz;
     }
-	public void seFinalCoordinates(int fx, int fy, int fz){
-		this.fx=fx;
-		this.fy=fy;
-		this.fz=fz;
-	}
+
 	
-	public double getix(){
+	public double getIx(){
 		return ix;
 	}
 	
-	public double getiy(){
+	public double getIy(){
 		return iy;
 	}
-	public double getiz(){
+	public double getIz(){
 		return iz;
 	}
-	public double getfx(){
-		return fx;
+	public double getS(){
+		return s;
 	}
-	public double getfy(){
-		return fy;
-	}
-	public double getfz(){
-		return fz;
-	}
+	
     public void setType(String t) {
         this.t = t;
     }
