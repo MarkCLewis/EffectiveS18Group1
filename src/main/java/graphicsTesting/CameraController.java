@@ -37,7 +37,7 @@ public class CameraController {
 		private double cameraNearClip = 3;
 		
 		public Builder(Camera cam) {
-			this.camera = cam;
+			camera = cam;
 		}
 		
 		public Builder mouseX(double val) {

@@ -1,4 +1,9 @@
 package graphicsTesting;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
+import citiesTesting.BuildingTypes;
 import javafx.application.Application;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -11,10 +16,6 @@ import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.stage.Stage;
-
-import java.util.Random;
-
-import citiesTesting.BuildingTypes;
 
 public class CameraTesting extends Application{
 	public static void main(String[] args) {
@@ -34,40 +35,51 @@ public class CameraTesting extends Application{
 		
 		CameraController pCam = new CameraController.Builder(camera).build();
 		
-		scene.setOnKeyPressed(event ->{
+		Set<KeyCode> keySet = new HashSet<KeyCode>();
+		scene.setOnKeyPressed(event ->{ 
 			 KeyCode key = event.getCode();
-			 if(key == KeyCode.W) {
+			 keySet.add(key);
+			 
+			 if(keySet.contains(KeyCode.W)) {
 				 pCam.moveForward();
 			 }
-			 if(key == KeyCode.S) {
+			 if(keySet.contains(KeyCode.S)) {
 				 pCam.moveBackward();
 			 }
-			 if(key == KeyCode.A) {
+			 if(keySet.contains(KeyCode.A)) {
 				 pCam.moveLeft();
 			 }
-			 if(key == KeyCode.D) {
+			 if(keySet.contains(KeyCode.D)) {
 				 pCam.moveRight();
 			 }
-			 
-			 if(key == KeyCode.RIGHT) {
+			 if(keySet.contains(KeyCode.RIGHT)) {
 				 pCam.rotateRight();
 			 }
-			 if(key == KeyCode.LEFT) {
+			 if(keySet.contains(KeyCode.LEFT)) {
 				 pCam.rotateLeft();
 			 }
-			 if(key == KeyCode.UP) {
+			 if(keySet.contains(KeyCode.UP)) {
 				 pCam.rotateUp();
 			 }
-			 if(key == KeyCode.DOWN) {
+			 if(keySet.contains(KeyCode.DOWN)) {
 				 pCam.rotateDown();
 			 }
-			 if(key == KeyCode.R) {
+			 if(keySet.contains(KeyCode.R)) {
 				 pCam.moveUp();
 			 }
-			 if(key == KeyCode.F) {
+			 if(keySet.contains(KeyCode.F)) {
 				 pCam.moveDown();
 			 }
 			});
+		
+		scene.setOnKeyReleased(event ->{
+			KeyCode key = event.getCode();
+			keySet.remove(key);
+			
+		});
+			
+		
+		 System.out.println(keySet);
 		
 		TriangleMesh pyramidMesh = new TriangleMesh();
 

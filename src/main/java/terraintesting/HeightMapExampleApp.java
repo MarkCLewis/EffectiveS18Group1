@@ -125,7 +125,8 @@ public class HeightMapExampleApp extends Application {
 				y1 = y2;
 				scene.setCursor(Cursor.NONE);
 		 	}
-		});	
+		});
+		
 		mainGroup.getChildren().add(mv);
 		
 		stage.setScene(scene);
