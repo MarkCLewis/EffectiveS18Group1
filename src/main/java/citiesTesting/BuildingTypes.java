@@ -81,8 +81,8 @@ public class BuildingTypes implements WorldObject {
 		}
 		
 
-		for (int i = 0; i < layers; i++){
-			double radius = 40 * i;
+		for (int i = 1; i < layers; i++){
+			double radius = 50 * i;
 			//TODO-more radius distance testing
 			
 			////make north house////
@@ -172,7 +172,7 @@ public class BuildingTypes implements WorldObject {
 		}
 		
 		for(int i = 0; i < layers; i ++){
-			double radius = 40 * i;
+			double radius = 50 * i;
 			if(i % 2 == 0){
 				////make north house////
 				if(r.nextInt(2)+1 == 1){
