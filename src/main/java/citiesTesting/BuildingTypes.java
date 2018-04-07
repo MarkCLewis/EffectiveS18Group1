@@ -81,8 +81,8 @@ public class BuildingTypes implements WorldObject {
 		}
 		
 
-		for (int i = 0; i < layers; i++){
-			double radius = 40 * i;
+		for (int i = 1; i < layers; i++){
+			double radius = 50 * i;
 			//TODO-more radius distance testing
 			
 			////make north house////
@@ -172,7 +172,7 @@ public class BuildingTypes implements WorldObject {
 		}
 		
 		for(int i = 0; i < layers; i ++){
-			double radius = 40 * i;
+			double radius = 50 * i;
 			if(i % 2 == 0){
 				////make north house////
 				if(r.nextInt(2)+1 == 1){
@@ -244,25 +244,25 @@ public class BuildingTypes implements WorldObject {
 	}
 	
 	public static void makeHouse1(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z) {
-		Box b = Shapes.makeBox(28, 28, 28, house1, house2, x, y, z);
+		Box b = Shapes.makeBox(20, 20, 20, house1, house2, x, y, z);
 		//Box b = Shapes.makeBox(100, 100, 100, house1, house2, x, y, z);
 		b.setRotationAxis(Rotate.Y_AXIS);
 		b.setRotate(25);
 		mg.getChildren().add(b);
 		
-		MeshView p = Shapes.makePyramid(28, 55, roof1, roof2, x, y - 40, z);
+		MeshView p = Shapes.makePyramid(20, 40, roof1, roof2, x, y - 30, z);
 		//MeshView p = Shapes.makePyramid(100, 250, roof1, roof2, x, y - 150, z);
 		mg.getChildren().add(p);
 	}
 	
 	public static void makeHouse2(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z) {
 		//Box b = Shapes.makeBox(100, 100, 100, house1, house2, x, y, z);
-		Box b = Shapes.makeBox(28, 28, 28, house1, house2, x, y, z);
+		Box b = Shapes.makeBox(20, 20, 20, house1, house2, x, y, z);
 		b.setRotationAxis(Rotate.Y_AXIS);
 		b.setRotate(25);
 		mg.getChildren().add(b);
 
-		Cylinder c = Shapes.makeCylinder(30, 15, roof1, roof2, x, y-20, z);
+		Cylinder c = Shapes.makeCylinder(20, 15, roof1, roof2, x, y-18, z);
 		//Cylinder c = Shapes.makeCylinder(100, 50, roof1, roof2, x, y-75, z);
 		mg.getChildren().add(c);
 	}

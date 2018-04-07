@@ -138,7 +138,9 @@ public class ShapesDemo extends Application {
 		
 		makeObelisk(mainGroup, Color.ORANGE,Color.DARKRED, 525, 240, -500);
 		
-		makeHouse1(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, 600, 300, -500);
+		BuildingTypes.makeHouse1(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, 600, 300, -500);
+		
+		BuildingTypes.makeHouse2(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, 500, 300, -500);
 		
 		Cylinder cyl = Shapes.makeCylinder(10, 150, Color.CHARTREUSE,Color.GREEN, 700, 240, -500); 
 		mainGroup.getChildren().add(cyl);
