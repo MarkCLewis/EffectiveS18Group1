@@ -131,6 +131,8 @@ public class ShapesDemo extends Application {
 		
 		
 		//makeGate(mainGroup, Color.ORANGE, Color.CORAL, Color.RED, Color.DARKRED, 525, 300, -500);
+		
+		
 		makeObelisk(mainGroup, Color.ORANGE,Color.DARKRED, 525, 240, -500);
 		
 		makeHouse1(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, 600, 300, -500);
@@ -139,6 +141,10 @@ public class ShapesDemo extends Application {
 		mainGroup.getChildren().add(cyl);
 		
 		makeCentralSpiral(mainGroup, Color.LIGHTBLUE, Color.CADETBLUE, Color.RED, Color.ORANGERED, 300, 300, 200);
+		
+		makeHouse1(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, 600, 300, -500);
+		
+		BuildingTypes.makeTemple(mainGroup, Color.ORANGE, Color.GOLDENROD, Color.ORANGE, Color.GOLDENROD, 800, 200, -500);
 		
 		//public void makeCentralSpiral(Group mg, Color color1, Color color2, Color color3, Color color4, int x, int y, int z)
 		
@@ -232,6 +238,8 @@ public class ShapesDemo extends Application {
 		//Cylinder c = Shapes.makeCylinder(100, 50, roof1, roof2, x, y-75, z);
 		mg.getChildren().add(c);
 	}
+	
+
 	/*
 	public void makeRect(Group mg, int l, int h, Color color1, Color color2, int x, int y, int z){
 		int tmpX = x;

@@ -28,7 +28,7 @@ public class CityMaker extends Application{
 		Random rand = new Random();
 		int a = rand.nextInt(2)+1;
 		//int a = 2;
-		//int b = rand.nextInt(100)+15;
+		//int b = rand.nextInt(50)+15;
 		//how many cities ^
 		
 		//TODO-use random int values to create random cities
@@ -64,9 +64,7 @@ public class CityMaker extends Application{
 			//TODO-make circular city
 			BuildingTypes.makeCity2(mainGroup, roof1, roof2, house1, house2, x, y, z, rand.nextInt(3)+1, rand);
 		}
-		
-		//BuildingTypes.makeHouse1(mainGroup, Color.HOTPINK, Color.PINK, Color.LIGHTSKYBLUE, Color.CADETBLUE, 300, 200, 200);
-		//TODO-n.b. do not change y-values
+
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -76,6 +74,7 @@ public class CityMaker extends Application{
 
 	protected boolean isInWater(Box box, float posX, float posY){		
 		return false;
+		//TODO
 	}
 	
 }

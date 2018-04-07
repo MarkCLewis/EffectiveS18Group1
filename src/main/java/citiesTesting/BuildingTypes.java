@@ -247,6 +247,50 @@ public class BuildingTypes implements WorldObject {
 		}
 	}
 	*/
+	////////////////////////////////
+	//Items outside cities
+	public static void makeTemple(Group mg, Color roof1, Color roof2, Color cols1, Color cols2, double x, double y, double z){
+		Box b1 = Shapes.makeBox(80.0, 5.0, 40.0, roof1, roof2, x, y, -500);
+		mg.getChildren().add(b1);
+		
+		double newX = x-25;
+		double newZ = z;
+		
+		for(int i = 0; i < 2; i++){
+			Cylinder cyl = Shapes.makeCylinder(5.0, 40.0, cols1, cols2, newX, y-20, newZ); 
+			mg.getChildren().add(cyl);
+		
+			Cylinder cyl1 = Shapes.makeCylinder(5.0, 40.0, cols1, cols2, newX+50, y-20, newZ); 
+			mg.getChildren().add(cyl1);
+			newZ += 80.0;
+			
+		}
+		
+		while(newZ <= z){
+			newZ += 20.0;
+			Cylinder cyl = Shapes.makeCylinder(5.0, 40.0, cols1, cols2, newX, 220, newZ); 
+			mg.getChildren().add(cyl);
+		
+			Cylinder cyl1 = Shapes.makeCylinder(5.0, 40.0, cols1, cols2, newX+50, 220, newZ); 
+			mg.getChildren().add(cyl1);
+		}
+		
+		Box b2 = Shapes.makeBox(80.0, 5.0, 40.0, roof1, roof2, x, y-40, z);
+		mg.getChildren().add(b2);
+		
+		double l = 80.0;
+		double w = 40.0;
+		double newY = y-40;
+		for(int i = 0; i < 5; i++){
+			newY -= 5.0;
+			l-=10.0;
+			w-=10.0;
+			Box b3 = Shapes.makeBox(l, 5.0, w, roof1, roof2, newX+25.0, newY, newZ);
+			mg.getChildren().add(b3);
+		}
+	}
+	
+	
 	
 	////////////////////////////////
 	//Central items for cities:
