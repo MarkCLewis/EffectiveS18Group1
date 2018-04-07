@@ -84,6 +84,18 @@ public class TriangleMeshDemo extends Application {
 		 if(key == KeyCode.LEFT) {
 			 yRotate.setAngle(yRotate.getAngle()-10);
 		 }
+		 if(key == KeyCode.UP) {
+			 xRotate.setAngle(xRotate.getAngle()+10);
+		 }
+		 if(key == KeyCode.DOWN) {
+			 xRotate.setAngle(xRotate.getAngle()-10);
+		 }
+		 if(key == KeyCode.R) {
+			 camera.setTranslateY((camera.getTranslateY()-1));
+		 }
+		 if(key == KeyCode.F) {
+			 camera.setTranslateY((camera.getTranslateY()+1));
+		 }
 		});
 
 		scene.addEventHandler(MouseEvent.ANY, event -> {
@@ -108,13 +120,13 @@ public class TriangleMeshDemo extends Application {
 				x1 = x2;
 				y1 = y2;
 				scene.setCursor(Cursor.NONE);
-				try {
+				/*try {
 					Robot bot = new Robot();
 					bot.mouseMove(960,540);
 				} catch (AWTException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
 		 	}
 		});	
 		//mainGroup.getChildren().add(getTestMesh());

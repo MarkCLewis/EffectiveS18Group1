@@ -1,6 +1,16 @@
 package terraintesting;
+<<<<<<< HEAD
 
 import java.util.concurrent.ThreadLocalRandom;
+=======
+/*
+public class FractalTerrain implements TerrainGenerationAlgorithm {
+	@Override
+	public static void generateTerrain(double[][] heightMap, double maxElev) {
+		//TODO
+		//figure out initial square width
+		//figure out how to do steps for each subsequent generated square
+>>>>>>> 65faf64b01e47159b5b2d9e16d6e487b8b3edbb4
 
 public class FractalTerrain implements TerrainGenerationAlgorithm {
 	@Override
@@ -15,6 +25,7 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 
 		//generates peturbation; -roughness^n <= peturbation <= roughness^n
 		//where n is the iteration
+<<<<<<< HEAD
 		private double peturb = (-(Math.pow(randCoeff, iter))) +
 					ThreadLocalRandom.current().nextDouble(Math.pow(randCoeff, (2 * iter)));
 		
@@ -48,19 +59,58 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 		}
 
 		//squareStep(double x, double y, squareWidth){
+=======
+		//change to ThreadLocalRandom
+		private static void generatePeturb(double iter){
+			private int pet = (-(Math.pow(randCoeff, iter))) +
+					Math.random.nextDouble(Math.pow(randCoeff, (2 * iter));
+		}
+
+		//generates random height to assign to points
+		//change to ThreadLocalRandom
+		private static int generateRandom(){
+			private double rand = new Random().nextDouble(maxElev);
+			return rand;
+		}
+
+		//assigns gthe random heights from 0 to the maxElev
+		private static void assignHeights(double x, double y, double squareWidth){
+			heightMap[x][y] = generateRandom(); //x1
+			heightMap[x + squareWidth][y] = generateRandom(); //x2
+			heightMap[x][y + squareWidth] = generateRandom(); //x3
+			heightMap[x + squareWidth][y + squareWidth] = generateRandom(); //x4
+		}
+
+		private static double avgCorners(double squareWidth, double x, double y){
+			private double average = ((heightMap[x][y] + heightMap[x + squareWidth][y] +
+					  heightMap[x][y + squareWidth] +
+					  heightMap[x + squareWidth][y + squareWidth])/4);
+			private double oAvg = average + peturb;
+			return oAvg; //???
+		}
+
+		private static void diamondStep(double x, double y, double squareWidth){
+			heightMap[x + (squareWidth/2)][y + (squareWidth/2)] = avgCorners(x,y);
+		}
+
+		//public static void squareStep(double x, double y){
+>>>>>>> 65faf64b01e47159b5b2d9e16d6e487b8b3edbb4
 			//assignHeights(passed in with squareWidth divided by 2);
 			//avgCorners(passed in with squareWidth divided by 2);
 		//}
 
 		//diamond and square step get repeated over and over
 		//squareWidth should be passed in halved every time
+		//for loop for looping over the different squares
+		//talk to Lewis
 
 		//recursiveFunction(){
 			//if ()
 			//diamondStep
 			//squareStep //call multiple times???
-			//iter = iter + 1;
+			//iter = iter + 1.0;
 			//square width passed in halved into recursive call
+            //else if ()
 		//}
 	}
 

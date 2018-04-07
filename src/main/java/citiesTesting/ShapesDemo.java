@@ -6,9 +6,12 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Material;
+import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.MeshView;
+import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
@@ -131,6 +134,8 @@ public class ShapesDemo extends Application {
 		
 		
 		//makeGate(mainGroup, Color.ORANGE, Color.CORAL, Color.RED, Color.DARKRED, 525, 300, -500);
+		
+		
 		makeObelisk(mainGroup, Color.ORANGE,Color.DARKRED, 525, 240, -500);
 		
 		makeHouse1(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, 600, 300, -500);
@@ -139,6 +144,11 @@ public class ShapesDemo extends Application {
 		mainGroup.getChildren().add(cyl);
 		
 		makeCentralSpiral(mainGroup, Color.LIGHTBLUE, Color.CADETBLUE, Color.RED, Color.ORANGERED, 300, 300, 200);
+		
+		makeHouse1(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, 600, 300, -500);
+		
+		BuildingTypes.makeTemple(mainGroup, Color.ORANGE, Color.GOLDENROD, Color.ORANGE, Color.GOLDENROD, 800, 200, -500);
+		
 		
 		//public void makeCentralSpiral(Group mg, Color color1, Color color2, Color color3, Color color4, int x, int y, int z)
 		
@@ -232,28 +242,8 @@ public class ShapesDemo extends Application {
 		//Cylinder c = Shapes.makeCylinder(100, 50, roof1, roof2, x, y-75, z);
 		mg.getChildren().add(c);
 	}
-	/*
-	public void makeRect(Group mg, int l, int h, Color color1, Color color2, int x, int y, int z){
-		int tmpX = x;
-		int tmpY = y;
-		if(l > h){
-			int len = l / h;
-			for(int i = 0; i < len; i++){
-				mg.getChildren().add(Shapes.makeBox(h, h, h, color1, color2, tmpX, y, z));
-				tmpX += 10;
-				//tmpX += 100;
-			}
-		}
-		else if (l < h){
-			int height = h / l;
-			for(int i = 0; i < height; i ++){
-				mg.getChildren().add(Shapes.makeBox(l, l, l, color1, color2, x, tmpY, z));
-				tmpY -= 10;
-				//tmpY -= 100;
-			}
-		}
-	}
-	*/
+	
+
 	//makeGate(mainGroup, Color.ORANGE, Color.CORAL, Color.DARKRED, 350, 400, 200, 500);
 	public void makeGate(Group mg, Color cColor1, Color cColor2, Color rColor1, Color rColor2, int x, int y, int z){
 		int height = 100;
@@ -295,11 +285,6 @@ public class ShapesDemo extends Application {
 	}
 	
 	public void makeCentralCone(Group mg, Color color1, Color color2, int x, int y, int z, int w){
-		/*
-		int tempX = 500;
-		int tempY = 600;
-		int tempW = 400;
-		*/
 		for(int i = 0; i < 7; i++){
 			mg.getChildren().add(Shapes.makeCylinder(w, 100, color1, color2, x, y, z));
 			x += 15;
