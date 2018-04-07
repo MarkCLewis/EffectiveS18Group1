@@ -12,6 +12,10 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.stage.Stage;
 
+import java.util.Random;
+
+import citiesTesting.BuildingTypes;
+
 public class CameraTesting extends Application{
 	public static void main(String[] args) {
 		launch();
@@ -93,6 +97,39 @@ public class CameraTesting extends Application{
 		pyramid.setTranslateX(0);
 		pyramid.setTranslateY(0);
 		pyramid.setTranslateZ(10);
+		
+		Random rand = new Random(777);
+		int a = rand.nextInt(3)+1;
+		
+		double x = -1000.0;
+		double y = 0;
+		double z = 1000.0;
+
+		Color roof1 = BuildingTypes.colorAssignment(rand);
+		Color roof2 = BuildingTypes.secondaryColor(roof1);
+		Color house1 = BuildingTypes.colorAssignment(rand);
+		Color house2 = BuildingTypes.secondaryColor(house1);
+		BuildingTypes.makeCity1(mainGroup, roof1, roof2, house1, house2, x, y, z, rand);
+		
+		rand = new Random(532);
+		x = 1000.0;
+		y = 0;
+		z = 1000.0;
+		roof1 = BuildingTypes.colorAssignment(rand);
+		roof2 = BuildingTypes.secondaryColor(roof1);
+		house1 = BuildingTypes.colorAssignment(rand);
+		house2 = BuildingTypes.secondaryColor(house1);
+		BuildingTypes.makeCity2(mainGroup, roof1, roof2, house1, house2, x, y, z, rand.nextInt(3)+1, rand);
+		
+		rand = new Random(313);
+		x = 1000.0;
+		y = 0;
+		z = -1000.0;
+		roof1 = BuildingTypes.colorAssignment(rand);
+		roof2 = BuildingTypes.secondaryColor(roof1);
+		house1 = BuildingTypes.colorAssignment(rand);
+		house2 = BuildingTypes.secondaryColor(house1);
+		BuildingTypes.makeCity3(mainGroup, roof1, roof2, house1, house2, x, y, z, rand.nextInt(3)+1, rand);
 		
 		mainGroup.getChildren().add(pyramid);
 		stage.setScene(scene);
