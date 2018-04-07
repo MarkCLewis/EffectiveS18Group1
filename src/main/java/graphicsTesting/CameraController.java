@@ -99,28 +99,40 @@ public class CameraController {
 		cameraNearClip = builder.cameraNearClip;
 		camera.setFarClip(cameraFarClip);
 		camera.setNearClip(cameraNearClip);		
-		camera.getTransforms().addAll(xRotate,yRotate);
-		
-		z = camera.getTranslateZ();
-		x = camera.getTranslateX();
-		theta = yRotate.getAngle()/360.0*2*Math.PI; 
+		camera.getTransforms().addAll(xRotate,yRotate);	 
 	}
 	public void moveForward() {
+		z = camera.getTranslateZ();
+		x = camera.getTranslateX();
+		theta = yRotate.getAngle()/360.0*2*Math.PI;
+		
 		camera.setTranslateZ(z+camSpeed*Math.cos(theta));
 		camera.setTranslateX(x+camSpeed*Math.sin(theta));
 	}
 	
 	public void moveBackward() {
+		z = camera.getTranslateZ();
+		x = camera.getTranslateX();
+		theta = yRotate.getAngle()/360.0*2*Math.PI;
+		
 		camera.setTranslateZ(z-camSpeed*Math.cos(theta));
 		camera.setTranslateX(x-camSpeed*Math.sin(theta));
 	}
 	
 	public void moveLeft() {
+		z = camera.getTranslateZ();
+		x = camera.getTranslateX();
+		theta = yRotate.getAngle()/360.0*2*Math.PI;
+		
 		camera.setTranslateZ(z+Math.sin(theta));
 		camera.setTranslateX(x-Math.cos(theta));
 	}
 	
 	public void moveRight() {
+		z = camera.getTranslateZ();
+		x = camera.getTranslateX();
+		theta = yRotate.getAngle()/360.0*2*Math.PI;
+		
 		camera.setTranslateZ(z-Math.sin(theta));
 		camera.setTranslateX(x+Math.cos(theta));
 	}
@@ -227,6 +239,14 @@ public class CameraController {
 	}
 	public void setYLimit(double newVal) {
 		cameraYlimit = newVal;
+	}
+	
+	public double getCameraX() {
+		return camera.getTranslateX();
+	}
+	
+	public double getCameraZ() {
+		return camera.getTranslateZ();
 	}
 	
 	
