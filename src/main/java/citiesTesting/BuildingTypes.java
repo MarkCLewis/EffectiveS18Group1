@@ -16,7 +16,11 @@ public class BuildingTypes implements WorldObject {
 		//Random rand = new Random();
 		
 		int rows = r.nextInt(16)+4;
-		int cols = r.nextInt(16)+4;
+		//int cols = r.nextInt(16)+4;
+		int cols = rows;
+		
+		//columns = rows, which makes it easier to compute size
+		//TODO-make default size the size of the city including fences
 		
 		double tempX = x;
 		//double tempY = y;
@@ -42,13 +46,16 @@ public class BuildingTypes implements WorldObject {
 		}
 		
 		//Makes a big gate in front of the city
-		if(r.nextInt(6)+1 == 1){
+		if(r.nextInt(6)+1 == 1 && rows > 5 && cols > 5){
 			Color cColor1 = BuildingTypes.colorAssignment(r);
 			Color rColor1 = BuildingTypes.colorAssignment(r);
 			BuildingTypes.makeGate(mg, cColor1, BuildingTypes.secondaryColor(cColor1), rColor1, BuildingTypes.secondaryColor(rColor1), x + ((rows*47)/2), y, tempZ - 60);
 			BuildingTypes.makeGate(mg, cColor1, BuildingTypes.secondaryColor(cColor1), rColor1, BuildingTypes.secondaryColor(rColor1), x + ((rows*47)/2), y, tempZ + (cols*47)+60);
 			//might take out ^ the second gate
 			//makes 2 gates as entrances for the cities
+		}
+		if(r.nextInt(9)+1 == 1){
+			BuildingTypes.makeTemple(mg, roof2, roof1, house2, house2, x + ((rows*47)/2), y, tempZ + (cols*47)+70);
 		}
 	}
 	
@@ -66,7 +73,6 @@ public class BuildingTypes implements WorldObject {
 		//Making the central object
 		if(num == 1){
 			makeObelisk(mg, BuildingTypes.colorAssignment(r), BuildingTypes.colorAssignment(r), x, y-60, z);
-			//TODO-check why the y value is messed up
 		}
 		else if(num == 2){
 			Color color1 = BuildingTypes.colorAssignment(r);
@@ -151,6 +157,91 @@ public class BuildingTypes implements WorldObject {
 	
 	//City Type 3: Diamond City
 	//TODO
+	public static void makeCity3(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z, int num, Random r){
+		int layers = r.nextInt(5)+3;
+		
+		//Making the central object
+		//TODO-make different central objects for this city type
+		if(num == 1){
+			makeObelisk(mg, BuildingTypes.colorAssignment(r), BuildingTypes.colorAssignment(r), x, y-60, z);
+		}
+		else if(num == 2){
+			Color color1 = BuildingTypes.colorAssignment(r);
+			Color color2 = BuildingTypes.colorAssignment(r);
+			makeSpiral(mg, color1, BuildingTypes.secondaryColor(color1), color2, BuildingTypes.secondaryColor(color2), x, y-60, z);
+		}
+		
+		for(int i = 0; i < layers; i ++){
+			double radius = 40 * i;
+			if(i % 2 == 0){
+				////make north house////
+				if(r.nextInt(2)+1 == 1){
+					BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x, y, z+radius);
+				}
+				else{
+					BuildingTypes.makeHouse2(mg, roof1, roof2, house1, house2, x, y, z+radius);
+				}
+				
+				////make east house////
+				if(r.nextInt(2)+1 == 1){
+					BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x+radius, y, z);
+				}
+				else{
+					BuildingTypes.makeHouse2(mg, roof1, roof2, house1, house2, x+radius, y, z);
+				}
+				
+				////make south house////
+				if(r.nextInt(2)+1 == 1){
+					BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x, y, z-radius);
+				}
+				else{
+					BuildingTypes.makeHouse2(mg, roof1, roof2, house1, house2, x, y, z-radius);
+				}
+				
+				////make west house////
+				if(r.nextInt(2)+1 == 1){
+					BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x-radius, y, z);
+				}
+				else{
+					BuildingTypes.makeHouse2(mg, roof1, roof2, house1, house2, x-radius, y, z);
+				}
+				
+			}
+			else {
+				////make NE house////
+				if(r.nextInt(2)+1 == 1){
+					BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x + (radius*Math.cos(45)), y, z + (radius*Math.sin(45)));
+				}
+				else{
+					BuildingTypes.makeHouse2(mg, roof1, roof2, house1, house2, x + (radius*Math.cos(45)), y, z+(radius*Math.sin(45)));
+				}
+
+				////make SE house////
+				if(r.nextInt(2)+1 == 1){
+					BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x + (radius*Math.cos(45)), y, z - (radius*Math.sin(45)));
+				}
+				else{
+					BuildingTypes.makeHouse2(mg, roof1, roof2, house1, house2, x + (radius*Math.cos(45)), y, z - (radius * Math.sin(45)));
+				}
+				
+				////make SW house////
+				if(r.nextInt(2)+1 == 1){
+					BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x - (radius*Math.cos(45)), y, z - (radius*Math.sin(45)));
+				}
+				else{
+					BuildingTypes.makeHouse2(mg, roof1, roof2, house1, house2, x - (radius*Math.cos(45)), y, z - (radius * Math.sin(45)));
+				}
+				
+				/////make NW house////
+				if(r.nextInt(2)+1 == 1){
+					BuildingTypes.makeHouse1(mg, roof1, roof2, house1, house2, x + (radius*Math.cos(45)), y, z + (radius*Math.sin(45)));
+				}
+				else{
+					BuildingTypes.makeHouse2(mg, roof1, roof2, house1, house2, x + (radius*Math.cos(45)), y, z + (radius * Math.sin(45)));
+				}
+			}
+		}
+	}
 	
 	public static void makeHouse1(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z) {
 		Box b = Shapes.makeBox(28, 28, 28, house1, house2, x, y, z);
@@ -227,26 +318,7 @@ public class BuildingTypes implements WorldObject {
 			newZ -= 30.0;
 		}
 	}
-	/*
-	public static void makeRect(Group mg, double l, double h, Color color1, Color color2, double x, double y, double z){
-		double tmpX = x;
-		double tmpY = y;
-		if(l > h){
-			double len = l / h;
-			for(int i = 0; i < len; i++){
-				mg.getChildren().add(Shapes.makeBox(h, h, h, color1, color2, tmpX, y, z));
-				tmpX += 100;
-			}
-		}
-		else if (l < h){
-			double height = h / l;
-			for(int i = 0; i < height; i ++){
-				mg.getChildren().add(Shapes.makeBox(l, l, l, color1, color2, x, tmpY, z));
-				tmpY -= 100;
-			}
-		}
-	}
-	*/
+
 	////////////////////////////////
 	//Items outside cities
 	public static void makeTemple(Group mg, Color roof1, Color roof2, Color cols1, Color cols2, double x, double y, double z){
