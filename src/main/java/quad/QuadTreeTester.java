@@ -36,7 +36,8 @@ public class QuadTreeTester {
 		QuadTree quad = new QuadTree();
 		QuadTree addedQuad = addToTree(quad);
 		//PrintVisitor printTest = new PrintVisitor();
-		//quad.accept(printTest);
+		Traverse printTest = new Traverse();
+		quad.accept(printTest);
 		addedQuad.print();
 	}
 }
