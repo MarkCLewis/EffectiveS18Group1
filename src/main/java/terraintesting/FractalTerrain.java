@@ -1,54 +1,53 @@
 package terraintesting;
 
-/*public class FractalTerrain implements TerrainGenerationAlgorithm {
-	@Override
-	public void generateTerrain(double[][] heightMap, double maxElev) {
-		//TODO
-		//make methods static???
-		//figure out initial square width
-		//figure out how to do steps for each subsequent generated square
+import java.util.concurrent.ThreadLocalRandom;
 
+public class FractalTerrain implements TerrainGenerationAlgorithm {
+	@Override
+	public void generateTerrain(/*double*/int[][] heightMap, /*double*/ int maxElev) {
+	}
 		//count of what iteration it is (matters for roughness)
 		private double iter = 0.0;
 
 		//generates random roughness coefficient; can be changed for control
-		private double randCoeff = new Random().nextDouble(1.0);
+		private double randCoeff = ThreadLocalRandom.current().nextDouble(1.0);
 		//private double randCoeff = 0.5 //for testing
 
 		//generates peturbation; -roughness^n <= peturbation <= roughness^n
 		//where n is the iteration
-		private void generatePeturb(double iter){
-			private int pet = (-(Math.pow(randCoeff, iter))) +
-					Math.random.nextDouble(Math.pow(randCoeff, (2 * iter));
-		}
-
+		private double peturb = (-(Math.pow(randCoeff, iter))) +
+					ThreadLocalRandom.current().nextDouble(Math.pow(randCoeff, (2 * iter)));
+		
+		public double rand;
+		
 		//generates random height to assign to points
-		generateRandom(){
-			//does this need to be a double?
-			private double rand = new Random().nextDouble(maxElev);
+		public double generateRandom(double maxElev){
+			rand = ThreadLocalRandom.current().nextDouble(maxElev);
+			return rand;
 		}
-
+		
 		//assigns the random heights from 0 to the maxElev
-		assignHeights(double x, double y, double squareWidth){
-			heightMap[x][y] = generateRandom(); //x1
-			heightMap[x + squareWidth][y] = generateRandom(); //x2
-			heightMap[x][y + squareWidth] = generateRandom(); //x3
-			heightMap[x + squareWidth][y + squareWidth] = generateRandom(); //x4
+		private void assignHeights(double[][] heightMap, int x, int y, int squareWidth){
+			heightMap[x][y] = generateRandom(0.5); //x1
+			heightMap[x + squareWidth][y] = generateRandom(0.5); //x2
+			heightMap[x][y + squareWidth] = generateRandom(0.5); //x3
+			heightMap[x + squareWidth][y + squareWidth] = generateRandom(0.5); //x4
 		}
 
-		private double avgCorners(double squareWidth, double x, double y){
-			private double average = ((heightMap[x][y] + heightMap[x + squareWidth][y] +
+		private double average, oAvg;
+		private double avgCorners(double[][] heightMap, int squareWidth, int x, int y){
+			average = ((heightMap[x][y] + heightMap[x + squareWidth][y] +
 					  heightMap[x][y + squareWidth] +
 					  heightMap[x + squareWidth][y + squareWidth])/4);
 			oAvg = average + peturb;
-			return oAvg; //???
+			return oAvg;
 		}
 
-		private void diamondStep(double x, double y, double squareWidth){
-			heightMap[x + (squareWidth/2)][y + (squareWidth/2)] = avgCorners(x,y);
+		private void diamondStep(double[][] heightMap, int x, int y, int squareWidth){
+			heightMap[x + (squareWidth/2)][y + (squareWidth/2)] = avgCorners(heightMap, squareWidth,x,y);
 		}
 
-		//squareStep(double x, double y){
+		//squareStep(double x, double y, squareWidth){
 			//assignHeights(passed in with squareWidth divided by 2);
 			//avgCorners(passed in with squareWidth divided by 2);
 		//}
@@ -76,7 +75,6 @@ package terraintesting;
 	public static void buildFractalElevation(int squareWidth, int ulX, int ulY) {
 		if (squareWidth >= 2) {
 			diamondStep(squareWidth, ulX, ulY);
-			//TODO
 		}
 	}
 
@@ -90,15 +88,11 @@ package terraintesting;
 								elevation[ulX][ulY + squareWidth] +
 								elevation[ulX + squareWidth][ulY] +
 								elevation[ulX + squareWidth][ulY + squareWidth]) / 4;
-
-		//TODO
 		int peturbation = 0;
 		elevation[ulX + squareWidth/2][ulY + squareWidth/2] = averageElevation + peturbation;
 	}
 
 	public static void squareStep(int squareWidth, int ulX, int ulY) {
-		//TODO
-
 	}
 
 
@@ -150,5 +144,5 @@ package terraintesting;
 	public static int randomElevation() {
 		return (int) (maxElevation * Math.random());
 	}
-}
-*/
+	*/
+
