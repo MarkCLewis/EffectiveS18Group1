@@ -35,7 +35,7 @@ public class QuadTree implements Element {
 			return node.y;
 		}
 
-		public double getSize(Node node) {
+		public static double getSize(Node node) {
 			return node.size;
 		}
 		
@@ -155,7 +155,7 @@ public class QuadTree implements Element {
 			System.out.println("The tree is currently empty");
 			return;
 		} else {
-			Queue<Node> queue =new LinkedList<Node>();
+			Queue<Node> queue = new LinkedList<Node>();
 			queue.add(root);
 			while (true) {
 				int count = queue.size();
