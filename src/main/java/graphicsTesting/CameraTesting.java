@@ -77,9 +77,6 @@ public class CameraTesting extends Application{
 			keySet.remove(key);
 			
 		});
-			
-		
-		 System.out.println(keySet);
 		
 		TriangleMesh pyramidMesh = new TriangleMesh();
 

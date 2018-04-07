@@ -1,8 +1,6 @@
 package graphicsTesting;
 
 import javafx.scene.Camera;
-import javafx.scene.Cursor;
-import javafx.scene.PerspectiveCamera;
 import javafx.scene.transform.Rotate;
 
 public class CameraController {
