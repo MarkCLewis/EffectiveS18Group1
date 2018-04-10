@@ -86,6 +86,12 @@ public class CityMaker extends Application{
 		double y = 300.0;
 		double z = 200.0;
 
+		double p = BuildingTypes.makeCoordinate(-2000, 2000);
+		//making random coordinates^
+		//TODO-find out how big the world is so that I can make random coordinates
+		
+		//Math.floor(Math.random() * ((1000-(-1000))+1) + (-1000));
+		
 		Color roof1 = BuildingTypes.colorAssignment(rand);
 		Color roof2 = BuildingTypes.secondaryColor(roof1);
 		Color house1 = BuildingTypes.colorAssignment(rand);
@@ -106,7 +112,7 @@ public class CityMaker extends Application{
 			BuildingTypes.makeCity3(mainGroup, roof1, roof2, house1, house2, x, y, z, rand.nextInt(3)+1, rand);
 		}
 		
-		//System.out.println(a);
+		System.out.println(p);
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
