@@ -11,4 +11,5 @@ public interface WorldObject {
 	double getY();
 	double getZ();
 	double getSize();
+	//method that gets called when a camera is nearby
 }
