@@ -92,11 +92,6 @@ public class Tree extends Application implements WorldObject{
 
 		Material mat = new PhongMaterial(Color.GREEN);
 
-		for (int i=0; i<4;i++){
-
-
-		}
-
 		for (int i=0; i< loops; i++){
 
 			Branch parent=q.poll();
@@ -119,14 +114,10 @@ public class Tree extends Application implements WorldObject{
 //					box.setLayoutY(parent.getPy()-box.getHeight()/2);
 //					box.setLayoutX(parent.getPx());
 //					box.setMaterial(mat);
-					
 //					h=h*9/10;
 //					w=w/3;
 //					mainGroup.getChildren().add(box);
-
-
 				}
-
 			}
 			else if(parent.getType().equals("b")){
 
@@ -142,7 +133,6 @@ public class Tree extends Application implements WorldObject{
 //					box.setLayoutY(parent.getPy()-box.getHeight()/2);
 //					box.setLayoutX(parent.getPx());
 //					box.setMaterial(mat);
-
 //					h=h*9/10;
 //					w=w/3;
 //					mainGroup.getChildren().add(box);
@@ -171,7 +161,6 @@ public class Tree extends Application implements WorldObject{
 		tree.buildTree();
 
 		//primaryStage.setTitle("Tree");
-
 		//Scene scene = new Scene(mainGroup, 500, 500, true);
 		//primaryStage.setScene(scene);
 		//primaryStage.show();
