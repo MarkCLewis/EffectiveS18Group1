@@ -7,7 +7,7 @@ import java.util.List;
 public class Branch{
 	
 	private String t;
-    private double ix,iy,iz, s;
+    private double h,w,d,px,py,pz,a,s;
     private List<Branch> children = new ArrayList<>();
     private Branch parent = null;
 
@@ -15,19 +15,21 @@ public class Branch{
       
     }
     
-    public  Branch(String t,double ix, double iy, double iz, double s){
+    public  Branch(String t,double h, double w, double d, double px, double py, double pz, double a, double s){
 		this.t=t;
-		this.ix=ix;
-		this.iy=iy;
-		this.iz=iz;
+		this.h=h;
+		this.w=w;
+		this.d=d;
+		this.px=px;
+		this.py=py;
+		this.pz=pz;
+		this.a=a;
 		this.s=s;
 		
 	}
-	
-
 
     public void addChild(String t) {
-        Branch newChild = new Branch(t,0,0,0,0);
+        Branch newChild = new Branch(t,0,0,0,0,0,0,0,0);
         newChild.setParent(this);
         children.add(newChild);
     }
@@ -54,25 +56,36 @@ public class Branch{
         return t;
     }
     
-    public void setInitialCoordinates(double ix, double iy, double iz){
-		this.ix=ix;
-		this.iy=iy;
-		this.iz=iz;
+    public void setInitialCoordinates(double px, double py, double pz){
+		this.px=px;
+		this.py=py;
+		this.pz=pz;
     }
 
-	
-	public double getIx(){
-		return ix;
+    public double getH(){
+		return h;
+	}
+    
+    public double getW(){
+		return w;
+	}
+   
+	public double getPx(){
+		return px;
 	}
 	
-	public double getIy(){
-		return iy;
+	public double getPy(){
+		return py;
 	}
-	public double getIz(){
-		return iz;
+	public double getPz(){
+		return pz;
 	}
 	public double getS(){
 		return s;
+	}
+	
+	public double getAngle(){
+		return a;
 	}
 	
     public void setType(String t) {
