@@ -482,4 +482,10 @@ public class BuildingTypes implements WorldObject {
 		return 0;
 	}
 
+	@Override
+	public void notifyOfCamera(double x, double z) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

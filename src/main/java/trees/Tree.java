@@ -204,4 +204,11 @@ public class Tree extends Application implements WorldObject{
 		return this.s;
 	}
 
+
+	@Override
+	public void notifyOfCamera(double x, double z) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
