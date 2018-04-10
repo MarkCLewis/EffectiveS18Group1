@@ -70,10 +70,16 @@ public class CameraTesting extends Application{
 			 if(keySet.contains(KeyCode.F)) {
 				 pCam.moveDown();
 			 }
-			});
+			 if(keySet.contains(KeyCode.SHIFT)) {
+				 pCam.boostOn();
+			 }
+		});
 		
 		scene.setOnKeyReleased(event ->{
 			KeyCode key = event.getCode();
+			if(key == KeyCode.SHIFT) {
+				pCam.boostOff();
+			}
 			keySet.remove(key);
 			
 		});

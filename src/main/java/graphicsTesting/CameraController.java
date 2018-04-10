@@ -4,6 +4,7 @@ import javafx.scene.Camera;
 import javafx.scene.transform.Rotate;
 
 public class CameraController {
+	private boolean boost;
 	private Camera camera;
 	private double x1;
 	private double y1;
@@ -98,6 +99,7 @@ public class CameraController {
 		camera.setFarClip(cameraFarClip);
 		camera.setNearClip(cameraNearClip);		
 		camera.getTransforms().addAll(xRotate,yRotate);	 
+		boost = false;
 	}
 	public void moveForward() {
 		z = camera.getTranslateZ();
@@ -173,6 +175,19 @@ public class CameraController {
 	
 	public void lookRight() {
 		yRotate.setAngle(yRotate.getAngle()+10);
+	}
+	
+	public void boostOn() {
+		if(!boost) {
+			boost = true;
+			camSpeed += 10;
+		}
+	}
+	public void boostOff() {
+		if(boost) {
+			boost = false;
+			camSpeed -= 10;
+		}
 	}
 	
 	public void mouseMove(double nx, double ny) {
