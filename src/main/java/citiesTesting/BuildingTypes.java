@@ -171,7 +171,7 @@ public class BuildingTypes implements WorldObject {
 			makeSpiral(mg, color1, BuildingTypes.secondaryColor(color1), color2, BuildingTypes.secondaryColor(color2), x, y-60, z);
 		}
 		
-		for(int i = 0; i < layers; i ++){
+		for(int i = 1; i < layers; i ++){
 			double radius = 50 * i;
 			if(i % 2 == 0){
 				////make north house////
@@ -458,6 +458,12 @@ public class BuildingTypes implements WorldObject {
 		//return item;
 	}
 
+	public static double makeCoordinate(int x, int y){
+		//x = start and y = end
+		return Math.floor(Math.random() * ((y-x)+1) + x);
+		
+	}
+	
 	@Override
 	public double getX() {
 		// TODO Auto-generated method stub
