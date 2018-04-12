@@ -1,6 +1,6 @@
 package terraintesting;
 
-import java.util.Random;
+//import java.util.Random;
 
 public class DynamicLoading {
 	long seed = 0x327a96;

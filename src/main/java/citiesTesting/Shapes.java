@@ -13,7 +13,7 @@ import javafx.scene.shape.TriangleMesh;
 public class Shapes {
 
 	
-	public static Cylinder makeCylinder(int w, int h, Color color1, Color color2, double x, double y, double z){
+	public static Cylinder makeCylinder(double w, double h, Color color1, Color color2, double x, double y, double z){
 		Cylinder cylinder = new Cylinder(w,h);
 		PhongMaterial material = new PhongMaterial();
 		material.setDiffuseColor(color1);

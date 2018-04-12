@@ -2,6 +2,8 @@ package graphicsTesting;
 
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.util.HashSet;
+import java.util.Set;
 
 import javafx.application.Application;
 import javafx.scene.Camera;
@@ -26,17 +28,6 @@ public class TriangleMeshDemo extends Application {
 	public static void main(String[] args) {
 		launch();
 	}
-	
-	private double x1 = 0;
-	private double y1 = 0;
-	private double x2;
-    private double y2;
-    private Rotate xRotate = new Rotate(0,0,0,0,Rotate.X_AXIS);
-    private Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
-    private double rotateModifier = 25;
-    private double cameraYlimit = 15;
-    private double cameraFarClip = 10000;
-	private double cameraNearClip = 3;
     
 	@Override
 	public void start(Stage stage) {
@@ -46,78 +37,62 @@ public class TriangleMeshDemo extends Application {
 		
 		//Camera
 		Camera camera = new PerspectiveCamera(true);
-		camera.setFarClip(cameraFarClip);
-		camera.setNearClip(cameraNearClip);
-		camera.getTransforms().addAll(xRotate,yRotate);
 		scene.setCamera(camera);
 		Group cameraGroup = new Group();
 		cameraGroup.getChildren().add(camera);
 		mainGroup.getChildren().add(cameraGroup);
+		CameraController pCam = new CameraController.Builder(camera).camSpeed(5.0).build();
 		
 		//Camera Movement
-		double camSpeed = 1.0;
-		scene.setOnKeyPressed(event ->{
-		 KeyCode key = event.getCode();
-		 double z = camera.getTranslateZ();
-		 double x = camera.getTranslateX();
-		 double theta = yRotate.getAngle()/360.0*2*Math.PI; 
-		 if(key == KeyCode.W) {
-			 camera.setTranslateZ(z+camSpeed*Math.cos(theta));
-			 camera.setTranslateX(x+camSpeed*Math.sin(theta));
-		 }
-		 if(key == KeyCode.S) {
-			 camera.setTranslateZ(z-camSpeed*Math.cos(theta));
-			 camera.setTranslateX(x-camSpeed*Math.sin(theta));
-		 }
-		 if(key == KeyCode.A) {
-			 camera.setTranslateZ(z+Math.sin(theta));
-			 camera.setTranslateX(x-Math.cos(theta));
-		 }
-		 if(key == KeyCode.D) {
-			 camera.setTranslateZ(z-Math.sin(theta));
-			 camera.setTranslateX(x+Math.cos(theta));
-		 }
-		 
-		 if(key == KeyCode.RIGHT) {
-			 yRotate.setAngle(yRotate.getAngle()+10);
-		 }
-		 if(key == KeyCode.LEFT) {
-			 yRotate.setAngle(yRotate.getAngle()-10);
-		 }
+		Set<KeyCode> keySet = new HashSet<KeyCode>();
+		scene.setOnKeyPressed(event ->{ 
+			 KeyCode key = event.getCode();
+			 keySet.add(key);
+			 
+			 if(keySet.contains(KeyCode.W)) {
+				 pCam.moveForward();
+			 }
+			 if(keySet.contains(KeyCode.S)) {
+				 pCam.moveBackward();
+			 }
+			 if(keySet.contains(KeyCode.A)) {
+				 pCam.moveLeft();
+			 }
+			 if(keySet.contains(KeyCode.D)) {
+				 pCam.moveRight();
+			 }
+			 if(keySet.contains(KeyCode.RIGHT)) {
+				 pCam.rotateRight();
+			 }
+			 if(keySet.contains(KeyCode.LEFT)) {
+				 pCam.rotateLeft();
+			 }
+			 if(keySet.contains(KeyCode.UP)) {
+				 pCam.rotateUp();
+			 }
+			 if(keySet.contains(KeyCode.DOWN)) {
+				 pCam.rotateDown();
+			 }
+			 if(keySet.contains(KeyCode.R)) {
+				 pCam.moveUp();
+			 }
+			 if(keySet.contains(KeyCode.F)) {
+				 pCam.moveDown();
+			 }
+			});
+		
+		scene.setOnKeyReleased(event ->{
+			KeyCode key = event.getCode();
+			keySet.remove(key);
+			
 		});
 
 		scene.addEventHandler(MouseEvent.ANY, event -> {
 			if (event.getEventType() == MouseEvent.MOUSE_MOVED) {
-				x2 = event.getSceneX();
-				y2 = event.getSceneY();
-			 
-				//calculate the rotational change of the camera pitch
-				double pitchRotate =xRotate.getAngle()+(y2 - y1) / rotateModifier;
-				
-				//set min/max camera pitch to prevent camera flipping
-				pitchRotate = pitchRotate > cameraYlimit ? cameraYlimit : pitchRotate;
-				pitchRotate = pitchRotate < -cameraYlimit ? -cameraYlimit : pitchRotate;
-				
-				//replace the old camera pitch rotation with the new one.
-				xRotate.setAngle(pitchRotate);
-				
-				//calculate the rotational change of the camera yaw
-				double yawRotate=yRotate.getAngle()-(x2 - x1) / rotateModifier;
-				yRotate.setAngle(yawRotate);
-			
-				x1 = x2;
-				y1 = y2;
-				scene.setCursor(Cursor.NONE);
-				try {
-					Robot bot = new Robot();
-					bot.mouseMove(960,540);
-				} catch (AWTException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				pCam.mouseMove(event.getSceneX(), event.getSceneY());
 		 	}
 		});	
-		//mainGroup.getChildren().add(getTestMesh());
+		
 		addMesh(mainGroup, getTestMesh(), new PhongMaterial(Color.BLUE), new int[]{0, 0, 10});
 		stage.setScene(scene);
 		stage.show();
