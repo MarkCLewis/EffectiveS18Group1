@@ -52,8 +52,7 @@ public class CityMaker extends Application {
 
 		int a = rand.nextInt(3) + 1;
 
-		int b = rand.nextInt(30) + 15;
-		// how many cities ^
+		int numberOfCities = rand.nextInt(30) + 20;
 
 		List<Tuple<Integer, Integer, Double, Double, Double, Double>> cities = new ArrayList();
 
@@ -69,7 +68,7 @@ public class CityMaker extends Application {
 		double p = BuildingTypes.makeCoordinate(-2000, 2000);
 		// making random coordinates^
 
-		for (int c = 0; c < b; c++) {
+		for (int c = 0; c < numberOfCities; c++) {
 
 			Color roof1 = BuildingTypes.colorAssignment(rand);
 
@@ -105,10 +104,18 @@ public class CityMaker extends Application {
 			x = BuildingTypes.makeCoordinate(-4000, 4000);
 			z = BuildingTypes.makeCoordinate(-4000, 4000);
 			
+			boolean bool = true;
+			while(bool == true){
+				if(Location.isOverlapping(x, z, cities)){
+					x = BuildingTypes.makeCoordinate(-4000, 4000);
+					z = BuildingTypes.makeCoordinate(-4000, 4000);
+				}
+				else bool = false;
+			}
+			
 			//TODO:
 			//1. Find a way to make sure cities don't intersect w/ each other
-			//2. Make sure the seed works
-			//3. Find a way to get the Y value
+			//2. Find a way to get the Y value based on terrain
 			
 			
 			seed = rand.nextInt(700) + 1;
@@ -120,7 +127,19 @@ public class CityMaker extends Application {
 		System.out.println(seed);
 		*/
 		//TODO-make cities able to index & able to search for cities based on coordinates
-		//System.out.println(b);
+		
+		//System.out.println(numberOfCities);
+		
+		/*
+		for(Tuple<Integer, Integer, Double, Double, Double, Double> j : cities){
+			System.out.println("City type: " + j.getCity());
+			System.out.println("Random seed " + j.getSeed());
+			System.out.println("Size of City " + j.getSize());
+			System.out.println("X coordinate " + j.getX());
+			System.out.println("Y coordinate " + j.getY());
+			System.out.println("Z coordinate " + j.getZ() + "\n");
+		}
+		*/
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -162,10 +181,11 @@ public class CityMaker extends Application {
 		}
 		
 	}
-
+/*
 	protected boolean isInWater(Box box, float posX, float posY) {
 		return false;
 		// TODO
 	}
-
+*/
+	
 }

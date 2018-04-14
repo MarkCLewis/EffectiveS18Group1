@@ -50,7 +50,7 @@ public class BuildingTypes implements WorldObject {
 			BuildingTypes.makeFences(mg, rows*47, cols*47, BuildingTypes.colorAssignment(r), BuildingTypes.colorAssignment(r), x, y, tempZ);
 		}
 		
-		size = ((rows*50.0) + 20.0)*2;
+		size = Math.pow(((rows*50.0) + 20.0), 2);
 		//This size accounts for possible fences
 		
 		//Makes a big gate in front of the city
@@ -89,7 +89,7 @@ public class BuildingTypes implements WorldObject {
 			makeSpiral(mg, color1, BuildingTypes.secondaryColor(color1), color2, BuildingTypes.secondaryColor(color2), x, y-60, z);
 		}
 		
-		double size = (50.0 * layers) * 2;
+		double size = Math.pow(((50.0 * layers) * 2), 2);
 
 		for (int i = 1; i < layers; i++){
 			double radius = 50 * i;
@@ -181,7 +181,7 @@ public class BuildingTypes implements WorldObject {
 			makeSpiral(mg, color1, BuildingTypes.secondaryColor(color1), color2, BuildingTypes.secondaryColor(color2), x, y-60, z);
 		}
 		
-		double size = (50.0 * layers)*2;
+		double size = Math.pow(((50.0 * layers) * 2), 2);
 		
 		for(int i = 1; i < layers; i ++){
 			double radius = 50 * i;
