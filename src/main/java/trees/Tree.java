@@ -20,6 +20,9 @@ public class Tree extends Application implements WorldObject{
 	public Queue <Branch>q;
 	static Group mainGroup = new Group();
 
+	//for testing camera notification
+	public boolean cameraClose = false;
+	
 	public ArrayList <Branch> nodes=new ArrayList<Branch>();
 
 	private int loops;
@@ -196,8 +199,9 @@ public class Tree extends Application implements WorldObject{
 
 	@Override
 	public void notifyOfCamera(double x, double z) {
-		// TODO Auto-generated method stub
-		
+		if ((Math.abs(this.getX() - x) < 10) || (Math.abs(this.getZ() - z) < 10)) {
+			cameraClose = true;
+		}
 	}
 
 }
