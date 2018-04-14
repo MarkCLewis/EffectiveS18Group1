@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class FractalTerrain implements TerrainGenerationAlgorithm {
 	@Override
-	public void generateTerrain(/*double*/int[][] heightMap, /*double*/ int maxElev) {
+	public void generateTerrain(double[][] heightMap, double maxElev) {
 	}
 		//count of what iteration it is (matters for roughness)
 		private double iter = 0.0;
