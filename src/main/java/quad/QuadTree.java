@@ -109,7 +109,7 @@ public class QuadTree implements Element {
 	Node insert(WorldObject item, Node n) {
 		double x = item.getX();
 		double y = item.getY();
-		double s = item.getSize();
+		//double s = item.getSize();
 		if (n == null) return insert(item);
 		else {
 			int child = n.getChild(x, y);
