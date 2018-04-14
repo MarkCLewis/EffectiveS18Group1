@@ -1,7 +1,9 @@
 package citiesTesting;
 
+import java.util.List;
 import java.util.Random;
 
+import citiesTesting.CityMaker.Tuple;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
@@ -12,7 +14,7 @@ import virtualworld.WorldObject;
 
 public class BuildingTypes implements WorldObject {
 	//City type 1: square city
-	public static void makeCity1(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z, Random r){
+	public static double makeCity1(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z, Random r){
 		//Random rand = new Random();
 		
 		int rows = r.nextInt(16)+4;
@@ -25,6 +27,9 @@ public class BuildingTypes implements WorldObject {
 		double tempX = x;
 		//double tempY = y;
 		double tempZ = z;
+		
+		double size = 0.0;
+		
 		for(int i = 0; i < cols; i++){
 			for(int j = 0; j < rows; j ++){
 				if(r.nextInt(2)+1 == 1){
@@ -33,17 +38,20 @@ public class BuildingTypes implements WorldObject {
 				else{
 					BuildingTypes.makeHouse2(mg, roof1, roof2, house1, house2, tempX, y, tempZ);
 				}
-				tempX += 50.0; //was 200.0
+				tempX += 50.0;
 			}
 			tempX = x;
-			tempZ -= 50.0; //was 200.0
+			tempZ -= 50.0;
 		}
-		
+				
 		//Makes fences around the city
 		//TODO-check to see if it works
 		if(r.nextInt(3)+1 == 1) {
 			BuildingTypes.makeFences(mg, rows*47, cols*47, BuildingTypes.colorAssignment(r), BuildingTypes.colorAssignment(r), x, y, tempZ);
 		}
+		
+		size = ((rows*50.0) + 20.0)*2;
+		//This size accounts for possible fences
 		
 		//Makes a big gate in front of the city
 		if(r.nextInt(6)+1 == 1 && rows > 5 && cols > 5){
@@ -57,11 +65,12 @@ public class BuildingTypes implements WorldObject {
 		if(r.nextInt(9)+1 == 1){
 			BuildingTypes.makeTemple(mg, roof2, roof1, house2, house2, x + ((rows*47)/2), y, tempZ + (cols*47)+70);
 		}
+		return size;
 	}
 	
 	//City type 2: Circular city
 	//TODO
-	public static void makeCity2(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z, int num, Random r){
+	public static double makeCity2(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z, int num, Random r){
 		//Random rand = new Random();
 		
 		//double tempX = x;
@@ -80,6 +89,7 @@ public class BuildingTypes implements WorldObject {
 			makeSpiral(mg, color1, BuildingTypes.secondaryColor(color1), color2, BuildingTypes.secondaryColor(color2), x, y-60, z);
 		}
 		
+		double size = (50.0 * layers) * 2;
 
 		for (int i = 1; i < layers; i++){
 			double radius = 50 * i;
@@ -151,13 +161,13 @@ public class BuildingTypes implements WorldObject {
 			}
 			
 		}
-		
+		return size;
 		
 	}
 	
 	//City Type 3: Diamond City
 	//TODO
-	public static void makeCity3(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z, int num, Random r){
+	public static double makeCity3(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z, int num, Random r){
 		int layers = r.nextInt(5)+3;
 		
 		//Making the central object
@@ -170,6 +180,8 @@ public class BuildingTypes implements WorldObject {
 			Color color2 = BuildingTypes.colorAssignment(r);
 			makeSpiral(mg, color1, BuildingTypes.secondaryColor(color1), color2, BuildingTypes.secondaryColor(color2), x, y-60, z);
 		}
+		
+		double size = (50.0 * layers)*2;
 		
 		for(int i = 1; i < layers; i ++){
 			double radius = 50 * i;
@@ -241,6 +253,7 @@ public class BuildingTypes implements WorldObject {
 				}
 			}
 		}
+		return size;
 	}
 	
 	public static void makeHouse1(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z) {
