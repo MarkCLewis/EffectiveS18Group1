@@ -21,7 +21,7 @@ public class TerrainToTriangleMesh {
 		TriangleMesh tm = new TriangleMesh();
 		for(int x=0; x<hm.xWidth(); x+=triangleWidth) {
 			for(int z=0; z<hm.zWidth(); z+=triangleWidth) {
-				tm.getPoints().addAll(x, hm.height(x, z), z);
+				tm.getPoints().addAll(x, (int)hm.height(x, z), z);
 			}
 		}
 		for(int x=0; x<(hm.xWidth()-triangleWidth); x+=triangleWidth) {

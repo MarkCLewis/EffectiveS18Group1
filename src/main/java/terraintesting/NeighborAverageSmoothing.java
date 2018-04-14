@@ -2,7 +2,7 @@ package terraintesting;
 
 public class NeighborAverageSmoothing implements TerrainGenerationAlgorithm {
 	@Override
-	public void generateTerrain(int[][] heightMap, int maxElev) {
+	public void generateTerrain(double[][] heightMap, double maxElev) {
 		int width = heightMap.length;
 		int height = heightMap[0].length;
 		for(int x=0; x<width; x++)
@@ -12,10 +12,10 @@ public class NeighborAverageSmoothing implements TerrainGenerationAlgorithm {
 			for(int y=0; y<height; y++) 
 				heightMap[x][y]= getNeighborAvg(width, height, x, y, heightMap);
 	}
-	private static int getNeighborAvg(int w, int h, int x, int y, int[][] elev) {
+	private static double getNeighborAvg(int w, int h, int x, int y, double[][] elev) {
 		int sum = 0;
 		int count = 0;
-		int[] points = new int[8];
+		double[] points = new double[8];
 		points[0] = getNeighborElev(w, h, x, y, -1, -1, elev);
 		points[1] = getNeighborElev(w, h, x, y, -1, 0, elev);
 		points[2] = getNeighborElev(w, h, x, y, -1, 1, elev);
@@ -34,7 +34,7 @@ public class NeighborAverageSmoothing implements TerrainGenerationAlgorithm {
 		
 		return sum/count;
 	}
-	private static int getNeighborElev(int w, int h, int x, int y, int deltaX, int deltaY, int[][] elev) {
+	private static double getNeighborElev(int w, int h, int x, int y, int deltaX, int deltaY, double[][] elev) {
 		int x2 = x+deltaX;
 		int y2 = y+deltaY;
 		if(x2<0 || y2<0 || x2>=w || y2>=h)
@@ -42,7 +42,7 @@ public class NeighborAverageSmoothing implements TerrainGenerationAlgorithm {
 		else
 			return elev[x2][y2];
 	}
-	public static int randomElevation(int maxElevation) {
-		return (int) (maxElevation * Math.random());
+	public static double randomElevation(double maxElevation) {
+		return (maxElevation * Math.random());
 	}
 }

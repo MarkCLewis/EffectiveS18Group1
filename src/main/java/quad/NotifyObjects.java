@@ -2,9 +2,9 @@ package quad;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import quad.QuadTree.Node;
 import virtualworld.WorldObject;
+import graphicsTesting.CameraController;
 
 //notifies objects of when a viewer is closeby so that the correct detail can be rendered
 //knows where the camera is and generates a list of 3Ds
@@ -23,6 +23,9 @@ public class NotifyObjects implements ElementVisitor {
   	public void visit(WorldObject item) {
   		passedThroughObs.add(item);
   		//traverse to the rest of the WorldObjects
+  		//double cameraX = getCameraX();
+  		//double cameraZ = getCameraZ();
+  		//item.notifyOfCamera(cameraX, cameraZ);
   	}
 
   	@Override

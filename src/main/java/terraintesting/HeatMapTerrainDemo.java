@@ -22,8 +22,8 @@ import javafx.stage.Stage;
 public class HeatMapTerrainDemo extends Application {
 	private static final int width = 600;
 	private static final int height = 600;
-	private static final int maxElevation = 2000;
-	private static int[][] elevation = new int[width][height];
+	private static final double maxElevation = 2000;
+	private static double[][] elevation = new double[width][height];
 	private static Color[][] heatMap = new Color[width][height];
 	
 	@Override public void start(Stage primaryStage) {
@@ -50,7 +50,7 @@ public class HeatMapTerrainDemo extends Application {
 	public static void buildHeatMap() {
 		for(int x=0; x<heatMap.length; x++)
 			for(int y=0; y<heatMap[0].length; y++) {
-				heatMap[x][y] = intToColor(elevation[x][y], maxElevation);
+				heatMap[x][y] = doubleToColor(elevation[x][y], maxElevation);
 			}
 	}
 	
@@ -92,6 +92,35 @@ public class HeatMapTerrainDemo extends Application {
 		else {
 			red = 255;
 			green = (maxDouble/4-(iDouble-3*maxDouble/4))/(maxDouble/4)*255; //0 when i=max, 255 when i=~3*max/4
+			blue = 0;
+		}
+		return Color.rgb((int)red, (int)green, (int)blue);
+	}
+
+	public static Color doubleToColor(double d, double max) {
+		double red = -1; double green = -1; double blue = -1;
+		
+		if(d == 0) {
+			//TODO
+		}
+		else if(d <= max/4) {
+			red = 0;
+			green = d/(max/4)*255; // 0 when i = 0, 255 when i = max/4
+			blue = 255;
+		} 
+		else if (d <= max/2) {
+			red = 0;
+			green = 255;
+			blue = (max/4-(d-max/4))/(max/4)*255; //0 when i = max/2, 255 when i=~max/4
+		}
+		else if(d <= 3*max/4) {
+			red = (d-max/2)/(max/4)*255; //0 when i=~max/2, 255 when i=3*max/4
+			green = 255;
+			blue = 0;
+		}
+		else {
+			red = 255;
+			green = (max/4-(d-3*max/4))/(max/4)*255; //0 when i=max, 255 when i=~3*max/4
 			blue = 0;
 		}
 		return Color.rgb((int)red, (int)green, (int)blue);

@@ -16,15 +16,15 @@ public class Branch{
     }
     
     public  Branch(String t,double h, double w, double d, double px, double py, double pz, double a, double s){
-		this.t=t;
-		this.h=h;
-		this.w=w;
-		this.d=d;
-		this.px=px;
-		this.py=py;
-		this.pz=pz;
-		this.a=a;
-		this.s=s;
+		this.t=t; //type
+		this.h=h; //height
+		this.w=w; //width
+		this.d=d; //depth
+		this.px=px; //pos X
+		this.py=py; //pos y
+		this.pz=pz; //pos Z
+		this.a=a; //angle
+		this.s=s; 
 		
 	}
 
@@ -61,23 +61,31 @@ public class Branch{
 		this.py=py;
 		this.pz=pz;
     }
+    public void setInitialSize(double w, double h, double d){
+		this.w=w;
+		this.h=d;
+		this.d=d;
+    }
 
-    public double getH(){
+    public double getHeight(){
 		return h;
 	}
     
-    public double getW(){
+    public double getWidth(){
 		return w;
 	}
+    public double getDepth(){
+		return d;
+	}
    
-	public double getPx(){
+	public double getPositionX(){
 		return px;
 	}
 	
-	public double getPy(){
+	public double getPositionY(){
 		return py;
 	}
-	public double getPz(){
+	public double getPositionZ(){
 		return pz;
 	}
 	public double getS(){
