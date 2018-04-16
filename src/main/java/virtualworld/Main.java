@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.Set;
 
 import citiesTesting.BuildingTypes;
+import citiesTesting.CityMaker;
 import graphicsTesting.CameraController;
 import javafx.application.Application;
 import javafx.scene.Camera;
@@ -45,13 +46,21 @@ public class Main extends Application {
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 		scene.setFill(Color.GRAY);
+		
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		Group cameraGroup = new Group();
 		cameraGroup.getChildren().add(camera);
+		CameraController pCam = new CameraController.Builder(camera).build();
+		
+		//String[] args = null;
+		//Group buildingGroup = new Group();
+		//CityMaker.start();
+		
+		//mainGroup.getChildren().add(buildingGroup);
 		mainGroup.getChildren().add(cameraGroup);
 		
-		CameraController pCam = new CameraController.Builder(camera).build();
+		
 
 	//Key Controls
 		Set<KeyCode> keySet = new HashSet<KeyCode>();
@@ -102,17 +111,9 @@ public class Main extends Application {
 			keySet.remove(key);
 			
 		});
-	
-	//Dr. Lewis's Sphere
-		Sphere sphere = new Sphere(2);
-		Material mat = new PhongMaterial(Color.BLUE);
-		sphere.setMaterial(mat);
-		sphere.setTranslateZ(10);
-		mainGroup.getChildren().add(sphere);
-		// TODO Your stuff goes here.
 
 	//Tony's Building Testing
-		Random rand = new Random(777);
+		Random rand = new Random();
 		int a = rand.nextInt(3)+1;
 		
 		double x = -1000.0;
@@ -125,7 +126,7 @@ public class Main extends Application {
 		Color house2 = BuildingTypes.secondaryColor(house1);
 		BuildingTypes.makeCity1(mainGroup, roof1, roof2, house1, house2, x, y, z, rand);
 		
-		rand = new Random(532);
+		rand = new Random();
 		x = 1000.0;
 		y = 0;
 		z = 1000.0;
@@ -135,7 +136,7 @@ public class Main extends Application {
 		house2 = BuildingTypes.secondaryColor(house1);
 		BuildingTypes.makeCity2(mainGroup, roof1, roof2, house1, house2, x, y, z, rand.nextInt(3)+1, rand);
 		
-		rand = new Random(313);
+		rand = new Random();
 		x = 1000.0;
 		y = 0;
 		z = -1000.0;
@@ -145,6 +146,14 @@ public class Main extends Application {
 		house2 = BuildingTypes.secondaryColor(house1);
 		BuildingTypes.makeCity3(mainGroup, roof1, roof2, house1, house2, x, y, z, rand.nextInt(3)+1, rand);
 		
+		//Dr. Lewis's Sphere
+				Sphere sphere = new Sphere(1000);
+				Material mat = new PhongMaterial(Color.RED);
+				sphere.setMaterial(mat);
+				sphere.setTranslateZ(100);
+				mainGroup.getChildren().add(sphere);
+				// TODO Your stuff goes here.
+				
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
