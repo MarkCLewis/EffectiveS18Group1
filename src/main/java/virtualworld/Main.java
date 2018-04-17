@@ -1,9 +1,8 @@
 package virtualworld;
 
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Random;
-
+import java.util.Set;
 
 import citiesTesting.BuildingTypes;
 import graphicsTesting.CameraController;
@@ -39,13 +38,6 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		//Create group, scene, and camera
 		primaryStage.setTitle("Virtual World");
-		
-		//QuadTree Initialization
-		QuadTree quad = new QuadTree();
-		
-		//insert top level terrain (one giant piece)
-		
-		//Scene Setup
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 		scene.setFill(Color.GRAY);
@@ -57,6 +49,12 @@ public class Main extends Application {
 		
 		//Create CameraController pCam
 		CameraController pCam = new CameraController.Builder(camera).build();
+		
+		//QuadTree Initialization
+		QuadTree quad = new QuadTree();
+		
+		//insert top level terrain (one giant piece)
+		
 		
 		//Camera Movement
 		Set<KeyCode> keySet = new HashSet<KeyCode>();
