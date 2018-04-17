@@ -2,8 +2,10 @@
 
 Put in some description of what you are trying to do here.
 
-**Terrain**
+**WorldObject Mangement**
 * Daniel
+
+**Terrain**
 * Silas  
 * Miranda  
 
@@ -19,6 +21,6 @@ Put in some description of what you are trying to do here.
 **Water**
 * Reed
 
-**Roads**
+**Animals**
 * Colby
 

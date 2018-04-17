@@ -2,7 +2,7 @@ package terraintesting;
 
 public class DoubleSineWave implements TerrainGenerationAlgorithm {
 	@Override
-	public void generateTerrain(int[][] heightMap, int maxElev) {
+	public void generateTerrain(double[][] heightMap, double maxElev) {
 		int width = heightMap.length;
 		int height = heightMap[0].length;
 		for(int x=0; x<width; x++)
@@ -11,8 +11,8 @@ public class DoubleSineWave implements TerrainGenerationAlgorithm {
 				
 	}
 	
-	public static int simpleHillAndValley(int x, int y, int width, int height, int maxElevation) {
-		return (int) ((maxElevation/4*Math.sin((double)x/width*12)+maxElevation/4) + 
-		 (maxElevation/4*Math.sin((double)y/height*12)+maxElevation/4));
+	public static double simpleHillAndValley(int x, int y, int width, double height, double maxElevation) {
+		return ((maxElevation/4*Math.sin(x/width*12)+maxElevation/4) + 
+		 (maxElevation/4*Math.sin(y/height*12)+maxElevation/4));
 	}
 }

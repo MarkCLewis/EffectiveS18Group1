@@ -4,7 +4,7 @@ public class PerlinNoise implements TerrainGenerationAlgorithm {
 	//private double[][] FractHeightMap;
 	private GradVector2D[][] gradField;
 	@Override
-	public void generateTerrain(int[][] heightMap, int maxElev) {
+	public void generateTerrain(double[][] heightMap, double maxElev) {
 		int width = heightMap.length;
 		int height = heightMap[0].length;
 		gradField = new GradVector2D[width][height];

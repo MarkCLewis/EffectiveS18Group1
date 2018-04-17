@@ -2,7 +2,10 @@ package virtualworld;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Random;
 
+
+import citiesTesting.BuildingTypes;
 import graphicsTesting.CameraController;
 import javafx.application.Application;
 import javafx.scene.Camera;
@@ -15,9 +18,16 @@ import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
+import quad.QuadTree;
 
 /**
  * This is just a starter, place holder for the group.
+ * 
+ * For JavaFX the main will probably have keyboard control and an AnimationTimer that makes dynamic stuff happen.
+ * 
+ * Yes. It needs to do the initial setup. 
+ * Then it also tells the quadtree when the camera has moved enough that updating is needed.
+ * It probably also uses the quadtree to get the elements that should be rendered.
  */
 public class Main extends Application {
 	public static void main(String[] args) {
@@ -29,8 +39,16 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		//Create group, scene, and camera
 		primaryStage.setTitle("Virtual World");
+		
+		//QuadTree Initialization
+		QuadTree quad = new QuadTree();
+		
+		//insert top level terrain (one giant piece)
+		
+		//Scene Setup
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
+		scene.setFill(Color.GRAY);
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		Group cameraGroup = new Group();
@@ -91,6 +109,7 @@ public class Main extends Application {
 		});
 
 		//Test shapes
+		//Dr. Lewis's Sphere
 		Sphere sphere = new Sphere(2);
 		Material mat = new PhongMaterial(Color.BLUE);
 		sphere.setMaterial(mat);
@@ -98,6 +117,40 @@ public class Main extends Application {
 		mainGroup.getChildren().add(sphere);
 		// TODO Your stuff goes here.
 
+		//Tony's Building Testing
+		Random rand = new Random(777);
+		int a = rand.nextInt(3)+1;
+		
+		double x = -1000.0;
+		double y = 0;
+		double z = 1000.0;
+
+		Color roof1 = BuildingTypes.colorAssignment(rand);
+		Color roof2 = BuildingTypes.secondaryColor(roof1);
+		Color house1 = BuildingTypes.colorAssignment(rand);
+		Color house2 = BuildingTypes.secondaryColor(house1);
+		BuildingTypes.makeCity1(mainGroup, roof1, roof2, house1, house2, x, y, z, rand);
+		
+		rand = new Random(532);
+		x = 1000.0;
+		y = 0;
+		z = 1000.0;
+		roof1 = BuildingTypes.colorAssignment(rand);
+		roof2 = BuildingTypes.secondaryColor(roof1);
+		house1 = BuildingTypes.colorAssignment(rand);
+		house2 = BuildingTypes.secondaryColor(house1);
+		BuildingTypes.makeCity2(mainGroup, roof1, roof2, house1, house2, x, y, z, rand.nextInt(3)+1, rand);
+		
+		rand = new Random(313);
+		x = 1000.0;
+		y = 0;
+		z = -1000.0;
+		roof1 = BuildingTypes.colorAssignment(rand);
+		roof2 = BuildingTypes.secondaryColor(roof1);
+		house1 = BuildingTypes.colorAssignment(rand);
+		house2 = BuildingTypes.secondaryColor(house1);
+		BuildingTypes.makeCity3(mainGroup, roof1, roof2, house1, house2, x, y, z, rand.nextInt(3)+1, rand);
+		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

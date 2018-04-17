@@ -34,6 +34,8 @@ public class ExampleObject implements WorldObject {
 		return this.size;
 	}
 
-	
-
+	@Override
+	public void notifyOfCamera(double x, double z) {
+		this.size = 1000000;		
+	}
 }
