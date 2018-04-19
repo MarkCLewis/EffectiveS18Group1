@@ -183,6 +183,7 @@ public class CameraController {
 			camSpeed += 10;
 		}
 	}
+	
 	public void boostOff() {
 		if(boost) {
 			boost = false;
@@ -224,33 +225,43 @@ public class CameraController {
 	public double getMouseXOld() {
 		return x1;
 	}
+	
 	public void setMouseXOld(int newVal) {
 		x1 = newVal;
 	}
+	
 	public double getMouseXNew() {
 		return x2;
 	}
+	
 	public void setMouseXNew(int newVal) {
 		x2 = newVal;
 	}
+	
 	public double getMouseYOld() {
 		return y1;
 	}
+	
 	public void setMouseYOld(int newVal) {
 		y1 = newVal;
 	}
+	
 	public double getMouseYNew() {
 		return y2;
 	}
+	
 	public void setMouseYNew(int newVal) {
 		y2 = newVal;
 	}
+	
 	public double getXRotateAngle() {
 		return xRotate.getAngle();
 	}
+	
 	public void setXRotateAngle(double newVal) {
 		xRotate.setAngle(newVal);
 	}
+	
 	public double getYRotateAngle() {
 		return yRotate.getAngle();
 	}
@@ -260,12 +271,14 @@ public class CameraController {
 	public double getRotateModifier() {
 		return rotateModifier;
 	}
+	
 	public void setRotateModifier(double newVal) {
 		rotateModifier = newVal;
 	}
 	public double getYLimit() {
 		return cameraYlimit;
 	}
+	
 	public void setYLimit(double newVal) {
 		cameraYlimit = newVal;
 	}

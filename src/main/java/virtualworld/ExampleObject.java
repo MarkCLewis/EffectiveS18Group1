@@ -36,10 +36,6 @@ public class ExampleObject implements WorldObject {
 
 	@Override
 	public void notifyOfCamera(double x, double z) {
-		// TODO Auto-generated method stub
-		
+		this.size = 1000000;		
 	}
-
-	
-
 }

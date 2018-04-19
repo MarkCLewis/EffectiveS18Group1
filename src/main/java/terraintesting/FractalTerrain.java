@@ -4,7 +4,22 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class FractalTerrain implements TerrainGenerationAlgorithm {
 	@Override
-	public void generateTerrain(/*double*/int[][] heightMap, /*double*/ int maxElev) {
+	public void generateTerrain(double[][] heightMap, double maxElev) {
+		//for use in figuring out the different stuff
+		int squareWidth = heightMap.length;
+		//int height = heightMap[0].length;
+		int iter = 0;
+		
+		//if (iter > 1) {
+			//iterateTerrain(heightMap, squareWidth, maxElev);
+			//iter = iter/2;
+		//}
+		
+		for(int i = 0; i < 4; i++){
+			if (iter > 1) {
+				iterateTerrain(heightMap, squareWidth, maxElev);
+			}
+		}
 	}
 		//count of what iteration it is (matters for roughness)
 		private double iter = 0.0;
@@ -43,6 +58,7 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 			}
 		}
 
+		//returns the averages the corners
 		private double average, oAvg;
 		private double avgCorners(double[][] heightMap, int x, int y, int squareWidth){
 			average = ((heightMap[x][y] + heightMap[x + squareWidth][y] +
@@ -52,7 +68,8 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 			return oAvg;
 		}
 
-		private void diamondStep(double[][] heightMap, int x, int y, int squareWidth){
+		private void diamondStep(double[][] heightMap, int x, int y, int squareWidth, double maxElev){
+			assignHeights(heightMap, x, y, squareWidth, maxElev);
 			heightMap[x + (squareWidth/2)][y + (squareWidth/2)] = avgCorners(heightMap, squareWidth,x,y);
 		}
 
@@ -61,20 +78,37 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 			assignHeights(heightMap, x, y, squareWidth, maxElev);
 			avgCorners(heightMap, x, y, squareWidth);
 		}
-
+		
 		//diamond and square step get repeated over and over
 		//squareWidth should be passed in halved every time
 		//for loop for looping over the different squares
-		//talk to Lewis
-
+				
 		//recursiveFunction(){
 			//if ()
 			//diamondStep
 			//squareStep //call multiple times???
 			//iter = iter + 1.0;
 			//square width passed in halved into recursive call
-            //else if ()
+		    //else if ()
 		//}
+		
+		//iterates the terrain
+		private void iterateTerrain(double heightMap[][], int squareWidth, double maxElev){
+			//figure out how to further implement it without it getting huge
+			for(int i= 0; i < 4; i++){
+				if (i == 0) {
+					diamondStep(heightMap, 0, 0, squareWidth, maxElev);
+				} else if (i == 1) {
+					diamondStep(heightMap, squareWidth, 0, squareWidth, maxElev);
+				} else if (i == 2) {
+					diamondStep(heightMap, 0, squareWidth, squareWidth, maxElev);
+				} else if (i == 3) {
+					diamondStep(heightMap, squareWidth, squareWidth, squareWidth, maxElev);
+				}
+				squareWidth = (squareWidth/2);
+				squareStep(heightMap, 0, 0, squareWidth, maxElev);
+			}
+		}
 	}
 
 	/*

@@ -1,5 +1,7 @@
 package citiesTesting;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import graphicsTesting.CameraController;
@@ -13,116 +15,177 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
 import javafx.stage.Stage;
 
-public class CityMaker extends Application{
-	public static void main(String[] args){
+public class CityMaker extends Application {
+	public static void main(String[] args) {
 		launch(args);
 	}
-	
-	public void start(Stage primaryStage) throws Exception{
+
+	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Virtual World");
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
-		
+
 		/*
-		Camera cam = new PerspectiveCamera(true);
-		scene.setCamera(cam);
-		Group cameraGroup = new Group();
-		cameraGroup.getChildren().add(cam);
-		mainGroup.getChildren().add(cameraGroup);
-		
-		CameraController pCam = new CameraController.Builder(cam).build();
-		
-		scene.setOnKeyPressed(event ->{
-			 KeyCode key = event.getCode();
-			 if(key == KeyCode.W) {
-				 pCam.moveForward();
-			 }
-			 if(key == KeyCode.S) {
-				 pCam.moveBackward();
-			 }
-			 if(key == KeyCode.A) {
-				 pCam.moveLeft();
-			 }
-			 if(key == KeyCode.D) {
-				 pCam.moveRight();
-			 }
-			 
-			 if(key == KeyCode.RIGHT) {
-				 pCam.rotateRight();
-			 }
-			 if(key == KeyCode.LEFT) {
-				 pCam.rotateLeft();
-			 }
-			 if(key == KeyCode.UP) {
-				 pCam.rotateUp();
-			 }
-			 if(key == KeyCode.DOWN) {
-				 pCam.rotateDown();
-			 }
-			 if(key == KeyCode.R) {
-				 pCam.moveUp();
-			 }
-			 if(key == KeyCode.F) {
-				 pCam.moveDown();
-			 }
-			});
-		*/
-		
-		//TODO-make a seed when generating cities to make sure
-		//that they remain the same once you leave and come back
+		 * Camera cam = new PerspectiveCamera(true); scene.setCamera(cam); Group
+		 * cameraGroup = new Group(); cameraGroup.getChildren().add(cam);
+		 * mainGroup.getChildren().add(cameraGroup);
+		 * 
+		 * CameraController pCam = new CameraController.Builder(cam).build();
+		 * 
+		 * scene.setOnKeyPressed(event ->{ KeyCode key = event.getCode(); if(key
+		 * == KeyCode.W) { pCam.moveForward(); } if(key == KeyCode.S) {
+		 * pCam.moveBackward(); } if(key == KeyCode.A) { pCam.moveLeft(); }
+		 * if(key == KeyCode.D) { pCam.moveRight(); }
+		 * 
+		 * if(key == KeyCode.RIGHT) { pCam.rotateRight(); } if(key ==
+		 * KeyCode.LEFT) { pCam.rotateLeft(); } if(key == KeyCode.UP) {
+		 * pCam.rotateUp(); } if(key == KeyCode.DOWN) { pCam.rotateDown(); }
+		 * if(key == KeyCode.R) { pCam.moveUp(); } if(key == KeyCode.F) {
+		 * pCam.moveDown(); } });
+		 */
+
+		// TODO-make a seed when generating cities to make sure
+		// that they remain the same once you leave and come back
 		Random rand = new Random();
-		int a = rand.nextInt(3)+1;
-		//int a = 1;
-		
-		//int b = rand.nextInt(50)+15;
-		//how many cities ^
-		
-		//TODO-use random int values to create random cities
-		//one for how many buildings, and one for what type of building
-		
-		//TODO-randomize x, y, z based on the world
-		//1 double = 1 meter
+		int seed = rand.nextInt(700) + 1;
+		rand = new Random(seed);
+
+		int a = rand.nextInt(3) + 1;
+
+		int numberOfCities = rand.nextInt(30) + 20;
+
+		List<Tuple<Integer, Integer, Double, Double, Double, Double>> cities = new ArrayList();
+
+		// TODO-use random int values to create random cities
+		// one for how many buildings, and one for what type of building
+
+		// TODO-randomize x, y, z based on the world
+		// 1 double = 1 meter
 		double x = 400.0;
 		double y = 300.0;
 		double z = 200.0;
 
 		double p = BuildingTypes.makeCoordinate(-2000, 2000);
-		//making random coordinates^
-		//TODO-find out how big the world is so that I can make random coordinates
-		
-		//Math.floor(Math.random() * ((1000-(-1000))+1) + (-1000));
-		
-		Color roof1 = BuildingTypes.colorAssignment(rand);
-		Color roof2 = BuildingTypes.secondaryColor(roof1);
-		Color house1 = BuildingTypes.colorAssignment(rand);
-		Color house2 = BuildingTypes.secondaryColor(house1);
-		//Color fen = BuildingTypes.colorAssignment(rand);
-		
-		
-		//city type 1 (square city)
-		if(a == 1 ){
-			BuildingTypes.makeCity1(mainGroup, roof1, roof2, house1, house2, x, y, z, rand);
+		// making random coordinates^
+
+		for (int c = 0; c < numberOfCities; c++) {
+
+			Color roof1 = BuildingTypes.colorAssignment(rand);
+
+			Color house1 = BuildingTypes.colorAssignment(rand);
+
+
+			// city type 1 (square city)
+			if (a == 1) {
+				double size = BuildingTypes.makeCity1(mainGroup, roof1, BuildingTypes.secondaryColor(roof1), house1,
+						BuildingTypes.secondaryColor(house1), x, y, z, rand);
+				Tuple<Integer, Integer, Double, Double, Double, Double> tup = new Tuple<>(1, seed, size, x - 10.0, y, z - 10.0);
+				cities.add(tup);
+			}
+			
+			// city type 2 (circular city)
+			else if (a == 2) {
+				// TODO-make circular city
+				double size = BuildingTypes.makeCity2(mainGroup, roof1, BuildingTypes.secondaryColor(roof1), house1,
+						BuildingTypes.secondaryColor(house1), x, y, z, rand.nextInt(3) + 1, rand);
+				Tuple<Integer, Integer, Double, Double, Double, Double> tup = new Tuple<>(2, seed, size, x, y, z);
+				cities.add(tup);
+			} 
+			//city type 3 (Diamond city)
+			else if (a == 3) {
+				double size = BuildingTypes.makeCity3(mainGroup, roof1, BuildingTypes.secondaryColor(roof1), house1,
+						BuildingTypes.secondaryColor(house1), x, y, z, rand.nextInt(3) + 1, rand);
+				Tuple<Integer, Integer, Double, Double, Double, Double> tup = new Tuple<>(3, seed, size, x, y, z);
+				cities.add(tup);
+			}
+			// TODO-find out how big the world is so that I can make random
+			// coordinates
+			
+			x = BuildingTypes.makeCoordinate(-4000, 4000);
+			z = BuildingTypes.makeCoordinate(-4000, 4000);
+			
+			boolean bool = true;
+			while(bool == true){
+				if(Location.isOverlapping(x, z, cities)){
+					x = BuildingTypes.makeCoordinate(-4000, 4000);
+					z = BuildingTypes.makeCoordinate(-4000, 4000);
+				}
+				else bool = false;
+			}
+			
+			//TODO:
+			//1. Find a way to make sure cities don't intersect w/ each other
+			//2. Find a way to get the Y value based on terrain
+			
+			
+			seed = rand.nextInt(700) + 1;
+			a = rand.nextInt(3) + 1;
+			
 		}
-		//city type 2 (circular city)
-		else if (a == 2){
-			//TODO-make circular city
-			BuildingTypes.makeCity2(mainGroup, roof1, roof2, house1, house2, x, y, z, rand.nextInt(3)+1, rand);
-		}
-		else if (a == 3){
-			BuildingTypes.makeCity3(mainGroup, roof1, roof2, house1, house2, x, y, z, rand.nextInt(3)+1, rand);
-		}
-		
+		/*
 		System.out.println(p);
+		System.out.println(seed);
+		*/
+		//TODO-make cities able to index & able to search for cities based on coordinates
+		
+		//System.out.println(numberOfCities);
+		
+		/*
+		for(Tuple<Integer, Integer, Double, Double, Double, Double> j : cities){
+			System.out.println("City type: " + j.getCity());
+			System.out.println("Random seed " + j.getSeed());
+			System.out.println("Size of City " + j.getSize());
+			System.out.println("X coordinate " + j.getX());
+			System.out.println("Y coordinate " + j.getY());
+			System.out.println("Z coordinate " + j.getZ() + "\n");
+		}
+		*/
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 
-	
+	class Tuple<U, V, W, X, Y, Z> {
+		public final U cityType;
+		public final V seed;
+		public final W size;
+		public final X x;
+		public final Y y;
+		public final Z z;
 
-	protected boolean isInWater(Box box, float posX, float posY){		
-		return false;
-		//TODO
+		Tuple(U cityType, V seed, W size, X x, Y y, Z z) {
+			this.cityType = cityType;
+			this.seed = seed;
+			this.size = size;
+			this.x = x;
+			this.y = y;
+			this.z = z;
+		}
+		U getCity() {
+			return cityType;
+		}
+		V getSeed() {
+			return seed;
+		}
+		W getSize(){
+			return size;
+		}
+		X getX(){
+			return x;
+		}
+		Y getY(){
+			return y;
+		}
+		Z getZ(){
+			return z;
+		}
+		
 	}
+/*
+	protected boolean isInWater(Box box, float posX, float posY) {
+		return false;
+		// TODO
+	}
+*/
 	
 }

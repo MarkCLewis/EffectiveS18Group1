@@ -139,10 +139,10 @@ public class HeightMapExampleApp extends Application {
 class HeightMapExample implements HeightMap {
 	private int xWidth;
 	private int zWidth;
-	private int[][] hm;
+	private double[][] hm;
 	
 	@Override
-	public int height(int x, int z) {
+	public double height(int x, int z) {
 		return hm[x][z];
 	}
 
@@ -162,10 +162,10 @@ class HeightMapExample implements HeightMap {
 		z
 	}*/
 	
-	public HeightMapExample(int xW, int zW, TerrainGenerationAlgorithm tga, int maxElev) {
+	public HeightMapExample(int xW, int zW, TerrainGenerationAlgorithm tga, double maxElev) {
 		xWidth = xW;
 		zWidth = zW;
-		hm = new int[xWidth][zWidth];
+		hm = new double[xWidth][zWidth];
 		tga.generateTerrain(hm, maxElev);
 	}
 	
@@ -175,7 +175,7 @@ class HeightMapExample implements HeightMap {
 class ExampleTGA implements TerrainGenerationAlgorithm {
 
 	@Override
-	public void generateTerrain(int[][] heightMap, int maxElev) {
+	public void generateTerrain(double[][] heightMap, double maxElev) {
 		for(int x=0; x<heightMap.length; x++) {
 			for(int z=0; z<heightMap[0].length; z++) {
 				heightMap[x][z] = x*z;
