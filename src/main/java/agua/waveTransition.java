@@ -93,54 +93,5 @@ public class waveTransition extends Transition
 		return distances;
 	}
 
-//	public Vector<TriangleMesh> wTransition(TriangleMesh start, TriangleMesh end, int frames)
-//	{
-//		
-//		TriangleMesh endMesh = null;
-//		Vector<TriangleMesh> meshes = new Vector<TriangleMesh>();
-//		
-//		ObservableFloatArray startPoints = start.getPoints();
-//		ObservableFloatArray newPoints = start.getPoints(); // maybe change this later (?)
-//		ObservableFloatArray endPoints = end.getPoints();
-//		Vector<ObservableFloatArray> waveFrames = new Vector<ObservableFloatArray>();
-//		for(int z = 0; z < frames; z++)
-//	{
-//		for(int i = 0; i < startPoints.size(); i++) // +2 or ++?
-//		{
-//			if(startPoints.get(i) > endPoints.get(i))
-//			{
-//				float between = startPoints.get(i) - endPoints.get(i);
-//				//between*(1/60); // divide the distance between the two points by the number of frames (between start and end)
-//				float newP = startPoints.get(i) + between/frames; // 120 is the number of frames
-//				newPoints.set(i, newP);
-//			}
-//			
-//			if(startPoints.get(i) < endPoints.get(i))
-//			{
-//				float between =  endPoints.get(i) - startPoints.get(i);
-//				float newP = startPoints.get(i) + between/frames; // 120 = num of frames
-//				newPoints.set(i,  newP);
-//			}			
-//
-//		}
-//		
-//		waveFrames.add(newPoints);
-//		newPoints.clear();
-//		
-//		endMesh.getPoints().setAll(waveFrames.get(z));
-//		// need to somehow generate the faces 
-//		//endMesh.getFaces().setAll(start.getFaces()); 
-//		meshes.add(endMesh);
-//		
-//		// clear the endMesh, just to be safe
-//		
-//		endMesh.getPoints().clear();
-//		endMesh.getFaces().clear();
-//	}
-//		
-//		return meshes;
-//	}
-	
-	
 	
 }

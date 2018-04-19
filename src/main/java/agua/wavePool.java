@@ -17,6 +17,8 @@ import javafx.util.Duration;
 
 
 // I cleaned this up. 
+// THIS IS A DEMONSTRATION OF AN ANIMATED WAVE POOL
+// THIS IS NOT USABLE FOR EXTENDING TO ANYTHING
 
 
 @SuppressWarnings("restriction")
