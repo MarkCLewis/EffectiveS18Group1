@@ -114,8 +114,8 @@ public class CameraController {
 		boost = false;
 	}
 	
-	//MOVEMENT METHODS
-	//Moves:
+//MOVEMENT METHODS
+//Moves:
 	
 	//moveForward() moves the camera towards where it is facing (on the x-z plane)
 	public void moveForward() {
@@ -167,7 +167,7 @@ public class CameraController {
 		camera.setTranslateY((camera.getTranslateY()+camSpeed));
 	}
 	
-	//Rotates:
+//Rotates:
 	
 	//rotateRight() rotates the camera right from where it is facing
 	public void rotateRight() {
@@ -189,7 +189,7 @@ public class CameraController {
 		xRotate.setAngle(xRotate.getAngle()-camSpeed);
 	}
 	
-	//Boost:
+//Boost:
 	
 	//boostOn() increases the camSpeed and sets boost = true as long as boost is not already true
 	public void boostOn() {
@@ -207,7 +207,7 @@ public class CameraController {
 		}
 	}
 	
-	//Mouse Movement:
+//Mouse Movement:
 	
 	//mouseMove(nx, ny) takes the current x and y of the mouse cursor and moves the camera accordingly
 	//Currently nonfunctional and low priority
@@ -242,7 +242,7 @@ public class CameraController {
 		}*/
 	}
 	
-	//GETTERS AND SETTERS
+//GETTERS AND SETTERS
 	
 	public double getMouseXOld() {
 		return x1;
