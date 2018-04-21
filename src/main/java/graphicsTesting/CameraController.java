@@ -1,3 +1,11 @@
+/* CameraController:
+ * This class holds and controls a PerspectiveCamera passed by the user.
+ * A PerspectiveCamera should be created and added to scenes in groups in the client object 
+   before it is passed to the CameraController.
+ * CameraController contains methods focused on moving the Camera and a number of getters and setters for
+   math and interactions with WorldObjects.
+ */
+
 package graphicsTesting;
 
 import javafx.scene.Camera;
@@ -21,6 +29,9 @@ public class CameraController {
 	private double x;
 	private double theta; 
 	
+	// CameraController uses a builder pattern for creation.
+	// PerspectiveCamera is a mandatory parameter.
+	//All other parameters will be set to a default value if not explicitly provided.
 	public static class Builder {
 		private Camera camera;
 		private double x1 = 0;
@@ -83,6 +94,7 @@ public class CameraController {
 		
 	}
 	
+	//Private constructor (for builder)
 	private CameraController(Builder builder) {
 		camera = builder.camera;
 		x1 = builder.x1;
@@ -101,6 +113,11 @@ public class CameraController {
 		camera.getTransforms().addAll(xRotate,yRotate);	 
 		boost = false;
 	}
+	
+	//MOVEMENT METHODS
+	//Moves:
+	
+	//moveForward() moves the camera towards where it is facing (on the x-z plane)
 	public void moveForward() {
 		z = camera.getTranslateZ();
 		x = camera.getTranslateX();
@@ -110,6 +127,7 @@ public class CameraController {
 		camera.setTranslateX(x+camSpeed*Math.sin(theta));
 	}
 	
+	//moveBackward() moves the camera backwards from where it is facing (on the x-z plane)
 	public void moveBackward() {
 		z = camera.getTranslateZ();
 		x = camera.getTranslateX();
@@ -119,6 +137,7 @@ public class CameraController {
 		camera.setTranslateX(x-camSpeed*Math.sin(theta));
 	}
 	
+	//moveLeft() moves the camera left from where it is facing (on the x-z plane)
 	public void moveLeft() {
 		z = camera.getTranslateZ();
 		x = camera.getTranslateX();
@@ -128,6 +147,7 @@ public class CameraController {
 		camera.setTranslateX(x-Math.cos(theta));
 	}
 	
+	//moveRight() moves the camera right from where it is facing (on the x-z plane)
 	public void moveRight() {
 		z = camera.getTranslateZ();
 		x = camera.getTranslateX();
@@ -137,46 +157,41 @@ public class CameraController {
 		camera.setTranslateX(x+Math.cos(theta));
 	}
 	
-	public void rotateRight() {
-		yRotate.setAngle(yRotate.getAngle()+camSpeed);
-	}
-	
-	public void rotateLeft() {
-		yRotate.setAngle(yRotate.getAngle()-camSpeed);
-	}
-	
-	public void rotateUp() {
-		xRotate.setAngle(xRotate.getAngle()+camSpeed);
-	}
-	
-	public void rotateDown() {
-		xRotate.setAngle(xRotate.getAngle()-camSpeed);
-	}
-	
+	//moveUp() moves the camera upward (on the y plane)
 	public void moveUp() {
 		camera.setTranslateY((camera.getTranslateY()-camSpeed));
 	}
 	
+	//moveDown() moves the camera downward (on the y plane)
 	public void moveDown() {
 		camera.setTranslateY((camera.getTranslateY()+camSpeed));
 	}
 	
-	public void lookUp() {
-		xRotate.setAngle(xRotate.getAngle()+10);
+	//Rotates:
+	
+	//rotateRight() rotates the camera right from where it is facing
+	public void rotateRight() {
+		yRotate.setAngle(yRotate.getAngle()+camSpeed);
 	}
 	
-	public void lookDown() {
-		xRotate.setAngle(xRotate.getAngle()-10);
+	//rotateLeft() rotates the camera left from where it is facing
+	public void rotateLeft() {
+		yRotate.setAngle(yRotate.getAngle()-camSpeed);
 	}
 	
-	public void lookLeft() {
-		yRotate.setAngle(yRotate.getAngle()-10);
+	//rotateUp() rotates the camera upward from where it is facing
+	public void rotateUp() {
+		xRotate.setAngle(xRotate.getAngle()+camSpeed);
 	}
 	
-	public void lookRight() {
-		yRotate.setAngle(yRotate.getAngle()+10);
+	//rotateDown() rotates the camera downward from where it is facing
+	public void rotateDown() {
+		xRotate.setAngle(xRotate.getAngle()-camSpeed);
 	}
 	
+	//Boost:
+	
+	//boostOn() increases the camSpeed and sets boost = true as long as boost is not already true
 	public void boostOn() {
 		if(!boost) {
 			boost = true;
@@ -184,6 +199,7 @@ public class CameraController {
 		}
 	}
 	
+	//boostOff() decreases the camSpeed and sets boost = false as long as boost is true
 	public void boostOff() {
 		if(boost) {
 			boost = false;
@@ -191,6 +207,10 @@ public class CameraController {
 		}
 	}
 	
+	//Mouse Movement:
+	
+	//mouseMove(nx, ny) takes the current x and y of the mouse cursor and moves the camera accordingly
+	//Currently nonfunctional and low priority
 	public void mouseMove(double nx, double ny) {
 		x2 = nx;
 		y2 = ny;
@@ -221,6 +241,8 @@ public class CameraController {
 			e.printStackTrace();
 		}*/
 	}
+	
+	//GETTERS AND SETTERS
 	
 	public double getMouseXOld() {
 		return x1;

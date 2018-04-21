@@ -68,7 +68,22 @@ public class Main extends Application {
 		mainGroup.getChildren().add(cameraGroup);
 		
 		
-	//Key Controls		
+	//Key Controls
+	/*
+	 * W - Forward
+	 * S - Backward
+	 * A - Left
+	 * D - Right
+	 * Up - Look up
+	 * R - Ascend
+	 * F - Descend
+	 * Down - Look Down
+	 * Left - Look Left
+	 * Right - Look Right
+	 * Hold Shift - Speed Boost
+	 */
+		//Calls appropriate movement methods from pCam when key press is detected
+		//KeyCodes are stored in a set so multiple commands can be executed at once
 		Set<KeyCode> keySet = new HashSet<KeyCode>();
 		scene.setOnKeyPressed(event ->{ 
 			 KeyCode key = event.getCode();
@@ -109,6 +124,8 @@ public class Main extends Application {
 			 }
 		});
 		
+		//If a key is released, it is removed from the set and the associated method stops being called
+		//Manually disables boost
 		scene.setOnKeyReleased(event ->{
 			KeyCode key = event.getCode();
 			if(key == KeyCode.SHIFT) {
