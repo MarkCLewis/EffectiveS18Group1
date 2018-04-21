@@ -5,7 +5,6 @@ import java.util.Random;
 import java.util.Set;
 
 import citiesTesting.BuildingTypes;
-import citiesTesting.CityMaker;
 import graphicsTesting.CameraController;
 import javafx.application.Application;
 import javafx.scene.Camera;
@@ -18,7 +17,10 @@ import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.ir.debug.PrintVisitor;
+import quad.NotifyObjects;
 import quad.QuadTree;
+import quad.Traverse;
 
 /**
  * This is just a starter, place holder for the group.
@@ -41,6 +43,11 @@ public class Main extends Application {
 	//QuadTree Initialization
 		QuadTree quad = new QuadTree();
 		//insert top level terrain (one giant piece)
+		//PrintVisitor printTest = new PrintVisitor();
+		NotifyObjects camVisitor = new NotifyObjects();
+		Traverse printTest = new Traverse();
+		//quad.accept(printTest);
+		//quad.accept(camVisitor);
 		
 	//Scene Setup
 		Group mainGroup = new Group();
@@ -50,7 +57,6 @@ public class Main extends Application {
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		Group cameraGroup = new Group();
-		cameraGroup.getChildren().add(camera);
 		CameraController pCam = new CameraController.Builder(camera).build();
 		
 		//String[] args = null;
@@ -146,13 +152,16 @@ public class Main extends Application {
 		house2 = BuildingTypes.secondaryColor(house1);
 		BuildingTypes.makeCity3(mainGroup, roof1, roof2, house1, house2, x, y, z, rand.nextInt(3)+1, rand);
 		
-		//Dr. Lewis's Sphere
-				Sphere sphere = new Sphere(1000);
-				Material mat = new PhongMaterial(Color.RED);
-				sphere.setMaterial(mat);
-				sphere.setTranslateZ(100);
-				mainGroup.getChildren().add(sphere);
-				// TODO Your stuff goes here.
+	//Dr. Lewis's Sphere
+		Sphere sphere = new Sphere(1000);
+		Material mat = new PhongMaterial(Color.RED);
+		sphere.setMaterial(mat);
+		sphere.setTranslateZ(100);
+		Sphere sphere1 = new Sphere(10);
+		Material mat1 = new PhongMaterial(Color.BLUE);
+		sphere1.setMaterial(mat1);
+		sphere1.setTranslateZ(100);
+		mainGroup.getChildren().add(sphere);
 				
 		primaryStage.setScene(scene);
 		primaryStage.show();
