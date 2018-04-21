@@ -7,6 +7,7 @@ import javafx.collections.ObservableIntegerArray;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.Mesh;
 import javafx.scene.shape.TriangleMesh;
+import javafx.util.Pair;
 import agua.distantRendering;
 import java.util.Random;
 
@@ -19,6 +20,7 @@ public class generateTerrain {
 	{
 		return generateCoordinates(xRes, yRes, zRes, 1000, (float)0.60, 3838);
 	}
+
 	
 	public float[][] generateCoordinates(int xRes, int yRes, int zRes, int scale, float noiseLevel, int seed)
 	{
@@ -168,4 +170,12 @@ public class generateTerrain {
 		return mesh;
 	}
 	
+	// this is not necessary at all!!!!
+	// remove this later
+	public Pair<ObservableFloatArray, ObservableIntegerArray> generateTerrainValues(int dimension, float scale, float[][] generatedCoordinates)
+	{
+		TriangleMesh trashMesh = generateTerrain(dimension, scale, generatedCoordinates);
+		
+		return new Pair(trashMesh.getPoints(), trashMesh.getFaces());
+	}
 }

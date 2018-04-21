@@ -95,6 +95,10 @@ public class closeupRendering extends Application {
 		
 		
 		
+		
+		
+		
+		
 		//MeshView test = createMeshView(points, texCoords, faces, 0, 0, 0, Color.BROWN);
 		generateTerrain testPlot = new generateTerrain();
 		float[][] temp = testPlot.generateCoordinates(200, 200, 200);

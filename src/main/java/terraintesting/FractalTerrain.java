@@ -6,12 +6,20 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 	@Override
 	public void generateTerrain(double[][] heightMap, double maxElev) {
 		//for use in figuring out the different stuff
-		//int squareWidth = heightMap.length;
+		int squareWidth = heightMap.length;
 		//int height = heightMap[0].length;
+		int iter = 0;
 		
-		//if (/*???*/ > 2) {
+		//if (iter > 1) {
 			//iterateTerrain(heightMap, squareWidth, maxElev);
+			//iter = iter/2;
 		//}
+		
+		for(int i = 0; i < 4; i++){
+			if (iter > 1) {
+				iterateTerrain(heightMap, squareWidth, maxElev);
+			}
+		}
 	}
 		//count of what iteration it is (matters for roughness)
 		private double iter = 0.0;
@@ -84,6 +92,7 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 		    //else if ()
 		//}
 		
+		//iterates the terrain
 		private void iterateTerrain(double heightMap[][], int squareWidth, double maxElev){
 			//figure out how to further implement it without it getting huge
 			for(int i= 0; i < 4; i++){

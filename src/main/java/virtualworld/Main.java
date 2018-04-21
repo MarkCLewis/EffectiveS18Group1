@@ -39,6 +39,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+<<<<<<< HEAD
 		
 	//QuadTree Initialization
 		QuadTree quad = new QuadTree();
@@ -50,6 +51,10 @@ public class Main extends Application {
 		//quad.accept(camVisitor);
 		
 	//Scene Setup
+=======
+		//Create group, scene, and camera
+		primaryStage.setTitle("Virtual World");
+>>>>>>> 972af94f472569c8af1b44206930d39c8645f795
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 		scene.setFill(Color.GRAY);
@@ -66,9 +71,22 @@ public class Main extends Application {
 		//mainGroup.getChildren().add(buildingGroup);
 		mainGroup.getChildren().add(cameraGroup);
 		
+<<<<<<< HEAD
 		
 
 	//Key Controls
+=======
+		//Create CameraController pCam
+		CameraController pCam = new CameraController.Builder(camera).build();
+		
+		//QuadTree Initialization
+		QuadTree quad = new QuadTree();
+		
+		//insert top level terrain (one giant piece)
+		
+		
+		//Camera Movement
+>>>>>>> 972af94f472569c8af1b44206930d39c8645f795
 		Set<KeyCode> keySet = new HashSet<KeyCode>();
 		scene.setOnKeyPressed(event ->{ 
 			 KeyCode key = event.getCode();
@@ -120,6 +138,18 @@ public class Main extends Application {
 
 	//Tony's Building Testing
 		Random rand = new Random();
+
+		//Test shapes
+		//Dr. Lewis's Sphere
+		Sphere sphere = new Sphere(2);
+		Material mat = new PhongMaterial(Color.BLUE);
+		sphere.setMaterial(mat);
+		sphere.setTranslateZ(10);
+		mainGroup.getChildren().add(sphere);
+		// TODO Your stuff goes here.
+
+		//Tony's Building Testing
+		Random rand = new Random(777);
 		int a = rand.nextInt(3)+1;
 		
 		double x = -1000.0;
