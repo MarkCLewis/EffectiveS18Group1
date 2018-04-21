@@ -9,12 +9,14 @@ import virtualworld.WorldObject;
 public class CityOne implements WorldObject {
 
 	//City Relevant
+	Random rand = new Random();
 	Group mg;
 	Color roof1;
 	Color roof2;
 	Color house1;
 	Color house2;
-	Random rand = new Random();
+	
+	int seed; // = rand.nextInt(700) + 1;
 	
 	//WorldObject Relevant
 	double x;
