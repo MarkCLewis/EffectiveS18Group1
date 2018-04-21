@@ -23,13 +23,11 @@ import quad.QuadTree;
 import quad.Traverse;
 
 /**
- * This is just a starter, place holder for the group.
- * 
  * For JavaFX the main will probably have keyboard control and an AnimationTimer that makes dynamic stuff happen.
  * 
  * Yes. It needs to do the initial setup. 
- * Then it also tells the quadtree when the camera has moved enough that updating is needed.
- * It probably also uses the quadtree to get the elements that should be rendered.
+ * Then it also tells the QuadTree when the camera has moved enough that updating is needed.
+ * It probably also uses the QuadTree to get the elements that should be rendered.
  */
 public class Main extends Application {
 	public static void main(String[] args) {
@@ -39,23 +37,24 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
-	//QuadTree Initialization
-		QuadTree quad = new QuadTree();
-		//insert top level terrain (one giant piece)
-		//PrintVisitor printTest = new PrintVisitor();
-		NotifyObjects camVisitor = new NotifyObjects();
-		Traverse printTest = new Traverse();
-		//quad.accept(printTest);
-		//quad.accept(camVisitor);
-		
-	//Scene Setup
-		//Create group, scene, and camera
+	//Scene
 		primaryStage.setTitle("Virtual World");
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
-		scene.setFill(Color.GRAY);
+		scene.setFill(Color.BLANCHEDALMOND);
+	
+	//QuadTree
+		QuadTree quad = new QuadTree();
+		//TODO insert top level terrain (one giant piece)
 		
+	//Visitors
+		//PrintVisitor printTest = new PrintVisitor();
+		//NotifyObjects camVisitor = new NotifyObjects();
+		//Traverse printTest = new Traverse();
+		//quad.accept(printTest);
+		//quad.accept(camVisitor);
+		
+	//Camera
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		Group cameraGroup = new Group();
@@ -69,10 +68,7 @@ public class Main extends Application {
 		mainGroup.getChildren().add(cameraGroup);
 		
 		
-
 	//Key Controls		
-		
-		//Camera Movement
 		Set<KeyCode> keySet = new HashSet<KeyCode>();
 		scene.setOnKeyPressed(event ->{ 
 			 KeyCode key = event.getCode();
@@ -123,16 +119,6 @@ public class Main extends Application {
 		});
 
 	//Tony's Building Testing
-		//Test shapes
-		//Dr. Lewis's Sphere
-		Sphere sphere = new Sphere(2);
-		Material mat = new PhongMaterial(Color.BLUE);
-		sphere.setMaterial(mat);
-		sphere.setTranslateZ(10);
-		mainGroup.getChildren().add(sphere);
-		// TODO Your stuff goes here.
-
-		//Tony's Building Testing
 		Random rand = new Random(777);
 		int a = rand.nextInt(3)+1;
 		
@@ -168,10 +154,10 @@ public class Main extends Application {
 		
 	//Dr. Lewis's Sphere
 		Sphere sphere1 = new Sphere(10);
-		Material mat1 = new PhongMaterial(Color.BLUE);
+		Material mat1 = new PhongMaterial(Color.FORESTGREEN);
 		sphere1.setMaterial(mat1);
 		sphere1.setTranslateZ(100);
-		mainGroup.getChildren().add(sphere);
+		mainGroup.getChildren().add(sphere1);
 				
 		primaryStage.setScene(scene);
 		primaryStage.show();
