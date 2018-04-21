@@ -6,7 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import virtualworld.WorldObject;
 
-public class CityOne implements WorldObject {
+public class CityTwo implements WorldObject {
 
 	//City Relevant
 	Group mg;
@@ -14,6 +14,7 @@ public class CityOne implements WorldObject {
 	Color roof2;
 	Color house1;
 	Color house2;
+	int center;
 	Random rand = new Random();
 	
 	//WorldObject Relevant
