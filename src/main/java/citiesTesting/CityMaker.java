@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import citiesTesting.CityMaker.Tuple;
 import graphicsTesting.CameraController;
 import javafx.application.Application;
 import javafx.scene.Camera;
@@ -19,8 +20,9 @@ public class CityMaker extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	
 	public void start(Stage primaryStage) throws Exception {
+    //public List<Tuple<Integer, Integer, Double, Double, Double, Double>> start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Virtual World");
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
@@ -54,7 +56,8 @@ public class CityMaker extends Application {
 
 		int numberOfCities = rand.nextInt(30) + 20;
 
-		List<Tuple<Integer, Integer, Double, Double, Double, Double>> cities = new ArrayList();
+		List<Tuple<Integer, Integer, Double, Double, Double, Double>> cities = 
+				new ArrayList<Tuple<Integer, Integer, Double, Double, Double, Double>>();
 
 		// TODO-use random int values to create random cities
 		// one for how many buildings, and one for what type of building
@@ -114,8 +117,7 @@ public class CityMaker extends Application {
 			}
 			
 			//TODO:
-			//1. Find a way to make sure cities don't intersect w/ each other
-			//2. Find a way to get the Y value based on terrain
+			//1. Find a way to get the Y value based on terrain
 			
 			
 			seed = rand.nextInt(700) + 1;
@@ -143,6 +145,7 @@ public class CityMaker extends Application {
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		//return cities
 	}
 
 	class Tuple<U, V, W, X, Y, Z> {
