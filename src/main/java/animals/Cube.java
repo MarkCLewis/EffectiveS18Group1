@@ -4,10 +4,10 @@ package animals;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
-import javafx.scene.PointLight;
+//import javafx.scene.PointLight;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
+//import javafx.scene.paint.Color;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.transform.Rotate;
@@ -34,29 +34,26 @@ public class Cube extends Application
 		meshView.setScaleY(10.0);
 		meshView.setScaleZ(10.0);
 
-		// Create a Camera to view the 3D Shapes
 		PerspectiveCamera camera = new PerspectiveCamera(false);
 		camera.setTranslateX(100);
 		camera.setTranslateY(-50);
 		camera.setTranslateZ(300);
 
-		// Create the red Front Light
-		PointLight redLight = new PointLight();
-		redLight.setColor(Color.RED);
-		redLight.setTranslateX(250);
-		redLight.setTranslateY(150);
-		redLight.setTranslateZ(300);
+//		//red Front Light
+//		PointLight redLight = new PointLight();
+//		redLight.setColor(Color.RED);
+//		redLight.setTranslateX(250);
+//		redLight.setTranslateY(150);
+//		redLight.setTranslateZ(300);
+//
+//		// Create the green Back Light
+//		PointLight greenLight = new PointLight();
+//		greenLight.setColor(Color.GREEN);
+//		greenLight.setTranslateX(200);
+//		greenLight.setTranslateY(150);
+//		greenLight.setTranslateZ(450);
 
-		// Create the green Back Light
-		PointLight greenLight = new PointLight();
-		greenLight.setColor(Color.GREEN);
-		greenLight.setTranslateX(200);
-		greenLight.setTranslateY(150);
-		greenLight.setTranslateZ(450);
-
-		// Add the Shapes and the Light to the Group
-		Group root = new Group(meshView, redLight, greenLight);
-		// Rotate the triangle with its lights to 90 degrees
+		Group root = new Group(meshView /*redLight, greenLight*/);
 		root.setRotationAxis(Rotate.Y_AXIS);
 		root.setRotate(90);
 
@@ -65,7 +62,6 @@ public class Cube extends Application
 
         scene.setCamera(camera);
 		stage.setScene(scene);
-		// Set the Title of the Stage
 		stage.setTitle("An Example using a TriangleMesh");
 		//Camera Movement
 				double camSpeed = 10.0;
