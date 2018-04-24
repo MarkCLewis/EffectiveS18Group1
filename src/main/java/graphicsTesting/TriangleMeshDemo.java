@@ -1,28 +1,21 @@
 package graphicsTesting;
 
-import java.awt.AWTException;
-import java.awt.Robot;
 import java.util.HashSet;
 import java.util.Set;
 
 import javafx.application.Application;
 import javafx.scene.Camera;
-import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
-import javafx.scene.shape.Sphere;
 import javafx.scene.shape.TriangleMesh;
 import javafx.stage.Stage;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Material;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.transform.Rotate;
 
 public class TriangleMeshDemo extends Application {
 	public static void main(String[] args) {

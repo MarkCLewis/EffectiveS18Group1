@@ -36,8 +36,6 @@ public class CameraController {
 		private Camera camera;
 		private double x1 = 0;
 		private double y1 = 0;
-		private double x2 = x1;
-		private double y2 = x2;
 		private double camSpeed = 1.0;
 		private Rotate xRotate = new Rotate(0,0,0,0,Rotate.X_AXIS);
 		private Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
