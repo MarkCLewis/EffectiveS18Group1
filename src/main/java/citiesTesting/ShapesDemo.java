@@ -135,7 +135,7 @@ public class ShapesDemo extends Application {
 		
 		//makeGate(mainGroup, Color.ORANGE, Color.CORAL, Color.RED, Color.DARKRED, 525, 300, -500);
 		
-		
+		/*
 		makeObelisk(mainGroup, Color.ORANGE,Color.DARKRED, 525, 240, -500);
 		
 		BuildingTypes.makeHouse1(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, 600, 300, -500);
@@ -150,7 +150,8 @@ public class ShapesDemo extends Application {
 		makeHouse1(mainGroup, Color.PALEVIOLETRED, Color.RED, Color.LIGHTBLUE, Color.BLUE, 600, 300, -500);
 		
 		BuildingTypes.makeTemple(mainGroup, Color.ORANGE, Color.GOLDENROD, Color.ORANGE, Color.GOLDENROD, 800, 200, -500);
-		
+		*/
+		CityOne.main();
 		
 		//public void makeCentralSpiral(Group mg, Color color1, Color color2, Color color3, Color color4, int x, int y, int z)
 		
