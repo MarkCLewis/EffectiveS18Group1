@@ -1,6 +1,9 @@
 package agua;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Vector;
 
 import javafx.animation.Transition;
@@ -11,6 +14,7 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.util.Duration;
 
+
 public class waveTransition extends Transition
 {
 	private Vector<TriangleMesh> meshFrames;
@@ -19,24 +23,33 @@ public class waveTransition extends Transition
 	private MeshView mv;
 	private TriangleMesh endMesh;
 	private TriangleMesh startMesh;
+	private Vector<TriangleMesh> meshArr;
 	private TriangleMesh currMesh;
 	private ArrayList<Float> meshDistances;
 	private ObservableFloatArray newPoints;
 	private int totalFrames;
-	private int cycleCount;
+	private int meshIndex;
+	private double duration;
 	
-	public waveTransition(MeshView tempMV, TriangleMesh start, TriangleMesh end, int frames)
+	
+	
+	public waveTransition(MeshView tempMV, TriangleMesh start, TriangleMesh end, int frames, double duration)
 	{
 		
 		mv = tempMV;
+		this.duration = duration;
 		this.endMesh = end;
 		this.currMesh = start;
 		this.startMesh = start;
 		ArrayList<Float> distances = getDistance(this.startMesh, this.endMesh);
 		this.meshDistances = distances;
 		this.totalFrames = frames;
-		setCycleDuration(Duration.millis(1500));
-		this.cycleCount = 1;
+		//startMesh.getNormals().setAll();
+		
+		setCycleDuration(Duration.millis(duration));
+		this.meshIndex = 0;
+//		meshArr.addElement(startMesh);
+//		meshArr.addElement(endMesh);
 		//this.meshFrames = wTransition(start, end, frames);
 	}
 	
@@ -51,29 +64,19 @@ public class waveTransition extends Transition
 		for(int z = 1; z < meshDistances.size()*3 - 3 ; z+=3)
 		{
 			otherIter++;
-//			if(this.cycleCount%100 == 0)
-//			{
-				
-				copyPoints.set(z, (float) (frame*newPoints[z] + (meshDistances.get(otherIter)*.03)));
-//			}
-//			else
-//			{
-//				copyPoints.set(z, (float) (newPoints[z] - (meshDistances.get(otherIter)*(frame*.03))));
-//			}
+			if(frame > .5)
+			{
+				if(Math.abs(newPoints[z]) > 0)
+					copyPoints.set(z, (float) (((newPoints[z] + (meshDistances.get(otherIter))*.03))));
+			}
+			else
+				if(Math.abs(newPoints[z]) > 0)
+					copyPoints.set(z, (float) (((newPoints[z] - (meshDistances.get(otherIter))*.03))));
+
 		}
-		//currPoints.clear();
+		//System.out.println(frame);
 		currPoints.setAll(copyPoints);
-		//this.cycleCount++;
-		//newPoints.addAll();
-//		int numFrame = 0;
-//		if(frame != 0.0)
-//			 numFrame = Math.round((float)(meshFrames.size()*frame));
-//		
-//		TriangleMesh tempMesh = meshFrames.get(numFrame);
-//		TriangleMesh runningMesh = (TriangleMesh) mv.getMesh();
-//		
-//		runningMesh.getPoints().setAll(tempMesh.getPoints());
-//		runningMesh.getFaces().setAll(tempMesh.getFaces());
+		
 	}
 	
 	public ArrayList<Float> getDistance(TriangleMesh start, TriangleMesh end)

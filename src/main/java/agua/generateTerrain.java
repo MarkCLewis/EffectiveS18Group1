@@ -25,11 +25,11 @@ public class generateTerrain {
 	public float[][] generateCoordinates(int xRes, int yRes, int zRes, int scale, float noiseLevel, int seed)
 	{
 		double xStart = 0;
-		double xEnd = 500; // these will end up needing to be passed in, eventually
+		double xEnd = xRes; // these will end up needing to be passed in, eventually
 		double yStart = 0; // ideally this would make it easy to stitch multiple Terrain meshes together. 
-		double yEnd = 500;
+		double yEnd = yRes;
 		double zStart = 0;
-		double zEnd = 500;
+		double zEnd = zRes;
 		
 		SimplexNoise simplexNoise = new SimplexNoise(scale, noiseLevel, seed);
 		//SimplexNoise simplexNoise = new SimplexNoise(1000,0.60,3838); //.5 = a bit rough, .35 = choppy water, .70 is rocky mountains
@@ -165,6 +165,7 @@ public class generateTerrain {
 		mesh.getTexCoords().addAll(0, 0);
 		mesh.getPoints().addAll(points);
 		mesh.getFaces().addAll(faces);
+		
 		
 		// this returns the mesh, which needs to be added to a meshviewer to be used properly
 		return mesh;

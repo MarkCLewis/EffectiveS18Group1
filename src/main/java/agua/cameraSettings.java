@@ -21,8 +21,8 @@ public class cameraSettings {
 	 double cameraZ = 0;
 	 double cameraX = 0;
 	 double cameraY = 0;
-	 double cameraFarClip = 40000;
-	 double cameraNearClip = 1;
+	 double cameraFarClip = 4000000;
+	 double cameraNearClip = .05;
 	 Rotate xRotate = new Rotate(0,0,0,0,Rotate.X_AXIS);
 	 Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
 	 

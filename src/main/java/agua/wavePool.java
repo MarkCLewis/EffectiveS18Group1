@@ -1,7 +1,10 @@
 package agua;
+import java.util.Vector;
+
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.geometry.Point3D;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
@@ -9,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
@@ -25,9 +29,9 @@ import javafx.util.Duration;
 public class wavePool extends Application {
 
 	private int seed = 2121;
-	private int scale = 120;  
+	private int scale = 100;  
 	private int[] cds = {50,scale,50};
-	private float noiseLevel = (float) .30;
+	private float noiseLevel = (float) .23;
 	private MeshView currMesh;
 
 	//@SuppressWarnings("unchecked")
@@ -47,14 +51,15 @@ public class wavePool extends Application {
 	generateTerrain testPlot = new generateTerrain();
 	float[][] coords = testPlot.generateCoordinates(cds[0], cds[1], cds[2], scale, noiseLevel, seed+21); //int xRes, int yRes, int zRes, int scale, float noiseLevel, int seed
 	
-	float[][] endCoords = testPlot.generateCoordinates(cds[0], cds[1], cds[2], scale, (float)(noiseLevel+.05), seed+45);;
+	float[][] endCoords = testPlot.generateCoordinates(cds[0], cds[1], cds[2], scale, (float)(noiseLevel+.01), seed+45);;
 	
 	TriangleMesh mesh = testPlot.generateTerrain(cds[0], scale, coords);
 	TriangleMesh endMesh = testPlot.generateTerrain(cds[0], scale, endCoords);
-
+	
 	MeshView meshView = new MeshView(mesh);
-	
-	
+	meshView.setCullFace(CullFace.FRONT);
+
+			//int[] sizes, int scale, int minSpeed, int maxSpeed, int minHeight, int seed
 	PhongMaterial material = new PhongMaterial(Color.AQUA);
 	material.setSpecularColor(Color.BLUE);
 	
@@ -67,19 +72,19 @@ public class wavePool extends Application {
 	meshView.setTranslateZ(0);
 	meshView.setMaterial(material);
 	
-	TranslateTransition hmm = new TranslateTransition(Duration.seconds(10), meshView);
+	//TranslateTransition hmm = new TranslateTransition(Duration.seconds(10), meshView);
 	
 	
-	waveTransition transTest = new waveTransition(meshView, mesh, endMesh, 60);
+	waveTransition transTest = new waveTransition(meshView, mesh, endMesh, 60, 5000);
 	//waveTransition transBack = new waveTransition(meshView, endMesh, mesh, 60);
 	transTest.setRate(1);
 	transTest.setAutoReverse(true);
 	transTest.setCycleCount(Transition.INDEFINITE);
 
 	
-	
+
 	AmbientLight ambience = new AmbientLight(); // default color white
-    ambience.setLightOn(false); // switch it off and everything is black
+    ambience.setLightOn(true); // switch it off and everything is black
     
 	scene.setOnKeyPressed(event-> {
 		double change = cameraSetup.cameraQuantity;
@@ -107,8 +112,7 @@ public class wavePool extends Application {
 		if(key == KeyCode.V) { transTest.play(); }
 		if(key == KeyCode.F) {meshView.setDrawMode(DrawMode.LINE);}
 		if(key == KeyCode.G) {meshView.setDrawMode(DrawMode.FILL);}
-		if(key == KeyCode.I){ambience.setLightOn(true);}
-		if(key == KeyCode.K){ambience.setLightOn(false);}
+
 		if(key == KeyCode.Q) {System.exit(0);}
 		if(key == KeyCode.W) {camera.setTranslateZ(camera.getTranslateZ() + change);}
 		if(key == KeyCode.S) {camera.setTranslateZ(camera.getTranslateZ() - change);}
@@ -131,11 +135,16 @@ public class wavePool extends Application {
     sceneGroup.getChildren().add(ambience);
 	sceneGroup.getChildren().add(meshView);
 	mainStage.setScene(scene);
-	transTest.play();
+	//transTest.play();
 	
 	mainStage.show();
 	}
 	
+	public Point3D randomPoint()
+	{
+		Point3D rando = new Point3D(Math.random()*(250 - 10)+45,Math.random()*(170 - 5)+45,Math.random()*(430 - 22)+45);
+		return rando;
+	}
 	
 	public static void main(String[] args) {
 		launch(args);
