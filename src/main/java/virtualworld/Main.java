@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.Set;
 
 import citiesTesting.BuildingTypes;
+import citiesTesting.CityOne;
 import graphicsTesting.CameraController;
 import javafx.application.Application;
 import javafx.scene.Camera;
@@ -17,10 +18,7 @@ import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.ir.debug.PrintVisitor;
-import quad.CollectObjects;
 import quad.QuadTree;
-import quad.Traverse;
 
 /**
  * For JavaFX the main will probably have keyboard control and an AnimationTimer that makes dynamic stuff happen.
@@ -44,7 +42,7 @@ public class Main extends Application {
 		scene.setFill(Color.BLANCHEDALMOND);
 	
 	//QuadTree
-		QuadTree quad = new QuadTree();
+		QuadTree quad = QuadTree.getInstance();
 		//TODO insert top level terrain (one giant piece)
 		
 	//Visitors
@@ -136,6 +134,7 @@ public class Main extends Application {
 		});
 
 	//Tony's Building Testing
+		/*
 		Random rand = new Random(777);
 		int a = rand.nextInt(3)+1;
 		
@@ -168,7 +167,8 @@ public class Main extends Application {
 		house1 = BuildingTypes.colorAssignment(rand2);
 		house2 = BuildingTypes.secondaryColor(house1);
 		BuildingTypes.makeCity3(mainGroup, roof1, roof2, house1, house2, x, y, z, rand2.nextInt(3)+1, rand2);
-		
+		*/
+		CityOne co = CityOne.returnObj(mainGroup);
 	//Dr. Lewis's Sphere
 		Sphere sphere1 = new Sphere(10);
 		Material mat1 = new PhongMaterial(Color.FORESTGREEN);

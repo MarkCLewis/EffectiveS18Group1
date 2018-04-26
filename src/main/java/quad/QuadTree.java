@@ -8,7 +8,6 @@ import java.util.Queue;
 import javafx.scene.Camera;
 import virtualworld.WorldObject;
 
-
 /**
  * terrain adds itself as top level as a single flat piece
  * traversal of the tree with the visitor (tells objects that new camera is present)
@@ -21,6 +20,17 @@ import virtualworld.WorldObject;
  */
 public class QuadTree implements Element {
 
+	//Singleton
+	private QuadTree() {}
+	
+	private static class QuadTreeHolder {
+		private static final QuadTree INSTANCE = new QuadTree();
+	}
+
+	public static QuadTree getInstance() {
+		return QuadTreeHolder.INSTANCE;
+	}
+	
 	private Node root;
 	private int count = 0;
 
@@ -109,8 +119,9 @@ public class QuadTree implements Element {
 	Node insert(WorldObject item, Node n) {
 		double x = item.getX();
 		double y = item.getY();
-		//double s = item.getSize();
+		//check to see if there is a root
 		if (n == null) return insert(item);
+		//otherwise insert the child in the correct place
 		else {
 			int child = n.getChild(x, y);
 			n.children.set(child, insert(item, n));
