@@ -83,7 +83,7 @@ public class CameraTesting extends Application{
 			keySet.remove(key);
 			
 		});
-		
+		/*
 		TriangleMesh pyramidMesh = new TriangleMesh();
 
 		pyramidMesh.getTexCoords().addAll(0,0);
@@ -145,7 +145,13 @@ public class CameraTesting extends Application{
 		house2 = BuildingTypes.secondaryColor(house1);
 		BuildingTypes.makeCity3(mainGroup, roof1, roof2, house1, house2, x, y, z, rand.nextInt(3)+1, rand);
 		
-		mainGroup.getChildren().add(pyramid);
+		*/
+		
+		
+		
+		//mainGroup.getChildren().add(pyramid);
+		int[] transCords = {0,0,0};
+		mainGroup.getChildren().add(DrawFacade.createMeshView(DrawFacade.createBoxMesh(20,10,10), new PhongMaterial(Color.BLUE), transCords));
 		stage.setScene(scene);
 		stage.show();
 	}
