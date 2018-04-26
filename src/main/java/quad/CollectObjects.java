@@ -5,11 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import quad.QuadTree.Node;
+import quad.Node;
 import virtualworld.WorldObject;
 import graphicsTesting.CameraController;
 
-//notifies objects of when a viewer is closeby so that the correct detail can be rendered
+//notifies objects of when a viewer is close by so that the correct detail can be rendered
 //knows where the camera is and generates a list of 3Ds
 public class CollectObjects implements ElementVisitor {
 

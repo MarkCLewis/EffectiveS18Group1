@@ -8,7 +8,7 @@ import virtualworld.WorldObject;
  * Each visit() method accepts a single argument - a pointer or reference to an original Element derived class.
  */
 public interface ElementVisitor {
-	public void visit(QuadTree.Node n);
+	public void visit(Node n);
 	public void visit(WorldObject item);
-	public boolean cares(QuadTree.Node n);
+	public boolean cares(Node n);
 }

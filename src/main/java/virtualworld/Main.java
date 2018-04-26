@@ -168,7 +168,7 @@ public class Main extends Application {
 		house2 = BuildingTypes.secondaryColor(house1);
 		BuildingTypes.makeCity3(mainGroup, roof1, roof2, house1, house2, x, y, z, rand2.nextInt(3)+1, rand2);
 		*/
-		CityOne co = CityOne.returnObj(mainGroup);
+		//CityOne co = CityOne.returnObj(mainGroup);
 	//Dr. Lewis's Sphere
 		Sphere sphere1 = new Sphere(10);
 		Material mat1 = new PhongMaterial(Color.FORESTGREEN);

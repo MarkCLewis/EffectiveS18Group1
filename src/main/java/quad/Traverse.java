@@ -3,7 +3,7 @@ package quad;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import quad.QuadTree.Node;
+import quad.Node;
 import virtualworld.WorldObject;
 
 public class Traverse implements ElementVisitor{

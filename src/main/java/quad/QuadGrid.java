@@ -1,35 +1,31 @@
 package quad;
 
+import terraintesting.Point;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Application;
-import javafx.scene.Camera;
-import javafx.scene.Cursor;
 import javafx.scene.Group;
-import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.PixelWriter;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.DrawMode;
-import javafx.scene.shape.MeshView;
 import javafx.scene.shape.Sphere;
-import javafx.scene.shape.TriangleMesh;
-import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+import virtualworld.WorldObject;
 
 public class QuadGrid extends Application {
 
+	//scene variables
 	private static final int width = 600;
 	private static final int height = 600;
+	private Point center = new Point(width/2, height/2);
 	
-	private double x1 = 0;
-	private double y1 = 0;
-	private double x2;
-	private double y2;
+	//Quadtree variables
+	QuadTree quad = QuadTree.getInstance();
+	private List<WorldObject> objects = new ArrayList<>();
 	
 	public static void main(String[] args) {
 		System.out.println("app started");

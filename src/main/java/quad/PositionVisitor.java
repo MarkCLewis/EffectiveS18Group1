@@ -1,6 +1,6 @@
 package quad;
 
-import quad.QuadTree.Node;
+import quad.Node;
 import virtualworld.WorldObject;
 
 public class PositionVisitor implements ElementVisitor{

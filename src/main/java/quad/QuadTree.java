@@ -1,11 +1,9 @@
 package quad;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
-
 import javafx.scene.Camera;
+import terraintesting.Point;
 import virtualworld.WorldObject;
 
 /**
@@ -31,71 +29,17 @@ public class QuadTree implements Element {
 		return QuadTreeHolder.INSTANCE;
 	}
 	
+	//Private tree variables
 	private Node root;
 	private int count = 0;
-
-	//Node class stores four children, key location, and value
-	static class Node {
-		double x; double y;
-		List<Node> children = new ArrayList<Node>();
-		List<WorldObject> contents = new ArrayList<WorldObject>();
-		double size;
-
-		//Node constructor takes coordinates and a value
-		public Node (double x, double y, double s) {
-			this.x = x;
-			this.y = y;
-			this.size = s;
-		}
-
-		public double getX(Node node) {
-			return node.x;
-		}
-
-		public double getY(Node node) {
-			return node.y;
-		}
-
-		public static double getSize(Node node) {
-			return node.size;
-		}
-		
-		/**
-		 * Gets the number of the child from a given coordinate
-		 * 
-		 * @param x x-coordinate
-		 * @param y y-coordinate
-		 * @return child the int value of the child node
-		 */
-		public int getChild (Double x, Double y) {
-			int child = 0;
-			if (x > this.x) child |= 1;
-			if (y > this.y) child |= 2;
-			return child;
-		}
-	}
-
-	/**
-     * Returns a reference to the tree's root node.  Callers shouldn't modify nodes, directly.
-     *
-     * @return Node The root node.
-     */
-	public Node getRootNode() {
-		return this.root;
-	}
 	
-	/**
-	 * Returns the number of nodes in the tree
-	 * 
-	 * @return the number of the nodes in the tree
-	 */
-	public int getCount() {
-		return this.count;
-	}
+	//Private camera variables
+	private Point cameraLocation;
+	private double updateDistance = 10;
 	
+	//QuadTree functionality	
 	/**
 	 * Sets the root equal to an initial value
-	 * 
 	 * @param item A WorldObject to be encapsulated by a node
 	 * @return root The root of the QuadTree, which has just been made
 	 */
@@ -111,7 +55,6 @@ public class QuadTree implements Element {
 	 * Inserts a node in the correct place, if the node passed in is null,
 	 * then the WorldObject gets passed to the other insert function, if the 
 	 * node is valid, then the WorldObject gets inserted into the correct child.
-	 * 
 	 * @param item A WorldObject to be encapsulated by a node
 	 * @param n A node to encapsulate the WorldObject
 	 * @return The parent node
@@ -119,9 +62,7 @@ public class QuadTree implements Element {
 	Node insert(WorldObject item, Node n) {
 		double x = item.getX();
 		double y = item.getY();
-		//check to see if there is a root
 		if (n == null) return insert(item);
-		//otherwise insert the child in the correct place
 		else {
 			int child = n.getChild(x, y);
 			n.children.set(child, insert(item, n));
@@ -168,7 +109,25 @@ public class QuadTree implements Element {
 			visitor.visit(n);
 		}
 	}
-
+	
+	//Getters
+	/**
+     * Returns a reference to the tree's root node.  Callers shouldn't modify nodes, directly.
+     * @return Node The root node.
+     */
+	public Node getRootNode() {
+		return this.root;
+	}
+	
+	/**
+	 * Returns the number of nodes in the tree
+	 * @return the number of the nodes in the tree
+	 */
+	public int getCount() {
+		return this.count;
+	}
+	
+	//Testing
 	/**
 	 * Purely for testing purposes, prints out the structure of the QuadTree
 	 */
