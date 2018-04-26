@@ -151,7 +151,29 @@ public class ShapesDemo extends Application {
 		
 		BuildingTypes.makeTemple(mainGroup, Color.ORANGE, Color.GOLDENROD, Color.ORANGE, Color.GOLDENROD, 800, 200, -500);
 		*/
-		CityOne.main();
+		
+		//CityOne.main(mainGroup);
+		CityOne co = CityOne.returnObj(mainGroup);
+		
+		//System.out.println(s);
+		
+		//int s = CityOne.make(94, mainGroup);
+		
+		/*
+		Random rand = new Random();
+		int seed = rand.nextInt(700) + 1;
+		rand = new Random(seed);
+		
+		Color roof1 = BuildingTypes.colorAssignment(rand);
+		Color house1 = BuildingTypes.colorAssignment(rand);
+		
+		double x = 400.0;
+		double y = 300.0;
+		double z = 200.0;
+		
+		BuildingTypes.makeCity1(mainGroup, roof1, BuildingTypes.secondaryColor(roof1), house1, BuildingTypes.secondaryColor(house1), x, y, z, rand);
+		*/
+		
 		
 		//public void makeCentralSpiral(Group mg, Color color1, Color color2, Color color3, Color color4, int x, int y, int z)
 		
