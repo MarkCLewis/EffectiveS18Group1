@@ -8,7 +8,7 @@ import javafx.scene.shape.TriangleMesh;
 
 public class DrawFacade {
 	
-	public TriangleMesh createPyramidMesh(float height, float side) {
+	public static TriangleMesh createPyramidMesh(float height, float side) {
 		TriangleMesh newMesh = new TriangleMesh();
 
 		newMesh.getTexCoords().addAll(0,0);
@@ -35,7 +35,7 @@ public class DrawFacade {
 		return newMesh;
 	}
 	
-	public TriangleMesh createBoxMesh(float length, float height, float width) {
+	public static TriangleMesh createBoxMesh(float length, float height, float width) {
 		TriangleMesh newMesh = new TriangleMesh();
 
 		newMesh.getTexCoords().addAll(0,0);
@@ -55,28 +55,31 @@ public class DrawFacade {
 		    );
 		
 		newMesh.getFaces().addAll(
-				6,0,  3,0,  4,0,          // Top front
-				6,0,  5,0,  4,0,          // Top back
-		        0,0,  5,0,  6,0,          // Left top
-		        0,0,  1,0,  6,0,          // Left bottom
-		        1,0,  6,0,  7,0,          // Front top
-		        1,0,  2,0,  7,0,          // Front bottom
-		        2,0,  7,0,  4,0,          // Right top
-		        2,0,  3,0,  4,0,          // Right bottom
-		        3,0,  4,0,  5,0,          // Back top
-		        3,0,  0,0,  5,0,          // Back bottom
-		        0,0,  1,0,  2,0,          // Bottom back
-		        0,0,  3,0,  2,0           // Bottom front
+				
+				4,0,  7,0,  6,0,          // Top front
+				5,0,  4,0,  6,0,          // Top back
+		        5,0,  6,0,  0,0,          // Left top
+		        6,0,  1,0,  0,0,          // Left bottom
+		        6,0,  7,0,  1,0,          // Front top
+		        7,0,  2,0,  1,0,          // Front bottom
+		        7,0,  4,0,  2,0,          // Right top
+		        4,0,  3,0,  2,0,          // Right bottom
+		        4,0,  5,0,  3,0,          // Back top
+		        5,0,  0,0,  3,0,          // Back bottom
+		        1,0,  2,0,  0,0,          // Bottom back
+		        2,0,  3,0,  0,0           // Bottom front
 		    );
 		
 		return newMesh;
 	}
 	
-	public void addMesh(Group group, TriangleMesh tMesh, PhongMaterial material, int[] transCords) {
+	
+	
+	public static void addMesh(Group group, TriangleMesh tMesh, PhongMaterial material, int[] transCords) {
 		group.getChildren().add(createMeshView(tMesh, material, transCords));
 	}
 	
-	public MeshView createMeshView(TriangleMesh tMesh, PhongMaterial material, int[] transCords) {
+	public static MeshView createMeshView(TriangleMesh tMesh, PhongMaterial material, int[] transCords) {
 		MeshView mv = new MeshView(tMesh);
 		mv.setDrawMode(DrawMode.FILL);
 		mv.setMaterial(material);

@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import virtualworld.WorldObject;
 
 public class CityOne implements WorldObject {
-/*
+
 	//City Relevant
 	public static Random rand = new Random();
 	static Group mg;
@@ -20,13 +20,38 @@ public class CityOne implements WorldObject {
 	
 	//WorldObject Relevant
 	static double x;
-	static double y;
+	static double y = 0.0;
+	//TODO-make it so that y is based on terrain
 	static double z;
 	static double size;
 
+	public static CityOne returnObj(Group group) {
+		main(group);
+		CityOne co = new CityOne();
+		return co;
+		//Silas wrote these 2 lines
+	}
 	
-	public static void main(){
+	public static void main(Group group){
+		setGroup(group);
 		setSeed();
+		setRand();
+		setColor(roof1);
+		setSecondaryColor(roof1, roof2);
+		setColor(house1);
+		setSecondaryColor(house1, house2);
+		setX();
+		setZ();
+		
+		double sz = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
+		setSize(sz);
+
+	}
+	
+	//make it if you already know the object
+	public static void make(int s, Group group){
+		setGroup(group);
+		setSeed(s);
 		setRand();
 		setColor(roof1);
 		setSecondaryColor(roof1, roof2);
@@ -40,6 +65,10 @@ public class CityOne implements WorldObject {
 	}
 	
 	////////////////Setting////////////////
+	
+	public static void setGroup(Group g){
+		mg = g;
+	}
 	
 	public static void setColor(Color col){
 		col = BuildingTypes.colorAssignment(rand);
@@ -53,6 +82,10 @@ public class CityOne implements WorldObject {
 		size = num;
 	}
 	
+	public static void setSeed(int s){
+		seed = s;
+	}
+	
 	public static void setSeed(){
 		seed = rand.nextInt(700) + 1;
 	}
@@ -62,7 +95,13 @@ public class CityOne implements WorldObject {
 	}
 	
 	public static void setCoordinate(double cor){
-		cor = BuildingTypes.makeCoordinate(-4000, 4000);
+		cor = MathStuff.makeCoordinate(-4000, 4000);
+	}
+	public static void setX(){
+		x = MathStuff.makeCoordinate(-4000, 4000);
+	}
+	public static void setZ(){
+		z = MathStuff.makeCoordinate(-4000, 4000);
 	}
 	
 	///////////////Getting//////////////////
@@ -88,95 +127,6 @@ public class CityOne implements WorldObject {
 		return size;
 	}
 	
-	public int getSeed(){
-		return seed;
-	}
-
-	@Override
-	public void notifyOfCamera(double x, double z) {
-		
-	}
-	
-	*/
-	//City Relevant
-	public Random rand = new Random();
-	Group mg;
-	Color roof1;
-	Color roof2;
-	Color house1;
-	Color house2;
-	int seed;
-	
-	
-	//WorldObject Relevant
-	double x;
-	double y;
-	double z;
-	double size;
-
-	
-	public void main(){
-		setSeed();
-		setRand();
-		setColor(roof1);
-		setSecondaryColor(roof1, roof2);
-		setColor(house1);
-		setSecondaryColor(house1, house2);
-		setCoordinate(x);
-		setCoordinate(z);
-		
-		double sz = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
-		setSize(sz);
-	}
-	
-	////////////////Setting////////////////
-	
-	public void setColor(Color col){
-		col = BuildingTypes.colorAssignment(rand);
-	}
-	
-	public void setSecondaryColor(Color col1, Color col2){
-		col2 = BuildingTypes.secondaryColor(col1);
-	}
-	
-	public void setSize(double num){
-		size = num;
-	}
-	
-	public void setSeed(){
-		seed = rand.nextInt(700) + 1;
-	}
-	
-	public void setRand(){
-		rand = new Random(seed);
-	}
-	
-	public void setCoordinate(double cor){
-		cor = BuildingTypes.makeCoordinate(-4000, 4000);
-	}
-	
-	///////////////Getting//////////////////
-	
-	@Override
-	public double getX() {
-		return x;
-	}
-
-	@Override
-	public double getY() {
-		return y;
-	}
-
-	@Override
-	public double getZ() {
-		return z;
-	}
-
-	@Override
-	public double getSize() {
-		//however you calculate the bounding box
-		return size;
-	}
 	
 	public int getSeed(){
 		return seed;
@@ -186,5 +136,5 @@ public class CityOne implements WorldObject {
 	public void notifyOfCamera(double x, double z) {
 		
 	}
-	 
+	
 }

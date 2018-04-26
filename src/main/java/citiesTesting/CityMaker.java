@@ -27,25 +27,6 @@ public class CityMaker extends Application {
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 
-		/*
-		 * Camera cam = new PerspectiveCamera(true); scene.setCamera(cam); Group
-		 * cameraGroup = new Group(); cameraGroup.getChildren().add(cam);
-		 * mainGroup.getChildren().add(cameraGroup);
-		 * 
-		 * CameraController pCam = new CameraController.Builder(cam).build();
-		 * 
-		 * scene.setOnKeyPressed(event ->{ KeyCode key = event.getCode(); if(key
-		 * == KeyCode.W) { pCam.moveForward(); } if(key == KeyCode.S) {
-		 * pCam.moveBackward(); } if(key == KeyCode.A) { pCam.moveLeft(); }
-		 * if(key == KeyCode.D) { pCam.moveRight(); }
-		 * 
-		 * if(key == KeyCode.RIGHT) { pCam.rotateRight(); } if(key ==
-		 * KeyCode.LEFT) { pCam.rotateLeft(); } if(key == KeyCode.UP) {
-		 * pCam.rotateUp(); } if(key == KeyCode.DOWN) { pCam.rotateDown(); }
-		 * if(key == KeyCode.R) { pCam.moveUp(); } if(key == KeyCode.F) {
-		 * pCam.moveDown(); } });
-		 */
-
 		// TODO-make a seed when generating cities to make sure
 		// that they remain the same once you leave and come back
 		Random rand = new Random();
@@ -68,7 +49,7 @@ public class CityMaker extends Application {
 		double y = 300.0;
 		double z = 200.0;
 
-		double p = BuildingTypes.makeCoordinate(-2000, 2000);
+		//double p = MathStuff.makeCoordinate(-2000, 2000);
 		// making random coordinates^
 
 		for (int c = 0; c < numberOfCities; c++) {
@@ -104,14 +85,14 @@ public class CityMaker extends Application {
 			// TODO-find out how big the world is so that I can make random
 			// coordinates
 			
-			x = BuildingTypes.makeCoordinate(-4000, 4000);
-			z = BuildingTypes.makeCoordinate(-4000, 4000);
+			x = MathStuff.makeCoordinate(-4000, 4000);
+			z = MathStuff.makeCoordinate(-4000, 4000);
 			
 			boolean bool = true;
 			while(bool == true){
 				if(Location.isOverlapping(x, z, cities)){
-					x = BuildingTypes.makeCoordinate(-4000, 4000);
-					z = BuildingTypes.makeCoordinate(-4000, 4000);
+					x = MathStuff.makeCoordinate(-4000, 4000);
+					z = MathStuff.makeCoordinate(-4000, 4000);
 				}
 				else bool = false;
 			}
@@ -119,8 +100,7 @@ public class CityMaker extends Application {
 			//TODO:
 			//1. Find a way to get the Y value based on terrain
 			
-			
-			seed = rand.nextInt(700) + 1;
+			//seed = rand.nextInt(700) + 1;
 			a = rand.nextInt(3) + 1;
 			
 		}
