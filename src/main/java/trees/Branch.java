@@ -63,7 +63,7 @@ public class Branch{
     }
     public void setInitialSize(double w, double h, double d){
 		this.w=w;
-		this.h=d;
+		this.h=h;
 		this.d=d;
     }
 

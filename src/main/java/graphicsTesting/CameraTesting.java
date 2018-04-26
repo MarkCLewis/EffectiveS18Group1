@@ -114,7 +114,6 @@ public class CameraTesting extends Application{
 		pyramid.setTranslateZ(10);
 		
 		Random rand = new Random(777);
-		int a = rand.nextInt(3)+1;
 		
 		double x = -1000.0;
 		double y = 0;

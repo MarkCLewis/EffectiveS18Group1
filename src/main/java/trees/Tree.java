@@ -41,13 +41,15 @@ public class Tree extends Application implements WorldObject{
 		s=0;
 	}
 	
-	public Box makeBranch(double width, double height, double depth, double posX,double posY, double posZ){
+	public Box makeBranch(double width, double height, double depth, double posX,double posY, double posZ, double angle){
 		Material mat = new PhongMaterial(Color.GREEN);
 		Box b=new Box(width,height,depth);
 		b.setTranslateX(posX);
 		b.setTranslateY(posY);
 		b.setTranslateZ(posZ);
 		b.setMaterial(mat);
+		b.setRotationAxis(Rotate.Z_AXIS);
+		b.setRotate(angle);
 		return b;
 	}
 
@@ -70,15 +72,27 @@ public class Tree extends Application implements WorldObject{
 	//This is type B of tree.
 	public void treeB(){
 
-		axiom= new Branch("b",h,w,d,px,py,pz,a,s);
+//		axiom= new Branch("b",h,w,d,px,py,pz,a,s);
+//
+//		productionA="ab";
+//		productionB="ba";
+//		Random times=new Random();
+//		int nTimes=(times.nextInt((4 - 3) + 1) + 3)-1;
+//		loops=(int)(Math.pow(2,nTimes)-1);
+//		System.out.println("Type B tree generated");
+//		System.out.println("Tree size: "+nTimes+" levels");
+//		
+		axiom= new Branch("a",h,w,d,px,py,pz,a,s);
 
-		productionA="ab";
-		productionB="ba";
+		productionA="ba";
+		productionB="bb";
 		Random times=new Random();
 		int nTimes=(times.nextInt((4 - 3) + 1) + 3)-1;
 		loops=(int)(Math.pow(2,nTimes)-1);
 		System.out.println("Type B tree generated");
 		System.out.println("Tree size: "+nTimes+" levels");
+
+		
 
 	}
 
@@ -109,7 +123,7 @@ public class Tree extends Application implements WorldObject{
 			nodes.add(parent);
 
 			parent.setInitialCoordinates(250, 500, 0);
-			parent.setInitialSize(20, 70, 0);
+			parent.setInitialSize(20, 70, 10);
 
 			if(parent.getType().equals("a")){
 
@@ -130,7 +144,7 @@ public class Tree extends Application implements WorldObject{
 //					box.setMaterial(mat);
 //					h=h*9/10;
 //					w=w/3;
-					branches.add(makeBranch(parent.getWidth(),parent.getHeight(),parent.getDepth(),parent.getPositionX(),parent.getPositionY(),parent.getPositionZ()));
+				//	branches.add(makeBranch(parent.getWidth(),parent.getHeight(),parent.getDepth(),parent.getPositionX(),parent.getPositionY(),parent.getPositionZ()));
 				}
 			}
 			else if(parent.getType().equals("b")){
@@ -150,7 +164,7 @@ public class Tree extends Application implements WorldObject{
 //					h=h*9/10;
 //					w=w/3;
 //					mainGroup.getChildren().add(box);
-					branches.add(makeBranch(parent.getWidth(),parent.getHeight(),parent.getDepth(),parent.getPositionX(),parent.getPositionY(),parent.getPositionZ()));
+					//branches.add(makeBranch(parent.getWidth(),parent.getHeight(),parent.getDepth(),parent.getPositionX(),parent.getPositionY(),parent.getPositionZ()));
 				}
 			}
 
@@ -159,8 +173,11 @@ public class Tree extends Application implements WorldObject{
 			for(Branch node : parent.getChildren()) {
 
 				System.out.println(node.getType()+ " ");
+			
 
 			}
+			
+
 
 		}
 
@@ -177,12 +194,24 @@ public class Tree extends Application implements WorldObject{
 		primaryStage.setScene(scene);
 
 		tree.buildTree();
+		
+		//makeBranch(double width, double height, double depth, double posX,double posY, double posZ)
+		
+		mainGroup.getChildren().add(tree.makeBranch(15, 80, 10, 250, 460, 0,0));
+		
+			mainGroup.getChildren().add(tree.makeBranch(10, 60, 10, 270, 400, 0,45));
+			
+			mainGroup.getChildren().add(tree.makeBranch(10, 60, 10, 230, 400, 0,-45));
+				mainGroup.getChildren().add(tree.makeBranch(7, 45, 10, 210, 400, 0,-90));
+				mainGroup.getChildren().add(tree.makeBranch(7, 45, 10, 230, 380, 0,0));
+				
+			mainGroup.getChildren().add(tree.makeBranch(10, 60, 10, 250, 400, 0,0));
+	
 		for(int i=0; i<branches.size();i++){
 			mainGroup.getChildren().add(branches.get(i));
 			
 		}
 
-//		
 //		Box bo=new Box(20,70,10);
 //		bo.setTranslateX(250);
 //		bo.setTranslateY(500);

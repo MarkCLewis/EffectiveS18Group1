@@ -18,7 +18,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
 import jdk.nashorn.internal.ir.debug.PrintVisitor;
-import quad.NotifyObjects;
+import quad.CollectObjects;
 import quad.QuadTree;
 import quad.Traverse;
 
