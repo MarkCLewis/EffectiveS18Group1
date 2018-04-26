@@ -34,6 +34,7 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 		private double perturb = (-(Math.pow(randCoeff, iter))) +
 					ThreadLocalRandom.current().nextDouble(Math.pow(randCoeff, (2 * iter)));
 		
+		//holds the random value
 		public double rand;
 		
 		//generates random height to assign to points
@@ -74,7 +75,8 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 			assignHeights(heightMap, x, y, squareWidth, maxElev);
 			heightMap[x + (squareWidth/2)][y + (squareWidth/2)] = avgCorners(heightMap, squareWidth,x,y);
 		}
-
+		
+		//calculates the diamond midpoint and assigns the heights
 		private void squareStep(double[][] heightMap, int x, int y, int squareWidth, double maxElev){
 			//note to self: pass in the squareWidth halved
 			assignHeights(heightMap, x, y, squareWidth, maxElev);
