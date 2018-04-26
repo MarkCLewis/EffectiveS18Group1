@@ -8,7 +8,7 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 		//for use in figuring out the different stuff
 		int squareWidth = heightMap.length;
 		//int height = heightMap[0].length;
-		int iter = 0;
+		int maxIter = 100;
 		
 		//if (iter > 1) {
 			//iterateTerrain(heightMap, squareWidth, maxElev);
@@ -16,8 +16,9 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 		//}
 		
 		for(int i = 0; i < 4; i++){
-			if (iter > 1) {
+			if (maxIter > 2) {
 				iterateTerrain(heightMap, squareWidth, maxElev);
+				maxIter = (maxIter/2);
 			}
 		}
 	}
@@ -28,11 +29,12 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 		private double randCoeff = ThreadLocalRandom.current().nextDouble(1.0);
 		//private double randCoeff = 0.5 //for testing
 
-		//generates peturbation; -roughness^n <= peturbation <= roughness^n
+		//generates perturbation; -roughness^n <= perturbation <= roughness^n
 		//where n is the iteration
-		private double peturb = (-(Math.pow(randCoeff, iter))) +
+		private double perturb = (-(Math.pow(randCoeff, iter))) +
 					ThreadLocalRandom.current().nextDouble(Math.pow(randCoeff, (2 * iter)));
 		
+		//holds the random value
 		public double rand;
 		
 		//generates random height to assign to points
@@ -64,15 +66,17 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 			average = ((heightMap[x][y] + heightMap[x + squareWidth][y] +
 					  heightMap[x][y + squareWidth] +
 					  heightMap[x + squareWidth][y + squareWidth])/4);
-			oAvg = average + peturb;
+			oAvg = average + perturb;
 			return oAvg;
 		}
 
+		//finds and assigns the middle point
 		private void diamondStep(double[][] heightMap, int x, int y, int squareWidth, double maxElev){
 			assignHeights(heightMap, x, y, squareWidth, maxElev);
 			heightMap[x + (squareWidth/2)][y + (squareWidth/2)] = avgCorners(heightMap, squareWidth,x,y);
 		}
-
+		
+		//calculates the diamond midpoint and assigns the heights
 		private void squareStep(double[][] heightMap, int x, int y, int squareWidth, double maxElev){
 			//note to self: pass in the squareWidth halved
 			assignHeights(heightMap, x, y, squareWidth, maxElev);
@@ -107,6 +111,7 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 				}
 				squareWidth = (squareWidth/2);
 				squareStep(heightMap, 0, 0, squareWidth, maxElev);
+				iter += 1.0;
 			}
 		}
 	}
