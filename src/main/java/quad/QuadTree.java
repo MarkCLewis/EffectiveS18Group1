@@ -33,6 +33,8 @@ public class QuadTree implements Element {
 	// Private tree variables
 	private Node root;
 	private int count = 0;
+	private int depth;
+	private int maxDepth = 40;
 
 	// Private camera variables
 	private Point cameraLocation;
