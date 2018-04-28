@@ -7,6 +7,21 @@ package virtualworld;
  * (i.e. how much space it takes up if you were looking at it from above)
  */
 public interface WorldObject {
+
+	/**
+	 * Enum that signifies what kind of geometric object this WorldObject should be drawn as
+	 */
+	/*
+	enum DrawType {
+		TRIANGLE_MESH, BOX, PYRAMID, SPHERE, CYLINDER, ;
+	}
+	 */
+	/**
+	 * @return the DrawType of an object
+	 */
+	/*
+	DrawType getDrawType();
+	 */
 	
 	/**
 	 * @return the length of an object
