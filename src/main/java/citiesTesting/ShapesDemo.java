@@ -152,12 +152,32 @@ public class ShapesDemo extends Application {
 		BuildingTypes.makeTemple(mainGroup, Color.ORANGE, Color.GOLDENROD, Color.ORANGE, Color.GOLDENROD, 800, 200, -500);
 		*/
 		
-		//CityOne.main(mainGroup);
-		CityOne co = CityOne.returnObj(mainGroup);
+		//Example of how to use City world objects
+		CityOne cOne = CityOne.returnObj(mainGroup);
+		CityTwo cTwo = CityTwo.returnObj(mainGroup);
+		CityThree cThree = CityThree.returnObj(mainGroup);
+		
+		/*
+		System.out.println(cOne.getSize());
+		System.out.println(cOne.getX());
+		System.out.println(cOne.getZ());
+		
+		System.out.println();
+		
+		System.out.println(cTwo.getSize());
+		System.out.println(cTwo.getX());
+		System.out.println(cTwo.getZ());
+		
+		System.out.println();
+		
+		System.out.println(cThree.getSize());
+		System.out.println(cThree.getX());
+		System.out.println(cThree.getZ());
+		*/
 		
 		//System.out.println(s);
 		
-		//int s = CityOne.make(94, mainGroup);
+		
 		
 		/*
 		Random rand = new Random();
