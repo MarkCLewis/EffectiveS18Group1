@@ -15,7 +15,7 @@ public class Branch{
       
     }
     
-    public  Branch(String t,double h, double w, double d, double px, double py, double pz, double a, double s){
+    public  Branch(String t,double w, double h, double d, double px, double py, double pz, double a, double s){
 		this.t=t; //type
 		this.h=h; //height
 		this.w=w; //width
@@ -24,7 +24,7 @@ public class Branch{
 		this.py=py; //pos y
 		this.pz=pz; //pos Z
 		this.a=a; //angle
-		this.s=s; 
+		this.s=s; //size
 		
 	}
 
@@ -94,6 +94,10 @@ public class Branch{
 	
 	public double getAngle(){
 		return a;
+	}
+	
+	public void setAngle(double a){
+		this.a=a;
 	}
 	
     public void setType(String t) {
