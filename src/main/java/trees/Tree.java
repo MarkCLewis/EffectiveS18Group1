@@ -87,18 +87,18 @@ public class Tree extends Application implements WorldObject{
 	public void chooseTree(){
 		Random r = new Random();
 
-		//if(r.nextInt((10 - 1) + 1) + 1<6){
+		if(r.nextInt((10 - 1) + 1) + 1<6){
 			treeA();
-		//}
+		}
 
-		//else{
-		//	treeB();
-		//}
+		else{
+			treeB();
+		}
 	}
 
 
 	public void buildTree(){
-
+		Branch branch;
 		chooseTree();
 		q=new LinkedList<>();
 
@@ -111,7 +111,7 @@ public class Tree extends Application implements WorldObject{
 		
 		for (int i=0; i< loops; i++){
 			System.out.println(i);
-			Branch branch=q.poll();
+			branch=q.poll();
 			
 			nodes.add(branch);
 			//System.out.println("W: "+branch.getWidth());
@@ -124,61 +124,7 @@ public class Tree extends Application implements WorldObject{
 				mainGroup.getChildren().add(makeBranch(branch.getWidth(), branch.getHeight(), branch.getDepth(), branch.getPositionX(), branch.getPositionY(), branch.getPositionZ(),branch.getAngle()));
 
 			}
-			else if(i>0){
-				
-				if(i==1){
-				
-					branch.setAngle(branch.getParent().getAngle()-45);
-		
-					w=branch.getParent().getWidth()*.75;
-					h=branch.getParent().getHeight()*.75;
-					d=branch.getParent().getDepth()*.75;
-					a=branch.getAngle();
-					x=branch.getParent().getPositionX()-(h)*(Math.cos(Math.toRadians(a)))/2;
-					//460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
-				//	System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))+(h*(Math.sin(Math.toRadians(a)))/2));
-					y=((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))+(h*(Math.sin(Math.toRadians(a)))/2);
-					mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
-						
-				}
-				
-				if(i==2){
-				
-					branch.setAngle(branch.getParent().getAngle());
-					w=branch.getParent().getWidth()*.75;
-					h=branch.getParent().getHeight()*.75;
-					d=branch.getParent().getDepth()*.75;
-					a=branch.getAngle();
-					x=branch.getParent().getPositionX();
-					//460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
-				//	System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2));
-					y=(branch.getParent().getPositionY()-branch.getParent().getHeight()/2-h/2);
-					mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
-						
-				}
-				
-				
-				
-				
-				if(i==3){
-		
-					branch.setAngle(branch.getParent().getAngle()+45);
-					w=branch.getParent().getWidth()*.75;
-					h=branch.getParent().getHeight()*.75;
-					d=branch.getParent().getDepth()*.75;
-					a=branch.getAngle();
-					x=branch.getParent().getPositionX()+(h)*(Math.cos(Math.toRadians(a)))/2;
-					//460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
-				//	System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2));
-					y=((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2);
-					mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
-						
-				}
-				
-			//	mainGroup.getChildren().add(makeBranch(branch.getParent().getWidth()*.75, branch.getParent().getHeight()*.75, branch.getParent().getDepth()*.75, branch.getParent().getPositionX()-(80*.75)*(Math.cos(Math.toRadians()))/2), branch.getPositionY(), branch.getPositionZ(),branch.getAngle()));
-				
-			}
-
+			
 			if(branch.getType().equals("a")){
 
 				for(int k=0; k<productionA.length(); k++){
@@ -213,12 +159,95 @@ public class Tree extends Application implements WorldObject{
 			}
 
 			System.out.println("Parent: "+branch.getType());
-
+			int index=0;
 			for(Branch node : branch.getChildren()) {
 
 				System.out.println(node.getType()+ " ");
+				
+				if(branch.getType()=="a"){
+					if(index==0){
+						
+						branch.getChildAt(index).setAngle(branch.getAngle()-45);
 			
-
+						w=branch.getWidth()*.75;
+						h=branch.getHeight()*.75;
+						d=branch.getDepth()*.75;
+						a=branch.getChildAt(index).getAngle();
+						x=branch.getPositionX()-(h)*(Math.cos(Math.toRadians(a)))/2;
+						//460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
+					//	System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))+(h*(Math.sin(Math.toRadians(a)))/2));
+						y=((branch.getPositionY()-branch.getHeight()/2))+(h*(Math.sin(Math.toRadians(a)))/2);
+						mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
+							
+					}
+					
+					if(index==1){
+					
+						branch.getChildAt(index).setAngle(branch.getAngle());
+						w=branch.getWidth()*.75;
+						h=branch.getHeight()*.75;
+						d=branch.getDepth()*.75;
+						a=branch.getChildAt(index).getAngle();
+						x=branch.getPositionX();
+						//460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
+					//	System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2));
+						y=(branch.getPositionY()-branch.getHeight()/2-h/2);
+						mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
+							
+					}
+					
+					
+					
+					
+					if(index==2){
+			
+						branch.getChildAt(index).setAngle(branch.getAngle()+45);
+						w=branch.getWidth()*.75;
+						h=branch.getHeight()*.75;
+						d=branch.getDepth()*.75;
+						a=branch.getChildAt(index).getAngle();
+						x=branch.getPositionX()+(h)*(Math.cos(Math.toRadians(a)))/2;
+						//460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
+					//	System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2));
+						y=((branch.getPositionY()-branch.getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2);
+						mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
+							
+					}
+				}
+				else{
+if(index==0){
+						
+						branch.getChildAt(index).setAngle(branch.getAngle()-45);
+			
+						w=branch.getWidth()*.75;
+						h=branch.getHeight()*.75;
+						d=branch.getDepth()*.75;
+						a=branch.getChildAt(index).getAngle();
+						x=branch.getPositionX()-(h)*(Math.cos(Math.toRadians(a)))/2;
+						//460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
+					//	System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))+(h*(Math.sin(Math.toRadians(a)))/2));
+						y=((branch.getPositionY()-branch.getHeight()/2))+(h*(Math.sin(Math.toRadians(a)))/2);
+						mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
+							
+					}
+					
+					if(index==1){
+						branch.getChildAt(index).setAngle(branch.getAngle()+45);
+						w=branch.getWidth()*.75;
+						h=branch.getHeight()*.75;
+						d=branch.getDepth()*.75;
+						a=branch.getChildAt(index).getAngle();
+						x=branch.getPositionX()+(h)*(Math.cos(Math.toRadians(a)))/2;
+						//460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
+					//	System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2));
+						y=((branch.getPositionY()-branch.getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2);
+						mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
+							
+					}
+				}
+				
+				
+			index++;
 			}
 			
 
