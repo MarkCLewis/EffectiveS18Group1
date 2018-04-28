@@ -2,10 +2,10 @@ package virtualworld;
 
 public class ExampleObject implements WorldObject {
 
-	double x;
-	double z;
-	double y;
-	double size;
+	private double x;
+	private double z;
+	private double y;
+	private double size;
 	
 	public ExampleObject (double x, double z, double y) {
 		this.x = x;

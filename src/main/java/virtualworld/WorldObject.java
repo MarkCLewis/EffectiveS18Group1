@@ -8,12 +8,13 @@ package virtualworld;
  */
 public interface WorldObject {
 
+
 	/**
 	 * Enum that signifies what kind of geometric object this WorldObject should be drawn as
 	 */
 	/*
 	enum DrawType {
-		TRIANGLE_MESH, BOX, PYRAMID, SPHERE, CYLINDER, ;
+		TRIANGLE_MESH, BOX, PYRAMID, SPHERE, CYLINDER;
 	}
 	 */
 	/**
@@ -21,6 +22,19 @@ public interface WorldObject {
 	 */
 	/*
 	DrawType getDrawType();
+	*/
+	
+	/* We'll need information on the location of the object, not just it's size
+	 * Recommend we also have the following data members:
+	 * 
+	 * double getXLoc();
+	 * 
+	 * double getYLoc();
+	 * 
+	 * double getZLoc();
+	 * 
+	 * The above members define a point which is the location of the object in the world
+	 * These are commented so as to not break previously-written code yet
 	 */
 	
 	/**
