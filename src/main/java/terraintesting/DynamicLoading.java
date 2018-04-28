@@ -13,8 +13,7 @@ public class DynamicLoading {
 	}
 
 	double posRandomDouble(double x, double y) {
-		//double dx = Long.doubleValue(x);
-		//double dy = Long.doubleValue(y);
+
 		return 0.0;
 	}
 }
