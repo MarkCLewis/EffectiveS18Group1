@@ -53,11 +53,16 @@ public class wavePool extends Application {
 	
 	float[][] endCoords = testPlot.generateCoordinates(cds[0], cds[1], cds[2], scale, (float)(noiseLevel+.01), seed+45);;
 	
+	
+	
 	TriangleMesh mesh = testPlot.generateTerrain(cds[0], scale, coords);
+	TriangleMesh meshTwo = testPlot.generateTerrain(cds[0], scale, coords);
 	TriangleMesh endMesh = testPlot.generateTerrain(cds[0], scale, endCoords);
 	
 	MeshView meshView = new MeshView(mesh);
 	meshView.setCullFace(CullFace.FRONT);
+	MeshView meshViewTwo = new MeshView(meshTwo);
+	meshViewTwo.setCullFace(CullFace.FRONT);
 
 			//int[] sizes, int scale, int minSpeed, int maxSpeed, int minHeight, int seed
 	PhongMaterial material = new PhongMaterial(Color.AQUA);
@@ -69,8 +74,20 @@ public class wavePool extends Application {
 	meshView.setScaleY(scale*2);
 	meshView.setTranslateX(0);
 	meshView.setTranslateY(0);
-	meshView.setTranslateZ(0);
+	meshView.setTranslateZ(-500);
 	meshView.setMaterial(material);
+	
+	PhongMaterial materialTwo = new PhongMaterial(Color.DARKRED);
+	materialTwo.setSpecularColor(Color.DARKGOLDENROD);
+	meshViewTwo.setDrawMode(DrawMode.LINE);
+	meshViewTwo.setScaleX(scale/10);
+	meshViewTwo.setScaleZ(scale/10);
+	meshViewTwo.setScaleY(scale*2);
+	meshViewTwo.setTranslateX(0);
+	meshViewTwo.setTranslateY(0);
+	meshViewTwo.setTranslateZ(-500);
+	meshViewTwo.setMaterial(materialTwo);
+	
 	
 	//TranslateTransition hmm = new TranslateTransition(Duration.seconds(10), meshView);
 	
@@ -108,6 +125,20 @@ public class wavePool extends Application {
 			mesh.getPoints().setAll(mesh.getPoints());
 			mesh.getFaces().setAll(mesh.getFaces());
 			
+		}
+		if(key == KeyCode.O) {meshViewTwo.setScaleX(meshViewTwo.getScaleX()*2);
+							  meshViewTwo.setScaleZ(meshViewTwo.getScaleZ()*2);
+							  meshViewTwo.setScaleY(meshViewTwo.getScaleY()*2);
+		}
+		if(key == KeyCode.P) {meshViewTwo.setScaleX(meshViewTwo.getScaleX()/2);
+		  meshViewTwo.setScaleZ(meshViewTwo.getScaleZ()/2);
+		  meshViewTwo.setScaleY(meshViewTwo.getScaleY()/2);
+}
+		if(key == KeyCode.C) { sceneGroup.getChildren().add(meshViewTwo);
+								sceneGroup.getChildren().remove(meshView);
+		}
+		if(key == KeyCode.B) { sceneGroup.getChildren().add(meshView);
+								sceneGroup.getChildren().remove(meshViewTwo);
 		}
 		if(key == KeyCode.V) { transTest.play(); }
 		if(key == KeyCode.F) {meshView.setDrawMode(DrawMode.LINE);}

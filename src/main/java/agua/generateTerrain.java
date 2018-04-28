@@ -4,6 +4,7 @@ import javafx.animation.RotateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableFloatArray;
 import javafx.collections.ObservableIntegerArray;
+import javafx.geometry.Point3D;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.Mesh;
 import javafx.scene.shape.TriangleMesh;
@@ -178,5 +179,18 @@ public class generateTerrain {
 		TriangleMesh trashMesh = generateTerrain(dimension, scale, generatedCoordinates);
 		
 		return new Pair(trashMesh.getPoints(), trashMesh.getFaces());
+	}
+	
+	public TriangleMesh snip(TriangleMesh tm, Point3D point, int size)
+	{
+		TriangleMesh newMesh = null;
+		float[] dest = null;
+		int[] faces = null;
+		tm.getTexCoords().copyTo(0, dest, size, size+1);
+		tm.getFaces().copyTo(0, faces, size, size+1);
+		newMesh.getFaces().addAll(faces);
+		newMesh.getPoints().addAll(dest);
+		
+		return newMesh;
 	}
 }
