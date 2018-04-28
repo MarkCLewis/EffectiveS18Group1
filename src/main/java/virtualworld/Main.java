@@ -132,9 +132,21 @@ public class Main extends Application {
 			keySet.remove(key);
 			
 		});
+		
+		Sphere sphere2 = new Sphere(10);
+		Material mat2 = new PhongMaterial(Color.FORESTGREEN);
+		sphere2.setMaterial(mat2);
+		sphere2.setTranslateZ(100);
+		mainGroup.getChildren().add(sphere2);
+				
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+}
 
-	//Tony's Building Testing
-		/*
+/*
+//Old Materials
+//Tony's Building Testing
 		Random rand = new Random(777);
 		int a = rand.nextInt(3)+1;
 		
@@ -167,16 +179,12 @@ public class Main extends Application {
 		house1 = BuildingTypes.colorAssignment(rand2);
 		house2 = BuildingTypes.secondaryColor(house1);
 		BuildingTypes.makeCity3(mainGroup, roof1, roof2, house1, house2, x, y, z, rand2.nextInt(3)+1, rand2);
-		*/
+		
 		//CityOne co = CityOne.returnObj(mainGroup);
-	//Dr. Lewis's Sphere
-		Sphere sphere1 = new Sphere(10);
+		//Dr. Lewis's Sphere
+		Sphere sphere1 = new Sphere(20);
 		Material mat1 = new PhongMaterial(Color.FORESTGREEN);
 		sphere1.setMaterial(mat1);
 		sphere1.setTranslateZ(100);
 		mainGroup.getChildren().add(sphere1);
-				
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	}
-}
+*/

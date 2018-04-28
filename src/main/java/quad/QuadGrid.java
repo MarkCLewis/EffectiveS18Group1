@@ -2,17 +2,16 @@ package quad;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import terraintesting.Point;
+import virtualworld.ExampleObject;
 import virtualworld.WorldObject;
 
 public class QuadGrid extends Application implements Element {
@@ -25,7 +24,7 @@ public class QuadGrid extends Application implements Element {
 	List<ElementVisitor> visitorList;
 	
 	//Quadtree variables
-	QuadTree quad = QuadTree.getInstance();
+	static QuadTree quad = QuadTree.getInstance();
 	private List<WorldObject> objects = new ArrayList<>();
 	
 	public static void main(String[] args) {
@@ -45,6 +44,7 @@ public class QuadGrid extends Application implements Element {
 		for (ElementVisitor visitor : visitorList) {
 			accept(visitor);
 		}
+		
 		for (Node n : quadNodes) {
 			Rectangle rect = new Rectangle();
 			rect.setX(n.x - n.size/2);
@@ -62,7 +62,18 @@ public class QuadGrid extends Application implements Element {
 	}
 
 	public static void populate() {
-		
+		Random rand = new Random();
+		Point p = new Point (rand.nextDouble() + rand.nextInt(599), rand.nextDouble() + rand.nextInt(599));
+		ExampleObject testObject = new ExampleObject(p.getX(), p.getZ(), 0);
+		quad.insert(testObject);
+		/*
+		Random rand = new Random();
+		for (int i = 0; i <100; i++) {
+			Point p = new Point (rand.nextDouble() + rand.nextInt(599), rand.nextDouble() + rand.nextInt(599));
+			ExampleObject testObject = new ExampleObject(p.getX(), p.getZ(), 0);
+			quad.insert(testObject);
+		}
+		*/
 	}
 	
 	@Override
