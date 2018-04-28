@@ -49,13 +49,13 @@ public class cloudTest extends Application {
 	Scene scene = new Scene(sceneGroup, 1280, 720);
 	scene.setFill(Color.CORNSILK);
 	
-	int[] tempArraySizes = {40, 60, 80};
+	int[] tempArraySizes = {20, 30, 40, 50};
 	cloudFactory cloudFac = new cloudFactory(tempArraySizes, scale, 10, 50, 100, seed);
 	//cloud testCloud = cloudFac.formCloud(100);
 	
 	
 	
-	Vector<cloud> atmosphere = cloudFac.createClouds(3, tempArraySizes);
+	Vector<cloud> atmosphere = cloudFac.createClouds(4, tempArraySizes);
 	
 	
 	scene.setOnKeyPressed(event-> {

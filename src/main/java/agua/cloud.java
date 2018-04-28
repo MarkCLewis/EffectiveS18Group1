@@ -10,8 +10,9 @@ import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.shape.VertexFormat;
+import virtualworld.WorldObject;
 
-public class cloud 
+public class cloud implements WorldObject
 {
 	private int size;
 	private int scale;
@@ -174,5 +175,40 @@ public class cloud
 	{
 		return this.transition;
 	}
+	
+	public void playTransition() // DO NOT USE THIS! THEY NEED TO BE IN PARALLEL TRANSITIONS!
+	{
+		this.transition.play();
+	}
 	// set cloudTransition (from the factory w/ fly weight)
+
+	@Override
+	public double getX() {
+		// TODO Auto-generated method stub
+		return location.getX();
+	}
+
+	@Override
+	public double getY() {
+		// TODO Auto-generated method stub
+		return location.getY();
+	}
+
+	@Override
+	public double getZ() {
+		// TODO Auto-generated method stub
+		return location.getZ();
+	}
+
+	@Override
+	public double getSize() {
+		// TODO Auto-generated method stub
+		return this.size;
+	}
+
+	@Override
+	public void notifyOfCamera(double x, double z) {
+		// TODO Auto-generated method stub
+		this.makeVisible();
+	}
 }
