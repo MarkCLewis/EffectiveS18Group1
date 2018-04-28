@@ -7,6 +7,18 @@ package virtualworld;
  * (i.e. how much space it takes up if you were looking at it from above)
  */
 public interface WorldObject {
+	/* We'll need information on the location of the object, not just it's size
+	 * Recommend we also have the following data members:
+	 * 
+	 * double getXLoc();
+	 * 
+	 * double getYLoc();
+	 * 
+	 * double getZLoc();
+	 * 
+	 * The above members define a point which is the location of the object in the world
+	 * These are commented so as to not break previously-written code yet
+	 */
 	
 	/**
 	 * @return the length of an object
