@@ -17,9 +17,11 @@ public interface WorldObject {
 		TRIANGLE_MESH, BOX, PYRAMID, SPHERE, CYLINDER;
 	}
 	 */
+	
 	/**
 	 * @return the DrawType of an object
 	 */
+	
 	/*
 	DrawType getDrawType();
 	*/
