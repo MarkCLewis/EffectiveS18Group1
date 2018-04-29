@@ -5,21 +5,50 @@ import graphicsTesting.CustomMeshViewMaker.CMVBuilder;
 import graphicsTesting.CylinderMaker.CylinderBuilder;
 import graphicsTesting.PyramidMaker.PyramidBuilder;
 
+/**
+ * The DrawFacade class contains methods that return ShapeBuilders for different ShapeMaker implementations.
+ * It is intended to simplify the process of making Shape3D objects by providing access to all the ShapeMaker classes in one interface.
+ * @author jfisher1
+ */
 public class DrawFacade {
 	
-	
+	/**
+	 * Returns a BoxBuilder that can be used to create a new Box product
+	 * @param w represents the width of the Box
+	 * @param h represents the height of the Box
+	 * @param d represents the depth of the Box
+	 * @return a BoxBuilder created with the above parameters
+	 */
 	public static BoxBuilder getBoxBuilder(double w, double h, double d) {
 		return new BoxMaker.BoxBuilder(w, h, d);
 	}
 	
+	/**
+	 * Returns a CylinderBuilder that can be used to create a new Cylinder product
+	 * @param w represents the width of the Cylinder
+	 * @param h represents the height of the Cylinder
+	 * @return a CylinderBuilder created with the above parameters
+	 */
 	public static CylinderBuilder getCylinderBuilder(double w, double h) {
 		return new CylinderMaker.CylinderBuilder(w, h);
 	}
 	
+	/**
+	 * Returns a PyramidBuilder that can be used to create a new MeshView product
+	 * @param h represents the height of the Pyramid
+	 * @param s represents the side width of the Pyramid
+	 * @return a PyramidBuilder created with the above parameters
+	 */
 	public static PyramidBuilder getPyramidBuilder(float h, float s) {
 		return new PyramidMaker.PyramidBuilder(h, s);
 	}
 	
+	/**
+	 * Returns a CustomMeshViewBuilder that can be used to create a new MeshView product
+	 * @param points represents a float array of the MeshView's points
+	 * @param faces represents an int array of the MeshView's faces
+	 * @return a CustomMeshViewBuilder created with the above parameters
+	 */
 	public static CMVBuilder getCustomMeshViewBuilder(float[] points, int[] faces) {
 		return new CustomMeshViewMaker.CMVBuilder(points, faces);
 	}
