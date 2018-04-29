@@ -2,7 +2,12 @@ package terraintesting;
 
 import java.util.ArrayList;
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.DrawMode;
+import javafx.scene.shape.MeshView;
 import javafx.scene.shape.Shape3D;
+import javafx.scene.shape.TriangleMesh;
 
 public class TerrainObject implements virtualworld.WorldObject {
 
@@ -13,14 +18,16 @@ public class TerrainObject implements virtualworld.WorldObject {
 	private final double xWidth;
 	private final double yWidth;
 	private final double zWidth;
-	private static int maxScale = 1000;
+	private static final int maxScale = 1000;
 	private int levelOfDetail; //Determines the value of current scale based on maxScale
 	private int currentScale; //close - 100; far - 1000
+	
 	
 	private final long seed;
 	private final double noise;
 	private static final long defaultSeed = 0L;
 	private static final double defaultNoise = 0.5;
+	private static final double renderDist = 10000; //Past this distance terrain will not render
 	
 	public TerrainObject(double cX, double cY, double cZ, double xW, double yW, double zW, long seed, double noise) {
 		if(noise<0.0 || noise>1.0)
@@ -38,6 +45,7 @@ public class TerrainObject implements virtualworld.WorldObject {
 		this.noise = noise;
 		
 	}
+	
 	/**
 	 * @return x-coordinate of the center
 	 */
@@ -104,8 +112,16 @@ public class TerrainObject implements virtualworld.WorldObject {
 	 * @return 
 	 */
 	public boolean notifyOfCamera(double x, double z) {
-		return false;
-		// TODO
+		double distToCam = Math.sqrt((cX-x)*(cX-x) + (cZ-z)*(cZ-z));
+		if(distToCam<renderDist) {
+			
+			return true;
+		} 
+		else {
+			currentScale = maxScale;
+			levelOfDetail = 0;
+			return false;
+		}
 	}
 	
 	public double getHeight(double x, double z) {
@@ -175,8 +191,21 @@ public class TerrainObject implements virtualworld.WorldObject {
 	}
 	@Override
 	public ArrayList<Shape3D> display() {
-		// TODO Auto-generated method stub
-		return null;
+		agua.generateTerrain testPlot = new agua.generateTerrain();
+		float[][] temp = testPlot.generateCoordinates((int)xWidth, (int)xWidth, (int)xWidth, (int)currentScale, (float)noise, (int) seed);
+		//public float[][] generateCoordinates(int xRes, int yRes, int zRes, int scale, float noiseLevel, int seed)
+		TriangleMesh testGenerate = testPlot.generateTerrain(200, 10, temp);
+		MeshView meshView = new MeshView(testGenerate);
+		//PhongMaterial material = new PhongMaterial();
+		//material.setDiffuseColor(Color.AQUA);
+		//meshView.setDrawMode(DrawMode.LINE);
+		//meshView.setMaterial(material);
+		meshView.setScaleX(currentScale);
+		meshView.setScaleZ(currentScale);
+		meshView.setScaleY(currentScale*10);
+		ArrayList<Shape3D> list = new ArrayList<Shape3D>();
+		list.add(meshView);
+		return list;
 	}
 }
 
