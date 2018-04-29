@@ -95,13 +95,13 @@ public class CityOne implements WorldObject {
 	}
 	
 	public static void setCoordinate(double cor){
-		cor = MathStuff.makeCoordinate(-4000, 4000);
+		cor = MathStuff.makeCoordinate();
 	}
 	public static void setX(){
-		x = MathStuff.makeCoordinate(-4000, 4000);
+		x = MathStuff.makeCoordinate();
 	}
 	public static void setZ(){
-		z = MathStuff.makeCoordinate(-4000, 4000);
+		z = MathStuff.makeCoordinate();
 	}
 	
 	///////////////Getting//////////////////
@@ -126,7 +126,6 @@ public class CityOne implements WorldObject {
 		//however you calculate the bounding box
 		return size;
 	}
-	
 	
 	public int getSeed(){
 		return seed;
