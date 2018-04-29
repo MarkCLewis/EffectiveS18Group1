@@ -25,6 +25,7 @@ public class CityThree implements WorldObject {
 		//TODO-make it so that y is based on terrain
 		static double z;
 		static double size;
+		static ArrayList<Shape3D> lst = new ArrayList<Shape3D>();
 
 		public static CityThree returnObj(Group group) {
 			main(group);
@@ -46,8 +47,9 @@ public class CityThree implements WorldObject {
 			setZ();
 			
 			//double sz = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
-			double sz = BuildingTypes.makeCity3(mg, roof1, roof2, house1, house2, x, y, z, num, rand);
-			setSize(sz);
+			BuildingTypes.Tuple<Double, ArrayList<Shape3D>> tup = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
+			setSize(tup.getA());
+			addToList(tup.getB());
 
 		}
 		
@@ -64,8 +66,9 @@ public class CityThree implements WorldObject {
 			setCoordinate(x);
 			setCoordinate(z);
 			
-			double sz = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
-			setSize(sz);
+			BuildingTypes.Tuple<Double, ArrayList<Shape3D>> tup = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
+			setSize(tup.getA());
+			addToList(tup.getB());
 		}
 		
 		////////////////Setting////////////////
@@ -115,6 +118,10 @@ public class CityThree implements WorldObject {
 		
 		public static void setZ(){
 			z = MathStuff.makeCoordinate();
+		}
+		
+		public static void addToList(ArrayList<Shape3D> arrLst){
+			lst.addAll(arrLst);
 		}
 		
 		///////////////Getting//////////////////
@@ -182,6 +189,6 @@ public class CityThree implements WorldObject {
 		@Override
 		public ArrayList<Shape3D> display() {
 			// TODO Auto-generated method stub
-			return null;
+			return lst;
 		}
 }

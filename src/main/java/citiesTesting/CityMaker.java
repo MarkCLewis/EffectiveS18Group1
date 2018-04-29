@@ -17,6 +17,7 @@ import javafx.scene.shape.Box;
 import javafx.stage.Stage;
 
 public class CityMaker extends Application {
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -51,14 +52,14 @@ public class CityMaker extends Application {
 
 		//double p = MathStuff.makeCoordinate(-2000, 2000);
 		// making random coordinates^
-
+		/*
 		for (int c = 0; c < numberOfCities; c++) {
 
 			Color roof1 = BuildingTypes.colorAssignment(rand);
 
 			Color house1 = BuildingTypes.colorAssignment(rand);
 
-
+			
 			// city type 1 (square city)
 			if (a == 1) {
 				double size = BuildingTypes.makeCity1(mainGroup, roof1, BuildingTypes.secondaryColor(roof1), house1,
@@ -104,6 +105,7 @@ public class CityMaker extends Application {
 			a = rand.nextInt(3) + 1;
 			
 		}
+		*/
 		/*
 		System.out.println(p);
 		System.out.println(seed);
@@ -126,6 +128,7 @@ public class CityMaker extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		//return cities
+		
 	}
 
 	class Tuple<U, V, W, X, Y, Z> {
@@ -164,11 +167,5 @@ public class CityMaker extends Application {
 		}
 		
 	}
-/*
-	protected boolean isInWater(Box box, float posX, float posY) {
-		return false;
-		// TODO
-	}
-*/
-	
+
 }
