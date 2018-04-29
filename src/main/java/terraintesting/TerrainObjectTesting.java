@@ -36,7 +36,7 @@ public class TerrainObjectTesting {
 		TerrainObject[] children = terr.getChildren();
 		for(TerrainObject t:children) {
 			assertTrue(t.getX() == terr.getX()/4);
-			assertTrue(t.getY() == terr.getY()/4);
+			assertTrue(t.getY() == terr.getY());
 			assertTrue(t.getZ() == terr.getZ()/4);
 		}
 	}

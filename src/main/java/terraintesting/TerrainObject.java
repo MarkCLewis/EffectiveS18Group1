@@ -1,30 +1,36 @@
 package terraintesting;
 
+import java.util.ArrayList;
+
+import javafx.scene.shape.Shape3D;
+
 public class TerrainObject implements virtualworld.WorldObject {
 
-	private final double xLoc;
-	private final double yLoc;
-	private final double zLoc;
+	//center location 
+	private final double cX;
+	private final double cY;
+	private final double cZ;
 	private final double xWidth;
 	private final double yWidth;
 	private final double zWidth;
+	private static int maxScale = 1000;
+	private int levelOfDetail; //Determines the value of current scale based on maxScale
 	private int currentScale; //close - 100; far - 1000
-	// May need a field for triangleWidth/level of rendering detail, so the terrain can respond to the camera 
-	// scale (size of triangles) and dimensions (how many )
 	
 	private final long seed;
 	private final double noise;
 	private static final long defaultSeed = 0L;
 	private static final double defaultNoise = 0.5;
 	
-	public TerrainObject(double x, double y, double z, double xW, double yW, double zW, long seed, double noise) {
+	public TerrainObject(double cX, double cY, double cZ, double xW, double yW, double zW, long seed, double noise) {
 		if(noise<0.0 || noise>1.0)
 			throw new IllegalArgumentException("Noise must be between 0 and 1");
 		if(xW!=zW)
 			throw new IllegalArgumentException("Terrain must be square (equal x and z width)");
-		xLoc = x;
-		yLoc = y;
-		zLoc = z;
+		this.cX = cX;
+		this.cY = cY;
+		this.cZ = cZ;
+		
 		xWidth = xW;
 		yWidth = yW;
 		zWidth = zW;
@@ -33,24 +39,26 @@ public class TerrainObject implements virtualworld.WorldObject {
 		
 	}
 	/**
-	 * @return x-coordinate of the upper-left hand point of this terrain object
+	 * @return x-coordinate of the center
 	 */
 	public double getXLoc() {
-		return xLoc;
+		return cX;
 	}
 
 	/**
 	 * @return y-coordinate (height) of the upper-left hand point of this terrain object -- probably should not be used
+	 * 
 	 */
+	@Deprecated
 	public double getYLoc() {
-		return yLoc;
+		return cY;
 	}
 
 	/**
 	 * @return z-coordinate of the upper-left hand point of this terrain object
 	 */
 	public double getZLoc() {
-		return zLoc;
+		return cZ;
 	}
 
 	/**
@@ -63,6 +71,7 @@ public class TerrainObject implements virtualworld.WorldObject {
 	/**
 	 * @return the height of an object -- probably not needed
 	 */
+	@Deprecated
 	public double getY() {
 		return yWidth;
 	}
@@ -92,8 +101,10 @@ public class TerrainObject implements virtualworld.WorldObject {
 	 *            of the camera
 	 * @param z
 	 *            of the camera
+	 * @return 
 	 */
-	public void notifyOfCamera(double x, double z) {
+	public boolean notifyOfCamera(double x, double z) {
+		return false;
 		// TODO
 	}
 	
@@ -110,6 +121,7 @@ public class TerrainObject implements virtualworld.WorldObject {
 		return defaultNoise;
 	}
 	
+	
 	public TerrainObject[] getChildren() {
 		TerrainObjectBuilder bldr = new TerrainObjectBuilder();
 		
@@ -124,7 +136,7 @@ public class TerrainObject implements virtualworld.WorldObject {
 		
 		double childXW, childYW, childZW;
 		childXW = xWidth/4;
-		childYW = yWidth/4;
+		childYW = yWidth;
 		childZW = zWidth/4;
 		
 		//Common fields across all children
@@ -135,31 +147,36 @@ public class TerrainObject implements virtualworld.WorldObject {
 		bldr.setZWidth(childZW);
 		
 		//Building child1
-		bldr.setXLoc(xLoc);
-		bldr.setYLoc(yLoc); //TODO
-		bldr.setZLoc(zLoc);
+		bldr.setXLoc(cX-childXW/2);
+		bldr.setYLoc(cY); //TODO
+		bldr.setZLoc(cZ-childZW/2);
 		child1 = bldr.build();
 		
 		//Building child2
-		bldr.setXLoc(xLoc+childXW);
-		bldr.setYLoc(yLoc); //TODO
-		bldr.setZLoc(zLoc);
+		bldr.setXLoc(cX+childXW/2);
+		bldr.setYLoc(cY); //TODO
+		bldr.setZLoc(cZ-childZW/2);
 		child2 = bldr.build();
 		
 		//Building child3
-		bldr.setXLoc(xLoc);
-		bldr.setYLoc(yLoc); //TODO
-		bldr.setZLoc(zLoc+childZW);
+		bldr.setXLoc(cX-childXW/2);
+		bldr.setYLoc(cY); //TODO
+		bldr.setZLoc(cZ+childZW/2);
 		child3 = bldr.build();
 		
 		//Building child4
-		bldr.setXLoc(xLoc+childXW);
-		bldr.setYLoc(yLoc); //TODO
-		bldr.setZLoc(zLoc+childZW);
+		bldr.setXLoc(cX+childXW/2);
+		bldr.setYLoc(cY); //TODO
+		bldr.setZLoc(cZ+childZW/2);
 		child4 = bldr.build();
 		
 		TerrainObject[] children = {child1, child2, child3, child4};
 		return children;
+	}
+	@Override
+	public ArrayList<Shape3D> display() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 
