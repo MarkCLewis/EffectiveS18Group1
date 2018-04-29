@@ -8,8 +8,8 @@ import javafx.scene.transform.Rotate;
 public class BoxMaker implements ShapeMaker {
 	private Box box;
 	
-	public static class BoxBuilder {
-		private double length;
+	public static class BoxBuilder implements ShapeBuilder{
+		private double depth;
 		private double height;
 		private double width;
 		private double x = 0;
@@ -20,8 +20,8 @@ public class BoxMaker implements ShapeMaker {
 	    private Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
 	    private Rotate zRotate = new Rotate(0,0,0,0,Rotate.Z_AXIS);
 		
-		public BoxBuilder(double l, double h, double w) {
-			length = l;
+		public BoxBuilder(double w, double h, double d) {
+			depth = d;
 			height = h;
 			width = w;
 		}
@@ -59,7 +59,7 @@ public class BoxMaker implements ShapeMaker {
 	}
 	
 	private BoxMaker(BoxBuilder builder) {
-		box = new Box(builder.length, builder.height, builder.width);
+		box = new Box(builder.width, builder.height, builder.depth);
 		box.setDrawMode(DrawMode.FILL);
 		box.setMaterial(builder.material);
 		box.setTranslateX(builder.x);

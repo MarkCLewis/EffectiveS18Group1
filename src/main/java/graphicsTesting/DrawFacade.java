@@ -8,12 +8,12 @@ import graphicsTesting.PyramidMaker.PyramidBuilder;
 public class DrawFacade {
 	
 	
-	public static BoxBuilder getBoxBuilder(double l, double h, double w) {
-		return new BoxMaker.BoxBuilder(l, h, w);
+	public static BoxBuilder getBoxBuilder(double w, double h, double d) {
+		return new BoxMaker.BoxBuilder(w, h, d);
 	}
 	
-	public static CylinderBuilder getCylinderBuilder(double h, double w) {
-		return new CylinderMaker.CylinderBuilder(h, w);
+	public static CylinderBuilder getCylinderBuilder(double w, double h) {
+		return new CylinderMaker.CylinderBuilder(w, h);
 	}
 	
 	public static PyramidBuilder getPyramidBuilder(float h, float s) {

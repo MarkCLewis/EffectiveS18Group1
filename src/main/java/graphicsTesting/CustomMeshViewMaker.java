@@ -9,7 +9,7 @@ import javafx.scene.transform.Rotate;
 public class CustomMeshViewMaker implements ShapeMaker {
 	private MeshView mv;
 	
-	public static class CMVBuilder {
+	public static class CMVBuilder implements ShapeBuilder{
 		private float[] points;
 		private int[] faces;
 		private double x = 0;

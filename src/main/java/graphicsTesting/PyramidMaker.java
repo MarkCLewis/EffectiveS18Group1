@@ -9,7 +9,7 @@ import javafx.scene.transform.Rotate;
 public class PyramidMaker implements ShapeMaker {
 	private MeshView mv;
 	
-	public static class PyramidBuilder {
+	public static class PyramidBuilder implements ShapeBuilder{
 		private float height;
 		private float side;
 		private double x = 0;

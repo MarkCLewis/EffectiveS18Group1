@@ -9,7 +9,7 @@ public class CylinderMaker implements ShapeMaker {
 
 	private Cylinder cyl;
 	
-	public static class CylinderBuilder {
+	public static class CylinderBuilder implements ShapeBuilder{
 		private double height;
 		private double width;
 		private double x = 0;
@@ -58,7 +58,7 @@ public class CylinderMaker implements ShapeMaker {
 	}
 	
 	private CylinderMaker(CylinderBuilder builder) {
-		cyl = new Cylinder(builder.height, builder.width);
+		cyl = new Cylinder(builder.width, builder.height);
 		cyl.setDrawMode(DrawMode.FILL);
 		cyl.setMaterial(builder.material);
 		cyl.setTranslateX(builder.x);
