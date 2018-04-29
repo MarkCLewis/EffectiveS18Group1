@@ -7,6 +7,8 @@ import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
+import javafx.scene.shape.Shape;
+import javafx.scene.shape.Shape3D;
 import javafx.scene.shape.TriangleMesh;
 
 public class DrawFacade {
