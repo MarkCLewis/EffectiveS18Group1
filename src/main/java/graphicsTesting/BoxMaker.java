@@ -5,9 +5,18 @@ import javafx.scene.shape.Box;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 
+/**
+ * BoxMaker uses the builder pattern, and is the director for BoxBuilder. As such, it implements ShapeMaker.
+ * BoxMaker's purpose is to return the product created by BoxBuilder through the get() method.
+ * @author jfisher1
+ */
 public class BoxMaker implements ShapeMaker {
 	private Box box;
 	
+	/**
+	 * BoxBuilder uses the builder pattern, and is the builder for BoxMaker. As such, it implements ShapeBuilder.
+	 * BoxBuilder's purpose is to produce a Box object from given parameters.
+	 */
 	public static class BoxBuilder implements ShapeBuilder{
 		private double depth;
 		private double height;
@@ -20,6 +29,12 @@ public class BoxMaker implements ShapeMaker {
 	    private Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
 	    private Rotate zRotate = new Rotate(0,0,0,0,Rotate.Z_AXIS);
 		
+	    /**
+	     * BoxBuilder's public constructor
+	     * @param w represents the width of the Box
+	     * @param h represents the height of the Box
+	     * @param d represents the depth of the Box
+	     */
 		public BoxBuilder(double w, double h, double d) {
 			depth = d;
 			height = h;
