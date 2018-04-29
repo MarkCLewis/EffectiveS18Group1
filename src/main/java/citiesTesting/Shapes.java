@@ -12,7 +12,7 @@ import javafx.scene.shape.TriangleMesh;
 
 public class Shapes {
 
-	
+	/*
 	public static Cylinder makeCylinder(double w, double h, Color color1, Color color2, double x, double y, double z){
 		Cylinder cylinder = new Cylinder(w,h);
 		PhongMaterial material = new PhongMaterial();
@@ -83,5 +83,6 @@ public class Shapes {
 		rect.setHeight(h);
 		return rect;
 	}
+	*/
 
 }
