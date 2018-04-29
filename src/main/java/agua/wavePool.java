@@ -31,7 +31,7 @@ public class wavePool extends Application {
 	private int seed = 2121;
 	private int scale = 100;  
 	private int[] cds = {50,scale,50};
-	private float noiseLevel = (float) .23;
+	private float noiseLevel = (float) .4;
 	private MeshView currMesh;
 
 	//@SuppressWarnings("unchecked")
@@ -68,7 +68,7 @@ public class wavePool extends Application {
 	PhongMaterial material = new PhongMaterial(Color.AQUA);
 	material.setSpecularColor(Color.BLUE);
 	
-	meshView.setDrawMode(DrawMode.LINE);
+	meshView.setDrawMode(DrawMode.FILL);
 	meshView.setScaleX(scale/10);
 	meshView.setScaleZ(scale/10);
 	meshView.setScaleY(scale*2);
