@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import citiesTesting.CityMaker.Tuple;
+import graphicsTesting.DrawFacade;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
@@ -12,7 +13,7 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.transform.Rotate;
 import virtualworld.WorldObject;
 
-public class BuildingTypes implements WorldObject {
+public class BuildingTypes{
 	//City type 1: square city
 	public static double makeCity1(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z, Random r){
 		//Random rand = new Random();
@@ -469,36 +470,6 @@ public class BuildingTypes implements WorldObject {
 			return Color.PURPLE;
 		}
 		//return item;
-	}
-	
-	@Override
-	public double getX() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getZ() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	@Override
-	public double getSize() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void notifyOfCamera(double x, double z) {
-		// TODO Auto-generated method stub
-		
-	}
+	}	
 
 }

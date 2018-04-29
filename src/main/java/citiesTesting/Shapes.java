@@ -26,11 +26,6 @@ public class Shapes {
 		return cylinder;
 		//mainGroup.getChildren().add(cylinder);
 	}
-	/*
-	public static Shapes tallBuilding(int l, int w, int h, Color color1, Color color2, int height){
-		TODO
-	}
-	*/
 	
 	public static Box makeBox(double l, double h, double w, Color color1, Color color2, double x, double y, double z){
 		Box box = new Box(l, h, w);

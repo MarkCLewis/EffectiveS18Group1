@@ -163,22 +163,24 @@ public class ShapesDemo extends Application {
 		CityTwo cTwo = CityTwo.returnObj(mainGroup);
 		CityThree cThree = CityThree.returnObj(mainGroup);
 		
-
 		/*
 		System.out.println(cOne.getSize());
 		System.out.println(cOne.getX());
+		System.out.println(cOne.getY());
 		System.out.println(cOne.getZ());
 		
 		System.out.println();
 		
 		System.out.println(cTwo.getSize());
 		System.out.println(cTwo.getX());
+		System.out.println(cTwo.getY());
 		System.out.println(cTwo.getZ());
 		
 		System.out.println();
 		
 		System.out.println(cThree.getSize());
 		System.out.println(cThree.getX());
+		System.out.println(cThree.getY());
 		System.out.println(cThree.getZ());
 		*/
 		

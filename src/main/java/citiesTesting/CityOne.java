@@ -1,9 +1,11 @@
 package citiesTesting;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape3D;
 import virtualworld.WorldObject;
 
 public class CityOne implements WorldObject {
@@ -45,7 +47,6 @@ public class CityOne implements WorldObject {
 		
 		double sz = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
 		setSize(sz);
-
 	}
 	
 	//make it if you already know the object
@@ -100,6 +101,11 @@ public class CityOne implements WorldObject {
 	public static void setX(){
 		x = MathStuff.makeCoordinate();
 	}
+	
+	public static void setY(){
+		//TODO
+	}
+	
 	public static void setZ(){
 		z = MathStuff.makeCoordinate();
 	}
@@ -132,8 +138,41 @@ public class CityOne implements WorldObject {
 	}
 
 	@Override
-	public void notifyOfCamera(double x, double z) {
+	public double getXLoc() {
+		// position of the center X
+		double side = Math.sqrt(getSize())/2;
+		return x+side;
+	}
+
+	@Override
+	public double getYLoc() {
+		// TODO Auto-generated method stub
+		return y;
+	}
+
+	@Override
+	public double getZLoc() {
+		// position of the center Z
+		double side = Math.sqrt(getSize())/2;
+		return z-side;
+	}
+
+	@Override
+	public boolean notifyOfCamera(double x, double z) {
+		// TODO Auto-generated method stub
+		double dist = Math.sqrt(Math.pow((getXLoc() - x), 2) + Math.pow((getZLoc() - z), 2));
+		//double rad = (Math.sqrt(getSize())/2) + 500;
 		
+		if(dist < 500){
+			return true;
+		}
+		else return false;
+	}
+
+	@Override
+	public ArrayList<Shape3D> display() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

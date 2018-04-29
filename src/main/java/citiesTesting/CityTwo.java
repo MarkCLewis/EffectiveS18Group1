@@ -1,9 +1,11 @@
 package citiesTesting;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape3D;
 import virtualworld.WorldObject;
 
 public class CityTwo implements WorldObject {
@@ -107,6 +109,11 @@ public class CityTwo implements WorldObject {
 	public static void setX(){
 		x = MathStuff.makeCoordinate();
 	}
+	
+	public static void setY(){
+		//TODO
+	}
+	
 	public static void setZ(){
 		z = MathStuff.makeCoordinate();
 	}
@@ -142,9 +149,40 @@ public class CityTwo implements WorldObject {
 	public int getNum(){
 		return num;
 	}
-	
+
 	@Override
-	public void notifyOfCamera(double x, double z) {
+	public double getXLoc() {
+		// TODO Auto-generated method stub
+		return x;
+	}
+
+	@Override
+	public double getYLoc() {
+		// TODO Auto-generated method stub
+		return y;
+	}
+
+	@Override
+	public double getZLoc() {
+		// TODO Auto-generated method stub
+		return z;
+	}
+
+	@Override
+	public boolean notifyOfCamera(double x, double z) {
+		// TODO Auto-generated method stub
+		double dist = Math.sqrt(Math.pow((getXLoc() - x), 2) + Math.pow((getZLoc() - z), 2));
+		//double rad = (Math.sqrt(getSize())/2) + 500;
 		
+		if(dist < 500){
+			return true;
+		}
+		else return false;
+	}
+
+	@Override
+	public ArrayList<Shape3D> display() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
