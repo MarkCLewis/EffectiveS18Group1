@@ -47,7 +47,7 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 		//generates random height to assign to points
 		public double generateRandom(double maxElev){
 			rand = ThreadLocalRandom.current().nextDouble(maxElev);
-			System.out.println("generated random");
+			//System.out.println("generated random");
 			return rand;
 			
 		}
@@ -57,17 +57,18 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 			//figure out a way to not use if statements
 			if (heightMap[x][y] == 0.0){
 				heightMap[x][y] = generateRandom(maxElev); //x1
-				System.out.println("SquareWidth: " + squareWidth);
+				//System.out.println("SquareWidth: " + squareWidth);
 			}
 			if (heightMap[x + squareWidth][y] == 0.0){
 				heightMap[x + squareWidth][y] = generateRandom(maxElev); //x2
-				System.out.println("SquareWidth: " + squareWidth);
+				//System.out.println("SquareWidth: " + squareWidth);
 			}
 			if (heightMap[x][y + squareWidth] == 0.0){
 				heightMap[x][y + squareWidth] = generateRandom(maxElev); //x3
-				System.out.println("SquareWidth: " + squareWidth);
+				//System.out.println("SquareWidth: " + squareWidth);
 			}
 			if (heightMap[x + squareWidth][y + squareWidth] == 0.0){
+				System.out.println("reached");
 				heightMap[x + squareWidth][y + squareWidth] = generateRandom(maxElev); //x4
 				System.out.println("SquareWidth: " + squareWidth);
 			}
@@ -76,15 +77,24 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 
 		//returns the averages the corners
 		private double average, oAvg;
-		private double avgCorners(double[][] heightMap, int x, int y, int squareWidth){
-			average = ((heightMap[x][y] + heightMap[x + squareWidth][y] +
-					  heightMap[x][y + squareWidth] +
-					  heightMap[x + squareWidth][y + squareWidth])/4);
+		private double avgCorners(double[][] heightMap, int x, int y, int aSquareWidth){
+			average = ((heightMap[x][y] + heightMap[x + aSquareWidth][y] +
+					  heightMap[x][y + aSquareWidth] +
+					  heightMap[x + aSquareWidth][y + aSquareWidth])/4);
+			System.out.println(areSame(heightMap, aSquareWidth, x, y));
 			oAvg = average + perturb;
-			System.out.println("Avg SquareWidth: " + squareWidth);
+			System.out.println("aSquareWidth: " + aSquareWidth);
 			System.out.println("averaged corners");
 			return oAvg;
-			
+		}
+		
+		//for testing purposes; says if the 2 places in the heightMap are the same
+		private boolean areSame(double heightMap[][], int aSquareWidth, int x, int y){
+			if (heightMap[x][y] == heightMap[x + aSquareWidth][y + aSquareWidth]) { 
+				return true; 
+			} else {
+				return false;
+			}
 		}
 
 		//finds and assigns the middle point
@@ -92,6 +102,8 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 			System.out.println("SquareWidth divided by 2: " + (squareWidth/2));
 			assignHeights(heightMap, x, y, squareWidth, maxElev);
 			heightMap[x + (squareWidth/2)][y + (squareWidth/2)] = avgCorners(heightMap, squareWidth,x,y);
+			System.out.println("center point: " + heightMap[x + (squareWidth/2)][y + (squareWidth/2)]);
+			System.out.println("avg corners: " + avgCorners(heightMap, squareWidth,x,y));
 			System.out.println("Completed DiamondStep");
 		}
 
