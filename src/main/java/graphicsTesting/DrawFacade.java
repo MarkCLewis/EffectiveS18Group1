@@ -1,6 +1,7 @@
 package graphicsTesting;
 
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
@@ -11,10 +12,11 @@ import javafx.scene.shape.TriangleMesh;
 public class DrawFacade {
 	
 	
-	
-	public static Box createBox(PhongMaterial mat, double length, double height, double width, double x, double y, double z) {
+	public static Box createBox(PhongMaterial mat, Color c1, Color c2, double length, double height, double width, double x, double y, double z) {
 		Box box = new Box(length, height, width);
 		box.setDrawMode(DrawMode.FILL);
+		mat.setDiffuseColor(c1);
+		mat.setSpecularColor(c2);
 		box.setMaterial(mat);
 		box.setTranslateX(x);
 		box.setTranslateY(y);
@@ -23,9 +25,11 @@ public class DrawFacade {
 		return box;
 	}
 	
-	public static Cylinder createCylinder(PhongMaterial mat, double height, double width, double x, double y, double z) {
+	public static Cylinder createCylinder(PhongMaterial mat, Color c1, Color c2, double height, double width, double x, double y, double z) {
 		Cylinder cyl = new Cylinder(height, width);
 		cyl.setDrawMode(DrawMode.FILL);
+		mat.setDiffuseColor(c1);
+		mat.setSpecularColor(c2);
 		cyl.setMaterial(mat);
 		cyl.setTranslateX(x);
 		cyl.setTranslateY(y);
@@ -34,7 +38,7 @@ public class DrawFacade {
 		return cyl;
 	}
 	
-	public static MeshView createPyramidMeshView(PhongMaterial mat, float height, float side, double x, double y, double z) {
+	public static MeshView createPyramidMeshView(PhongMaterial mat, Color c1, Color c2, float height, float side, double x, double y, double z) {
 		TriangleMesh newMesh = new TriangleMesh();
 
 		newMesh.getTexCoords().addAll(0,0);
@@ -58,10 +62,10 @@ public class DrawFacade {
 		        4,0,  3,0,  1,0           // Bottom front face
 		    );
 		
-		return createMeshView(newMesh, mat, x, y, z);
+		return createMeshView(newMesh, mat, c1, c2, x, y, z);
 	}
 	
-	public static MeshView createBoxMeshView(PhongMaterial mat, float length, float height, float width, double x, double y, double z) {
+	public static MeshView createBoxMeshView(PhongMaterial mat, Color c1, Color c2, float length, float height, float width, double x, double y, double z) {
 		TriangleMesh newMesh = new TriangleMesh();
 
 		newMesh.getTexCoords().addAll(0,0);
@@ -96,27 +100,29 @@ public class DrawFacade {
 		        2,0,  3,0,  0,0           // Bottom front
 		    );
 		
-		return createMeshView(newMesh, mat, x, y, z);
+		return createMeshView(newMesh, mat, c1, c2, x, y, z);
 	}
 	
-	public static MeshView createCustomMeshView(PhongMaterial mat, float[] points, int[] faces, double x, double y, double z) {
+	public static MeshView createCustomMeshView(PhongMaterial mat, Color c1, Color c2, float[] points, int[] faces, double x, double y, double z) {
 		TriangleMesh newMesh = new TriangleMesh();
 		
 		newMesh.getTexCoords().addAll(0,0);
 		newMesh.getPoints().addAll(points);
 		newMesh.getFaces().addAll(faces);
 		
-		return createMeshView(newMesh, mat, x, y, z);
+		return createMeshView(newMesh, mat, c1, c2, x, y, z);
 	}
 	
-	public static void addMesh(Group group, TriangleMesh tMesh, PhongMaterial material, double x, double y, double z) {
-		group.getChildren().add(createMeshView(tMesh, material, x, y, z));
+	public static void addMesh(Group group, TriangleMesh tMesh, PhongMaterial mat, Color c1, Color c2, double x, double y, double z) {
+		group.getChildren().add(createMeshView(tMesh, mat, c1, c2, x, y, z));
 	}
 	
-	private static MeshView createMeshView(TriangleMesh tMesh, PhongMaterial material, double x, double y, double z) {
+	private static MeshView createMeshView(TriangleMesh tMesh, PhongMaterial mat, Color c1, Color c2, double x, double y, double z) {
 		MeshView mv = new MeshView(tMesh);
 		mv.setDrawMode(DrawMode.FILL);
-		mv.setMaterial(material);
+		mat.setDiffuseColor(c1);
+		mat.setSpecularColor(c2);
+		mv.setMaterial(mat);
 		mv.setTranslateX(x);
 		mv.setTranslateY(y);
 		mv.setTranslateZ(z);

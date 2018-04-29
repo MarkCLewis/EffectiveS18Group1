@@ -307,9 +307,23 @@ public class CameraController {
 		return camera.getTranslateX();
 	}
 	
+	public void setCameraX(double newVal) {
+		camera.setTranslateX(newVal);
+	}
+	
 	public double getCameraZ() {
 		return camera.getTranslateZ();
 	}
 	
+	public void setCameraZ(double newVal) {
+		camera.setTranslateZ(newVal);
+	}
 	
+	public double getCameraY() {
+		return camera.getTranslateY();
+	}
+	
+	public void setCameraY(double newVal) {
+		camera.setTranslateY(newVal);
+	}
 }
