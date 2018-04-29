@@ -22,6 +22,12 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 				maxIter = (maxIter/2);
 			}
 		}
+		int x, y;
+		x = ThreadLocalRandom.current().nextInt(599);
+		y = ThreadLocalRandom.current().nextInt(599);
+		
+		System.out.println("Height at " + x + ", " + y + " is " + heightMap[x][y]);
+		System.out.println("Height at the middle is: " + heightMap[299][299]);
 	}
 		//count of what iteration it is (matters for roughness)
 		private double iter = 0.0;
@@ -41,7 +47,7 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 		//generates random height to assign to points
 		public double generateRandom(double maxElev){
 			rand = ThreadLocalRandom.current().nextDouble(maxElev);
-			System.out.println("generated random");
+			//System.out.println("generated random");
 			return rand;
 			
 		}
@@ -51,35 +57,53 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 			//figure out a way to not use if statements
 			if (heightMap[x][y] == 0.0){
 				heightMap[x][y] = generateRandom(maxElev); //x1
+				//System.out.println("SquareWidth: " + squareWidth);
 			}
 			if (heightMap[x + squareWidth][y] == 0.0){
 				heightMap[x + squareWidth][y] = generateRandom(maxElev); //x2
+				//System.out.println("SquareWidth: " + squareWidth);
 			}
 			if (heightMap[x][y + squareWidth] == 0.0){
 				heightMap[x][y + squareWidth] = generateRandom(maxElev); //x3
+				//System.out.println("SquareWidth: " + squareWidth);
 			}
 			if (heightMap[x + squareWidth][y + squareWidth] == 0.0){
+				System.out.println("reached");
 				heightMap[x + squareWidth][y + squareWidth] = generateRandom(maxElev); //x4
+				System.out.println("SquareWidth: " + squareWidth);
 			}
 			System.out.println("assigned heights");
 		}
 
 		//returns the averages the corners
 		private double average, oAvg;
-		private double avgCorners(double[][] heightMap, int x, int y, int squareWidth){
-			average = ((heightMap[x][y] + heightMap[x + squareWidth][y] +
-					  heightMap[x][y + squareWidth] +
-					  heightMap[x + squareWidth][y + squareWidth])/4);
+		private double avgCorners(double[][] heightMap, int x, int y, int aSquareWidth){
+			average = ((heightMap[x][y] + heightMap[x + aSquareWidth][y] +
+					  heightMap[x][y + aSquareWidth] +
+					  heightMap[x + aSquareWidth][y + aSquareWidth])/4);
+			System.out.println(areSame(heightMap, aSquareWidth, x, y));
 			oAvg = average + perturb;
+			System.out.println("aSquareWidth: " + aSquareWidth);
 			System.out.println("averaged corners");
 			return oAvg;
-			
+		}
+		
+		//for testing purposes; says if the 2 places in the heightMap are the same
+		private boolean areSame(double heightMap[][], int aSquareWidth, int x, int y){
+			if (heightMap[x][y] == heightMap[x + aSquareWidth][y + aSquareWidth]) { 
+				return true; 
+			} else {
+				return false;
+			}
 		}
 
 		//finds and assigns the middle point
 		private void diamondStep(double[][] heightMap, int x, int y, int squareWidth, double maxElev){
+			System.out.println("SquareWidth divided by 2: " + (squareWidth/2));
 			assignHeights(heightMap, x, y, squareWidth, maxElev);
 			heightMap[x + (squareWidth/2)][y + (squareWidth/2)] = avgCorners(heightMap, squareWidth,x,y);
+			System.out.println("center point: " + heightMap[x + (squareWidth/2)][y + (squareWidth/2)]);
+			System.out.println("avg corners: " + avgCorners(heightMap, squareWidth,x,y));
 			System.out.println("Completed DiamondStep");
 		}
 
@@ -118,7 +142,11 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 					diamondStep(heightMap, (squareWidth-1), (squareWidth-1), (squareWidth-1), maxElev);
 				}
 				squareWidth = (squareWidth/2);
-				squareStep(heightMap, 0, 0, squareWidth, maxElev);
+				squareStep(heightMap, 0, 0, (squareWidth-1), maxElev);
+				System.out.println("height at 0 299: " + heightMap[0][299]);
+				System.out.println("height at 299 299: " + heightMap[299][299]);
+				System.out.println("height at 299 0: " + heightMap[299][0]);
+				System.out.println("height at 299 599: " + heightMap[299][599]);
 				iter += 1.0;
 				System.out.println("iterated terrain");
 			}
