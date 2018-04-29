@@ -9,15 +9,18 @@ public class Node {
 	//center and size of the Node
 	double x; double z; double size;
 	
+	int depth;
+	
 	//Lists of children and items within
 	List<Node> children = new ArrayList<Node>();
 	List<WorldObject> contents = new ArrayList<WorldObject>();	
 
 	//Node constructor takes coordinates and a value
-	public Node (double x, double z, double s) {
+	public Node (double x, double z, double s, int d) {
 		this.x = x;
 		this.z = z;
 		this.size = s;
+		this.depth = d;
 	}
 
 	public double getX(Node node) {

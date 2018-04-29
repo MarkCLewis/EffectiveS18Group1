@@ -36,8 +36,8 @@ public class QuadTree implements Element {
 	private int count = 0;
 	
 	// Private camera variables
-	private double cameraX;
-	private double cameraZ;
+	static double cameraX;
+	static double cameraZ;
 	private double updateDistance = 10;
 
 	// QuadTree functionality
@@ -50,8 +50,9 @@ public class QuadTree implements Element {
 		double x = item.getX();
 		double y = item.getY();
 		double s = item.getSize();
+		root = new Node(x, y, s, 1);
 		count++;
-		root = new Node(x, y, s);
+		depth++;
 	}
 
 	/**
@@ -63,24 +64,27 @@ public class QuadTree implements Element {
 	 * @return The parent node
 	 */
 	void insert(WorldObject item, Node n) {
-		double x = item.getX();
-		double y = item.getY();
-		if (item.getSize() < n.size) {
-			n.contents.add(item);
-		} else {
-			if (n.children.size() == 0) {
-				double nodeX = n.x;
-				double nodeZ = n.z;
-				double nodeSize = n.size;
-				n.children.add(new Node(nodeX/2, nodeZ/2, nodeSize/4));
-				n.children.add(new Node(nodeX + nodeX/2, nodeZ/2, nodeSize/4));
-				n.children.add(new Node(nodeX/2, nodeZ + nodeZ/2, nodeSize/4));
-				n.children.add(new Node(nodeX + nodeX/2, nodeZ + nodeZ/2, nodeSize/4));
+		double x = item.getXLoc();
+		double z = item.getZLoc();
+		if (this.depth < maxDepth) {
+			if (item.getSize() < n.size) {
+				n.contents.add(item);
+			} else {
+				if (n.children.size() == 0) {
+					double nodeX = n.x;
+					double nodeZ = n.z;
+					double nodeSize = n.size;
+					n.children.add(new Node(nodeX/2, nodeZ/2, nodeSize/4, n.depth + 1));
+					n.children.add(new Node(nodeX + nodeX/2, nodeZ/2, nodeSize/4, n.depth + 1));
+					n.children.add(new Node(nodeX/2, nodeZ + nodeZ/2, nodeSize/4, n.depth + 1));
+					n.children.add(new Node(nodeX + nodeX/2, nodeZ + nodeZ/2, nodeSize/4, n.depth + 1));
+					depth++;
+					count += 4;
+				}
+				int child = n.getChild(x, z);
+				insert(item, n.children.get(child));
 			}
-			int child = n.getChild(x, y);
-			insert(item, n.children.get(child));
 		}
-		count++;
 	}
 
 	public boolean checkCenter(Node node, WorldObject item) {

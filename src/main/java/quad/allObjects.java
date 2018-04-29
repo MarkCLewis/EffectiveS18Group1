@@ -17,12 +17,8 @@ public class allObjects implements ElementVisitor {
 	@Override
 	public void visit(Node n) {
 		allNodes.add(n);
-		for (Node kids : n.children) {
-			visit(kids);
-			for (WorldObject content : n.contents) {
-				visit(content);
-			}
-		}
+		for (WorldObject content : n.contents) visit(content);
+		for (Node kid : n.children) visit(kid);	
 	}
 
 	@Override

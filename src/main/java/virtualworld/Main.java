@@ -41,7 +41,7 @@ public class Main extends Application {
 		primaryStage.setTitle("Virtual World");
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
-		scene.setFill(Color.BLANCHEDALMOND);
+		scene.setFill(Color.THISTLE);
 	
 	//QuadTree
 		QuadTree quad = QuadTree.getInstance();
@@ -145,10 +145,10 @@ public class Main extends Application {
 		//diamond city
 		*/
 		
-		Sphere sphere2 = new Sphere(10);
+		Sphere sphere2 = new Sphere(100000);
 		Material mat2 = new PhongMaterial(Color.FORESTGREEN);
 		sphere2.setMaterial(mat2);
-		sphere2.setTranslateZ(100);
+		sphere2.setTranslateZ(115000);
 		mainGroup.getChildren().add(sphere2);
 				
 		primaryStage.setScene(scene);
