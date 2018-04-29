@@ -3,7 +3,6 @@ package quad;
 import java.util.LinkedList;
 import java.util.Queue;
 import javafx.scene.Camera;
-import terraintesting.Point;
 import virtualworld.WorldObject;
 
 /**
@@ -32,39 +31,35 @@ public class QuadTree implements Element {
 
 	// Private tree variables
 	private Node root;
-	private int count = 0;
 	private int depth;
 	private int maxDepth = 40;
-
+	private int count = 0;
+	
 	// Private camera variables
-	private Point cameraLocation;
+	private double cameraX;
+	private double cameraZ;
 	private double updateDistance = 10;
 
 	// QuadTree functionality
 	/**
 	 * Sets the root equal to an initial value
-	 * 
-	 * @param item
-	 *            A WorldObject to be encapsulated by a node
+	 * @param item A WorldObject to be encapsulated by a node
 	 * @return root The root of the QuadTree, which has just been made
 	 */
-	public Node insert(WorldObject item) {
+	public void insert(WorldObject item) {
 		double x = item.getX();
 		double y = item.getY();
 		double s = item.getSize();
 		count++;
-		return root = new Node(x, y, s);
+		root = new Node(x, y, s);
 	}
 
 	/**
 	 * Inserts a object in the correct place, if the node passed in is null,
 	 * then the WorldObject gets passed to the other insert function, if the
 	 * node is valid, then the WorldObject gets inserted into the correct child.
-	 * 
-	 * @param item
-	 *            A WorldObject to be encapsulated by a node
-	 * @param n
-	 *            A node to encapsulate the WorldObject
+	 * @param item A WorldObject to be encapsulated by a node
+	 * @param n A node to encapsulate the WorldObject
 	 * @return The parent node
 	 */
 	void insert(WorldObject item, Node n) {
@@ -74,7 +69,6 @@ public class QuadTree implements Element {
 			n.contents.add(item);
 		} else {
 			if (n.children.size() == 0) {
-				// TODO - make four children with proper values
 				double nodeX = n.x;
 				double nodeZ = n.z;
 				double nodeSize = n.size;
@@ -89,29 +83,14 @@ public class QuadTree implements Element {
 		count++;
 	}
 
-	public static void updateCameraLocation(Camera camera) {
-
+	public boolean checkCenter(Node node, WorldObject item) {
+		return true;
 	}
-
-	public static void recursiveFunc(Camera camera) {
-		// (cameraX - radius) < (xMax + size/2) && (cameraX + radius) > (xMin -
-		// size/2)
-	}
-
-	public static void visitAllNeighbors(double distance) {
-		// TODO Auto-generated method stub
-	}
-
-	public static void visitNeighbors(double distance) {
-
-	}
-
+	
 	/**
 	 * Accepts the visitor into the QuadTree and passes it to the other accept
 	 * function
-	 * 
-	 * @param visitor
-	 *            the visitor being accepted
+	 * @param visitor the visitor being accepted
 	 */
 	@Override
 	public void accept(final ElementVisitor visitor) {
@@ -119,25 +98,17 @@ public class QuadTree implements Element {
 	}
 
 	/**
-	 * Checks if the visitor cares about the node, then recursively visits all
-	 * of the nodes that the visitor cares about.
-	 * 
-	 * @param visitor
-	 *            the visitor being accepted
-	 * @param n
-	 *            the node that is being visited
+	 * Checks if the visitor cares about the node then visits
+	 * @param visitor the visitor being accepted
+	 * @param n the node that is being visited
 	 */
 	private void accept(final ElementVisitor visitor, Node n) {
-		if (visitor.cares(n)) {
-			visitor.visit(n);
-		}
+		if (visitor.cares(n)) visitor.visit(n);
 	}
 
 	// Getters
 	/**
-	 * Returns a reference to the tree's root node. Callers shouldn't modify
-	 * nodes, directly.
-	 * 
+	 * Returns a reference to the tree's root node. Callers shouldn't modify nodes, directly.
 	 * @return Node The root node.
 	 */
 	public Node getRootNode() {
@@ -146,7 +117,6 @@ public class QuadTree implements Element {
 
 	/**
 	 * Returns the number of nodes in the tree
-	 * 
 	 * @return the number of the nodes in the tree
 	 */
 	public int getCount() {

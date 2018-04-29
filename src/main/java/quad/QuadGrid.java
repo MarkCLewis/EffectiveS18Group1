@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import terraintesting.Point;
 import virtualworld.ExampleObject;
 import virtualworld.WorldObject;
 
@@ -19,8 +18,9 @@ public class QuadGrid extends Application implements Element {
 	//scene variables
 	private static final int width = 600;
 	private static final int height = 600;
-	private Point center = new Point(width/2, height/2);
-	List<Node> quadNodes;
+	private double centerX = width/2;
+	private double centerZ = height/2;
+	static List<Node> quadNodes = new ArrayList<Node>();
 	List<ElementVisitor> visitorList;
 	
 	//Quadtree variables
@@ -39,11 +39,12 @@ public class QuadGrid extends Application implements Element {
 		populate();
 		
 		allObjects nodeCollector = new allObjects();
-		visitorList.add(nodeCollector);
-		
-		for (ElementVisitor visitor : visitorList) {
-			accept(visitor);
+		accept(nodeCollector);
+		for (Node nodes : nodeCollector.allNodes) {
+			quadNodes.add(nodes);
 		}
+		
+		System.out.println(quadNodes.size());
 		
 		for (Node n : quadNodes) {
 			Rectangle rect = new Rectangle();
@@ -63,17 +64,11 @@ public class QuadGrid extends Application implements Element {
 
 	public static void populate() {
 		Random rand = new Random();
-		Point p = new Point (rand.nextDouble() + rand.nextInt(599), rand.nextDouble() + rand.nextInt(599));
-		ExampleObject testObject = new ExampleObject(p.getX(), p.getZ(), 0);
-		quad.insert(testObject);
-		/*
-		Random rand = new Random();
 		for (int i = 0; i <100; i++) {
-			Point p = new Point (rand.nextDouble() + rand.nextInt(599), rand.nextDouble() + rand.nextInt(599));
-			ExampleObject testObject = new ExampleObject(p.getX(), p.getZ(), 0);
-			quad.insert(testObject);
+			//Point p = new Point (rand.nextDouble() + rand.nextInt(599), rand.nextDouble() + rand.nextInt(599));
+			//ExampleObject testObject = new ExampleObject(p.getX(), p.getZ(), 0);
+			//quad.insert(testObject, quad.getRootNode());
 		}
-		*/
 	}
 	
 	@Override

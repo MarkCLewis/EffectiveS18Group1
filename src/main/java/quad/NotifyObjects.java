@@ -11,7 +11,7 @@ import graphicsTesting.CameraController;
 
 //notifies objects of when a viewer is close by so that the correct detail can be rendered
 //knows where the camera is and generates a list of 3Ds
-public class CollectObjects implements ElementVisitor {
+public class NotifyObjects implements ElementVisitor {
 
 	private Queue<Node> passedThroughNodes = new LinkedList<Node>();
 	private List<WorldObject> passedThroughObs = new ArrayList<WorldObject>();
@@ -47,7 +47,10 @@ public class CollectObjects implements ElementVisitor {
 
   	@Override
   	public boolean cares(Node n) {
-  		
-  		return true;
+  		double nodeX = n.x;
+  		double nodeZ = n.z;
+  		//compare locations to camera, if within 100 meters
+  		if (true) return true;
+  		else return false;
   	}
 }

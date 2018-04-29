@@ -11,8 +11,8 @@ import virtualworld.WorldObject;
  */
 public class allObjects implements ElementVisitor {
 
-	private List<Node> allNodes = new ArrayList<Node>();
-	private List<WorldObject> allWorldObjects = new ArrayList<WorldObject>();
+	public List<Node> allNodes = new ArrayList<Node>();
+	public List<WorldObject> allWorldObjects = new ArrayList<WorldObject>();
 	
 	@Override
 	public void visit(Node n) {

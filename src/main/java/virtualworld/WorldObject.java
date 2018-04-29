@@ -1,5 +1,9 @@
 package virtualworld;
 
+import java.util.ArrayList;
+
+import javafx.scene.shape.Shape3D;
+
 /**
  * All objects in the world should implement this interface
  * x, y, z are dimensions
@@ -8,37 +12,24 @@ package virtualworld;
  */
 public interface WorldObject {
 
-
 	/**
-	 * Enum that signifies what kind of geometric object this WorldObject should be drawn as
+	 * the center x-coordinate of the object
+	 * @return x-coordinate
 	 */
-	/*
-	enum DrawType {
-		TRIANGLE_MESH, BOX, PYRAMID, SPHERE, CYLINDER;
-	}
+	double getXLoc();
+	  
+	/**
+	 * the center y-coordinate of the object
+	 * @return y-coordinate
 	 */
+	double getYLoc();
 	
 	/**
-	 * @return the DrawType of an object
+	 * the center z-coordinate of the object
+	 * @return z-coordinate
 	 */
-	
-	/*
-	DrawType getDrawType();
-	*/
-	
-	/* We'll need information on the location of the object, not just it's size
-	 * Recommend we also have the following data members:
-	 * 
-	 * double getXLoc();
-	 * 
-	 * double getYLoc();
-	 * 
-	 * double getZLoc();
-	 * 
-	 * The above members define a point which is the location of the object in the world
-	 * These are commented so as to not break previously-written code yet
-	 */
-	
+	double getZLoc();
+	  	
 	/**
 	 * @return the length of an object
 	 */
@@ -64,9 +55,14 @@ public interface WorldObject {
 	/**
 	 * notifies a WorldObject that a camera is nearby, which allows
 	 * the object to change its level of detail
-	 * 
 	 * @param x of the camera
 	 * @param z of the camera
 	 */
-	void notifyOfCamera(double x, double z);
+	boolean notifyOfCamera(double x, double z);
+	
+	/**
+	 * asks the object to return a list of all the shapes it has that need to be drawn
+	 * @return list of shapes
+	 */
+	ArrayList<Shape3D> display();
 }
