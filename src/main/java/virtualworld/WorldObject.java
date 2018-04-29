@@ -36,12 +36,12 @@ public interface WorldObject {
 	double getX();
 	
 	/**
-	 * @return the width of an object
+	 * @return the height of an object
 	 */
 	double getY();
 	
 	/**
-	 * @return the height of an object
+	 * @return the width of an object
 	 */
 	double getZ();
 	

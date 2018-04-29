@@ -85,14 +85,14 @@ public class CityMaker extends Application {
 			// TODO-find out how big the world is so that I can make random
 			// coordinates
 			
-			x = MathStuff.makeCoordinate(-4000, 4000);
-			z = MathStuff.makeCoordinate(-4000, 4000);
+			x = MathStuff.makeCoordinate();
+			z = MathStuff.makeCoordinate();
 			
 			boolean bool = true;
 			while(bool == true){
 				if(Location.isOverlapping(x, z, cities)){
-					x = MathStuff.makeCoordinate(-4000, 4000);
-					z = MathStuff.makeCoordinate(-4000, 4000);
+					x = MathStuff.makeCoordinate();
+					z = MathStuff.makeCoordinate();
 				}
 				else bool = false;
 			}

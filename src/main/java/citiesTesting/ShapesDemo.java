@@ -152,11 +152,18 @@ public class ShapesDemo extends Application {
 		BuildingTypes.makeTemple(mainGroup, Color.ORANGE, Color.GOLDENROD, Color.ORANGE, Color.GOLDENROD, 800, 200, -500);
 		*/
 		
+		/*
+		Box road = Shapes.makeBox(100, 2, 50, Color.BLACK, Color.GRAY, 400, 400, 400);
+		mainGroup.getChildren().add(road);
+		*/
+		
 		//Example of how to use City world objects
+		
 		CityOne cOne = CityOne.returnObj(mainGroup);
 		CityTwo cTwo = CityTwo.returnObj(mainGroup);
 		CityThree cThree = CityThree.returnObj(mainGroup);
 		
+
 		/*
 		System.out.println(cOne.getSize());
 		System.out.println(cOne.getX());
