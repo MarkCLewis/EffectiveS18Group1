@@ -1,45 +1,30 @@
 package graphicsTesting;
 
-import javafx.scene.Group;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.DrawMode;
-import javafx.scene.shape.MeshView;
-import javafx.scene.shape.Shape;
-import javafx.scene.shape.Shape3D;
-import javafx.scene.shape.TriangleMesh;
+import graphicsTesting.BoxMaker.BoxBuilder;
+import graphicsTesting.CustomMeshViewMaker.CMVBuilder;
+import graphicsTesting.CylinderMaker.CylinderBuilder;
+import graphicsTesting.PyramidMaker.PyramidBuilder;
 
 public class DrawFacade {
 	
 	
-	public static Box createBox(PhongMaterial mat, Color c1, Color c2, double length, double height, double width, double x, double y, double z) {
-		Box box = new Box(length, height, width);
-		box.setDrawMode(DrawMode.FILL);
-		mat.setDiffuseColor(c1);
-		mat.setSpecularColor(c2);
-		box.setMaterial(mat);
-		box.setTranslateX(x);
-		box.setTranslateY(y);
-		box.setTranslateZ(z);
-		
-		return box;
+	public static BoxBuilder getBoxBuilder(double l, double h, double w) {
+		return new BoxMaker.BoxBuilder(l, h, w);
 	}
 	
-	public static Cylinder createCylinder(PhongMaterial mat, Color c1, Color c2, double height, double width, double x, double y, double z) {
-		Cylinder cyl = new Cylinder(height, width);
-		cyl.setDrawMode(DrawMode.FILL);
-		mat.setDiffuseColor(c1);
-		mat.setSpecularColor(c2);
-		cyl.setMaterial(mat);
-		cyl.setTranslateX(x);
-		cyl.setTranslateY(y);
-		cyl.setTranslateZ(z);
-		
-		return cyl;
+	public static CylinderBuilder getCylinderBuilder(double h, double w) {
+		return new CylinderMaker.CylinderBuilder(h, w);
 	}
 	
+	public static PyramidBuilder getPyramidBuilder(float h, float s) {
+		return new PyramidMaker.PyramidBuilder(h, s);
+	}
+	
+	public static CMVBuilder getCustomMeshViewBuilder(float[] points, int[] faces) {
+		return new CustomMeshViewMaker.CMVBuilder(points, faces);
+	}
+	
+	/*
 	public static MeshView createPyramidMeshView(PhongMaterial mat, Color c1, Color c2, float height, float side, double x, double y, double z) {
 		TriangleMesh newMesh = new TriangleMesh();
 
@@ -131,4 +116,5 @@ public class DrawFacade {
 		
 		return mv;
 	}
+	*/
 }

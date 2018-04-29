@@ -150,9 +150,8 @@ public class CameraTesting extends Application{
 		
 		
 		//mainGroup.getChildren().add(pyramid);
-		int[] transCords = {0,0,0};
 		//mainGroup.getChildren().add(DrawFacade.createBoxMeshView(new PhongMaterial(), Color.CADETBLUE, Color.RED, 20, 10 ,10, 10, 10, 10));
-		mainGroup.getChildren().add(DrawFacade.createCylinder(new PhongMaterial(), Color.CADETBLUE, Color.RED, 20, 10, 10, 10, 10));
+		mainGroup.getChildren().add(DrawFacade.getCylinderBuilder(10,20).transCoords(10,0,0).material(new PhongMaterial(Color.BLUE)).build().get());
 		stage.setScene(scene);
 		stage.show();
 	}

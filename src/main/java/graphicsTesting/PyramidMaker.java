@@ -6,10 +6,10 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.transform.Rotate;
 
-public class PyramidBuilder implements ShapeBuilder {
+public class PyramidMaker implements ShapeMaker {
 	private MeshView mv;
 	
-	public static class Builder {
+	public static class PyramidBuilder {
 		private float height;
 		private float side;
 		private double x = 0;
@@ -20,44 +20,44 @@ public class PyramidBuilder implements ShapeBuilder {
 	    private Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
 	    private Rotate zRotate = new Rotate(0,0,0,0,Rotate.Z_AXIS);
 		
-		public Builder(float h, float s) {
+		public PyramidBuilder(float h, float s) {
 			height = h;
 			side = s;
 		}
 		
-		public Builder transCoords(double xLoc, double yLoc, double zLoc) {
+		public PyramidBuilder transCoords(double xLoc, double yLoc, double zLoc) {
 			x = xLoc;
 			y = yLoc;
 			z = zLoc;
 			return this;
 		}
 		
-		public Builder material(PhongMaterial pm) {
+		public PyramidBuilder material(PhongMaterial pm) {
 			material = pm;
 			return this;
 		}
 		
-		public Builder xRotate(Rotate rotate) {
+		public PyramidBuilder xRotate(Rotate rotate) {
 			xRotate = rotate;
 			return this;
 		}
 		
-		public Builder yRotate(Rotate rotate) {
+		public PyramidBuilder yRotate(Rotate rotate) {
 			yRotate = rotate;
 			return this;
 		}
 		
-		public Builder zRotate(Rotate rotate) {
+		public PyramidBuilder zRotate(Rotate rotate) {
 			zRotate = rotate;
 			return this;
 		}
 		
-		public PyramidBuilder build() {
-			return new PyramidBuilder(this);
+		public PyramidMaker build() {
+			return new PyramidMaker(this);
 		}
 	}
 	
-	private PyramidBuilder(Builder builder) {
+	private PyramidMaker(PyramidBuilder builder) {
 		TriangleMesh pyr = new TriangleMesh();
 		
 		pyr.getTexCoords().addAll(0,0);

@@ -5,10 +5,10 @@ import javafx.scene.shape.Box;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 
-public class BoxBuilder implements ShapeBuilder {
+public class BoxMaker implements ShapeMaker {
 	private Box box;
 	
-	public static class Builder {
+	public static class BoxBuilder {
 		private double length;
 		private double height;
 		private double width;
@@ -20,45 +20,45 @@ public class BoxBuilder implements ShapeBuilder {
 	    private Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
 	    private Rotate zRotate = new Rotate(0,0,0,0,Rotate.Z_AXIS);
 		
-		public Builder(double l, double h, double w) {
+		public BoxBuilder(double l, double h, double w) {
 			length = l;
 			height = h;
 			width = w;
 		}
 		
-		public Builder transCoords(double xLoc, double yLoc, double zLoc) {
+		public BoxBuilder transCoords(double xLoc, double yLoc, double zLoc) {
 			x = xLoc;
 			y = yLoc;
 			z = zLoc;
 			return this;
 		}
 		
-		public Builder material(PhongMaterial pm) {
+		public BoxBuilder material(PhongMaterial pm) {
 			material = pm;
 			return this;
 		}
 		
-		public Builder xRotate(Rotate rotate) {
+		public BoxBuilder xRotate(Rotate rotate) {
 			xRotate = rotate;
 			return this;
 		}
 		
-		public Builder yRotate(Rotate rotate) {
+		public BoxBuilder yRotate(Rotate rotate) {
 			yRotate = rotate;
 			return this;
 		}
 		
-		public Builder zRotate(Rotate rotate) {
+		public BoxBuilder zRotate(Rotate rotate) {
 			zRotate = rotate;
 			return this;
 		}
 		
-		public BoxBuilder build() {
-			return new BoxBuilder(this);
+		public BoxMaker build() {
+			return new BoxMaker(this);
 		}
 	}
 	
-	private BoxBuilder(Builder builder) {
+	private BoxMaker(BoxBuilder builder) {
 		box = new Box(builder.length, builder.height, builder.width);
 		box.setDrawMode(DrawMode.FILL);
 		box.setMaterial(builder.material);

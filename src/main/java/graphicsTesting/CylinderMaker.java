@@ -5,11 +5,11 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 
-public class CylinderBuilder implements ShapeBuilder {
+public class CylinderMaker implements ShapeMaker {
 
 	private Cylinder cyl;
 	
-	public static class Builder {
+	public static class CylinderBuilder {
 		private double height;
 		private double width;
 		private double x = 0;
@@ -20,44 +20,44 @@ public class CylinderBuilder implements ShapeBuilder {
 	    private Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
 	    private Rotate zRotate = new Rotate(0,0,0,0,Rotate.Z_AXIS);
 		
-		public Builder(double h, double w) {
+		public CylinderBuilder(double w, double h) {
 			height = h;
 			width = w;
 		}
 		
-		public Builder transCoords(double xLoc, double yLoc, double zLoc) {
+		public CylinderBuilder transCoords(double xLoc, double yLoc, double zLoc) {
 			x = xLoc;
 			y = yLoc;
 			z = zLoc;
 			return this;
 		}
 		
-		public Builder material(PhongMaterial pm) {
+		public CylinderBuilder material(PhongMaterial pm) {
 			material = pm;
 			return this;
 		}
 		
-		public Builder xRotate(Rotate rotate) {
+		public CylinderBuilder xRotate(Rotate rotate) {
 			xRotate = rotate;
 			return this;
 		}
 		
-		public Builder yRotate(Rotate rotate) {
+		public CylinderBuilder yRotate(Rotate rotate) {
 			yRotate = rotate;
 			return this;
 		}
 		
-		public Builder zRotate(Rotate rotate) {
+		public CylinderBuilder zRotate(Rotate rotate) {
 			zRotate = rotate;
 			return this;
 		}
 		
-		public CylinderBuilder build() {
-			return new CylinderBuilder(this);
+		public CylinderMaker build() {
+			return new CylinderMaker(this);
 		}
 	}
 	
-	private CylinderBuilder(Builder builder) {
+	private CylinderMaker(CylinderBuilder builder) {
 		cyl = new Cylinder(builder.height, builder.width);
 		cyl.setDrawMode(DrawMode.FILL);
 		cyl.setMaterial(builder.material);

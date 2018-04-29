@@ -6,10 +6,10 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.transform.Rotate;
 
-public class CustomMeshViewBuilder implements ShapeBuilder {
+public class CustomMeshViewMaker implements ShapeMaker {
 	private MeshView mv;
 	
-	public static class Builder {
+	public static class CMVBuilder {
 		private float[] points;
 		private int[] faces;
 		private double x = 0;
@@ -20,44 +20,44 @@ public class CustomMeshViewBuilder implements ShapeBuilder {
 	    private Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
 	    private Rotate zRotate = new Rotate(0,0,0,0,Rotate.Z_AXIS);
 		
-		public Builder(float[] p, int[] f) {
+		public CMVBuilder(float[] p, int[] f) {
 			points = p;
 			faces = f;
 		}
 		
-		public Builder transCoords(double xLoc, double yLoc, double zLoc) {
+		public CMVBuilder transCoords(double xLoc, double yLoc, double zLoc) {
 			x = xLoc;
 			y = yLoc;
 			z = zLoc;
 			return this;
 		}
 		
-		public Builder material(PhongMaterial pm) {
+		public CMVBuilder material(PhongMaterial pm) {
 			material = pm;
 			return this;
 		}
 		
-		public Builder xRotate(Rotate rotate) {
+		public CMVBuilder xRotate(Rotate rotate) {
 			xRotate = rotate;
 			return this;
 		}
 		
-		public Builder yRotate(Rotate rotate) {
+		public CMVBuilder yRotate(Rotate rotate) {
 			yRotate = rotate;
 			return this;
 		}
 		
-		public Builder zRotate(Rotate rotate) {
+		public CMVBuilder zRotate(Rotate rotate) {
 			zRotate = rotate;
 			return this;
 		}
 		
-		public CustomMeshViewBuilder build() {
-			return new CustomMeshViewBuilder(this);
+		public CustomMeshViewMaker build() {
+			return new CustomMeshViewMaker(this);
 		}
 	}
 	
-	private CustomMeshViewBuilder(Builder builder) {
+	private CustomMeshViewMaker(CMVBuilder builder) {
 		TriangleMesh tm = new TriangleMesh();
 		
 		tm.getTexCoords().addAll(0,0);
