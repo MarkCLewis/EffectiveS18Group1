@@ -8,6 +8,7 @@ public class TerrainObject implements virtualworld.WorldObject {
 	private final double xWidth;
 	private final double yWidth;
 	private final double zWidth;
+	// May need a field for triangleWidth/level of rendering detail, so the terrain can respond to the camera 
 	
 	private final long seed;
 	private final double noise;
@@ -98,6 +99,58 @@ public class TerrainObject implements virtualworld.WorldObject {
 	
 	public static double getDefaultNoise() {
 		return defaultNoise;
+	}
+	
+	public TerrainObject[] getChildren() {
+		TerrainObjectBuilder bldr = new TerrainObjectBuilder();
+		
+		//upper lefthand corner
+		TerrainObject child1; 
+		//upper righthand corner
+		TerrainObject child2; 
+		//lower lefthand corner
+		TerrainObject child3;
+		//lower righthand corner
+		TerrainObject child4;
+		
+		double childXW, childYW, childZW;
+		childXW = xWidth/4;
+		childYW = yWidth/4;
+		childZW = zWidth/4;
+		
+		//Common fields across all children
+		bldr.setSeed(seed);
+		bldr.setNoise(noise);
+		bldr.setXWidth(xWidth);
+		bldr.setYWidth(yWidth);
+		bldr.setZWidth(zWidth);
+		
+		//Building child1
+		bldr.setXLoc(xLoc);
+		bldr.setXLoc(yLoc); //TODO
+		bldr.setXLoc(zLoc);
+		child1 = bldr.build();
+		
+		//Building child2
+		bldr.setXLoc(xLoc+childXW);
+		bldr.setXLoc(yLoc); //TODO
+		bldr.setXLoc(zLoc);
+		child2 = bldr.build();
+		
+		//Building child3
+		bldr.setXLoc(xLoc);
+		bldr.setXLoc(yLoc); //TODO
+		bldr.setXLoc(zLoc+childZW);
+		child3 = bldr.build();
+		
+		//Building child4
+		bldr.setXLoc(xLoc+childXW);
+		bldr.setXLoc(yLoc); //TODO
+		bldr.setXLoc(zLoc+childZW);
+		child4 = bldr.build();
+		
+		TerrainObject[] children = {child1, child2, child3, child4};
+		return children;
 	}
 }
 

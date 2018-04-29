@@ -10,6 +10,8 @@ public class TerrainObjectBuilder {
 	
 	private long seed = TerrainObject.getDefaultSeed();
 	private double noise = TerrainObject.getDefaultSeed();
+	
+	// Keeps track of which fields have been set
 	private boolean[] paramsSet = {false, false, false, false, false, false, false, false};
 	
 	public TerrainObjectBuilder() {
@@ -17,6 +19,7 @@ public class TerrainObjectBuilder {
 	}
 	
 	public TerrainObject build() {
+		//All fields but seed and noise must be set by caller
 		for(int i=0; i<paramsSet.length-2; i++)
 			if(!paramsSet[i])
 				throw new IllegalArgumentException("Needed parameter (No. "+i+") for TerrainObject hasn't been set");
