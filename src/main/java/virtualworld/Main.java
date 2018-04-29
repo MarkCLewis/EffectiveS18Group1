@@ -6,6 +6,8 @@ import java.util.Set;
 
 import citiesTesting.BuildingTypes;
 import citiesTesting.CityOne;
+import citiesTesting.CityThree;
+import citiesTesting.CityTwo;
 import graphicsTesting.CameraController;
 import javafx.application.Application;
 import javafx.scene.Camera;
@@ -132,6 +134,16 @@ public class Main extends Application {
 			keySet.remove(key);
 			
 		});
+		
+		/*
+		//Making city objects
+		CityOne cOne = CityOne.returnObj(mainGroup);
+		//grid type city
+		CityTwo cTwo = CityTwo.returnObj(mainGroup);
+		//circular city
+		CityThree cThree = CityThree.returnObj(mainGroup);
+		//diamond city
+		*/
 		
 		Sphere sphere2 = new Sphere(10);
 		Material mat2 = new PhongMaterial(Color.FORESTGREEN);
