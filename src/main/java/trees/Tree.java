@@ -18,10 +18,12 @@ import javafx.scene.shape.Shape3D;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import virtualworld.WorldObject;
+import graphicsTesting.DrawFacade;
 
 public class Tree extends Application implements WorldObject{
+	private String type;
 	public double x, y, z;
-	private double w,h,d,a,s;
+	private double w,h,d,a,s,ix,fx,width;
 	private String productionA, productionB;
 	public Branch axiom;
 	public Queue <Branch>q;
@@ -76,14 +78,13 @@ public class Tree extends Application implements WorldObject{
 	 * 
 	 */
 	public Box makeBranch(double width, double height, double depth, double posX,double posY, double posZ, double angle){
-		Material mat = new PhongMaterial(colorAssignment());
-		Box b=new Box(width,height,depth);
-		b.setTranslateX(posX);
-		b.setTranslateY(posY);
-		b.setTranslateZ(posZ);
-		b.setMaterial(mat);
-		b.setRotationAxis(Rotate.Z_AXIS);
-		b.setRotate(angle);
+		
+		Rotate zR= new Rotate(angle,Rotate.Z_AXIS);
+		PhongMaterial material=new PhongMaterial(colorAssignment());
+		
+		Box b=DrawFacade.getBoxBuilder(width, height, depth).transCoords(posX, posY, posZ).zRotate(zR).material(material).build().get();
+		//Material mat = new PhongMaterial(colorAssignment());
+		
 		return b;
 	}
 
@@ -95,7 +96,7 @@ public class Tree extends Application implements WorldObject{
 	 */
 	public void treeA(){
 		
-		axiom= new Branch("a",15,80,15,250,460,0,0,s);
+		axiom= new Branch("a",30,160,30,250,460,0,0,s);
 		x=axiom.getPositionX();
 		y=axiom.getPositionY();
 		z=axiom.getPositionZ();
@@ -120,7 +121,7 @@ public class Tree extends Application implements WorldObject{
 	public void treeB(){
 
 
-		axiom= new Branch("b",15,80,15,250,460,0,0,s);
+		axiom= new Branch("b",30,160,30,250,460,0,0,s);
 		x=axiom.getPositionX();
 		y=axiom.getPositionY();
 		z=axiom.getPositionZ();
@@ -213,25 +214,27 @@ public class Tree extends Application implements WorldObject{
 				if(branch.getType()=="a"){
 					if(index==0){
 						
-						branch.getChildAt(index).setAngle(branch.getAngle()-45);
+						branch.getChildAt(0).setAngle(branch.getAngle()-45);
 			
 						w=branch.getWidth()*.75;
 						h=branch.getHeight()*.75;
 						d=branch.getDepth()*.75;
 						branch.getChildAt(0).setInitialSize(w, h, d);
-						a=branch.getChildAt(index).getAngle();
+						a=branch.getChildAt(0).getAngle();
 						x=branch.getPositionX()-(h)*(Math.cos(Math.toRadians(a)))/2;
+						
 						//460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
 					//	System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))+(h*(Math.sin(Math.toRadians(a)))/2));
 						y=((branch.getPositionY()-branch.getHeight()/2))+(h*(Math.sin(Math.toRadians(a)))/2);
 					//	mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
 						branch.getChildAt(0).setInitialCoordinates(x, y, 0);
+				
 						branches.add(makeBranch(w, h, d, x, y, 0, a));	
 							
 					}
 					
 					if(index==1){
-					
+						
 						branch.getChildAt(1).setAngle(branch.getAngle());
 						w=branch.getWidth()*.75;
 						h=branch.getHeight()*.75;
@@ -252,7 +255,7 @@ public class Tree extends Application implements WorldObject{
 					
 					
 					if(index==2){
-			
+						
 						branch.getChildAt(2).setAngle(branch.getAngle()+45);
 						w=branch.getWidth()*.75;
 						h=branch.getHeight()*.75;
@@ -265,6 +268,7 @@ public class Tree extends Application implements WorldObject{
 						y=((branch.getPositionY()-branch.getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2);
 						//mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
 						branch.getChildAt(2).setInitialCoordinates(x, y, 0);
+						
 						branches.add(makeBranch(w, h, d, x, y, 0, a));	
 							
 					}
@@ -306,7 +310,7 @@ public class Tree extends Application implements WorldObject{
 					}
 				}
 				
-				
+			
 			index++;
 			}
 			
@@ -314,17 +318,15 @@ public class Tree extends Application implements WorldObject{
 		}
 		
 		System.out.println("LOOPS: "+loops);
+		
 		for (int j=0; j<loops;j++){
 			mainGroup.getChildren().add(branches.get(j));
 		}
-		System.out.println("x:"+branches.get(1).getTranslateX());
-		System.out.println("y:"+branches.get(1).getTranslateY());
-		System.out.println("z:"+branches.get(1).getTranslateZ());
-		System.out.println("Width:"+branches.get(1).getWidth());
-		System.out.println("Height:"+branches.get(1).getHeight());
-		System.out.println("Depth:"+branches.get(1).getDepth());
-	//	mainGroup.getChildren().add(makeBranch(branches.get(1).getWidth()*.75, branches.get(1).getHeight()*.75, branches.get(1).getDepth()*.75, branches.get(1).getTranslateX()-(branches.get(1).getHeight()*.75*(Math.cos(-90))), 400, 0,-90));
-
+		type=axiom.getType();
+		fx=160*.75*(Math.sin(Math.toRadians(45)))/2;
+		ix=160*.75*(Math.sin(Math.toRadians(-45)))/2;
+		
+		
 	}
 
 
@@ -386,15 +388,19 @@ public class Tree extends Application implements WorldObject{
 
 	@Override
 	public double getSize() {
-		return this.s;
+		fx=160*.75*(Math.sin(Math.toRadians(45)))/2;
+		ix=160*.75*(Math.sin(Math.toRadians(-45)))/2;
+		s=(fx-ix)*490*10;
+		return s;
 	}
 
 
 	@Override
-	public void notifyOfCamera(double x, double z) {
+	public boolean notifyOfCamera(double x, double z) {
 		if ((Math.abs(this.getX() - x) < 10) || (Math.abs(this.getZ() - z) < 10)) {
 			cameraClose = true;
 		}
+		return true;
 	}
 
 	@Override
