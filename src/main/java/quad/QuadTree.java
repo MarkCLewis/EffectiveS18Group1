@@ -2,7 +2,6 @@ package quad;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import javafx.scene.Camera;
 import virtualworld.WorldObject;
 
 /**
@@ -36,9 +35,9 @@ public class QuadTree implements Element {
 	private int count = 0;
 	
 	// Private camera variables
-	static double cameraX;
-	static double cameraZ;
-	private double updateDistance = 10;
+	public static double cameraX;
+	public static double cameraZ;
+	//private double updateDistance = 10;
 
 	// QuadTree functionality
 	/**
@@ -67,7 +66,7 @@ public class QuadTree implements Element {
 		double x = item.getXLoc();
 		double z = item.getZLoc();
 		if (this.depth < maxDepth) {
-			if (item.getSize() < n.size) {
+			if (item.getSize() < n.size/2) {
 				n.contents.add(item);
 			} else {
 				if (n.children.size() == 0) {
@@ -85,10 +84,6 @@ public class QuadTree implements Element {
 				insert(item, n.children.get(child));
 			}
 		}
-	}
-
-	public boolean checkCenter(Node node, WorldObject item) {
-		return true;
 	}
 	
 	/**

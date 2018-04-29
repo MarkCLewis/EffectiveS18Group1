@@ -38,8 +38,15 @@ public class QuadGrid extends Application implements Element {
 		
 		populate();
 		
+		//allObjects nodeCollector = new allObjects();
+		//accept(nodeCollector);
+		//for (Node nodes : nodeCollector.allNodes) {
+		///	quadNodes.add(nodes);
+		//}
+		
 		allObjects nodeCollector = new allObjects();
-		accept(nodeCollector);
+		nodeCollector.visit(quad.getRootNode());
+		
 		for (Node nodes : nodeCollector.allNodes) {
 			quadNodes.add(nodes);
 		}
@@ -69,6 +76,11 @@ public class QuadGrid extends Application implements Element {
 			//ExampleObject testObject = new ExampleObject(p.getX(), p.getZ(), 0);
 			//quad.insert(testObject, quad.getRootNode());
 		}
+		ExampleObject testObject = new ExampleObject(500, 500, 0);
+		ExampleObject testObject1 = new ExampleObject(200, 200, 0);
+		
+		quad.insert(testObject);
+		quad.insert(testObject1, quad.getRootNode());
 	}
 	
 	@Override

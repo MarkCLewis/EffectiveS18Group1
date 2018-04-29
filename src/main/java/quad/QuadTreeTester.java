@@ -7,15 +7,10 @@ import virtualworld.WorldObject;
 public class QuadTreeTester {
 	
 	public static QuadTree addToTree(QuadTree quad) {
-		WorldObject testObject1 = new ExampleObject(50, 50, 400);
-		WorldObject testObject2 = new ExampleObject(5, 5, 5);
-		WorldObject testObject3 = new ExampleObject(76, 80, 5);
-		quad.insert(testObject1);
-		quad.insert(testObject2, quad.getRootNode());
-		quad.insert(testObject3, quad.getRootNode());
-	
 		WorldObject realisticObject = new ExampleObject(834063, 834063, 100);
+		WorldObject smallerObject = new ExampleObject(200, 200, 0);
 		quad.insert(realisticObject);
+		quad.insert(smallerObject, quad.getRootNode());
 		
 		return quad;
 	}

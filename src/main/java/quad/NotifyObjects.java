@@ -10,7 +10,7 @@ import virtualworld.WorldObject;
 //knows where the camera is and generates a list of 3Ds
 public class NotifyObjects implements ElementVisitor {
 	
-	List<Shape3D> toBeDrawn = new ArrayList<Shape3D>();
+	public List<Shape3D> toBeDrawn = new ArrayList<Shape3D>();
 	
     @Override
   	public void visit(Node n) {

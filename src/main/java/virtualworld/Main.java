@@ -43,8 +43,16 @@ public class Main extends Application {
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 		scene.setFill(Color.THISTLE);
 	
+	//Camera
+			Camera camera = new PerspectiveCamera(true);
+			scene.setCamera(camera);
+			Group cameraGroup = new Group();
+			CameraController pCam = new CameraController.Builder(camera).build();
+	
 	//QuadTree
 		QuadTree quad = QuadTree.getInstance();
+		quad.cameraX = pCam.getCameraX();
+		quad.cameraZ = pCam.getCameraZ();
 		//TODO insert top level terrain (one giant piece)
 		
 	//Visitors
@@ -54,11 +62,6 @@ public class Main extends Application {
 		//quad.accept(printTest);
 		//quad.accept(camVisitor);
 		
-	//Camera
-		Camera camera = new PerspectiveCamera(true);
-		scene.setCamera(camera);
-		Group cameraGroup = new Group();
-		CameraController pCam = new CameraController.Builder(camera).build();
 		
 		//String[] args = null;
 		//Group buildingGroup = new Group();
