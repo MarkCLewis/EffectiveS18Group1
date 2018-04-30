@@ -95,7 +95,10 @@ public class sheepMaker extends Application{
 		sheep.list.addAll(tempList);
 		
 		animalTransition moveTest = new animalTransition(testSheep);
+		//moveTest.setCycleCount(moveTest.INDEFINITE);
 		moveTest.play();
+		
+		
 		//int[] transCords = {0,0,0};
 //		mainGroup.getChildren().add(bodyShapes.createCylinder(.2, 1, 1.5, 0, .5)); //LFL
 //		mainGroup.getChildren().add(bodyShapes.createCylinder(.2, 1, 1.5, 0, 1.5)); //RFL

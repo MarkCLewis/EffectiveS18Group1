@@ -3,6 +3,7 @@ package animals;
 import java.util.ArrayList;
 
 import citiesTesting.MathStuff;
+import javafx.geometry.Point3D;
 //import animals.SheepBuild;
 import javafx.scene.Group;
 import javafx.scene.shape.Shape3D;
@@ -17,6 +18,10 @@ public class sheep implements WorldObject {
 	static double z;
 	static double size;
 	static ArrayList<Shape3D> list = new ArrayList<Shape3D>();
+	
+	public Point3D point;
+	public animalTransition moveTransition;
+	static ArrayList<Shape3D> limbs = new ArrayList<Shape3D>();
 	
 	public static sheep returnObj(Group sgroup) {
 		main(sgroup);
