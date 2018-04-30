@@ -6,9 +6,13 @@ import java.util.List;
 import virtualworld.WorldObject;
 
 public class Node {
-	//center and size of the Node
-	double x; double z; double size;
+	//center of the Node
+	double x; double z; 
 	
+	//size of the Node (half of length)
+	double size;
+	
+	//depth of Node in QuadTree
 	int depth;
 	
 	//Lists of children and items within

@@ -148,10 +148,10 @@ public class Main extends Application {
 		//diamond city
 		*/
 		
-		Sphere sphere2 = new Sphere(100000);
+		Sphere sphere2 = new Sphere(10);
 		Material mat2 = new PhongMaterial(Color.FORESTGREEN);
 		sphere2.setMaterial(mat2);
-		sphere2.setTranslateZ(115000);
+		sphere2.setTranslateZ(100);
 		mainGroup.getChildren().add(sphere2);
 				
 		primaryStage.setScene(scene);

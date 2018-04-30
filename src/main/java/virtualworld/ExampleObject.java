@@ -6,38 +6,35 @@ import javafx.scene.shape.Shape3D;
 
 public class ExampleObject implements WorldObject {
 	
-	//dimensions
-	private double x;
-	private double z;
-	private double y;
-	
 	//coordinates
 	private double xLoc;
 	private double zLoc;
 	private double yLoc;
-	
 	private double size;
 	
-	public ExampleObject (double x, double z, double y) {
-		this.x = x;
-		this.z = z;
-		this.y = y;
-		this.size = x*z;
+	public ExampleObject (double x, double z, double radius) {
+		this.xLoc = x;
+		this.zLoc = z;
+		this.size = radius;
+	}
+	
+	public double getRadius() {
+		return this.size;
 	}
 	
 	@Override
 	public double getX() {
-		return this.x;
+		return this.size;
 	}
 
 	@Override
 	public double getY() {
-		return this.y;
+		return this.size;
 	}
 	
 	@Override
 	public double getZ() {
-		return this.z;
+		return this.size;
 	}
 
 	@Override

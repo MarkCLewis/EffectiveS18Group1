@@ -30,66 +30,63 @@ public class QuadTree implements Element {
 
 	// Private tree variables
 	private Node root;
-	private int depth;
+	private int depth = 0;
 	private int maxDepth = 40;
 	private int count = 0;
-	
+
 	// Private camera variables
 	public static double cameraX;
 	public static double cameraZ;
-	//private double updateDistance = 10;
-
-	// QuadTree functionality
-	/**
-	 * Sets the root equal to an initial value
-	 * @param item A WorldObject to be encapsulated by a node
-	 * @return root The root of the QuadTree, which has just been made
-	 */
-	public void insert(WorldObject item) {
-		double x = item.getX();
-		double y = item.getY();
-		double s = item.getSize();
-		root = new Node(x, y, s, 1);
-		count++;
-		depth++;
-	}
+	// TODO private double updateDistance = 10;
 
 	/**
 	 * Inserts a object in the correct place, if the node passed in is null,
 	 * then the WorldObject gets passed to the other insert function, if the
 	 * node is valid, then the WorldObject gets inserted into the correct child.
-	 * @param item A WorldObject to be encapsulated by a node
-	 * @param n A node to encapsulate the WorldObject
+	 * 
+	 * @param item
+	 *            A WorldObject to be encapsulated by a node
+	 * @param n
+	 *            A node to encapsulate the WorldObject
 	 * @return The parent node
 	 */
 	void insert(WorldObject item, Node n) {
-		double x = item.getXLoc();
-		double z = item.getZLoc();
-		if (this.depth < maxDepth) {
-			if (item.getSize() < n.size/2) {
-				n.contents.add(item);
-			} else {
-				if (n.children.size() == 0) {
-					double nodeX = n.x;
-					double nodeZ = n.z;
-					double nodeSize = n.size;
-					n.children.add(new Node(nodeX/2, nodeZ/2, nodeSize/4, n.depth + 1));
-					n.children.add(new Node(nodeX + nodeX/2, nodeZ/2, nodeSize/4, n.depth + 1));
-					n.children.add(new Node(nodeX/2, nodeZ + nodeZ/2, nodeSize/4, n.depth + 1));
-					n.children.add(new Node(nodeX + nodeX/2, nodeZ + nodeZ/2, nodeSize/4, n.depth + 1));
-					depth++;
-					count += 4;
-				}
-				int child = n.getChild(x, z);
-				insert(item, n.children.get(child));
+		if (root == null) {
+			root = new Node(item.getXLoc(), item.getZLoc(), item.getSize(), 1);
+			root.contents.add(item);
+			count++;
+			depth++;
+		} else if (item.getSize() < n.size/2 && this.depth < maxDepth) {
+			if (n.children.size() == 0) {
+				double nodeSize = n.size;
+				n.children.add(new Node(n.x - n.size/2, n.z - n.size/2, nodeSize/2, n.depth + 1));
+				n.children.add(new Node(n.x + n.size/2, n.z - n.size/2, nodeSize/2, n.depth + 1));
+				n.children.add(new Node(n.x - n.size/2, n.z + n.size/2, nodeSize/2, n.depth + 1));
+				n.children.add(new Node(n.x + n.size/2, n.z + n.size/2, nodeSize/2, n.depth + 1));
+				depth++;
+				count += 4;
 			}
+			int child = n.getChild(item.getXLoc(), item.getZLoc());
+			if (inNode(item, n)) insert(item, n.children.get(child));
+			else throw new RuntimeException("out of bounds");
+		} else {
+			n.contents.add(item);
 		}
 	}
-	
+
+	boolean inNode(WorldObject item, Node n) {
+		boolean inBottom = n.z <= item.getZLoc() + n.size;
+		boolean inTop = n.z > item.getZLoc() - n.size;
+		boolean inRight = n.x <= item.getXLoc() + n.size;
+		boolean inLeft = n.z > item.getXLoc() - n.size;
+		return inBottom && inTop && inRight && inLeft;
+	}
 	/**
 	 * Accepts the visitor into the QuadTree and passes it to the other accept
 	 * function
-	 * @param visitor the visitor being accepted
+	 * 
+	 * @param visitor
+	 *            the visitor being accepted
 	 */
 	@Override
 	public void accept(final ElementVisitor visitor) {
@@ -98,16 +95,22 @@ public class QuadTree implements Element {
 
 	/**
 	 * Checks if the visitor cares about the node then visits
-	 * @param visitor the visitor being accepted
-	 * @param n the node that is being visited
+	 * 
+	 * @param visitor
+	 *            the visitor being accepted
+	 * @param n
+	 *            the node that is being visited
 	 */
 	private void accept(final ElementVisitor visitor, Node n) {
-		if (visitor.cares(n)) visitor.visit(n);
+		if (visitor.cares(n))
+			visitor.visit(n);
 	}
 
 	// Getters
 	/**
-	 * Returns a reference to the tree's root node. Callers shouldn't modify nodes, directly.
+	 * Returns a reference to the tree's root node. Callers shouldn't modify
+	 * nodes, directly.
+	 * 
 	 * @return Node The root node.
 	 */
 	public Node getRootNode() {
@@ -116,6 +119,7 @@ public class QuadTree implements Element {
 
 	/**
 	 * Returns the number of nodes in the tree
+	 * 
 	 * @return the number of the nodes in the tree
 	 */
 	public int getCount() {

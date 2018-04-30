@@ -46,8 +46,7 @@ public interface WorldObject {
 	double getZ();
 	
 	/**
-	 * the two dimensional size of the bounding box 
-	 * (i.e. the size of the object if you were looking at it from above
+	 * the radius of the bounding circle
 	 * @return the above described size
 	 */
 	double getSize();

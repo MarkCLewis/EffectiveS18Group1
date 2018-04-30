@@ -7,7 +7,10 @@ import java.util.Random;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import virtualworld.ExampleObject;
@@ -15,17 +18,15 @@ import virtualworld.WorldObject;
 
 public class QuadGrid extends Application implements Element {
 
-	//scene variables
-	private static final int width = 600;
-	private static final int height = 600;
-	private double centerX = width/2;
-	private double centerZ = height/2;
-	static List<Node> quadNodes = new ArrayList<Node>();
-	List<ElementVisitor> visitorList;
+	//Scene variables
+	private static final int width = 800;
+	private static final int height = 800;
 	
 	//Quadtree variables
 	static QuadTree quad = QuadTree.getInstance();
-	private List<WorldObject> objects = new ArrayList<>();
+	static List<Node> quadNodes = new ArrayList<Node>();
+	static List<ExampleObject> quadObjects = new ArrayList<ExampleObject>();
+	List<ElementVisitor> visitorList;
 	
 	public static void main(String[] args) {
 		launch();
@@ -33,54 +34,60 @@ public class QuadGrid extends Application implements Element {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Group group = new Group();
-		Scene scene = new Scene(group,height,width,Color.WHITE);
-		
+		primaryStage.setTitle("QuadTree Test");
+		Group root = new Group();
+		Canvas canvas = new Canvas(width, height);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
 		populate();
+		drawShapes(gc);
+		root.getChildren().add(canvas);
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+	}	
+     
+	private void drawShapes(GraphicsContext gc) {
+		gc.setFill(Color.BLANCHEDALMOND);
 		
-		//allObjects nodeCollector = new allObjects();
-		//accept(nodeCollector);
-		//for (Node nodes : nodeCollector.allNodes) {
-		///	quadNodes.add(nodes);
-		//}
+		//Nodes
+		gc.setLineWidth(1);
+		gc.setStroke(Color.BLACK);
+		for (Node n : quadNodes) {
+			double x = n.x - n.size;
+			double z = n.z - n.size;
+			gc.strokeRect(x, z, n.size, n.size);
+			//System.out.println("x: " + x + " z: " + z);
+		}
 		
-		allObjects nodeCollector = new allObjects();
+		//WorldObjects
+		gc.setStroke(Color.RED);
+		for(ExampleObject obj : quadObjects) {
+			double radius = obj.getRadius();
+			double x = obj.getXLoc();
+			double z = obj.getZLoc();
+			gc.strokeOval(x, z, radius, radius);
+		}
+	}
+
+	public static void populate() {
+		Random rand = new Random();
+		ExampleObject firstOb = new ExampleObject(400, 400, 400);
+		quad.insert(firstOb, null);
+		for (int i = 0; i < 100; i++) {
+			ExampleObject testObject = new ExampleObject(rand.nextDouble() + rand.nextInt(299), rand.nextDouble() + rand.nextInt(299), rand.nextInt(100));
+			quad.insert(testObject, quad.getRootNode());
+		}
+		AllObjects nodeCollector = new AllObjects();
 		nodeCollector.visit(quad.getRootNode());
 		
 		for (Node nodes : nodeCollector.allNodes) {
 			quadNodes.add(nodes);
 		}
 		
+		for (WorldObject items : nodeCollector.allWorldObjects) {
+			quadObjects.add((ExampleObject) items);
+		}
+		
 		System.out.println(quadNodes.size());
-		
-		for (Node n : quadNodes) {
-			Rectangle rect = new Rectangle();
-			rect.setX(n.x - n.size/2);
-			rect.setY(n.z - n.size/2);
-			rect.setWidth(n.size);
-			rect.setHeight(n.size);
-			rect.setFill(Color.TRANSPARENT);
-			rect.setStroke(Color.BLACK);
-			rect.setStrokeWidth(.5);
-			group.getChildren().add(rect);
-		}
-		
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	}
-
-	public static void populate() {
-		Random rand = new Random();
-		for (int i = 0; i <100; i++) {
-			//Point p = new Point (rand.nextDouble() + rand.nextInt(599), rand.nextDouble() + rand.nextInt(599));
-			//ExampleObject testObject = new ExampleObject(p.getX(), p.getZ(), 0);
-			//quad.insert(testObject, quad.getRootNode());
-		}
-		ExampleObject testObject = new ExampleObject(500, 500, 0);
-		ExampleObject testObject1 = new ExampleObject(200, 200, 0);
-		
-		quad.insert(testObject);
-		quad.insert(testObject1, quad.getRootNode());
 	}
 	
 	@Override
