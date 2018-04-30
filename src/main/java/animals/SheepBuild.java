@@ -13,19 +13,19 @@ public class SheepBuild {
 		ArrayList<Shape3D> list = new ArrayList<Shape3D>();
 		
 		//left front leg
-		Cylinder c = DrawFacade.getCylinderBuilder(2, 15).transCoords(20, 0, 0).build().get();
+		Cylinder c = DrawFacade.getCylinderBuilder(2, 15).transCoords(20, 0, 10).build().get();
 		list.add(c);
 		
 		//right front leg
-		Cylinder c2 = DrawFacade.getCylinderBuilder(2, 15).transCoords(20, 0, 5).build().get();
+		Cylinder c2 = DrawFacade.getCylinderBuilder(2, 15).transCoords(20, 0, 10).build().get();
 		list.add(c2);
 	
 		//right back leg
-		Cylinder c3 = DrawFacade.getCylinderBuilder(2, 15).transCoords(20, 0, 0).build().get();	
+		Cylinder c3 = DrawFacade.getCylinderBuilder(2, 15).transCoords(0, 0, 10).build().get();	
 		list.add(c3);
 
 		//left back leg
-		Cylinder c4 = DrawFacade.getCylinderBuilder(2, 15).transCoords(20, 0, 0).build().get();	
+		Cylinder c4 = DrawFacade.getCylinderBuilder(2, 15).transCoords(0, 0, 0).build().get();	
 		list.add(c4);
 	
 		//body
