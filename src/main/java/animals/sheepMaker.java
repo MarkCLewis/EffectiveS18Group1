@@ -6,6 +6,8 @@ import java.util.Set;
 
 import graphicsTesting.CameraController;
 import graphicsTesting.DrawFacade;
+import javafx.animation.ParallelTransition;
+import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -16,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Shape3D;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class sheepMaker extends Application{
 	public static void main(String[] args) {
@@ -89,14 +92,42 @@ public class sheepMaker extends Application{
 		tempList.add(bodyShapes.createCylinder(.2, 1, 1.5, 0, 1.5));
 		tempList.add(bodyShapes.createCylinder(.2, 1, 0, 0, 1.5));
 		tempList.add(bodyShapes.createCylinder(.2, 1, 0, 0, .5));
+		// so 0-4 are the limbs
 		tempList.add(bodyShapes.createBox(2, 1, 1.5, .75, -1, 1));
 		tempList.add(bodyShapes.createBox(.7, .7, .7, 2, -1.75, 1));
 		sheep testSheep = new sheep();
 		sheep.list.addAll(tempList);
 		
+		// this is hardcoded for testing purposes. Sheep needs an shape3d array of the limbs, so that they can rotate
+		sheep.limbs.add(tempList.get(0));
+		sheep.limbs.add(tempList.get(1));
+		sheep.limbs.add(tempList.get(2));
+		sheep.limbs.add(tempList.get(3));
+		
+		ArrayList<RotateTransition> rt = new ArrayList<RotateTransition>();
+		
+		// Again, this is just temporary.
+		// Ideally, sheep should have A parallel transition field and an animalTransition field (plus getters and setters for each)
+		
+		for(Shape3D sd : sheep.limbs)
+		{
+			RotateTransition temp = new RotateTransition(Duration.millis(500), sd);
+			temp.setByAngle(90);
+			temp.setAutoReverse(true);
+			temp.setCycleCount(temp.INDEFINITE);
+			rt.add(temp);
+		}
+		// also making the head move, why not
+		RotateTransition head = new RotateTransition(Duration.millis(2000), sheep.list.get(5));
+		head.setByAngle(50);
+		head.setAutoReverse(true);
+		head.setCycleCount(head.INDEFINITE);
+		
 		animalTransition moveTest = new animalTransition(testSheep);
+		ParallelTransition unison = new ParallelTransition(rt.get(0), rt.get(1), rt.get(2), rt.get(3), moveTest, head);
 		//moveTest.setCycleCount(moveTest.INDEFINITE);
-		moveTest.play();
+		unison.play();
+		//moveTest.play();
 		
 		
 		//int[] transCords = {0,0,0};

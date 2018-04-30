@@ -16,23 +16,26 @@ public class animalTransition extends Transition{
 		
 		theSheep = s;
 		setCycleDuration(Duration.millis(10000));
-		setRate(.5);
+		setRate(.25);
 		maxRange = 100;
 		//double speed = .5;
 		endPoint = getRandomPoint();
 		theSheep.point = new Point3D(theSheep.getX(), theSheep.getY(), theSheep.getZ());
 		distance = endPoint.distance(theSheep.point);
+		
 		// generateRandomPoints() 
 		// need to generate an array for the points to travel between
 	}
 	@Override
 	protected void interpolate(double frac) { // frac is like the frame, but in decimal form
 		// TODO Auto-generated method stub
+		
 		double dist = distance*frac;
 		for(Shape3D sd : theSheep.list)
 		{
 			sd.setTranslateX(sd.getTranslateX() + (dist));
 			sd.setTranslateZ(sd.getTranslateZ() + (dist));
+			
 		}
 		distance -= dist;
 		

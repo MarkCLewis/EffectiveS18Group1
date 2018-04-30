@@ -3,10 +3,12 @@ package animals;
 import java.util.ArrayList;
 
 import citiesTesting.MathStuff;
+import javafx.animation.RotateTransition;
 import javafx.geometry.Point3D;
 //import animals.SheepBuild;
 import javafx.scene.Group;
 import javafx.scene.shape.Shape3D;
+import javafx.util.Duration;
 import virtualworld.WorldObject;
 
 
@@ -33,6 +35,8 @@ public class sheep implements WorldObject {
 		setX();
 		setY();
 		setZ();
+		
+		
 		
 		ArrayList<Shape3D> Bs = SheepBuild.makeSheep(x,y,z);
 		list.addAll(Bs);
