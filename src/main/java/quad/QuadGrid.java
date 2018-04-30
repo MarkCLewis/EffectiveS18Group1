@@ -10,8 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import virtualworld.ExampleObject;
 import virtualworld.WorldObject;
@@ -54,7 +52,8 @@ public class QuadGrid extends Application implements Element {
 		for (Node n : quadNodes) {
 			double x = n.x - n.size;
 			double z = n.z - n.size;
-			gc.strokeRect(x, z, n.size, n.size);
+			System.out.println(n.size*2);
+			gc.strokeRect(x, z, n.size*4, n.size*4);
 			//System.out.println("x: " + x + " z: " + z);
 		}
 		
@@ -64,16 +63,17 @@ public class QuadGrid extends Application implements Element {
 			double radius = obj.getRadius();
 			double x = obj.getXLoc();
 			double z = obj.getZLoc();
-			gc.strokeOval(x, z, radius, radius);
+			System.out.println(radius*2);
+			gc.strokeOval(x, z, radius*2, radius*2);
 		}
 	}
 
 	public static void populate() {
 		Random rand = new Random();
-		ExampleObject firstOb = new ExampleObject(400, 400, 400);
+		ExampleObject firstOb = new ExampleObject(0, 0, 400);
 		quad.insert(firstOb, null);
-		for (int i = 0; i < 100; i++) {
-			ExampleObject testObject = new ExampleObject(rand.nextDouble() + rand.nextInt(299), rand.nextDouble() + rand.nextInt(299), rand.nextInt(100));
+		for (int i = 0; i < 10000; i++) {
+			ExampleObject testObject = new ExampleObject(rand.nextInt(399), rand.nextInt(399), rand.nextInt(100));
 			quad.insert(testObject, quad.getRootNode());
 		}
 		AllObjects nodeCollector = new AllObjects();
@@ -98,5 +98,4 @@ public class QuadGrid extends Application implements Element {
 	private void accept(final ElementVisitor visitor, Node n) {
 		visitor.visit(n);
 	}
-	
 }
