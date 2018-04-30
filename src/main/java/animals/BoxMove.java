@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
-public class BoxMove extends Application {
+public class boxMove extends Application {
 
     private static final double SIZE = 300;
     private final Content content = Content.create(SIZE);
@@ -79,6 +79,7 @@ public class BoxMove extends Application {
 
             //Setting the path for the transition 
             pathTransition.setPath(path); 
+            
             
             //Setting the cycle count for the transition 
             pathTransition.setCycleCount(50); 

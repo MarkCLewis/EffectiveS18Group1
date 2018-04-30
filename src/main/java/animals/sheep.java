@@ -78,7 +78,7 @@ public class sheep implements WorldObject {
 		// TODO Auto-generated method stub
 		return z;
 	}
-
+	
 	@Override
 	public double getSize() {
 		// TODO Auto-generated method stub
