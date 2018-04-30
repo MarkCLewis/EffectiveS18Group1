@@ -20,10 +20,10 @@ public class CityOne implements WorldObject {
 	static int seed;
 	
 	//WorldObject Relevant
-	static double x = 0.0;
+	static double x;
 	static double y = 0.0;
 	//TODO-make it so that y is based on terrain
-	static double z = 0.0;
+	static double z;
 	static double size;
 	static ArrayList<Shape3D> lst = new ArrayList<Shape3D>();
 

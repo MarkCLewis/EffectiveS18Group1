@@ -1,8 +1,12 @@
 package virtualworld;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
+
+import animals.sheep;
 import citiesTesting.BuildingTypes;
 import citiesTesting.CityOne;
 import citiesTesting.CityThree;
@@ -17,6 +21,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Shape3D;
 import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
 import quad.QuadTree;
@@ -25,29 +30,28 @@ import terraintesting.TerrainObjectBuilder;
 
 public class Main extends Application {
 	public static void main(String[] args) {
-		System.out.println("Virtual world goes here.");
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-	//Scene
+	//Scene Setup
 		primaryStage.setTitle("Virtual World");
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 		scene.setFill(Color.THISTLE);
 	
-	//Camera
+	//Camera Setup
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		Group cameraGroup = new Group();
 		CameraController pCam = new CameraController.Builder(camera).build();
 	
-	//QuadTree
+	//QuadTree Setup
 		QuadTree quad = QuadTree.getInstance();
 		quad.cameraX = pCam.getCameraX();
 		quad.cameraZ = pCam.getCameraZ();
-		//TODO insert top level terrain (one giant piece)
+		quad.insert(new ExampleObject(0, 0, 400), null); //TODO replace with large terrain piece
 		
 	//Visitors
 		//PrintVisitor printTest = new PrintVisitor();
@@ -152,14 +156,20 @@ public class Main extends Application {
 		
 		CityOne cOne = CityOne.returnObj(mainGroup);
 		System.out.println(cOne.getX() + " " + cOne.getZ());
-		mainGroup.getChildren().addAll(cOne.display());
+		System.out.println(cOne.display().size());
+		for (Shape3D shape : cOne.display()) {
+			mainGroup.getChildren().add(shape);
+		}
 		
-		Sphere sphere2 = new Sphere(10);
-		Material mat2 = new PhongMaterial(Color.FORESTGREEN);
-		sphere2.setMaterial(mat2);
-		sphere2.setTranslateZ(100);
-		mainGroup.getChildren().add(sphere2);
-				
+		//List<sheep> sheepList = new ArrayList<sheep>();
+		//for (int i = 0; i < 100; i++) sheepList.add(animals.sheep.returnObj(mainGroup));
+		sheep sheeps = animals.sheep.returnObj(mainGroup);
+		//for (sheep sheeps : sheepList) {
+		for (Shape3D sheepShape : sheeps.display()) {
+			mainGroup.getChildren().add(sheepShape);
+		}
+		//}
+		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
