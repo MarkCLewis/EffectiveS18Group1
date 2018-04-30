@@ -133,8 +133,14 @@ public class CityOne implements WorldObject {
 		return z;
 	}
 
+	
 	@Override
 	public double getSize() {
+		//gives the radius of the city
+		return Math.sqrt(getMySize())/4;
+	}
+	
+	public double getMySize() {
 		//however you calculate the bounding box
 		return size;
 	}
@@ -146,7 +152,7 @@ public class CityOne implements WorldObject {
 	@Override
 	public double getXLoc() {
 		// position of the center X
-		double side = Math.sqrt(getSize())/2;
+		double side = Math.sqrt(getMySize())/2;
 		return x+side;
 	}
 
@@ -159,7 +165,7 @@ public class CityOne implements WorldObject {
 	@Override
 	public double getZLoc() {
 		// position of the center Z
-		double side = Math.sqrt(getSize())/2;
+		double side = Math.sqrt(getMySize())/2;
 		return z-side;
 	}
 

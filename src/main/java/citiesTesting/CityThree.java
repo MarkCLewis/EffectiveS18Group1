@@ -143,6 +143,11 @@ public class CityThree implements WorldObject {
 
 		@Override
 		public double getSize() {
+			//gives the radius of the city
+			return Math.sqrt(getMySize())/4;
+		}
+		
+		public double getMySize() {
 			//however you calculate the bounding box
 			return size;
 		}
