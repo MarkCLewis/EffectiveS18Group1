@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import agua.generateTerrain;
 import javafx.application.Application;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -12,8 +13,11 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
+import javafx.scene.shape.MeshView;
 import javafx.scene.shape.Shape3D;
+import javafx.scene.shape.TriangleMesh;
 import javafx.stage.Stage;
 import terraintesting.TerrainObject;
 import terraintesting.TerrainObjectBuilder;
@@ -104,18 +108,20 @@ public class TerrainShadowDemo extends Application {
 		bldr.setSeed(seed);
 		bldr.setNoise(noise);
 		
-		TerrainObject terr = bldr.build();
+		generateTerrain testPlot = new generateTerrain();
+		float[][] coords = testPlot.generateCoordinates(100, 100, 100, 10, (float).3, (int)seed); //int xRes, int yRes, int zRes, int scale, float noiseLevel, int seed
 		
-		ArrayList<Shape3D> list = terr.display();
 		
-		System.out.println(list.size());
-		Shape3D mv = list.get(0); // gives list of Shape3D
+		TriangleMesh mesh = testPlot.generateTerrain(100, 10, coords);
+		MeshView mv = new MeshView(mesh);
+		mv.setCullFace(CullFace.FRONT);
 		
 		PhongMaterial pm = new PhongMaterial(Color.BLUE);
 		
-		mv.setDrawMode(DrawMode.FILL);
+		mv.setDrawMode(DrawMode.LINE);
 		mv.setMaterial(pm);
 		mainGroup.getChildren().add(mv);
+		
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();

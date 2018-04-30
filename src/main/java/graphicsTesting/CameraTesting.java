@@ -150,7 +150,7 @@ public class CameraTesting extends Application{
 		
 		//mainGroup.getChildren().add(pyramid);
 		//mainGroup.getChildren().add(DrawFacade.createBoxMeshView(new PhongMaterial(), Color.CADETBLUE, Color.RED, 20, 10 ,10, 10, 10, 10));
-		mainGroup.getChildren().add(DrawFacade.getBoxBuilder(20,20,20).transCoords(0,0,10).material(new PhongMaterial(Color.BLUE)).build().get());
+		mainGroup.getChildren().add(DrawFacade.getPyramidBuilder(20,20).transCoords(0,0,10).material(new PhongMaterial(Color.BLUE)).build().get());
 		stage.setScene(scene);
 		stage.show();
 	}

@@ -8,6 +8,7 @@ import javafx.geometry.Point3D;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
+import javafx.scene.PointLight;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -31,7 +32,7 @@ public class wavePool extends Application {
 	private int seed = 2121;
 	private int scale = 100;  
 	private int[] cds = {50,scale,50};
-	private float noiseLevel = (float) .4;
+	private float noiseLevel = (float) .23;
 	private MeshView currMesh;
 
 	//@SuppressWarnings("unchecked")
@@ -157,13 +158,13 @@ public class wavePool extends Application {
 	
 	//this.currMesh = meshView;
 	
-//	PointLight pointLight = new PointLight(Color.WHITE);
-//    pointLight.setTranslateX(0);
-//    pointLight.setTranslateY(0);
-//    pointLight.setTranslateZ(0);
-//    pointLight.setRotate(90);
-//    sceneGroup.getChildren().add(pointLight);
-    sceneGroup.getChildren().add(ambience);
+	PointLight pointLight = new PointLight(Color.WHITE);
+    pointLight.setTranslateX(0);
+    pointLight.setTranslateY(-50);
+    pointLight.setTranslateZ(0);
+    pointLight.setRotate(90);
+    sceneGroup.getChildren().add(pointLight);
+//    sceneGroup.getChildren().add(ambience);
 	sceneGroup.getChildren().add(meshView);
 	mainStage.setScene(scene);
 	//transTest.play();
