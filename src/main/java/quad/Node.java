@@ -6,6 +6,7 @@ import java.util.List;
 import virtualworld.WorldObject;
 
 public class Node {
+	
 	//center of the Node
 	double x; double z; 
 	
@@ -19,29 +20,16 @@ public class Node {
 	List<Node> children = new ArrayList<Node>();
 	List<WorldObject> contents = new ArrayList<WorldObject>();	
 
-	//Node constructor takes coordinates and a value
+	//Node constructor takes coordinates, size, and depth
 	public Node (double x, double z, double s, int d) {
 		this.x = x;
 		this.z = z;
 		this.size = s;
 		this.depth = d;
 	}
-
-	public double getX(Node node) {
-		return node.x;
-	}
-
-	public double getz(Node node) {
-		return node.z;
-	}
-
-	public static double getSize(Node node) {
-		return node.size;
-	}
 			
 	/**
 	 * Gets the number of the child from a given coordinate
-	 * 
 	 * @param x x-coordinate
 	 * @param z z-coordinate
 	 * @return child the int value of the child node
