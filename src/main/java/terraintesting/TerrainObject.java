@@ -19,7 +19,7 @@ public class TerrainObject implements virtualworld.WorldObject {
 	private final double yWidth;
 	private final double zWidth;
 	private static final int maxScale = 1000;
-	private int levelOfDetail; //Determines the value of current scale based on maxScale
+	private int levelOfDetail = 0; //Determines the value of current scale based on maxScale
 	private int currentScale; //close - 100; far - 1000
 	
 	
@@ -27,17 +27,20 @@ public class TerrainObject implements virtualworld.WorldObject {
 	private final double noise;
 	private static final long defaultSeed = 0L;
 	private static final double defaultNoise = 0.5;
-	private static final double renderDist = 10000; //Past this distance terrain will not render
+	private static final double renderDist = 1000; //Width of the box around the camera that's rendered
 	
-	public TerrainObject(double cX, double cY, double cZ, double xW, double yW, double zW, long seed, double noise) {
+	public TerrainObject(double cX, double cY, double cZ, double xW, double yW, double zW, int lod, long seed, double noise) {
 		if(noise<0.0 || noise>1.0)
 			throw new IllegalArgumentException("Noise must be between 0 and 1");
 		if(xW!=zW)
 			throw new IllegalArgumentException("Terrain must be square (equal x and z width)");
+		if(xW<=0.0 || zW<=0.0)
+			throw new IllegalArgumentException("Terrain width cannot be less than or equal to zero");
 		this.cX = cX;
 		this.cY = cY;
 		this.cZ = cZ;
 		
+		levelOfDetail = lod;
 		xWidth = xW;
 		yWidth = yW;
 		zWidth = zW;
@@ -112,16 +115,79 @@ public class TerrainObject implements virtualworld.WorldObject {
 	 * @return 
 	 */
 	public boolean notifyOfCamera(double x, double z) {
-		double distToCam = Math.sqrt((cX-x)*(cX-x) + (cZ-z)*(cZ-z));
-		if(distToCam<renderDist) {
-			
+		// Idea behind this algorithm -
+			// Given the square patch of Terrain to generate (centered at the point passed in and with a side length of renderDist)
+			// subdivide TerrainObject into quadrants of children until you get terrain objects that are entirely contained within (or coincident with)
+			// The patch of terrain around the camera to render. These are the only TerrainObjects to render
+		double minTerrainWidth = 10;
+		//if()
+		if(strictSquareCompare(cX, cZ, xWidth, x, z, renderDist)) {
+			// Case where we the terrain object is entirely contained within the render distance
+			// Don't split further
 			return true;
-		} 
+		}
 		else {
-			currentScale = maxScale;
-			levelOfDetail = 0;
+			// split terrain further
+			TerrainObject[] children = getChildren();
+			for(TerrainObject child:children) {
+				//if()
+			}
+			//children.length;
 			return false;
 		}
+	}
+	
+	/**
+	 * Utility method that tells whether or not the first square is contained within the second
+	 * 
+	 * @param x1 center X coordinate of the first square
+	 * @param z1 center Z coordinate of the first square
+	 * @param s1 side length of the first square
+	 * @param x2 center X coordinate of the second square 
+	 * @param z2 center Z coordinate of the second square
+	 * @param s2 side length of the second square
+	 * @return
+	 */
+	private boolean strictSquareCompare(double x1, double z1, double s1, double x2, double z2, double s2) {
+		if(z1+s1/2 > z2+s2/2)
+			return false;
+		if(z1-s1/2 < z2-s2/2)
+			return false;
+		if(x1+s1/2 > x2+s2/2)
+			return false;
+		if(x1-s1/2 < x2-s2/2)
+			return false;
+		else 
+			return true;
+	}
+	
+	/**
+	 * Utility method that tells whether or not two squares overlap at all
+	 * 
+	 * @param x1 center X coordinate of the first square
+	 * @param z1 center Z coordinate of the first square
+	 * @param s1 side length of the first square
+	 * @param x2 center X coordinate of the second square 
+	 * @param z2 center Z coordinate of the second square
+	 * @param s2 side length of the second square
+	 * @return
+	 */
+	private boolean squareCompare(double x1, double z1, double s1, double x2, double z2, double s2) {
+		if(z1-s1/2 < z2+s2/2 && x1+s1/2 > x2-s2/2)
+			return true;
+		if(z1+s1/2 > z2-s2/2 && x1+s1/2 > x2-s2/2)
+			return true;
+		if(z1-s1/2 < z2+s2/2 && x1-s1/2 < x2+s2/2)
+			return true;
+		if(z1+s1/2 > z2-s2/2 && x1-s1/2 < x2+s2/2)
+			return true;
+		else 
+			return false;
+	}
+	
+	// Compare doubles to 0.01 accuracy
+	private boolean doubleCompare(double d1, double d2) {
+		return Math.abs(d1-d2) < 0.01;
 	}
 	
 	public double getHeight(double x, double z) {
@@ -154,6 +220,7 @@ public class TerrainObject implements virtualworld.WorldObject {
 		childXW = xWidth/4;
 		childYW = yWidth;
 		childZW = zWidth/4;
+		int childLOD = levelOfDetail+1;
 		
 		//Common fields across all children
 		bldr.setSeed(seed);
