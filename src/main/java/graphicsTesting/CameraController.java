@@ -201,7 +201,7 @@ public class CameraController {
 	    camSpeed = builder.camSpeed;
 		xRotate = builder.xRotate;
 	    yRotate = builder.yRotate;
-	    zRotate = builder.zRotate
+	    zRotate = builder.zRotate;
 	    rotateModifier = builder.rotateModifier;
 	    cameraYlimit = builder.cameraYlimit;
 	    cameraFarClip = builder.cameraFarClip;
