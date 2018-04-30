@@ -72,7 +72,7 @@ public class QuadGrid extends Application implements Element {
 		Random rand = new Random();
 		ExampleObject firstOb = new ExampleObject(0, 0, 400);
 		quad.insert(firstOb, null);
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 0; i < 100; i++) {
 			ExampleObject testObject = new ExampleObject(rand.nextInt(399), rand.nextInt(399), rand.nextInt(100));
 			quad.insert(testObject, quad.getRootNode());
 		}

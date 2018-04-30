@@ -4,16 +4,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 import virtualworld.WorldObject;
 
-/**
- * terrain adds itself as top level as a single flat piece traversal of the tree
- * with the visitor (tells objects that new camera is present) to start: only
- * root node with one large terrain object once notified: children created,
- * elements added into tree (order is important) insert the children and then
- * have the visitor visit them, until the lowest level is reached
- * 
- * @author dmatthe1
- *
- */
 public class QuadTree implements Element {
 
 	// Singleton
@@ -39,18 +29,13 @@ public class QuadTree implements Element {
 	public static double cameraZ;
 	// TODO private double updateDistance = 10;
 
+	//QuadTree Functions
 	/**
-	 * Inserts a object in the correct place, if the node passed in is null,
-	 * then the WorldObject gets passed to the other insert function, if the
-	 * node is valid, then the WorldObject gets inserted into the correct child.
-	 * 
-	 * @param item
-	 *            A WorldObject to be encapsulated by a node
-	 * @param n
-	 *            A node to encapsulate the WorldObject
-	 * @return The parent node
+	 * Inserts an object in the correct place, creating nodes if necessary
+	 * @param item - A WorldObject to be encapsulated by a node
+	 * @param n - An initial node
 	 */
-	void insert(WorldObject item, Node n) {
+	public void insert(WorldObject item, Node n) {
 		if (root == null) {
 			root = new Node(item.getXLoc(), item.getZLoc(), item.getSize(), 1);
 			root.contents.add(item);
@@ -73,12 +58,10 @@ public class QuadTree implements Element {
 		}
 	}
 
+	//Visitor Accepts
 	/**
-	 * Accepts the visitor into the QuadTree and passes it to the other accept
-	 * function
-	 * 
-	 * @param visitor
-	 *            the visitor being accepted
+	 * Accepts the visitor into the QuadTree and passes it to the other accept function
+	 * @param visitor - the visitor being accepted
 	 */
 	@Override
 	public void accept(final ElementVisitor visitor) {
@@ -87,22 +70,16 @@ public class QuadTree implements Element {
 
 	/**
 	 * Checks if the visitor cares about the node then visits
-	 * 
-	 * @param visitor
-	 *            the visitor being accepted
-	 * @param n
-	 *            the node that is being visited
+	 * @param visitor - the visitor being accepted
+	 * @param n - the node that is being visited
 	 */
 	private void accept(final ElementVisitor visitor, Node n) {
-		if (visitor.cares(n))
-			visitor.visit(n);
+		if (visitor.cares(n)) visitor.visit(n);
 	}
 
 	// Getters
 	/**
-	 * Returns a reference to the tree's root node. Callers shouldn't modify
-	 * nodes, directly.
-	 * 
+	 * Returns a reference to the tree's root node.
 	 * @return Node The root node.
 	 */
 	public Node getRootNode() {
@@ -111,7 +88,6 @@ public class QuadTree implements Element {
 
 	/**
 	 * Returns the number of nodes in the tree
-	 * 
 	 * @return the number of the nodes in the tree
 	 */
 	public int getCount() {
@@ -119,9 +95,6 @@ public class QuadTree implements Element {
 	}
 
 	// Testing
-	/**
-	 * Purely for testing purposes, prints out the structure of the QuadTree
-	 */
 	public void print() {
 		if (root == null) {
 			System.out.println("The tree is currently empty");
