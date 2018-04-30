@@ -11,6 +11,11 @@ package graphicsTesting;
 import javafx.scene.Camera;
 import javafx.scene.transform.Rotate;
 
+/**
+ * CameraController is used to wrap a PerspectiveCamera and handle interactions between the camera and the client.
+ * It also implements a modified builder pattern to make changes to the camera when it is passed to the CameraController.
+ * @author jfisher1
+ */
 public class CameraController {
 	private boolean boost;
 	private Camera camera;
@@ -21,6 +26,7 @@ public class CameraController {
     private double camSpeed;
 	private Rotate xRotate;
     private Rotate yRotate;
+    private Rotate zRotate;
     private double rotateModifier;
     private double cameraYlimit;
     private double cameraFarClip;
@@ -29,9 +35,11 @@ public class CameraController {
 	private double x;
 	private double theta; 
 	
-	// CameraController uses a builder pattern for creation.
-	// PerspectiveCamera is a mandatory parameter.
-	//All other parameters will be set to a default value if not explicitly provided.
+
+	/**
+	 * Builder takes Camera cam as a mandatory parameter
+	 * All other parameters will be set to a default value if not explicity provided
+	 */
 	public static class Builder {
 		private Camera camera;
 		private double x1 = 0;
@@ -39,60 +47,151 @@ public class CameraController {
 		private double camSpeed = 1.0;
 		private Rotate xRotate = new Rotate(0,0,0,0,Rotate.X_AXIS);
 		private Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
+		private Rotate zRotate = new Rotate(0,0,0,0,Rotate.Z_AXIS);
 		private double rotateModifier = 25;
 		private double cameraYlimit = 15;
 		private double cameraFarClip = 10000;
 		private double cameraNearClip = 3;
+		private double xLoc = 0;
+		private double yLoc = 0;
+		private double zLoc = 0;
 		
+		/**
+		 * Public constructor for Builder
+		 * @param cam is a PerspectiveCamera used as the player's perspective in the client Application
+		 */
 		public Builder(Camera cam) {
 			camera = cam;
 		}
 		
+		/**
+		 * Method allows the client to provide the translation coordinates for the Camera
+		 * @param x represents the translation of the Camera on the x axis
+		 * @param y represents the translation of the Camera on the y axis
+		 * @param z represents the translation of the Camera on the z axis
+		 * @return this
+		 */
+		public Builder transCoords(double x, double y, double z) {
+			xLoc = x;
+			yLoc = y;
+			zLoc = z;
+			return this;
+		}
+		/**
+		 * Method allows the client to set the starting mouse position of the Camera on the x axis
+		 * @param val is the new value for the mouse position on the x axis
+		 * @return this
+		 */
 		public Builder mouseX(double val) {
 			x1 = val;
 			return this; 
 		}
+		
+		/**
+		 * Method allows the client to set the starting mouse position of the Camera on the y axis
+		 * @param val is the new value for the mouse position on the y axis
+		 * @return this
+		 */
 		public Builder mouseY(double val) {
 			y1 = val;
 			return this;
 		}
+		
+		/**
+		 * Method allows the client to provide a customized Rotate object for the Camera. The Rotate should be on the x axis.
+		 * @param rotate represents the Camera's rotation on the x axis
+		 * @return this
+		 */
 		public Builder xRotate(Rotate val) {
 			xRotate = val;
 			return this;
 		}
+		
+		/**
+		 * Method allows the client to provide a customized Rotate object for the Camera. The Rotate should be on the y axis.
+		 * @param rotate represents the Camera's rotation on the y axis
+		 * @return this
+		 */
 		public Builder yRotate(Rotate val) {
 			yRotate = val;
 			return this;
 		}
+		
+		/**
+		 * Method allows the client to provide a customized Rotate object for the Camera. The Rotate should be on the z axis.
+		 * @param rotate represents the Camera's rotation on the z axis
+		 * @return this
+		 */
+		public Builder zRotate(Rotate val) {
+			zRotate = val;
+			return this;
+		}
+		
+		/**
+		 * Method allows the client to provide a value for the Camera's rotate modifier.
+		 * @param rotate represents the Camera's rate of rotation.
+		 * @return this
+		 */
 		public Builder rotateModifier(double val) {
 			rotateModifier = val;
 			return this;
 		}
+		
+		/**
+		 * Method allows the client to provide a value for the Camera's y limit.
+		 * @param rotate represents the Camera's y limit.
+		 * @return this
+		 */
 		public Builder cameraYlimit(double val) {
 			cameraYlimit = val;
 			return this;
 		}
+		
+		/**
+		 * Method allows the client to provide a value for the Camera's far clip.
+		 * @param rotate represents the Camera's far clip.
+		 * @return this
+		 */
 		public Builder cameraFarClip(double val) {
 			cameraFarClip = val;
 			return this;
 		}
+		
+		/**
+		 * Method allows the client to provide a value for the Camera's near clip.
+		 * @param rotate represents the Camera's near clip.
+		 * @return this
+		 */
 		public Builder cameraNearClip(double val) {
 			cameraNearClip = val;
 			return this;
 		}
 		
+		/**
+		 * Method allows the client to provide a value for the Camera's movement speed.
+		 * @param rotate represents the Camera's movement speed.
+		 * @return this
+		 */
 		public Builder camSpeed(double val) {
 			camSpeed = val;
 			return this;
 		}
 		
+		/**
+		 * Method finalizes the changes made to the Camera and instantiates a CameraController object.
+		 * @return a new instance of the director CameraController with the builder as the parameter
+		 */
 		public CameraController build() {
 			return new CameraController(this);
 		}
 		
 	}
 	
-	//Private constructor (for builder)
+	/**
+	 * Private constructor, only accessed through Builder.build()
+	 * Constructor assigns the controller's values equal to the values provided by the client in the builder
+	 * @param builder is a finalized Builder
+	 */
 	private CameraController(Builder builder) {
 		camera = builder.camera;
 		x1 = builder.x1;
@@ -102,20 +201,23 @@ public class CameraController {
 	    camSpeed = builder.camSpeed;
 		xRotate = builder.xRotate;
 	    yRotate = builder.yRotate;
+	    zRotate = builder.zRotate
 	    rotateModifier = builder.rotateModifier;
 	    cameraYlimit = builder.cameraYlimit;
 	    cameraFarClip = builder.cameraFarClip;
 		cameraNearClip = builder.cameraNearClip;
 		camera.setFarClip(cameraFarClip);
 		camera.setNearClip(cameraNearClip);		
-		camera.getTransforms().addAll(xRotate,yRotate);	 
+		camera.getTransforms().addAll(xRotate,yRotate, zRotate);	 
 		boost = false;
 	}
 	
-//MOVEMENT METHODS
-//Moves:
+	//MOVEMENT METHODS
+	//Moves:
 	
-	//moveForward() moves the camera towards where it is facing (on the x-z plane)
+	/**
+	 * Method moves the camera towards where it is facing (on the x-z plane)
+	 */
 	public void moveForward() {
 		z = camera.getTranslateZ();
 		x = camera.getTranslateX();
@@ -125,7 +227,9 @@ public class CameraController {
 		camera.setTranslateX(x+camSpeed*Math.sin(theta));
 	}
 	
-	//moveBackward() moves the camera backwards from where it is facing (on the x-z plane)
+	/**
+	 * Method moves the camera backwards from where it is facing (on the x-z plane)
+	 */
 	public void moveBackward() {
 		z = camera.getTranslateZ();
 		x = camera.getTranslateX();
@@ -135,7 +239,9 @@ public class CameraController {
 		camera.setTranslateX(x-camSpeed*Math.sin(theta));
 	}
 	
-	//moveLeft() moves the camera left from where it is facing (on the x-z plane)
+	/**
+	 * Method moves the camera left from where it is facing (on the x-z plane)
+	 */
 	public void moveLeft() {
 		z = camera.getTranslateZ();
 		x = camera.getTranslateX();
@@ -145,7 +251,9 @@ public class CameraController {
 		camera.setTranslateX(x-Math.cos(theta));
 	}
 	
-	//moveRight() moves the camera right from where it is facing (on the x-z plane)
+	/**
+	 * Method moves the camera right from where it is facing (on the x-z plane)
+	 */
 	public void moveRight() {
 		z = camera.getTranslateZ();
 		x = camera.getTranslateX();
@@ -155,41 +263,55 @@ public class CameraController {
 		camera.setTranslateX(x+Math.cos(theta));
 	}
 	
-	//moveUp() moves the camera upward (on the y plane)
+	/**
+	 * Method moves the camera upward (on the y plane)
+	 */
 	public void moveUp() {
 		camera.setTranslateY((camera.getTranslateY()-camSpeed));
 	}
 	
-	//moveDown() moves the camera downward (on the y plane)
+	/**
+	 * Method moves the camera downward (on the y plane)
+	 */
 	public void moveDown() {
 		camera.setTranslateY((camera.getTranslateY()+camSpeed));
 	}
 	
-//Rotates:
+	//Rotates:
 	
-	//rotateRight() rotates the camera right from where it is facing
+	/**
+	 * Method rotates the camera right from where it is facing
+	 */
 	public void rotateRight() {
 		yRotate.setAngle(yRotate.getAngle()+camSpeed);
 	}
 	
-	//rotateLeft() rotates the camera left from where it is facing
+	/**
+	 * Method rotates the camera left from where it is facing
+	 */
 	public void rotateLeft() {
 		yRotate.setAngle(yRotate.getAngle()-camSpeed);
 	}
 	
-	//rotateUp() rotates the camera upward from where it is facing
+	/**
+	 * Method rotates the camera upward from where it is facing
+	 */
 	public void rotateUp() {
 		xRotate.setAngle(xRotate.getAngle()+camSpeed);
 	}
 	
-	//rotateDown() rotates the camera downward from where it is facing
+	/**
+	 * Method rotates the camera downward from where it is facing
+	 */
 	public void rotateDown() {
 		xRotate.setAngle(xRotate.getAngle()-camSpeed);
 	}
 	
-//Boost:
+	//Boost:
 	
-	//boostOn() increases the camSpeed and sets boost = true as long as boost is not already true
+	/**
+	 * Method increases the camSpeed and sets boost = true as long as boost is not already true
+	 */
 	public void boostOn() {
 		if(!boost) {
 			boost = true;
@@ -197,7 +319,9 @@ public class CameraController {
 		}
 	}
 	
-	//boostOff() decreases the camSpeed and sets boost = false as long as boost is true
+	/**
+	 * Method decreases the camSpeed and sets boost = false as long as boost is true
+	 */
 	public void boostOff() {
 		if(boost) {
 			boost = false;
@@ -205,10 +329,14 @@ public class CameraController {
 		}
 	}
 	
-//Mouse Movement:
+	//Mouse Movement:
 	
-	//mouseMove(nx, ny) takes the current x and y of the mouse cursor and moves the camera accordingly
-	//Currently nonfunctional and low priority
+	/**
+	 * Method takes the current x and y of the mouse cursor and moves the camera accordingly
+	 * Currently nonfunctional and low priority
+	 * @param nx represents the current position on the mouse on the x axis
+	 * @param ny represents the current position of the mouse on the y axis
+	 */
 	public void mouseMove(double nx, double ny) {
 		x2 = nx;
 		y2 = ny;
@@ -240,7 +368,7 @@ public class CameraController {
 		}*/
 	}
 	
-//GETTERS AND SETTERS
+	//GETTERS AND SETTERS
 	
 	public double getMouseXOld() {
 		return x1;

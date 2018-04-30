@@ -6,9 +6,18 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.transform.Rotate;
 
+/**
+ * PyramidMaker uses the builder pattern, and is the director for PyramidBuilder. As such, it implements ShapeMaker.
+ * PyramidMaker's purpose is to return the product created by PyramidBuilder through the get() method.
+ * @author jfisher1
+ */
 public class PyramidMaker implements ShapeMaker {
 	private MeshView mv;
 	
+	/**
+	 * PyramidBuilder uses the builder pattern, and is the builder for PyramidMaker. As such, it implements ShapeBuilder.
+	 * PyramidBuilder's purpose is to produce a pyramid MeshView object from given parameters.
+	 */
 	public static class PyramidBuilder implements ShapeBuilder{
 		private float height;
 		private float side;
@@ -20,11 +29,23 @@ public class PyramidMaker implements ShapeMaker {
 	    private Rotate yRotate = new Rotate(0,0,0,0,Rotate.Y_AXIS);
 	    private Rotate zRotate = new Rotate(0,0,0,0,Rotate.Z_AXIS);
 		
+	    /**
+	     * PyramidBuilder's public constructor
+	     * @param h represents the height of the pyramid MeshView
+	     * @param s represents the side width of the pyramid MeshView
+	     */
 		public PyramidBuilder(float h, float s) {
 			height = h;
 			side = s;
 		}
 		
+		/**
+		 * Method allows the client to provide the translation coordinates for the pyramid MeshView
+		 * @param xLoc represents the translation of the pyramid MeshView on the x axis
+		 * @param yLoc represents the translation of the pyramid MeshView on the y axis
+		 * @param zLoc represents the translation of the pyramid MeshView on the z axis
+		 * @return this
+		 */
 		public PyramidBuilder transCoords(double xLoc, double yLoc, double zLoc) {
 			x = xLoc;
 			y = yLoc;
@@ -32,31 +53,60 @@ public class PyramidMaker implements ShapeMaker {
 			return this;
 		}
 		
+		/**
+		 * Method allows the client to provide a customized PhongMaterial for the pyramid MeshView to use
+		 * @param pm is the PhongMaterial that the pyramid MeshView will use
+		 * @return this
+		 */
 		public PyramidBuilder material(PhongMaterial pm) {
 			material = pm;
 			return this;
 		}
 		
+		/**
+		 * Method allows the client to provide a customized Rotate object for the pyramid MeshView. The Rotate should be on the x axis.
+		 * @param rotate represents the pyramid MeshView's rotation on the x axis
+		 * @return this
+		 */
 		public PyramidBuilder xRotate(Rotate rotate) {
 			xRotate = rotate;
 			return this;
 		}
 		
+		/**
+		 * Method allows the client to provide a customized Rotate object for the pyramid MeshView. The Rotate should be on the y axis.
+		 * @param rotate represents the pyramid MeshView's rotation on the y axis
+		 * @return this
+		 */
 		public PyramidBuilder yRotate(Rotate rotate) {
 			yRotate = rotate;
 			return this;
 		}
 		
+		/**
+		 * Method allows the client to provide a customized Rotate object for the pyramid MeshView. The Rotate should be on the z axis.
+		 * @param rotate represents the pyramid MeshView's rotation on the z axis
+		 * @return this
+		 */
 		public PyramidBuilder zRotate(Rotate rotate) {
 			zRotate = rotate;
 			return this;
 		}
 		
+		/**
+		 * Method finalizes the changes made to the pyramid MeshView and instantiates a PyramidMaker object.
+		 * @return a new instance of the director PyramidMaker with the builder as the parameter
+		 */
 		public PyramidMaker build() {
 			return new PyramidMaker(this);
 		}
 	}
 	
+	/**
+	 * Private constructor, only accessed through PyramidBuilder.build()
+	 * Constructor creates and makes appropriate changes to a new pyramid MeshView object
+	 * @param builder is a finalized PyramidBuilder
+	 */
 	private PyramidMaker(PyramidBuilder builder) {
 		TriangleMesh pyr = new TriangleMesh();
 		
@@ -91,6 +141,10 @@ public class PyramidMaker implements ShapeMaker {
 		mv.getTransforms().addAll(builder.xRotate, builder.yRotate, builder.zRotate);
 	}
 	
+	/**
+	 * Method returns the pyramid MeshView product
+	 * @return mv is the created pyramid MeshView
+	 */
 	@Override
 	public MeshView get() {
 		return mv;

@@ -1,9 +1,7 @@
 package graphicsTesting;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
-import citiesTesting.BuildingTypes;
 import javafx.application.Application;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -12,9 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.DrawMode;
-import javafx.scene.shape.MeshView;
-import javafx.scene.shape.TriangleMesh;
 import javafx.stage.Stage;
 
 public class CameraTesting extends Application{
@@ -72,6 +67,10 @@ public class CameraTesting extends Application{
 			 }
 			 if(keySet.contains(KeyCode.SHIFT)) {
 				 pCam.boostOn();
+			 }
+			 if(keySet.contains(KeyCode.K)) {
+				 mainGroup.getChildren().add(DrawFacade.getBoxBuilder(20,20,20)
+						 .transCoords(pCam.getCameraX(),pCam.getCameraY(),pCam.getCameraZ()).material(new PhongMaterial(Color.BLUE)).build().get());
 			 }
 		});
 		
@@ -151,7 +150,7 @@ public class CameraTesting extends Application{
 		
 		//mainGroup.getChildren().add(pyramid);
 		//mainGroup.getChildren().add(DrawFacade.createBoxMeshView(new PhongMaterial(), Color.CADETBLUE, Color.RED, 20, 10 ,10, 10, 10, 10));
-		mainGroup.getChildren().add(DrawFacade.getCylinderBuilder(10,20).transCoords(10,0,0).material(new PhongMaterial(Color.BLUE)).build().get());
+		mainGroup.getChildren().add(DrawFacade.getBoxBuilder(20,20,20).transCoords(0,0,10).material(new PhongMaterial(Color.BLUE)).build().get());
 		stage.setScene(scene);
 		stage.show();
 	}

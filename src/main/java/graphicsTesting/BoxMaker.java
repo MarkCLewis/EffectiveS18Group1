@@ -41,38 +41,74 @@ public class BoxMaker implements ShapeMaker {
 			width = w;
 		}
 		
+		/**
+		 * Method allows the client to provide the translation coordinates for the Box
+		 * @param xLoc represents the translation of the Box on the x axis
+		 * @param yLoc represents the translation of the Box on the y axis
+		 * @param zLoc represents the translation of the Box on the z axis
+		 * @return this
+		 */
 		public BoxBuilder transCoords(double xLoc, double yLoc, double zLoc) {
 			x = xLoc;
 			y = yLoc;
 			z = zLoc;
 			return this;
 		}
-		
+
+		/**
+		 * Method allows the client to provide a customized PhongMaterial for the Box to use
+		 * @param pm is the PhongMaterial that the Box will use
+		 * @return this
+		 */
 		public BoxBuilder material(PhongMaterial pm) {
 			material = pm;
 			return this;
 		}
 		
+		/**
+		 * Method allows the client to provide a customized Rotate object for the Box. The Rotate should be on the x axis.
+		 * @param rotate represents the Box's rotation on the x axis
+		 * @return this
+		 */
 		public BoxBuilder xRotate(Rotate rotate) {
 			xRotate = rotate;
 			return this;
 		}
 		
+		/**
+		 * Method allows the client to provide a customized Rotate object for the Box. The Rotate should be on the y axis.
+		 * @param rotate represents the Box's rotation on the y axis
+		 * @return this
+		 */
 		public BoxBuilder yRotate(Rotate rotate) {
 			yRotate = rotate;
 			return this;
 		}
 		
+		/**
+		 * Method allows the client to provide a customized Rotate object for the Box. The Rotate should be on the z axis.
+		 * @param rotate represents the Box's rotation on the z axis
+		 * @return this
+		 */
 		public BoxBuilder zRotate(Rotate rotate) {
 			zRotate = rotate;
 			return this;
 		}
 		
+		/**
+		 * Method finalizes the changes made to the Box and instantiates a BoxMaker object.
+		 * @return a new instance of the director BoxMaker with the builder as the parameter
+		 */
 		public BoxMaker build() {
 			return new BoxMaker(this);
 		}
 	}
 	
+	/**
+	 * Private constructor, only accessed through BoxBuilder.build()
+	 * Constructor creates and makes appropriate changes to a new Box object
+	 * @param builder is a finalized BoxBuilder
+	 */
 	private BoxMaker(BoxBuilder builder) {
 		box = new Box(builder.width, builder.height, builder.depth);
 		box.setDrawMode(DrawMode.FILL);
@@ -83,6 +119,10 @@ public class BoxMaker implements ShapeMaker {
 		box.getTransforms().addAll(builder.xRotate, builder.yRotate, builder.zRotate);
 	}
 	
+	/**
+	 * Method returns the Box product
+	 * @return box is the created Box
+	 */
 	@Override
 	public Box get() {
 		return box;
