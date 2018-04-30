@@ -30,13 +30,12 @@ public class CityStuff {
 		
 		/*
 		MeshView p = Shapes.makePyramid(20, 40, roof1, roof2, x, y - 30, z);
-		//MeshView p = Shapes.makePyramid(100, 250, roof1, roof2, x, y - 150, z);
 		mg.getChildren().add(p);
 		*/
 		mat = new PhongMaterial();
 		mat.setDiffuseColor(roof1);
 		mat.setSpecularColor(roof2);
-		lst.add(DrawFacade.getPyramidBuilder(100, 250).transCoords(x, y-150, z).material(mat).build().get());
+		lst.add(DrawFacade.getPyramidBuilder(20, 40).transCoords(x, y-30, z).material(mat).build().get());
 
 		return lst;
 		

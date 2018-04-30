@@ -20,8 +20,11 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 			if (maxIter > 2) {
 				iterateTerrain(heightMap, squareWidth, maxElev);
 				maxIter = (maxIter/2);
+				squareWidth = squareWidth/2;
+				System.out.println("ITER squareWidth" + squareWidth);
 			}
 		}
+		
 		int x, y;
 		x = ThreadLocalRandom.current().nextInt(599);
 		y = ThreadLocalRandom.current().nextInt(599);
@@ -68,7 +71,7 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 				//System.out.println("SquareWidth: " + squareWidth);
 			}
 			if (heightMap[x + squareWidth][y + squareWidth] == 0.0){
-				System.out.println("reached");
+				//System.out.println("reached");
 				heightMap[x + squareWidth][y + squareWidth] = generateRandom(maxElev); //x4
 				System.out.println("SquareWidth: " + squareWidth);
 			}
@@ -99,7 +102,7 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 
 		//finds and assigns the middle point
 		private void diamondStep(double[][] heightMap, int x, int y, int squareWidth, double maxElev){
-			System.out.println("SquareWidth divided by 2: " + (squareWidth/2));
+			//System.out.println("SquareWidth divided by 2: " + (squareWidth/2));
 			assignHeights(heightMap, x, y, squareWidth, maxElev);
 			heightMap[x + (squareWidth/2)][y + (squareWidth/2)] = avgCorners(heightMap, squareWidth,x,y);
 			//System.out.println("center point: " + heightMap[x + (squareWidth/2)][y + (squareWidth/2)]);
@@ -139,7 +142,7 @@ public class FractalTerrain implements TerrainGenerationAlgorithm {
 				} else if (i == 2) {
 					diamondStep(heightMap, 0, (squareWidth-1), (squareWidth-1), maxElev);
 				} else if (i == 3) {
-					diamondStep(heightMap, (squareWidth-1), (squareWidth-1), (squareWidth-1), maxElev);
+					diamondStep(heightMap, (squareWidth-1), (squareWidth-1), (squareWidth), maxElev);
 				}
 				squareWidth = (squareWidth/2);
 				squareStep(heightMap, 0, 0, (squareWidth-1), maxElev);

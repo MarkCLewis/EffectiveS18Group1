@@ -67,20 +67,12 @@ public class QuadTree implements Element {
 				count += 4;
 			}
 			int child = n.getChild(item.getXLoc(), item.getZLoc());
-			if (inNode(item, n)) insert(item, n.children.get(child));
-			else throw new RuntimeException("out of bounds");
+			insert(item, n.children.get(child));
 		} else {
 			n.contents.add(item);
 		}
 	}
 
-	boolean inNode(WorldObject item, Node n) {
-		boolean inBottom = n.z <= item.getZLoc() + n.size;
-		boolean inTop = n.z > item.getZLoc() - n.size;
-		boolean inRight = n.x <= item.getXLoc() + n.size;
-		boolean inLeft = n.z > item.getXLoc() - n.size;
-		return inBottom && inTop && inRight && inLeft;
-	}
 	/**
 	 * Accepts the visitor into the QuadTree and passes it to the other accept
 	 * function

@@ -16,7 +16,6 @@ public class QuadTreeTester {
 		System.out.println(quad.getRootNode().contents.size());
 		
 		Group mainGroup = new Group();
-		CityOne cOne = CityOne.returnObj(mainGroup);
 		//quad.insert(cOne);
 		return quad;
 	}
