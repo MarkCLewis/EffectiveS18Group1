@@ -3,7 +3,6 @@ package virtualworld;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-
 import citiesTesting.BuildingTypes;
 import citiesTesting.CityOne;
 import citiesTesting.CityThree;
@@ -21,14 +20,9 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
 import quad.QuadTree;
+import terraintesting.TerrainObject;
+import terraintesting.TerrainObjectBuilder;
 
-/**
- * For JavaFX the main will probably have keyboard control and an AnimationTimer that makes dynamic stuff happen.
- * 
- * Yes. It needs to do the initial setup. 
- * Then it also tells the QuadTree when the camera has moved enough that updating is needed.
- * It probably also uses the QuadTree to get the elements that should be rendered.
- */
 public class Main extends Application {
 	public static void main(String[] args) {
 		System.out.println("Virtual world goes here.");
@@ -44,10 +38,10 @@ public class Main extends Application {
 		scene.setFill(Color.THISTLE);
 	
 	//Camera
-			Camera camera = new PerspectiveCamera(true);
-			scene.setCamera(camera);
-			Group cameraGroup = new Group();
-			CameraController pCam = new CameraController.Builder(camera).build();
+		Camera camera = new PerspectiveCamera(true);
+		scene.setCamera(camera);
+		Group cameraGroup = new Group();
+		CameraController pCam = new CameraController.Builder(camera).build();
 	
 	//QuadTree
 		QuadTree quad = QuadTree.getInstance();
@@ -70,21 +64,6 @@ public class Main extends Application {
 		//mainGroup.getChildren().add(buildingGroup);
 		mainGroup.getChildren().add(cameraGroup);
 		
-		
-	//Key Controls
-	/*
-	 * W - Forward
-	 * S - Backward
-	 * A - Left
-	 * D - Right
-	 * Up - Look up
-	 * R - Ascend
-	 * F - Descend
-	 * Down - Look Down
-	 * Left - Look Left
-	 * Right - Look Right
-	 * Hold Shift - Speed Boost
-	 */
 		//Calls appropriate movement methods from pCam when key press is detected
 		//KeyCodes are stored in a set so multiple commands can be executed at once
 		Set<KeyCode> keySet = new HashSet<KeyCode>();
@@ -138,7 +117,7 @@ public class Main extends Application {
 			
 		});
 		
-		/*
+		/*Cities
 		//Making city objects
 		CityOne cOne = CityOne.returnObj(mainGroup);
 		//grid type city
@@ -147,6 +126,33 @@ public class Main extends Application {
 		CityThree cThree = CityThree.returnObj(mainGroup);
 		//diamond city
 		*/
+		
+		/*Terrain
+		TerrainObjectBuilder bldr = new TerrainObjectBuilder();
+		double x = 5; 
+		double z = 10; 
+		double y = 12;
+		double xW = 200; 
+		double zW = 200; 
+		double yW = 500;
+		long seed = 12345687654L;
+		double noise = 0.75;
+		bldr.setXLoc(x);
+		bldr.setYLoc(y);
+		bldr.setZLoc(z);
+		bldr.setXWidth(xW);
+		bldr.setYWidth(yW);
+		bldr.setZWidth(zW);
+		bldr.setSeed(seed);
+		bldr.setNoise(noise);
+		
+		TerrainObject terr = bldr.build();
+		mainGroup.getChildren().addAll(terr.display());
+		*/
+		
+		CityOne cOne = CityOne.returnObj(mainGroup);
+		System.out.println(cOne.getX() + " " + cOne.getZ());
+		mainGroup.getChildren().addAll(cOne.display());
 		
 		Sphere sphere2 = new Sphere(10);
 		Material mat2 = new PhongMaterial(Color.FORESTGREEN);
@@ -159,47 +165,17 @@ public class Main extends Application {
 	}
 }
 
-/*
-//Old Materials
-//Tony's Building Testing
-		Random rand = new Random(777);
-		int a = rand.nextInt(3)+1;
-		
-		double x = -1000.0;
-		double y = 0;
-		double z = 1000.0;
-
-		Color roof1 = BuildingTypes.colorAssignment(rand);
-		Color roof2 = BuildingTypes.secondaryColor(roof1);
-		Color house1 = BuildingTypes.colorAssignment(rand);
-		Color house2 = BuildingTypes.secondaryColor(house1);
-		BuildingTypes.makeCity1(mainGroup, roof1, roof2, house1, house2, x, y, z, rand);
-		
-		Random rand1 = new Random();
-		x = 1000.0;
-		y = 0;
-		z = 1000.0;
-		roof1 = BuildingTypes.colorAssignment(rand1);
-		roof2 = BuildingTypes.secondaryColor(roof1);
-		house1 = BuildingTypes.colorAssignment(rand1);
-		house2 = BuildingTypes.secondaryColor(house1);
-		BuildingTypes.makeCity2(mainGroup, roof1, roof2, house1, house2, x, y, z, rand1.nextInt(3)+1, rand1);
-		
-		Random rand2 = new Random();
-		x = 1000.0;
-		y = 0;
-		z = -1000.0;
-		roof1 = BuildingTypes.colorAssignment(rand2);
-		roof2 = BuildingTypes.secondaryColor(roof1);
-		house1 = BuildingTypes.colorAssignment(rand2);
-		house2 = BuildingTypes.secondaryColor(house1);
-		BuildingTypes.makeCity3(mainGroup, roof1, roof2, house1, house2, x, y, z, rand2.nextInt(3)+1, rand2);
-		
-		//CityOne co = CityOne.returnObj(mainGroup);
-		//Dr. Lewis's Sphere
-		Sphere sphere1 = new Sphere(20);
-		Material mat1 = new PhongMaterial(Color.FORESTGREEN);
-		sphere1.setMaterial(mat1);
-		sphere1.setTranslateZ(100);
-		mainGroup.getChildren().add(sphere1);
-*/
+//Key Controls
+	/*
+	 * W - Forward
+	 * S - Backward
+	 * A - Left
+	 * D - Right
+	 * Up - Look up
+	 * R - Ascend
+	 * F - Descend
+	 * Down - Look Down
+	 * Left - Look Left
+	 * Right - Look Right
+	 * Hold Shift - Speed Boost
+	 */
