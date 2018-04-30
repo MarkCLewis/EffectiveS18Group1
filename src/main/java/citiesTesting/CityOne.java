@@ -20,10 +20,10 @@ public class CityOne implements WorldObject {
 	static int seed;
 	
 	//WorldObject Relevant
-	static double x;
+	static double x = -100;
 	static double y = 0.0;
 	//TODO-make it so that y is based on terrain
-	static double z;
+	static double z = 100;
 	static double size;
 	static ArrayList<Shape3D> lst = new ArrayList<Shape3D>();
 
@@ -42,8 +42,8 @@ public class CityOne implements WorldObject {
 		setSecondaryColor(roof1, roof2);
 		setColor(house1);
 		setSecondaryColor(house1, house2);
-		setX();
-		setZ();
+		//setX();
+		//setZ();
 		
 		BuildingTypes.Tuple<Double, ArrayList<Shape3D>> tup = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
 		setSize(tup.getA());
