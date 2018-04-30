@@ -115,7 +115,7 @@ public class sheep implements WorldObject {
 		// TODO Auto-generated method stub
 		double dist = Math.sqrt(Math.pow((getXLoc() - x), 2) + Math.pow((getZLoc() - z), 2));
 		
-		if(dist < 500){
+		if(dist < 50){
 			return true;
 		}
 		else return false;

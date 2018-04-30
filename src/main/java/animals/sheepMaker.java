@@ -84,14 +84,13 @@ public class sheepMaker extends Application{
 		
 		
 		
-		int[] transCords = {0,0,0};
-		mainGroup.getChildren().add(DrawFacade.createCylinder(new PhongMaterial(), Color.WHITE, Color.GRAY, 2, 15, 20, 0, 0));
-		mainGroup.getChildren().add(DrawFacade.createCylinder(new PhongMaterial(), Color.WHITE, Color.GRAY, 2, 15, 20, 0, 5));
-		mainGroup.getChildren().add(DrawFacade.createCylinder(new PhongMaterial(), Color.WHITE, Color.GRAY, 2, 15, 0, 0, 5));
-		mainGroup.getChildren().add(DrawFacade.createCylinder(new PhongMaterial(), Color.WHITE, Color.GRAY, 2, 15, 0, 0, 0));
-		mainGroup.getChildren().add(DrawFacade.createBox(new PhongMaterial(), Color.WHITE, Color.GRAY, 25, 8, 15, 10.25, -10, 0));
-		mainGroup.getChildren().add(DrawFacade.createBox(new PhongMaterial(), Color.WHITE, Color.GRAY, 6, 6, 6, 23, -16, 0));
-
+		//int[] transCords = {0,0,0};
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.2, 1, 1.5, 0, .5)); //LFL
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.2, 1, 1.5, 0, 1.5)); //RFL
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.2, 1, 0, 0, 1.5)); //RBL
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.2, 1, 0, 0, .5));  //LBL
+		mainGroup.getChildren().add(bodyShapes.createBox(2, 1, 1.5, .75, -1, 1)); //body
+		mainGroup.getChildren().add(bodyShapes.createBox(.7, .7, .7, 2, -1.75, 1)); //head
 		stage.setScene(scene);
 		stage.show();
 	}
