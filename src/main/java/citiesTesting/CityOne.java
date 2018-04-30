@@ -20,10 +20,10 @@ public class CityOne implements WorldObject {
 	static int seed;
 	
 	//WorldObject Relevant
-	static double x = -100;
+	static double x = 0.0;
 	static double y = 0.0;
 	//TODO-make it so that y is based on terrain
-	static double z = 100;
+	static double z = 0.0;
 	static double size;
 	static ArrayList<Shape3D> lst = new ArrayList<Shape3D>();
 
@@ -38,12 +38,12 @@ public class CityOne implements WorldObject {
 		setGroup(group);
 		setSeed();
 		setRand();
-		setColor(roof1);
-		setSecondaryColor(roof1, roof2);
-		setColor(house1);
-		setSecondaryColor(house1, house2);
-		//setX();
-		//setZ();
+		setRoofColor();
+		setSecondardRoof();
+		setHouseColor();
+		setSecondaryHouse();
+		setX();
+		setZ();
 		
 		BuildingTypes.Tuple<Double, ArrayList<Shape3D>> tup = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
 		setSize(tup.getA());
@@ -55,10 +55,10 @@ public class CityOne implements WorldObject {
 		setGroup(group);
 		setSeed(s);
 		setRand();
-		setColor(roof1);
-		setSecondaryColor(roof1, roof2);
-		setColor(house1);
-		setSecondaryColor(house1, house2);
+		setRoofColor();
+		setSecondardRoof();
+		setHouseColor();
+		setSecondaryHouse();
 		setCoordinate(x);
 		setCoordinate(z);
 		
@@ -73,13 +73,32 @@ public class CityOne implements WorldObject {
 		mg = g;
 	}
 	
+	public static void setRoofColor(){
+		roof1 = BuildingTypes.colorAssignment(rand);
+	}
+	
+	public static void setHouseColor(){
+		house1 = BuildingTypes.colorAssignment(rand);
+	}
+	
+	public static void setSecondardRoof(){
+		roof2 = BuildingTypes.secondaryColor(roof1);
+	}
+	
+	public static void setSecondaryHouse(){
+		house2 = BuildingTypes.secondaryColor(house1);
+	}
+	
+	/*
 	public static void setColor(Color col){
 		col = BuildingTypes.colorAssignment(rand);
 	}
 	
+	
 	public static void setSecondaryColor(Color col1, Color col2){
 		col2 = BuildingTypes.secondaryColor(col1);
 	}
+	*/
 	
 	public static void setSize(double num){
 		size = num;
