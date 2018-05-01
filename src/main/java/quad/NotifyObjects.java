@@ -13,6 +13,9 @@ public class NotifyObjects implements ElementVisitor {
 	//List of all Shapes3Ds to be drawn
 	public List<Shape3D> toBeDrawn = new ArrayList<Shape3D>();
 	
+	//List of all WorldObjects within range
+	public List<WorldObject> validObjects = new ArrayList<WorldObject>();
+	
 	//Iterates through the QuadTree and visits relevant WorldObjects
     @Override
   	public void visit(Node n) {
@@ -25,13 +28,14 @@ public class NotifyObjects implements ElementVisitor {
     //Adds all relevant WorldObjects to the list
   	@Override
   	public void visit(WorldObject item) {
+  		validObjects.add(item);
   		toBeDrawn.addAll(item.display());
   	}
 
   	//Cares if Euclidean distance is less than 500 meters
   	@Override
   	public boolean cares(Node n) {
-  		if (Math.sqrt(Math.pow((n.x - QuadTree.cameraX), 2) + Math.pow((n.z - QuadTree.cameraZ), 2)) <= 500) return true;
+  		if (Math.sqrt(Math.pow((n.x - QuadTree.cameraX), 2) + Math.pow((n.z - QuadTree.cameraZ), 2)) <= 300) return true;
   		else return false;
   	}
 }

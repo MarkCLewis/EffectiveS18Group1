@@ -6,6 +6,8 @@ import javafx.scene.shape.Shape3D;
 
 public class ExampleObject implements WorldObject {
 	
+	private ArrayList<Shape3D> toBeDrawn = new ArrayList<Shape3D>();
+	
 	//coordinates
 	private double xLoc;
 	private double zLoc;
@@ -65,7 +67,6 @@ public class ExampleObject implements WorldObject {
 
 	@Override
 	public ArrayList<Shape3D> display() {
-		// TODO Auto-generated method stub
-		return null;
+		return toBeDrawn;
 	}
 }
