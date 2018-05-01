@@ -1,5 +1,6 @@
 package agua;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javafx.geometry.Point3D;
@@ -8,6 +9,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
+import javafx.scene.shape.Shape3D;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.shape.VertexFormat;
 import virtualworld.WorldObject;
@@ -206,9 +208,35 @@ public class cloud implements WorldObject
 		return this.size;
 	}
 
+
 	@Override
-	public void notifyOfCamera(double x, double z) {
+	public double getXLoc() {
 		// TODO Auto-generated method stub
-		this.makeVisible();
+		return 0;
+	}
+
+	@Override
+	public double getYLoc() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getZLoc() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean notifyOfCamera(double x, double z) {
+		// set this up later
+		// if(x && z in drawdistance) playAnimation, make visible, etc
+		return false;
+	}
+
+	@Override
+	public ArrayList<Shape3D> display() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
