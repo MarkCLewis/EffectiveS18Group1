@@ -67,7 +67,6 @@ public class Tree extends Application implements WorldObject{
 		c=dryTree();
 		}
 		
-		
 		return c;
 		
 	}
@@ -547,7 +546,6 @@ public class Tree extends Application implements WorldObject{
 	public static void main(String args[]) {
 		launch(args);
 		
-
 	}
 
 	@Override
@@ -573,7 +571,6 @@ public class Tree extends Application implements WorldObject{
 		s=(fx-ix)*490*10;
 		return s;
 	}
-
 
 	@Override
 	public boolean notifyOfCamera(double x, double z) {
@@ -601,12 +598,10 @@ public class Tree extends Application implements WorldObject{
 		return z;
 	}
 
-	
 
 	@Override
 	public ArrayList<Shape3D> display() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-}
+	}
