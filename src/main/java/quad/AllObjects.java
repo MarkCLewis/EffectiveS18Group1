@@ -25,14 +25,7 @@ public class AllObjects implements ElementVisitor {
 	public void visit(WorldObject item) {
 		allWorldObjects.add(item);
 	}
-
-	//Always cares because collecting everything
-	@Override
-	public boolean cares(Node n) {
-		return true;
-	}
 }
-
 //Testing
 //System.out.println("Parent      x: " + n.x + " z: " + n.z + " size: " + n.size + " depth: " + n.depth);
 //System.out.println("Kid   	   x: " + kid.x + " z: " + kid.z + " size: " + kid.size + " depth: " + kid.depth + " numChildren: " + n.children.size());

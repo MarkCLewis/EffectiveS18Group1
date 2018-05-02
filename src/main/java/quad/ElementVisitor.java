@@ -6,5 +6,4 @@ import virtualworld.WorldObject;
 public interface ElementVisitor {
 	public void visit(Node n);
 	public void visit(WorldObject item);
-	public boolean cares(Node n);
 }

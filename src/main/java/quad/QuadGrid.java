@@ -82,7 +82,7 @@ public class QuadGrid extends Application implements Element {
 		
 		gc.setStroke(Color.DEEPPINK);
 		gc.setLineWidth(5);
-		gc.strokeOval(quad.cameraX, quad.cameraZ, 600, 600);
+		gc.strokeOval(QuadTree.cameraX + 200, QuadTree.cameraZ + 200, 600, 600);
 	}
 
 	public static void populate() {

@@ -74,7 +74,7 @@ public class QuadTree implements Element {
 	 * @param n - the node that is being visited
 	 */
 	private void accept(final ElementVisitor visitor, Node n) {
-		if (visitor.cares(n)) visitor.visit(n);
+		visitor.visit(n);
 	}
 
 	// Getters
