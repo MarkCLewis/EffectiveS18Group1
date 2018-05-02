@@ -1,17 +1,12 @@
 package virtualworld;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 import animals.sheep;
-import citiesTesting.BuildingTypes;
 import citiesTesting.CityOne;
-import citiesTesting.CityThree;
-import citiesTesting.CityTwo;
 import graphicsTesting.CameraController;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -19,14 +14,11 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Material;
-import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Shape3D;
-import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
 import quad.QuadTree;
-import terraintesting.TerrainObject;
-import terraintesting.TerrainObjectBuilder;
+import javafx.animation.AnimationTimer;
+import javafx.application.Application;
 
 public class Main extends Application {
 	public static void main(String[] args) {
@@ -172,8 +164,19 @@ public class Main extends Application {
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				
+				
+			}
+			
+		}.start();
 	}
 }
+
+	
 
 //Key Controls
 	/*

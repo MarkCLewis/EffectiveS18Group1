@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -19,6 +20,8 @@ public class QuadGrid extends Application implements Element {
 	//Scene variables
 	private static final int width = 1000;
 	private static final int height = 1000;
+	double cameraX = 0;
+	double cameraZ = 0;
 	
 	//Quadtree variables
 	static QuadTree quad = QuadTree.getInstance();
@@ -26,7 +29,7 @@ public class QuadGrid extends Application implements Element {
 	//Various Lists
 	static List<Node> quadNodes = new ArrayList<Node>();
 	static List<ExampleObject> quadObjects = new ArrayList<ExampleObject>();
-	static List<ExampleObject> tobeRendered = new ArrayList <ExampleObject>();
+	static List<ExampleObject> toBeRendered = new ArrayList <ExampleObject>();
  	List<ElementVisitor> visitorList;
 	
 	public static void main(String[] args) {
@@ -48,48 +51,54 @@ public class QuadGrid extends Application implements Element {
 	}	
      
 	private void drawShapes(GraphicsContext gc) {
-		gc.setFill(Color.BLANCHEDALMOND);
-		
-		//Nodes
-		gc.setLineWidth(1);
-		gc.setStroke(Color.BLACK);
-		for (Node n : quadNodes) {
-			double x = n.x - n.size + 500;
-			double z = n.z - n.size + 500;
-			gc.strokeRect(x, z, n.size*2, n.size*2);
-			System.out.println(n.x+" "+n.z+" "+n.size);
-			//System.out.println("x: " + x + " z: " + z);
-		}
-		
-		//WorldObjects
-		gc.setStroke(Color.RED);
-		for(ExampleObject obj : quadObjects) {
-			double radius = obj.getRadius();
-			double x = obj.getXLoc() + 500;
-			double z = obj.getZLoc() + 500;
-			System.out.println(obj.getSize());
-			gc.strokeOval(x-radius, z-radius, radius*2, radius*2);
-		}
-		
-		gc.setStroke(Color.BLUE);
-		for (ExampleObject obj : tobeRendered) {
-			double radius = obj.getRadius() + 2;
-			double x = obj.getXLoc() + 500;
-			double z = obj.getZLoc() + 500;
-			System.out.println(obj.getSize());
-			gc.strokeOval(x-radius, z-radius, radius*2, radius*2);
-		}
-		
-		gc.setStroke(Color.DEEPPINK);
-		gc.setLineWidth(5);
-		gc.strokeOval(QuadTree.cameraX + 200, QuadTree.cameraZ + 200, 600, 600);
+		new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				gc.setFill(Color.BLANCHEDALMOND);
+				
+				//Nodes
+				gc.setLineWidth(1);
+				gc.setStroke(Color.BLACK);
+				for (Node n : quadNodes) {
+					double x = n.x - n.size + 500;
+					double z = n.z - n.size + 500;
+					gc.strokeRect(x, z, n.size*2, n.size*2);
+					System.out.println(n.x+" "+n.z+" "+n.size);
+					//System.out.println("x: " + x + " z: " + z);
+				}
+				
+				//WorldObjects
+				gc.setStroke(Color.RED);
+				for(ExampleObject obj : quadObjects) {
+					double radius = obj.getRadius();
+					double x = obj.getXLoc() + 500;
+					double z = obj.getZLoc() + 500;
+					System.out.println(obj.getSize());
+					gc.strokeOval(x-radius, z-radius, radius*2, radius*2);
+				}
+				
+				gc.setStroke(Color.BLUE);
+				for (ExampleObject obj : toBeRendered) {
+					double radius = obj.getRadius() + 2;
+					double x = obj.getXLoc() + 500;
+					double z = obj.getZLoc() + 500;
+					System.out.println(obj.getSize());
+					gc.strokeOval(x-radius, z-radius, radius*2, radius*2);
+				}
+				
+				//Camera
+				gc.setStroke(Color.DEEPPINK);
+				gc.setLineWidth(5);
+				gc.strokeOval(cameraX + 200, cameraZ + 200, 600, 600);
+				
+				//List Clears
+				quadObjects.clear();
+				toBeRendered.clear();
+			}
+		}.start();
 	}
 
 	public static void populate() {
-		
-		QuadTree.cameraX = 0;
-		QuadTree.cameraZ = 0;
-		
 		Random rand = new Random();
 		ExampleObject firstOb = new ExampleObject(0, 0, 500);
 		quad.insert(firstOb, null);
@@ -114,7 +123,7 @@ public class QuadGrid extends Application implements Element {
 		renderCollector.visit(quad.getRootNode());
 		
 		for (WorldObject items : renderCollector.validObjects) {
-			tobeRendered.add((ExampleObject) items);
+			toBeRendered.add((ExampleObject) items);
 		}
 		
 		System.out.println(quadNodes.size());
