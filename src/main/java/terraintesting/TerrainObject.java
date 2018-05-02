@@ -19,8 +19,9 @@ public class TerrainObject implements virtualworld.WorldObject {
 	private final double yWidth;
 	private final double zWidth;
 	private static final int maxScale = 1000;
+	private static final int defaultScale = maxScale;
 	private int levelOfDetail = 0; //Determines the value of current scale based on maxScale
-	private int currentScale; //close - 100; far - 1000
+	private int scale; //close - 100; far - 1000
 	
 	
 	private final long seed;
@@ -29,7 +30,7 @@ public class TerrainObject implements virtualworld.WorldObject {
 	private static final double defaultNoise = 0.5;
 	private static final double renderDist = 1000; //Width of the box around the camera that's rendered
 	
-	public TerrainObject(double cX, double cY, double cZ, double xW, double yW, double zW, int lod, long seed, double noise) {
+	public TerrainObject(double cX, double cY, double cZ, double xW, double yW, double zW, int scale, long seed, double noise) {
 		if(noise<0.0 || noise>1.0)
 			throw new IllegalArgumentException("Noise must be between 0 and 1");
 		if(xW!=zW)
@@ -40,7 +41,7 @@ public class TerrainObject implements virtualworld.WorldObject {
 		this.cY = cY;
 		this.cZ = cZ;
 		
-		levelOfDetail = lod;
+		this.scale = scale;
 		xWidth = xW;
 		yWidth = yW;
 		zWidth = zW;
@@ -195,6 +196,10 @@ public class TerrainObject implements virtualworld.WorldObject {
 		return 0.0;
 	}
 	
+	public static int getDefaultScale() {
+		return defaultScale;
+	}
+	
 	public static long getDefaultSeed() {
 		return defaultSeed;
 	}
@@ -259,7 +264,10 @@ public class TerrainObject implements virtualworld.WorldObject {
 	@Override
 	public ArrayList<Shape3D> display() {
 		agua.generateTerrain testPlot = new agua.generateTerrain();
-		float[][] temp = testPlot.generateCoordinates((int)xWidth, (int)xWidth, (int)xWidth, (int)currentScale, (float)noise, (int) seed);
+		
+		float[][] temp = testPlot.generateCoordinates((int)xWidth, (int)xWidth, (int)xWidth, scale, (float)noise, (int) seed);
+		//float[][] temp = testPlot.generateCoordinates(200, 200, 200, 1000, (float)0.60, 3838);
+		
 		//public float[][] generateCoordinates(int xRes, int yRes, int zRes, int scale, float noiseLevel, int seed)
 		TriangleMesh testGenerate = testPlot.generateTerrain(200, 10, temp);
 		MeshView meshView = new MeshView(testGenerate);
@@ -267,9 +275,9 @@ public class TerrainObject implements virtualworld.WorldObject {
 		//material.setDiffuseColor(Color.AQUA);
 		//meshView.setDrawMode(DrawMode.LINE);
 		//meshView.setMaterial(material);
-		meshView.setScaleX(currentScale);
-		meshView.setScaleZ(currentScale);
-		meshView.setScaleY(currentScale*10);
+		meshView.setScaleX(scale);
+		meshView.setScaleZ(scale);
+		meshView.setScaleY(scale*10);
 		ArrayList<Shape3D> list = new ArrayList<Shape3D>();
 		list.add(meshView);
 		return list;
