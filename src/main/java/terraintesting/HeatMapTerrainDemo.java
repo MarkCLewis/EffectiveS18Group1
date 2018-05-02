@@ -43,8 +43,8 @@ public class HeatMapTerrainDemo extends Application {
 	}
 	
 	public static void buildElevation() {
-		//TerrainGenerationAlgorithm terrainAlgorithm = new NeighborAverageSmoothing();
-		TerrainGenerationAlgorithm terrainAlgorithm = new FractalTerrain();
+		TerrainGenerationAlgorithm terrainAlgorithm = new NeighborAverageSmoothing();
+		//TerrainGenerationAlgorithm terrainAlgorithm = new FractalTerrain();
 		terrainAlgorithm.generateTerrain(elevation, maxElevation);
 	}
 	
@@ -101,8 +101,8 @@ public class HeatMapTerrainDemo extends Application {
 	public static Color doubleToColor(double d, double max) {
 		double red = -1; double green = -1; double blue = -1;
 		
-		if(d == 0) {
-			//TODO
+		if(d>max || d<=0) {
+			return Color.BLUE;
 		}
 		else if(d <= max/4) {
 			red = 0;
