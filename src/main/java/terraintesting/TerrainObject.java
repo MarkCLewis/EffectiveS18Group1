@@ -174,17 +174,33 @@ public class TerrainObject implements virtualworld.WorldObject {
 	 * @return
 	 */
 	private boolean squareCompare(double x1, double z1, double s1, double x2, double z2, double s2) {
-		if(z1-s1/2 < z2+s2/2 && x1+s1/2 > x2-s2/2)
+		
+		if(x1 == x2 && z1 == z2) {
 			return true;
-		if(z1+s1/2 > z2-s2/2 && x1+s1/2 > x2-s2/2)
+		}
+		
+		double x1lo = x1-s1/2;
+		double x1hi = x1+s1/2;
+		double z1lo = z1-s1/2;
+		double z1hi = z1+s1/2;
+		
+		double x2lo = x2-s2/2;
+		double x2hi = x2+s2/2;
+		double z2lo = z2-s2/2;
+		double z2hi = z2+s2/2;
+		
+		if(x2lo < x1hi && x1hi < x2hi && ((z2lo < z1hi && z1hi < z2hi) || (z2lo < z1lo && z1lo < z2hi))) {
 			return true;
-		if(z1-s1/2 < z2+s2/2 && x1-s1/2 < x2+s2/2)
+		}
+		if(x2lo < x1lo && x1lo < x2hi && ((z2lo < z1hi && z1hi < z2hi) || (z2lo < z1lo && z1lo < z2hi))) {
 			return true;
-		if(z1+s1/2 > z2-s2/2 && x1-s1/2 < x2+s2/2)
-			return true;
-		else 
+		}
+		else {
 			return false;
+		}
 	}
+	
+	
 	
 	// Compare doubles to 0.01 accuracy
 	private boolean doubleCompare(double d1, double d2) {
@@ -265,7 +281,7 @@ public class TerrainObject implements virtualworld.WorldObject {
 	public ArrayList<Shape3D> display() {
 		agua.generateTerrain testPlot = new agua.generateTerrain();
 		
-		float[][] temp = testPlot.generateCoordinates((int)xWidth, (int)xWidth, (int)xWidth, scale, (float)noise, (int) seed);
+		float[][] temp = testPlot.generateCoordinates((int)xWidth, (int)yWidth, (int)zWidth, scale, (float)noise, (int) seed);
 		//float[][] temp = testPlot.generateCoordinates(200, 200, 200, 1000, (float)0.60, 3838);
 		
 		//public float[][] generateCoordinates(int xRes, int yRes, int zRes, int scale, float noiseLevel, int seed)
