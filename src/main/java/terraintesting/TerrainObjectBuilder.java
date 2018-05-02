@@ -3,6 +3,7 @@ package terraintesting;
 // TODO May have to fix this to assume a right-handed coordinate system
 	// If y grows upwards from the xz-plane, and x grows to the right, then z would grow down 
 public class TerrainObjectBuilder {
+	//Fields that MUST be set by user
 	private double x;
 	private double y;
 	private double z;
@@ -10,9 +11,10 @@ public class TerrainObjectBuilder {
 	private double yW;
 	private double zW;
 	
-	private int lod = 0;
+	//Fields that can be made with a default value
+	private int scale = TerrainObject.getDefaultScale();
 	private long seed = TerrainObject.getDefaultSeed();
-	private double noise = TerrainObject.getDefaultSeed();
+	private double noise = TerrainObject.getDefaultNoise();
 	
 	// Keeps track of which fields have been set
 	private boolean[] paramsSet = {false, false, false, false, false, false, false, false, false};
@@ -26,7 +28,7 @@ public class TerrainObjectBuilder {
 		for(int i=0; i<paramsSet.length-3; i++)
 			if(!paramsSet[i])
 				throw new IllegalArgumentException("Needed parameter (No. "+i+") for TerrainObject hasn't been set");
-		return new TerrainObject(x, y, z, xW, yW, zW, lod, seed, noise);
+		return new TerrainObject(x, y, z, xW, yW, zW, scale, seed, noise);
 	}
 	
 	public void setXLoc(double x) {
@@ -59,9 +61,9 @@ public class TerrainObjectBuilder {
 		this.zW = zW;
 	}
 	
-	public void setLOD(int lod) {
+	public void setScale(int scale) {
 		paramsSet[6] = true;
-		this.lod = lod;
+		this.scale = scale;
 	}
 	
 	public void setSeed(long seed) {
