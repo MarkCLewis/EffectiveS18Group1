@@ -120,18 +120,21 @@ public class TerrainObject implements virtualworld.WorldObject {
 			// Given the square patch of Terrain to generate (centered at the point passed in and with a side length of renderDist)
 			// subdivide TerrainObject into quadrants of children until you get terrain objects that are entirely contained within (or coincident with)
 			// The patch of terrain around the camera to render. These are the only TerrainObjects to render
-		double minTerrainWidth = 10;
-		//if()
+		double minTerrainWidth = 10; //TODO - don't let terrain tiles get too small
 		if(strictSquareCompare(cX, cZ, xWidth, x, z, renderDist)) {
 			// Case where we the terrain object is entirely contained within the render distance
-			// Don't split further
+			// Don't split further; render this terrain
+			// Do something with the tree here?
 			return true;
 		}
 		else {
 			// split terrain further
 			TerrainObject[] children = getChildren();
 			for(TerrainObject child:children) {
-				//if()
+				if(squareCompare(child.cX, child.cZ, child.xWidth, x, z, renderDist)) {
+					// Do something with the tree here?
+					child.notifyOfCamera(x, z);
+				}
 			}
 			//children.length;
 			return false;
@@ -241,7 +244,7 @@ public class TerrainObject implements virtualworld.WorldObject {
 		childXW = xWidth/4;
 		childYW = yWidth;
 		childZW = zWidth/4;
-		int childLOD = levelOfDetail+1;
+		//int childLOD = levelOfDetail+1;
 		
 		//Common fields across all children
 		bldr.setSeed(seed);
