@@ -200,12 +200,14 @@ public class CityThree implements WorldObject {
 		public boolean notifyOfCamera(double x, double z) {
 			// TODO Auto-generated method stub
 			double dist = Math.sqrt(Math.pow((getXLoc() - x), 2) + Math.pow((getZLoc() - z), 2));
+			return true;
 			//double rad = (Math.sqrt(getSize())/2) + 500;
-			
+			/*
 			if(dist < 500){
 				return true;
 			}
 			else return false;
+			*/
 		}
 
 		@Override
