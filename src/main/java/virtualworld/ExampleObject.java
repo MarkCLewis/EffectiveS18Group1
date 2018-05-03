@@ -60,8 +60,8 @@ public class ExampleObject implements WorldObject {
 	}
 
 	@Override
-	public void notifyOfCamera(double x, double z) {
-
+	public boolean notifyOfCamera(double x, double z) {
+		return true;
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package virtualworld;
 import java.util.HashSet;
 import java.util.Set;
 
+import animals.Sheep;
 import animals.sheep;
 import citiesTesting.CityOne;
 import graphicsTesting.CameraController;
@@ -41,8 +42,11 @@ public class Main extends Application {
 	
 	//QuadTree Setup
 		QuadTree quad = QuadTree.getInstance();
-		quad.cameraX = pCam.getCameraX();
-		quad.cameraZ = pCam.getCameraZ();
+		double oldCamX = pCam.getCameraX();
+		double oldCamZ = pCam.getCameraZ();
+		double newCamX;
+		double newCamZ;
+		
 		quad.insert(new ExampleObject(0, 0, 400), null); //TODO replace with large terrain piece
 		
 	//Visitors
@@ -155,7 +159,7 @@ public class Main extends Application {
 		
 		//List<sheep> sheepList = new ArrayList<sheep>();
 		//for (int i = 0; i < 100; i++) sheepList.add(animals.sheep.returnObj(mainGroup));
-		sheep sheeps = animals.sheep.returnObj(mainGroup);
+		Sheep sheeps = animals.Sheep.returnObj(mainGroup);
 		//for (sheep sheeps : sheepList) {
 		for (Shape3D sheepShape : sheeps.display()) {
 			mainGroup.getChildren().add(sheepShape);
@@ -168,6 +172,9 @@ public class Main extends Application {
 		new AnimationTimer() {
 			@Override
 			public void handle(long now) {
+				
+				QuadTree.cameraX = pCam.getCameraX();
+				QuadTree.cameraZ = pCam.getCameraZ();
 				
 				
 			}

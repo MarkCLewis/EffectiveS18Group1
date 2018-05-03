@@ -56,8 +56,9 @@ public interface WorldObject {
 	 * the object to change its level of detail (REMOVED BOOLEAN RETURN)
 	 * @param x of the camera
 	 * @param z of the camera
+	 * @return 
 	 */
-	void notifyOfCamera(double x, double z);
+	boolean notifyOfCamera(double x, double z);
 	
 	/**
 	 * asks the object to return a list of all the shapes it has that need to be drawn

@@ -32,7 +32,8 @@ public class NotifyObjects implements ElementVisitor {
     //Adds all relevant WorldObjects to the list
   	@Override
   	public void visit(WorldObject item) {
-  		if (circleCheck(item)) {
+  		boolean notified = item.notifyOfCamera(xCam, zCam);
+  		if (circleCheck(item) && notified) {
 	  		validObjects.add(item);
 	  		toBeDrawn.addAll(item.display());
   		}
