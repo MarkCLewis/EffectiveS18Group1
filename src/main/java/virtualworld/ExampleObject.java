@@ -60,9 +60,8 @@ public class ExampleObject implements WorldObject {
 	}
 
 	@Override
-	public boolean notifyOfCamera(double x, double z) {
-		if (Math.sqrt(Math.pow((this.xLoc - x), 2) + Math.pow((this.zLoc - z), 2)) <= 500) return true;
-		else return false;
+	public void notifyOfCamera(double x, double z) {
+
 	}
 
 	@Override

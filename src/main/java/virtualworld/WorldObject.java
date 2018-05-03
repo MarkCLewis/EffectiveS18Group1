@@ -53,11 +53,11 @@ public interface WorldObject {
 	
 	/**
 	 * notifies a WorldObject that a camera is nearby, which allows
-	 * the object to change its level of detail
+	 * the object to change its level of detail (REMOVED BOOLEAN RETURN)
 	 * @param x of the camera
 	 * @param z of the camera
 	 */
-	boolean notifyOfCamera(double x, double z);
+	void notifyOfCamera(double x, double z);
 	
 	/**
 	 * asks the object to return a list of all the shapes it has that need to be drawn
