@@ -14,538 +14,494 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Shape3D;
-import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import virtualworld.WorldObject;
 import graphicsTesting.CameraController;
 import graphicsTesting.DrawFacade;
 
-public class Tree extends Application implements WorldObject{
-	private String type;
+public class Tree extends Application implements WorldObject {
+
 	public double x, y, z;
-	private double w,h,d,a,s,ix,fx,width;
+	private double w, h, d, a, s, ix, fx,height, depth;
 	private String productionA, productionB;
 	public Branch axiom;
-	public Queue <Branch>q;
+	public Queue<Branch> q;
 	static Group mainGroup = new Group();
 	private static boolean tC;
 
-	//for testing camera notification
+	// for testing camera notification
 	public boolean cameraClose = false;
-	
-	public ArrayList <Branch> nodes=new ArrayList<Branch>();
-	public ArrayList <Box> branches= new ArrayList<Box>();
+
+	public ArrayList<Branch> nodes = new ArrayList<Branch>();
+	public ArrayList<Box> branches = new ArrayList<Box>();
+	public ArrayList<Shape3D> shapes = new ArrayList<Shape3D>();
 
 	private int loops;
 
-	public Tree(){
+	public Tree() {
 
-
-		s=0;
+		s = 0;
 	}
-	
+
 	/**
-	 * Function to generate random shades of green or brown 
-	 * This will create a healthy tree or a dry tree
+	 * Function to generate random shades of green or brown This will create a
+	 * healthy tree or a dry tree
 	 */
 	public static Color colorAssignment() {
-		
+
 		Color c;
-		
-		//Healthy tree
-		if(tC){
-		c=healthyTree();
+
+		// Healthy tree
+		if (tC) {
+			c = healthyTree();
 		}
-		
-		//Dry tree
-		else{
-		c=dryTree();
+
+		// Dry tree
+		else {
+			c = dryTree();
 		}
-		
+
 		return c;
-		
+
 	}
-	
+
 	public static Color healthyTree() {
 		Random r = new Random();
-		int color = r.nextInt(8)+1;
+		int color = r.nextInt(8) + 1;
 		Color c;
-		if(color == 1){
-			c=Color.rgb(51,102,25);
-		}
-		else if(color == 2){
-			c=Color.rgb(0,102,0);
-		}
-		else if(color == 3){
-			c=Color.rgb(0,102,51);
-		}
-		else if(color == 4){
-			c=Color.rgb(76,153,0);
-		}
-		
-		else if(color == 5){
-			c=Color.rgb(0,153,0);
-		}
-		else if(color == 6){
-			c=Color.rgb(0,153,76);
-		}
-		else if(color == 7){
-			c=Color.rgb(102,204,0);
-		}
-		else if(color == 8){
-			c=Color.rgb(0,204,0);
-		}
-		else {
-			c=Color.rgb(0,204,102);
+		if (color == 1) {
+			c = Color.rgb(51, 102, 25);
+		} else if (color == 2) {
+			c = Color.rgb(0, 102, 0);
+		} else if (color == 3) {
+			c = Color.rgb(0, 102, 51);
+		} else if (color == 4) {
+			c = Color.rgb(76, 153, 0);
+		} else if (color == 5) {
+			c = Color.rgb(0, 153, 0);
+		} else if (color == 6) {
+			c = Color.rgb(0, 153, 76);
+		} else if (color == 7) {
+			c = Color.rgb(102, 204, 0);
+		} else if (color == 8) {
+			c = Color.rgb(0, 204, 0);
+		} else {
+			c = Color.rgb(0, 204, 102);
 		}
 		return c;
 	}
-	
-	public static Color dryTree(){
+
+	public static Color dryTree() {
 		Random r = new Random();
-		int color = r.nextInt(8)+1;
+		int color = r.nextInt(8) + 1;
 		Color c;
-		if(color == 1){
-			c=Color.rgb(117,89,35);
-		}
-		else if(color == 2){
-			c=Color.rgb(142,110,44);
-		}
-		else if(color == 3){
-			c=Color.rgb(119,94,44);
-		}
-		else if(color == 4){
-			c=Color.rgb(137,97,18);
-		}
-		
-		else if(color == 5){
-			c=Color.rgb(158,131,78);
-		}
-		else if(color == 6){
-			c=Color.rgb(168,123,33);
-		}
-		else if(color == 7){
-			c=Color.rgb(186,147,69);
-		}
-		else if(color == 8){
-			c=Color.rgb(172,145,92);
-		}
-		else {
-			c=Color.rgb(186,161,111);
+		if (color == 1) {
+			c = Color.rgb(117, 89, 35);
+		} else if (color == 2) {
+			c = Color.rgb(142, 110, 44);
+		} else if (color == 3) {
+			c = Color.rgb(119, 94, 44);
+		} else if (color == 4) {
+			c = Color.rgb(137, 97, 18);
+		} else if (color == 5) {
+			c = Color.rgb(158, 131, 78);
+		} else if (color == 6) {
+			c = Color.rgb(168, 123, 33);
+		} else if (color == 7) {
+			c = Color.rgb(186, 147, 69);
+		} else if (color == 8) {
+			c = Color.rgb(172, 145, 92);
+		} else {
+			c = Color.rgb(186, 161, 111);
 		}
 		return c;
 	}
-	
+
 	/**
 	 * Visual object that represents a branch of the Tree
 	 * 
 	 */
-	public Box makeAxiom(double width, double height, double depth, double posX,double posY, double posZ, double angle){
-		
+	public Box makeAxiom(double width, double height, double depth, double posX, double posY, double posZ,
+			double angle) {
+
 		Random r = new Random();
-		double an = (double)r.nextInt(30)+1;
-		
-		if(Math.random() < 0.5){
-			an=an*-1;
+		double an = (double) r.nextInt(30) + 1;
+
+		if (Math.random() < 0.5) {
+			an = an * -1;
 		}
-		
-		Rotate zR= new Rotate(angle,Rotate.Z_AXIS);
-		Rotate xR=new Rotate(angle,Rotate.X_AXIS);
-		Rotate yR=new Rotate(an,Rotate.Y_AXIS);
-		//Rotate yR=new Rotate(angle,Rotate.)
-		PhongMaterial material=new PhongMaterial(Color.rgb(111,81,22));
-		
-		Box b=DrawFacade.getBoxBuilder(width, height, depth).transCoords(posX, posY, posZ).zRotate(zR).xRotate(xR).yRotate(yR).material(material).build().get();
-		//Material mat = new PhongMaterial(colorAssignment());
-		
-		return b;
-	}
-	public Box makeBranch(double width, double height, double depth, double posX,double posY, double posZ, double angle){
-		
-		Random r = new Random();
-		double an = (double)r.nextInt(30)+1;
-		
-		if(Math.random() < 0.5){
-			an=an*-1;
-		}
-		
-		Rotate zR= new Rotate(angle,Rotate.Z_AXIS);
-		Rotate xR=new Rotate(angle,Rotate.X_AXIS);
-		Rotate yR=new Rotate(an,Rotate.Y_AXIS);
-		//Rotate yR=new Rotate(angle,Rotate.)
-		PhongMaterial material=new PhongMaterial(colorAssignment());
-		
-		Box b=DrawFacade.getBoxBuilder(width, height, depth).transCoords(posX, posY, posZ).zRotate(zR).xRotate(xR).yRotate(yR).material(material).build().get();
-		//Material mat = new PhongMaterial(colorAssignment());
-		
-		return b;
-	}
 
-
-
+		Rotate zR = new Rotate(angle, Rotate.Z_AXIS);
+		Rotate xR = new Rotate(angle, Rotate.X_AXIS);
+		Rotate yR = new Rotate(an, Rotate.Y_AXIS);
 	
+		PhongMaterial material = new PhongMaterial(Color.rgb(111, 81, 22));
+
+		Box b = DrawFacade.getBoxBuilder(width, height, depth).transCoords(posX, posY, posZ).zRotate(zR).xRotate(xR)
+				.yRotate(yR).material(material).build().get();
+
+
+		return b;
+	}
+
+	public Box makeBranch(double width, double height, double depth, double posX, double posY, double posZ,
+			double angle) {
+
+		Random r = new Random();
+		double an = (double) r.nextInt(30) + 1;
+
+		if (Math.random() < 0.5) {
+			an = an * -1;
+		}
+
+		Rotate zR = new Rotate(angle, Rotate.Z_AXIS);
+		Rotate xR = new Rotate(angle, Rotate.X_AXIS);
+		Rotate yR = new Rotate(an, Rotate.Y_AXIS);
+	
+		PhongMaterial material = new PhongMaterial(colorAssignment());
+
+		Box b = DrawFacade.getBoxBuilder(width, height, depth).transCoords(posX, posY, posZ).zRotate(zR).xRotate(xR)
+				.yRotate(yR).material(material).build().get();
+	
+
+		return b;
+	}
+
 	private double nextInt(int i) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	/**
-	 * Type A of Tree
-	 * axiom is the First branch to be created.
+	 * Type A of Tree axiom is the First branch to be created.
 	 */
-	public Color treeA(){
-		
-		axiom= new Branch("a",7.5,40,7.5,0,0,350,0,s);
-		x=axiom.getPositionX();
-		y=axiom.getPositionY();
-		z=axiom.getPositionZ();
+	public Color treeA() {
 
-		productionA="aba";
-		productionB="ba";
+		axiom = new Branch("a", 7.5, 40, 7.5, 0, 0, 350, 0, s);
+		// axiom = new Branch("b", 7.5, 40, 7.5, xzCoordinate(), 0,
+		// xzCoordinate(), 0, s);
+		x = axiom.getPositionX();
+		y = axiom.getPositionY();
+		z = axiom.getPositionZ();
 
-		Random times=new Random();
-		
-		int nTimes=(times.nextInt((6 - 4) + 1) + 4)-1;
-		loops=(int)((Math.pow(3,nTimes-1)+Math.pow(2,nTimes-1)-1));
+		productionA = "aba";
+		productionB = "ba";
+
+		Random times = new Random();
+
+		int nTimes = (times.nextInt((6 - 3) + 1) + 3) - 1;
+		loops = (int) ((Math.pow(3, nTimes - 1) + Math.pow(2, nTimes - 1) - 1));
 		System.out.println("Type A tree generated");
-		System.out.println("Tree size: "+nTimes+" levels");
-		
+		System.out.println("Tree size: " + nTimes + " levels");
+
 		return healthyTree();
 	}
 
-
 	/**
-	 * Type B of Tree
-	 * axiom is the First branch to be created.
+	 * Type B of Tree axiom is the First branch to be created.
 	 */
-	public Color treeB(){
+	public Color treeB() {
 
+		axiom = new Branch("b", 7.5, 40, 7.5, 0, 0, 350, 0, s);
 
-		axiom= new Branch("b",7.5,40,7.5,0,0,350,0,s);
-		x=axiom.getPositionX();
-		y=axiom.getPositionY();
-		z=axiom.getPositionZ();
+		// axiom = new Branch("b", 7.5, 40, 7.5, xzCoordinate(), 0,
+		// xzCoordinate(), 0, s);
+		x = axiom.getPositionX();
+		y = axiom.getPositionY();
+		z = axiom.getPositionZ();
 
-		productionA="ba";
-		productionB="bb";
-		Random times=new Random();
-		//int nTimes=2;
-		int nTimes=(times.nextInt((6 - 4) + 1) + 4)-1;
-		loops=(int)(Math.pow(2,nTimes)-1);
+		productionA = "ba";
+		productionB = "ab";
+		Random times = new Random();
+
+		int nTimes = (times.nextInt((6 - 3) + 1) + 3) - 1;
+		loops = (int) (Math.pow(2, nTimes) - 1);
 		System.out.println("Type B tree generated");
-		System.out.println("Tree size: "+nTimes+" levels");
+		System.out.println("Tree size: " + nTimes + " levels");
 
 		return dryTree();
-
 	}
-	
-	/**
-	 * Function that randomizes which Tree is going to be created
-	 * Calls whatever either treeA or treeB based on the randomization
-	 */
-	public boolean chooseTree(){
-		
-		Random r = new Random();
 
-		if(r.nextInt((10 - 1) + 1) + 1<6){
+	/**
+	 * Function that randomizes which Tree is going to be created Calls whatever
+	 * either treeA or treeB based on the randomization
+	 */
+	public boolean chooseTree() {
+
+		if (Math.random() < .5) {
 			treeA();
 			return true;
-		}
-
-		else{
+		} else {
 			treeB();
 			return false;
 		}
 	}
 
-	public void buildTree(){
-		if(Math.random()<.5){
-			tC=true;
-			
-		}
-		else{
-			tC=false;
+	/**
+	 * Randomly assign x,z coordinates to and how many levels the tree will
+	 * have.
+	 */
+	public static double xzCoordinate() {
+
+		int x = -4000;
+		int y = 4000;
+		return Math.floor(Math.random() * ((y - x) + 1) + x);
+	}
+
+	/**
+	 * Function that builds the tree based on the axiom given and how many
+	 * levels the tree will have.
+	 */
+	public void buildTree() {
+		if (Math.random() < .5) {
+			tC = true;
+
+		} else {
+			tC = false;
 		}
 		Branch branch;
 		chooseTree();
-		q=new LinkedList<>();
+		q = new LinkedList<>();
 
 		q.add(axiom);
 
+		for (int i = 0; i < loops; i++) {
 
-		for (int i=0; i< loops; i++){
-			
-			branch=q.poll();
-			
+			branch = q.poll();
+
 			nodes.add(branch);
 
-			
-			if(i==0){
-			//	System.out.println("H: "+branch.getHeight());
-			
-				//mainGroup.getChildren().add(makeBranch(branch.getWidth(), branch.getHeight(), branch.getDepth(), branch.getPositionX(), branch.getPositionY(), branch.getPositionZ(),branch.getAngle()));
-				//branch.setAngle(0);
-				System.out.print(branch.getAngle());
-				branches.add(makeAxiom(branch.getWidth(), branch.getHeight(), branch.getDepth(), branch.getPositionX(), branch.getPositionY(), branch.getPositionZ(),branch.getAngle()));
+			if (i == 0) {
+		
+
+				branches.add(makeAxiom(branch.getWidth(), branch.getHeight(), branch.getDepth(), branch.getPositionX(),
+						branch.getPositionY(), branch.getPositionZ(), branch.getAngle()));
 			}
-			
-			if(branch.getType().equals("a")){
 
-				for(int k=0; k<productionA.length(); k++){
+			if (branch.getType().equals("a")) {
 
+				for (int k = 0; k < productionA.length(); k++) {
 
 					branch.addChild(Character.toString(productionA.charAt(k)));
 					q.add(branch.getChildAt(k));
-				
-					}
-			}
-			else if(branch.getType().equals("b")){
 
-				for(int k=0; k<productionB.length(); k++){
+				}
+			} else if (branch.getType().equals("b")) {
+
+				for (int k = 0; k < productionB.length(); k++) {
 
 					branch.addChild(Character.toString(productionB.charAt(k)));
 					q.add(branch.getChildAt(k));
 
-					}
+				}
 			}
 
-			//System.out.println("Parent: "+branch.getType());
-			//branches.add(makeBranch(branch.getWidth(), branch.getHeight(), branch.getDepth(), branch.getPositionX(), branch.getPositionY(),branch.getPositionZ(), branch.getAngle()));
-			int index=0;
-			
+			int index = 0;
+
 			/**
 			 * Each new branch's characteristics are based on its parent branch
 			 * Width, Height and Depth are 75% big compared to the parent branch
 			 * Each branch has a different rotation compared to its parent
 			 */
-			for(Branch node : branch.getChildren()) {
+			for (Branch node : branch.getChildren()) {
 
-			//	System.out.println(node.getType()+ " ");
-				
-				if(branch.getType()=="a"){
-					if(index==0){
-						
-						branch.getChildAt(0).setAngle(branch.getAngle()-45);
-			
-						w=branch.getWidth()*.75;
-						h=branch.getHeight()*.75;
-						d=branch.getDepth()*.75;
+				if (branch.getType() == "a") {
+					if (index == 0) {
+
+						branch.getChildAt(0).setAngle(branch.getAngle() - 45);
+
+						w = branch.getWidth() * .75;
+						h = branch.getHeight() * .75;
+						d = branch.getDepth() * .75;
 						branch.getChildAt(0).setInitialSize(w, h, d);
-						a=branch.getChildAt(0).getAngle();
-						x=branch.getPositionX()-(h)*(Math.cos(Math.toRadians(a)))/2;
+						a = branch.getChildAt(0).getAngle();
+						x = branch.getPositionX() - (h) * (Math.cos(Math.toRadians(a))) / 2;
+						y = ((branch.getPositionY() - branch.getHeight() / 2))
+								+ (h * (Math.sin(Math.toRadians(a))) / 2);
+						z = branch.getPositionZ();
 						
-						//460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
-					//	System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))+(h*(Math.sin(Math.toRadians(a)))/2));
-						y=((branch.getPositionY()-branch.getHeight()/2))+(h*(Math.sin(Math.toRadians(a)))/2);
-						z=branch.getPositionZ();
-					//	mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
 						branch.getChildAt(0).setInitialCoordinates(x, y, z);
-				
-						branches.add(makeBranch(w, h, d, x, y, z, a));	
-							
+
+						branches.add(makeBranch(w, h, d, x, y, z, a));
+
 					}
-					
-					if(index==1){
-						
+
+					if (index == 1) {
+
 						branch.getChildAt(1).setAngle(branch.getAngle());
-						w=branch.getWidth()*.75;
-						h=branch.getHeight()*.50;
-						d=branch.getDepth()*.75;
+						w = branch.getWidth() * .75;
+						h = branch.getHeight() * .50;
+						d = branch.getDepth() * .75;
 						branch.getChildAt(1).setInitialSize(w, h, d);
-						a=branch.getChildAt(1).getAngle();
-						x=branch.getPositionX();
-						//460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
-					//	System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2));
-						y=(branch.getPositionY()-branch.getHeight()/2-h/2);
-						z=branch.getPositionZ();
-					//	mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
+						a = branch.getChildAt(1).getAngle();
+						x = branch.getPositionX();
+						// 460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
+						// System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2));
+						y = (branch.getPositionY() - branch.getHeight() / 2 - h / 2);
+						z = branch.getPositionZ();
+						// mainGroup.getChildren().add(makeBranch(w, h, d, x, y,
+						// 0, a));
 						branch.getChildAt(1).setInitialCoordinates(x, y, z);
-						branches.add(makeBranch(w, h, d, x, y, z, a));	
-							
+						branches.add(makeBranch(w, h, d, x, y, z, a));
+
 					}
-					
-					
-					
-					
-					if(index==2){
-						
-						branch.getChildAt(2).setAngle(branch.getAngle()+45);
-						w=branch.getWidth()*.75;
-						h=branch.getHeight()*.75;
-						d=branch.getDepth()*.75;
+
+					if (index == 2) {
+
+						branch.getChildAt(2).setAngle(branch.getAngle() + 45);
+						w = branch.getWidth() * .75;
+						h = branch.getHeight() * .75;
+						d = branch.getDepth() * .75;
 						branch.getChildAt(2).setInitialSize(w, h, d);
-						a=branch.getChildAt(2).getAngle();
-						x=branch.getPositionX()+(h)*(Math.cos(Math.toRadians(a)))/2;
-						//460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
-					//	System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2));
-						y=((branch.getPositionY()-branch.getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2);
-						z=branch.getPositionZ();
-						//mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
+						a = branch.getChildAt(2).getAngle();
+						x = branch.getPositionX() + (h) * (Math.cos(Math.toRadians(a))) / 2;
+						// 460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
+						// System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2));
+						y = ((branch.getPositionY() - branch.getHeight() / 2))
+								- (h * (Math.sin(Math.toRadians(a))) / 2);
+						z = branch.getPositionZ();
+						// mainGroup.getChildren().add(makeBranch(w, h, d, x, y,
+						// 0, a));
 						branch.getChildAt(2).setInitialCoordinates(x, y, z);
-						
-						branches.add(makeBranch(w, h, d, x, y, z, a));	
-							
+
+						branches.add(makeBranch(w, h, d, x, y, z, a));
+
 					}
-				}
-				else{
-					if(index==0){
-						
-						branch.getChildAt(0).setAngle(branch.getAngle()-45);
-			
-						w=branch.getWidth()*.75;
-						h=branch.getHeight()*.75;
-						d=branch.getDepth()*.75;
+				} else {
+					if (index == 0) {
+
+						branch.getChildAt(0).setAngle(branch.getAngle() - 45);
+
+						w = branch.getWidth() * .75;
+						h = branch.getHeight() * .75;
+						d = branch.getDepth() * .75;
 						branch.getChildAt(0).setInitialSize(w, h, d);
-						a=branch.getChildAt(0).getAngle();
-						x=branch.getPositionX()-(h)*(Math.cos(Math.toRadians(a)))/2;
-						//460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
-					//	System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))+(h*(Math.sin(Math.toRadians(a)))/2));
-						y=((branch.getPositionY()-branch.getHeight()/3))+(h*(Math.sin(Math.toRadians(a)))/2);
-						z=branch.getPositionZ();
-					//	mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
+						a = branch.getChildAt(0).getAngle();
+						x = branch.getPositionX() - (h) * (Math.cos(Math.toRadians(a))) / 2;
+						y = ((branch.getPositionY() - branch.getHeight() / 3))
+								+ (h * (Math.sin(Math.toRadians(a))) / 2);
+						z = branch.getPositionZ();
+
 						branch.getChildAt(0).setInitialCoordinates(x, y, z);
-						branches.add(makeBranch(w, h, d, x, y, z, a));	
-							
+						branches.add(makeBranch(w, h, d, x, y, z, a));
 					}
-					
-					if(index==1){
-						branch.getChildAt(1).setAngle(branch.getAngle()+45);
-						w=branch.getWidth()*.75;
-						h=branch.getHeight()*.75;
-						d=branch.getDepth()*.75;
+
+					if (index == 1) {
+						branch.getChildAt(1).setAngle(branch.getAngle() + 45);
+						w = branch.getWidth() * .75;
+						h = branch.getHeight() * .75;
+						d = branch.getDepth() * .75;
 						branch.getChildAt(1).setInitialSize(w, h, d);
-						a=branch.getChildAt(1).getAngle();
-						x=branch.getPositionX()+(h)*(Math.cos(Math.toRadians(a)))/2;
-						//460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2)
-					//	System.out.println(((branch.getParent().getPositionY()-branch.getParent().getHeight()/2))-(h*(Math.sin(Math.toRadians(a)))/2));
-						y=((branch.getPositionY()-branch.getHeight()/3))-(h*(Math.sin(Math.toRadians(a)))/2);
-						//mainGroup.getChildren().add(makeBranch(w, h, d, x, y, 0, a));
-						z=branch.getPositionZ();
+						a = branch.getChildAt(1).getAngle();
+						x = branch.getPositionX() + (h) * (Math.cos(Math.toRadians(a))) / 2;
+
+						y = ((branch.getPositionY() - branch.getHeight() / 3))
+								- (h * (Math.sin(Math.toRadians(a))) / 2);
+
+						z = branch.getPositionZ();
 						branch.getChildAt(1).setInitialCoordinates(x, y, z);
-						branches.add(makeBranch(w, h, d, x, y, z, a));	
+						branches.add(makeBranch(w, h, d, x, y, z, a));
 					}
 				}
-				
+
+				index++;
+			}
+
+		}
+		height=0;
+		for (int j = 0; j < loops; j++) {
+
+			shapes.add(branches.get(j));
 			
-			index++;
+			mainGroup.getChildren().add(shapes.get(j));
+			if(height>shapes.get(j).getTranslateY()){
+				height=shapes.get(j).getTranslateY();
 			}
 			
-			
 		}
 		
-		System.out.println("LOOPS: "+loops);
+		height=Math.abs(height)+axiom.getHeight()/2;
 		
-		for (int j=0; j<loops;j++){
-			mainGroup.getChildren().add(branches.get(j));
-		}
-		type=axiom.getType();
-		fx=160*.75*(Math.sin(Math.toRadians(45)))/2;
-		ix=160*.75*(Math.sin(Math.toRadians(-45)))/2;
-		
-		
+		fx = 160 * .75 * (Math.sin(Math.toRadians(45))) / 2;
+		ix = 160 * .75 * (Math.sin(Math.toRadians(-45))) / 2;
 	}
 
-
 	public void start(Stage primaryStage) throws Exception {
-		
 
 		Tree tree = new Tree();
-		
 		primaryStage.setTitle("Tree");
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
-		
 
 		tree.buildTree();
-		
-		//makeBranch(double width, double height, double depth, double posX,double posY, double posZ)
-		
-//		mainGroup.getChildren().add(tree.makeBranch(15, 80, 15, 250, 460, 0,0));
-		
-			
-			//left									    w   h   d    x    y   a
-//			mainGroup.getChildren().add(tree.makeBranch(15*.75, 80*.75, 15*.75, (250-(80*.75)*(Math.cos(Math.toRadians(-45)))/2), 460-40+ ((80*.75)*(Math.sin(Math.toRadians(-45)))/2), 0,-45));
-			
-				
-//				mainGroup.getChildren().add(tree.makeBranch(7, 45, 10, 230, 380, 0,0));
-////			//center	
-////			mainGroup.getChildren().add(tree.makeBranch(10, 60, 10, 250, 400, 0,0));
-////			//	mainGroup.getChildren().add(tree.makeBranch(7, 45, 10, 233, 370, 0,-45));
-////			//	mainGroup.getChildren().add(tree.makeBranch(7, 45, 10, 250, 350, 0,0));
-////			
-////			//right
-//			mainGroup.getChildren().add(tree.makeBranch(10, 60, 10, 270, 400, 0,45));
-//	
+		tree.display();
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		Group cameraGroup = new Group();
 		CameraController pCam = new CameraController.Builder(camera).build();
-		
+
 		mainGroup.getChildren().add(cameraGroup);
-		
-		
+
 		Set<KeyCode> keySet = new HashSet<KeyCode>();
-		scene.setOnKeyPressed(event ->{ 
-			 KeyCode key = event.getCode();
-			 keySet.add(key);
-			 
-			 if(keySet.contains(KeyCode.W)) {
-				 pCam.moveForward();
-			 }
-			 if(keySet.contains(KeyCode.S)) {
-				 pCam.moveBackward();
-			 }
-			 if(keySet.contains(KeyCode.A)) {
-				 pCam.moveLeft();
-			 }
-			 if(keySet.contains(KeyCode.D)) {
-				 pCam.moveRight();
-			 }
-			 if(keySet.contains(KeyCode.RIGHT)) {
-				 pCam.rotateRight();
-			 }
-			 if(keySet.contains(KeyCode.LEFT)) {
-				 pCam.rotateLeft();
-			 }
-			 if(keySet.contains(KeyCode.UP)) {
-				 pCam.rotateUp();
-			 }
-			 if(keySet.contains(KeyCode.DOWN)) {
-				 pCam.rotateDown();
-			 }
-			 if(keySet.contains(KeyCode.R)) {
-				 pCam.moveUp();
-			 }
-			 if(keySet.contains(KeyCode.F)) {
-				 pCam.moveDown();
-			 }
-			 if(keySet.contains(KeyCode.SHIFT)) {
-				 pCam.boostOn();
-			 }
-		});
-		
-		scene.setOnKeyReleased(event ->{
+		scene.setOnKeyPressed(event -> {
 			KeyCode key = event.getCode();
-			if(key == KeyCode.SHIFT) {
+			keySet.add(key);
+
+			if (keySet.contains(KeyCode.W)) {
+				pCam.moveForward();
+			}
+			if (keySet.contains(KeyCode.S)) {
+				pCam.moveBackward();
+			}
+			if (keySet.contains(KeyCode.A)) {
+				pCam.moveLeft();
+			}
+			if (keySet.contains(KeyCode.D)) {
+				pCam.moveRight();
+			}
+			if (keySet.contains(KeyCode.RIGHT)) {
+				pCam.rotateRight();
+			}
+			if (keySet.contains(KeyCode.LEFT)) {
+				pCam.rotateLeft();
+			}
+			if (keySet.contains(KeyCode.UP)) {
+				pCam.rotateUp();
+			}
+			if (keySet.contains(KeyCode.DOWN)) {
+				pCam.rotateDown();
+			}
+			if (keySet.contains(KeyCode.R)) {
+				pCam.moveUp();
+			}
+			if (keySet.contains(KeyCode.F)) {
+				pCam.moveDown();
+			}
+			if (keySet.contains(KeyCode.SHIFT)) {
+				pCam.boostOn();
+			}
+		});
+
+		scene.setOnKeyReleased(event -> {
+			KeyCode key = event.getCode();
+			if (key == KeyCode.SHIFT) {
 				pCam.boostOff();
 			}
 			keySet.remove(key);
-			
+
 		});
-		
-		
+
 		primaryStage.setScene(scene);
 		primaryStage.show();
-//		System.out.println("POS: "+(250-(80*.75)*(Math.cos(Math.toRadians(-45)))/2));
+
 	}
 
 	public static void main(String args[]) {
 		launch(args);
-		
+
 	}
 
 	@Override
@@ -566,9 +522,9 @@ public class Tree extends Application implements WorldObject{
 
 	@Override
 	public double getSize() {
-		fx=160*.75*(Math.sin(Math.toRadians(45)))/2;
-		ix=160*.75*(Math.sin(Math.toRadians(-45)))/2;
-		s=(fx-ix)*490*10;
+		fx = 160 * .75 * (Math.sin(Math.toRadians(45))) / 2;
+		ix = 160 * .75 * (Math.sin(Math.toRadians(-45))) / 2;
+		s = (fx - ix) * height * (fx - ix);
 		return s;
 	}
 
@@ -598,10 +554,8 @@ public class Tree extends Application implements WorldObject{
 		return z;
 	}
 
-
 	@Override
 	public ArrayList<Shape3D> display() {
-		// TODO Auto-generated method stub
-		return null;
+		return shapes;
 	}
-	}
+}
