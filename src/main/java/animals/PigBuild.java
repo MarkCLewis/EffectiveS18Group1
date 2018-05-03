@@ -29,14 +29,14 @@ public class PigBuild {
 		list.add(c4);
 	
 		//body
-		Box b = DrawFacade.getBoxBuilder(2, .8, 1).transCoords(2, -1.2, .73).build().get();
+		Box b = DrawFacade.getBoxBuilder(2, .8, 1).transCoords(.75, -.7, .73).build().get();
 		list.add(b);
 		
 		//head
 		Box b2 = DrawFacade.getBoxBuilder(.6, .6, .6).transCoords(2, -1.2, .73).build().get();
 		list.add(b2);
 		
-		Box b3 = DrawFacade.getBoxBuilder(.3, .3, .3).transCoords(2.4, -1.1, .73).build().get();
+		Box b3 = DrawFacade.getBoxBuilder(.3, .3, .3).transCoords(2.3, -1.1, .73).build().get();
 		list.add(b3);
 		
 		return list;
