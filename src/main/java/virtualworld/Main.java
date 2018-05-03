@@ -1,13 +1,12 @@
 package virtualworld;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-
 import animals.Sheep;
-import animals.sheep;
 import citiesTesting.CityOne;
 import graphicsTesting.CameraController;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -17,11 +16,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape3D;
 import javafx.stage.Stage;
+import quad.ElementVisitor;
+import quad.NotifyObjects;
 import quad.QuadTree;
-import javafx.animation.AnimationTimer;
-import javafx.application.Application;
 
 public class Main extends Application {
+	
+	static List<WorldObject> itemRendered = new ArrayList<WorldObject>();
+	static List<Shape3D> toBeDrawn = new ArrayList<Shape3D>();
+	static ArrayList<ElementVisitor> visitList = new ArrayList<ElementVisitor>();
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -42,20 +45,30 @@ public class Main extends Application {
 	
 	//QuadTree Setup
 		QuadTree quad = QuadTree.getInstance();
+		QuadTree.cameraX = pCam.getCameraX();
+		QuadTree.cameraZ = pCam.getCameraZ();
 		double oldCamX = pCam.getCameraX();
 		double oldCamZ = pCam.getCameraZ();
 		double newCamX;
 		double newCamZ;
 		
-		quad.insert(new ExampleObject(0, 0, 400), null); //TODO replace with large terrain piece
+		CityOne exampleCity = CityOne.returnObj(mainGroup);
+		
+		quad.insert(new ExampleObject(0, 0, 6000), null); //TODO replace with large terrain piece
+		quad.insert(exampleCity, quad.getRootNode());
+		
+		System.out.println(itemRendered.size());
 		
 	//Visitors
-		//PrintVisitor printTest = new PrintVisitor();
-		//NotifyObjects camVisitor = new NotifyObjects();
-		//Traverse printTest = new Traverse();
-		//quad.accept(printTest);
-		//quad.accept(camVisitor);
+		NotifyObjects renderCollector = new NotifyObjects();
+		visitList.add((ElementVisitor) renderCollector);
+		renderCollector.visit(quad.getRootNode());
+		for (WorldObject items : renderCollector.validObjects) {
+			itemRendered.add((WorldObject) items);
+			toBeDrawn.addAll(items.display());
+		}
 		
+		System.out.println(itemRendered.size());
 		
 		//String[] args = null;
 		//Group buildingGroup = new Group();
@@ -63,7 +76,7 @@ public class Main extends Application {
 		
 		//mainGroup.getChildren().add(buildingGroup);
 		mainGroup.getChildren().add(cameraGroup);
-		
+		mainGroup.getChildren().addAll(toBeDrawn);
 		//Calls appropriate movement methods from pCam when key press is detected
 		//KeyCodes are stored in a set so multiple commands can be executed at once
 		Set<KeyCode> keySet = new HashSet<KeyCode>();
@@ -150,13 +163,14 @@ public class Main extends Application {
 		mainGroup.getChildren().addAll(terr.display());
 		*/
 		
+		/*
 		CityOne cOne = CityOne.returnObj(mainGroup);
 		System.out.println(cOne.getX() + " " + cOne.getZ());
 		System.out.println(cOne.display().size());
 		for (Shape3D shape : cOne.display()) {
 			mainGroup.getChildren().add(shape);
 		}
-		
+		*/
 		//List<sheep> sheepList = new ArrayList<sheep>();
 		//for (int i = 0; i < 100; i++) sheepList.add(animals.sheep.returnObj(mainGroup));
 		Sheep sheeps = animals.Sheep.returnObj(mainGroup);
@@ -168,18 +182,6 @@ public class Main extends Application {
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		
-		new AnimationTimer() {
-			@Override
-			public void handle(long now) {
-				
-				QuadTree.cameraX = pCam.getCameraX();
-				QuadTree.cameraZ = pCam.getCameraZ();
-				
-				
-			}
-			
-		}.start();
 	}
 }
 

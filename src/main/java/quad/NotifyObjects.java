@@ -43,7 +43,7 @@ public class NotifyObjects implements ElementVisitor {
   		double xLoc = item.getXLoc();
   		double zLoc = item.getZLoc();
   		double itemR = item.getSize();
-  		double camR = 300;
+  		double camR = 10000;
   		
   		double distance = Math.sqrt(Math.pow((xLoc - xCam), 2) + Math.pow((zLoc - zCam), 2));
   		
@@ -52,7 +52,7 @@ public class NotifyObjects implements ElementVisitor {
   	}
   	
   	public boolean euclideanCheck(Node n) {
-  		if (Math.sqrt(Math.pow((n.x - xCam), 2) + Math.pow((n.z - zCam), 2)) <= 1000) return true;
+  		if (Math.sqrt(Math.pow((n.x - xCam), 2) + Math.pow((n.z - zCam), 2)) <= 10000) return true;
   		else return false;
   	}
 }
