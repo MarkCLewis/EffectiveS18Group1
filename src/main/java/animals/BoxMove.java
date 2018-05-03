@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
-public class boxMove extends Application {
+public class BoxMove extends Application {
 
     private static final double SIZE = 300;
     private final Content content = Content.create(SIZE);
