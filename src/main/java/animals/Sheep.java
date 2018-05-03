@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import citiesTesting.MathStuff;
 import javafx.geometry.Point3D;
-//import animals.SheepBuild;
 import javafx.scene.Group;
 import javafx.scene.shape.Shape3D;
 import virtualworld.WorldObject;
@@ -20,7 +19,7 @@ public class Sheep implements WorldObject {
 	static ArrayList<Shape3D> list = new ArrayList<Shape3D>();
 	
 	public Point3D point;
-	//public animalTransition moveTransition;
+	public animalTransition moveTransition;
 	static ArrayList<Shape3D> limbs = new ArrayList<Shape3D>();
 	
 	public static Sheep returnObj(Group sgroup) {
@@ -33,8 +32,6 @@ public class Sheep implements WorldObject {
 		setX();
 		setY();
 		setZ();
-		
-		
 		
 		ArrayList<Shape3D> Bs = SheepBuild.makeSheep(x,y,z);
 		list.addAll(Bs);
@@ -118,9 +115,9 @@ public class Sheep implements WorldObject {
 	}
 
 	@Override
-	public void notifyOfCamera(double x, double z) {
+	public boolean notifyOfCamera(double x, double z) {
 		// TODO Auto-generated method stub
-
+		return true;
 	}
 
 	@Override

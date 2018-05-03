@@ -137,7 +137,7 @@ public class PigMaker extends Application{
 		mainGroup.getChildren().add(bodyShapes.createCylinder(.15, .7 , 0, 0, .5));  //LBL
 		mainGroup.getChildren().add(bodyShapes.createBox(2, .8, 1, .75, -.7, .73)); //body
 		mainGroup.getChildren().add(bodyShapes.createBox(.6, .6, .6, 2, -1.2, .73)); //head
-		mainGroup.getChildren().add(bodyShapes.createBox(.3, .3, .3, 2.4, -1.1, .73)); //head
+		mainGroup.getChildren().add(bodyShapes.createBox(.3, .3, .3, 2.3, -1.1, .73)); //Snout
 		
 		//mainGroup.getChildren().addAll(testSheep.list);
 		stage.setScene(scene);

@@ -94,7 +94,7 @@ public class sheepMaker extends Application{
 		tempList.add(bodyShapes.createCylinder(.2, 1, 0, 0, .5));
 		// so 0-4 are the limbs
 		tempList.add(bodyShapes.createBox(2, 1, 1.5, .75, -1, 1));
-		tempList.add(bodyShapes.createBox(.7, .7, .7, 2, -1.75, 1));
+		tempList.add(bodyShapes.createBox(.7, .7, .7, 2, -1.7, 1));
 		sheep testSheep = new sheep();
 		sheep.list.addAll(tempList);
 		
