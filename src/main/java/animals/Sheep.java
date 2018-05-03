@@ -3,14 +3,16 @@ package animals;
 import java.util.ArrayList;
 
 import citiesTesting.MathStuff;
+import javafx.animation.RotateTransition;
 import javafx.geometry.Point3D;
 //import animals.SheepBuild;
 import javafx.scene.Group;
 import javafx.scene.shape.Shape3D;
+import javafx.util.Duration;
 import virtualworld.WorldObject;
 
 
-public class Sheep implements WorldObject {
+public class sheep implements WorldObject {
 
 	static Group mainGroup = new Group();
 	static double x;
@@ -20,12 +22,12 @@ public class Sheep implements WorldObject {
 	static ArrayList<Shape3D> list = new ArrayList<Shape3D>();
 	
 	public Point3D point;
-	//public animalTransition moveTransition;
+	public animalTransition moveTransition;
 	static ArrayList<Shape3D> limbs = new ArrayList<Shape3D>();
 	
-	public static Sheep returnObj(Group sgroup) {
+	public static sheep returnObj(Group sgroup) {
 		main(sgroup);
-		Sheep sh = new Sheep();
+		sheep sh = new sheep();
 		return sh;
 	}
 	
@@ -118,9 +120,14 @@ public class Sheep implements WorldObject {
 	}
 
 	@Override
-	public void notifyOfCamera(double x, double z) {
+	public boolean notifyOfCamera(double x, double z) {
 		// TODO Auto-generated method stub
-
+		double dist = Math.sqrt(Math.pow((getXLoc() - x), 2) + Math.pow((getZLoc() - z), 2));
+		
+		if(dist < 50){
+			return true;
+		}
+		else return false;
 	}
 
 	@Override
