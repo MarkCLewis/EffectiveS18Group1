@@ -1,6 +1,7 @@
 package graphicsTesting;
 
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
@@ -21,6 +22,7 @@ public class CustomMeshViewMaker implements ShapeMaker {
 	public static class CMVBuilder implements ShapeBuilder{
 		private float[] points;
 		private int[] faces;
+		private CullFace cull;
 		private double x = 0;
 		private double y = 0;
 		private double z = 0;
@@ -50,6 +52,11 @@ public class CustomMeshViewMaker implements ShapeMaker {
 			x = xLoc;
 			y = yLoc;
 			z = zLoc;
+			return this;
+		}
+		
+		public CMVBuilder cullFace(CullFace cf) {
+			cull = cf;
 			return this;
 		}
 		
@@ -116,6 +123,7 @@ public class CustomMeshViewMaker implements ShapeMaker {
 		
 		mv = new MeshView(tm);
 		mv.setDrawMode(DrawMode.FILL);
+		mv.setCullFace(builder.cull);
 		mv.setMaterial(builder.material);
 		mv.setTranslateX(builder.x);
 		mv.setTranslateY(builder.y);
