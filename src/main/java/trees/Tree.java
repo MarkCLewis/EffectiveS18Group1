@@ -436,7 +436,7 @@ public class Tree extends Application implements WorldObject {
 		primaryStage.setTitle("Tree");
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 
-		tree.buildTree();
+		//tree.buildTree();
 		tree.display();
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
@@ -556,6 +556,7 @@ public class Tree extends Application implements WorldObject {
 
 	@Override
 	public ArrayList<Shape3D> display() {
+	//	buildTree();
 		return shapes;
 	}
 }
