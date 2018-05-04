@@ -27,6 +27,8 @@ import javafx.scene.shape.TriangleMesh;
 import javafx.stage.Stage;
 import terraintesting.TerrainObject;
 import terraintesting.TerrainObjectBuilder;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 
 public class TerrainShadowDemo extends Application {
 
@@ -123,7 +125,7 @@ public class TerrainShadowDemo extends Application {
 		MeshView mv = new MeshView(mesh);
 		mv.setCullFace(CullFace.FRONT);
 		
-		PhongMaterial pm = new PhongMaterial(Color.BLUE);
+		PhongMaterial pm = new PhongMaterial(Color.GREEN);
 		
 		PointLight light = new PointLight();
 		//Point3D lightRotation = new Point3D(mesh.getPoints().get(50), mesh.getPoints().get(51) + 100, mesh.getPoints().get(52));
@@ -133,6 +135,15 @@ public class TerrainShadowDemo extends Application {
 		light.setLayoutY(500);
 		light.setScaleX(5);
 		light.setScaleY(10);
+		
+		/*
+		Light.Distant light = new Light.Distant();
+		light.setAzimuth(0); 
+	    light.setElevation(100);
+	    Lighting lighting = new Lighting();
+	    lighting.setLight(light);
+	    mv.setEffect(lighting);
+		*/
 		
 		mv.setDrawMode(DrawMode.FILL);
 		mv.setMaterial(pm);

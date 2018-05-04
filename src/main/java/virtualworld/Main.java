@@ -197,7 +197,6 @@ public class Main extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
-		/**
 		new AnimationTimer() {
 			@Override
 			public void handle(long now) {
@@ -205,18 +204,26 @@ public class Main extends Application {
 				z2 = pCam.getCameraZ();
 				
 				if(euclid(x1,x2,z1,z2)) {
+					x1 = x2;
+					z1 = z2;
 					itemRendered.clear();
 					toBeDrawn.clear();
 					mainGroup.getChildren().clear();
-					mainGroup.getChildren().add(cameraGroup);
+					//scene.setCamera(camera);
+					renderCollector.visit(quad.getRootNode());
+					for (WorldObject items : renderCollector.validObjects) {
+						itemRendered.add((WorldObject) items);
+						toBeDrawn.addAll(items.display());
+					}
+					mainGroup.getChildren().addAll(toBeDrawn);
+					scene.setRoot(mainGroup);
 				}
 			}
 		}.start();
-		
-		*/
 	}
 	
 	private boolean euclid(double x1, double x2, double z1, double z2) {
+		System.out.println(Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(z2-z1, 2)));
 		return (Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(z2-z1, 2)) > 10);
 	}
 	
