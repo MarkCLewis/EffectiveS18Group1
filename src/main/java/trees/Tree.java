@@ -3,7 +3,7 @@ package trees;
  * This class generates Tree WorldObjects from 2 types of trees based on some principles of LSystems.
  * 
  * Each Tree is made up of Branch objects
- * Each Tree has a min Size of 3 levels and a max Size of 10 levels.
+ * Each Tree has a min size of 2 levels and a max Size of 5 levels.
  */
 
 import java.util.*;
@@ -26,7 +26,7 @@ import graphicsTesting.DrawFacade;
 public class Tree extends Application implements WorldObject {
 
 	public double x, y, z;
-	private double w, h, d, a, s, ix, fx,height, depth;
+	private double w, h, d, a, s, ix, fx,height;
 	private String productionA, productionB;
 	public Branch axiom;
 	public Queue<Branch> q;
@@ -123,7 +123,7 @@ public class Tree extends Application implements WorldObject {
 
 	/**
 	 * Visual object that represents a branch of the Tree
-	 * 
+	 *
 	 */
 	public Box makeAxiom(double width, double height, double depth, double posX, double posY, double posZ,
 			double angle) {
@@ -175,13 +175,25 @@ public class Tree extends Application implements WorldObject {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	//String t,double w, double h, double d, double px, double py, double pz, double a, double s
 
-	/**
-	 * Type A of Tree axiom is the First branch to be created.
-	 */
+	
 	public Color treeA() {
+		Random randomX=new Random();
+		Random randomZ=new Random();
+		 int randX = randomX.nextInt((50 - 1) + 1) + 1;
+		 int randZ = randomZ.nextInt((350 - 300) + 1) + 300;
+		 if(Math.random()<.5){
+			 randX=-randX;
+		 }
+		 else{
+			 randZ=-randZ;
+		 }
 
-		axiom = new Branch("a", 1, 5, 1, 0, 0, 350, 0, s);
+		
+		axiom = new Branch("a", 1, 5, 1, randX, 0, randZ, 0, s);
+
+		//axiom = new Branch("a", 1, 5, 1, 0, 0, 350, 0, s);
 		// axiom = new Branch("b", 7.5, 40, 7.5, xzCoordinate(), 0,
 		// xzCoordinate(), 0, s);
 		x = axiom.getPositionX();
@@ -201,12 +213,24 @@ public class Tree extends Application implements WorldObject {
 		return healthyTree();
 	}
 
-	/**
-	 * Type B of Tree axiom is the First branch to be created.
-	 */
+	
 	public Color treeB() {
+		
+		Random randomX=new Random();
+		Random randomZ=new Random();
+		 int randX = randomX.nextInt((50 - 1) + 1) + 1;
+		 int randZ = randomZ.nextInt((350 - 300) + 1) + 300;
+		 if(Math.random()<.5){
+			 randX=-randX;
+		 }
+		 else{
+			 randZ=-randZ;
+		 }
 
-		axiom = new Branch("b", 1, 5, 1, 0, 0, 350, 0, s);
+		//System.out.println(randX);
+		
+		axiom = new Branch("b", 1, 5, 1, randX, 0, 350, 0, s);
+		//axiom = new Branch("b", 1, 5, 1, 0, 0, 350, 0, s);
 
 		// axiom = new Branch("b", 7.5, 40, 7.5, xzCoordinate(), 0,
 		// xzCoordinate(), 0, s);
@@ -225,6 +249,16 @@ public class Tree extends Application implements WorldObject {
 
 		return dryTree();
 	}
+	
+	public void forest(){
+		for (int i=0; i<50; i++){
+			buildTree();
+		}
+	}
+	
+
+	
+	
 
 	/**
 	 * Function that randomizes which Tree is going to be created Calls whatever
@@ -413,6 +447,7 @@ public class Tree extends Application implements WorldObject {
 
 		}
 		height=0;
+		
 		for (int j = 0; j < loops; j++) {
 
 			shapes.add(branches.get(j));
@@ -432,12 +467,16 @@ public class Tree extends Application implements WorldObject {
 
 	public void start(Stage primaryStage) throws Exception {
 
-		Tree tree = new Tree();
+	
+		
 		primaryStage.setTitle("Tree");
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 
-		// tree.buildTree();
-		tree.display();
+		for (int i=0;i<40;i++){
+			Tree t=new Tree();
+			t.buildTree();
+		}
+		
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		Group cameraGroup = new Group();
