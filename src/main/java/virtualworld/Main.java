@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import animals.Sheep;
 import citiesTesting.CityOne;
 import graphicsTesting.CameraController;
 import javafx.animation.AnimationTimer;
@@ -21,6 +20,7 @@ import javafx.stage.Stage;
 import quad.ElementVisitor;
 import quad.NotifyObjects;
 import quad.QuadTree;
+import trees.Tree;
 
 public class Main extends Application {
 	static List<WorldObject> itemRendered = new ArrayList<WorldObject>();
@@ -43,7 +43,7 @@ public class Main extends Application {
 		primaryStage.setTitle("Virtual World");
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
-		scene.setFill(Color.CYAN);
+		scene.setFill(Color.BLANCHEDALMOND);
 	
 	//Camera Setup
 		Camera camera = new PerspectiveCamera(true);
@@ -182,16 +182,22 @@ public class Main extends Application {
 		*/
 		//List<sheep> sheepList = new ArrayList<sheep>();
 		//for (int i = 0; i < 100; i++) sheepList.add(animals.sheep.returnObj(mainGroup));
-		Sheep sheeps = animals.Sheep.returnObj(mainGroup);
+		//Sheep sheeps = animals.Sheep.returnObj(mainGroup);
 		//for (sheep sheeps : sheepList) {
-		for (Shape3D sheepShape : sheeps.display()) {
-			mainGroup.getChildren().add(sheepShape);
-		}
+		//for (Shape3D sheepShape : sheeps.display()) {
+		//	mainGroup.getChildren().add(sheepShape);
 		//}
+		//}
+		
+		Tree tree = new Tree();
+		for (Shape3D treeShape :tree.display()) {
+			mainGroup.getChildren().add(treeShape);
+		}
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
+		/**
 		new AnimationTimer() {
 			@Override
 			public void handle(long now) {
@@ -206,6 +212,8 @@ public class Main extends Application {
 				}
 			}
 		}.start();
+		
+		*/
 	}
 	
 	private boolean euclid(double x1, double x2, double z1, double z2) {
