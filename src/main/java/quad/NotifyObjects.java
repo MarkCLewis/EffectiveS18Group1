@@ -6,8 +6,8 @@ import java.util.List;
 import javafx.scene.shape.Shape3D;
 import virtualworld.WorldObject;
 
-//notifies objects of when a viewer is close by so that the correct detail can be rendered
-//knows where the camera is and generates a list of 3Ds
+//Notifies objects of when a viewer is close by so that the correct detail can be rendered
+//Knows where the camera is and generates a list of 3Ds
 public class NotifyObjects implements ElementVisitor {
 	
 	//List of all Shapes3Ds to be drawn

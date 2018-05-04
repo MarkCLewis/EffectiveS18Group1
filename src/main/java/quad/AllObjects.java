@@ -2,7 +2,6 @@ package quad;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import virtualworld.WorldObject;
 
 //Visitor to capture all items (Nodes and WorldObjects)

@@ -1,6 +1,5 @@
 package quad;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import virtualworld.WorldObject;
@@ -59,9 +58,6 @@ public class QuadTree implements Element {
 		}
 	}
 	
-	public void acceptVisitors(ArrayList<ElementVisitor> visitList) {
-		for (ElementVisitor visitor : visitList) accept(visitor);
-	}
 	//Visitor Accepts
 	/**
 	 * Accepts the visitor into the QuadTree and passes it to the other accept function

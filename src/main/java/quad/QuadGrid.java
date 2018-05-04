@@ -60,7 +60,6 @@ public class QuadGrid extends Application implements Element {
 		scene.setOnKeyPressed(event -> {
 			KeyCode key = event.getCode();
 			keySet.add(key);
-			System.out.println("Key Pressed");
 			if (keySet.contains(KeyCode.UP))
 				QuadTree.cameraZ -= 5 * boost;
 			if (keySet.contains(KeyCode.DOWN))
