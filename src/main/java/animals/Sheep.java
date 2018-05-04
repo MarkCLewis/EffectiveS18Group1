@@ -12,7 +12,7 @@ import javafx.util.Duration;
 import virtualworld.WorldObject;
 
 
-public class sheep implements WorldObject {
+public class Sheep implements WorldObject {
 
 	static Group mainGroup = new Group();
 	static double x;
