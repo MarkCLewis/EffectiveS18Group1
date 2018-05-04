@@ -4,12 +4,18 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.sun.scenario.effect.light.SpotLight;
+
 import agua.generateTerrain;
 import javafx.application.Application;
+import javafx.geometry.Point3D;
+import javafx.scene.AmbientLight;
 import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
+import javafx.scene.PointLight;
 import javafx.scene.Scene;
+import javafx.scene.effect.Light;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -113,15 +119,25 @@ public class TerrainShadowDemo extends Application {
 		
 		
 		TriangleMesh mesh = testPlot.generateTerrain(100, 10, coords);
+		
 		MeshView mv = new MeshView(mesh);
 		mv.setCullFace(CullFace.FRONT);
 		
 		PhongMaterial pm = new PhongMaterial(Color.BLUE);
 		
-		mv.setDrawMode(DrawMode.LINE);
+		PointLight light = new PointLight();
+		//Point3D lightRotation = new Point3D(mesh.getPoints().get(50), mesh.getPoints().get(51) + 100, mesh.getPoints().get(52));
+		//light.setRotationAxis();
+		light.setRotate(45);
+		light.setLayoutX(500);
+		light.setLayoutY(500);
+		light.setScaleX(5);
+		light.setScaleY(10);
+		
+		mv.setDrawMode(DrawMode.FILL);
 		mv.setMaterial(pm);
 		mainGroup.getChildren().add(mv);
-		
+		mainGroup.getChildren().add(light);
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();

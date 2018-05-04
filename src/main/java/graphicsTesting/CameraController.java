@@ -198,6 +198,9 @@ public class CameraController {
 		y1 = builder.y1;
 		x2 = x1;
 	    y2 = x2;
+	    camera.setTranslateX(builder.xLoc);
+	    camera.setTranslateX(builder.yLoc);
+	    camera.setTranslateX(builder.zLoc);
 	    camSpeed = builder.camSpeed;
 		xRotate = builder.xRotate;
 	    yRotate = builder.yRotate;

@@ -10,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.PointLight;
 import javafx.scene.Scene;
+import javafx.scene.effect.Lighting;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -31,7 +32,7 @@ public class wavePool extends Application {
 
 	private int seed = 2121;
 	private int scale = 100;  
-	private int[] cds = {50,scale,50};
+	private int[] cds = {100,scale,100};
 	private float noiseLevel = (float) .23;
 	private MeshView currMesh;
 
@@ -52,7 +53,7 @@ public class wavePool extends Application {
 	generateTerrain testPlot = new generateTerrain();
 	float[][] coords = testPlot.generateCoordinates(cds[0], cds[1], cds[2], scale, noiseLevel, seed+21); //int xRes, int yRes, int zRes, int scale, float noiseLevel, int seed
 	
-	float[][] endCoords = testPlot.generateCoordinates(cds[0], cds[1], cds[2], scale, (float)(noiseLevel+.01), seed+45);;
+	float[][] endCoords = testPlot.generateCoordinates(cds[0], cds[1], cds[2], scale, (float)(noiseLevel+.05), seed+45);;
 	
 	
 	
@@ -67,8 +68,8 @@ public class wavePool extends Application {
 
 			//int[] sizes, int scale, int minSpeed, int maxSpeed, int minHeight, int seed
 	PhongMaterial material = new PhongMaterial(Color.AQUA);
-	material.setSpecularColor(Color.BLUE);
-	
+	material.setSpecularColor(Color.AQUA);
+	material.setDiffuseColor(Color.AQUAMARINE);
 	meshView.setDrawMode(DrawMode.FILL);
 	meshView.setScaleX(scale/10);
 	meshView.setScaleZ(scale/10);
@@ -89,13 +90,23 @@ public class wavePool extends Application {
 	meshViewTwo.setTranslateZ(-500);
 	meshViewTwo.setMaterial(materialTwo);
 	
+	Lighting lighting = new Lighting();
+	PointLight light = new PointLight();
+	light.setRotate(90);
+	light.setLayoutX(0);
+	light.setLayoutY(100);
+	
+	light.setScaleX(scale);
+	light.setScaleY(scale*10);
+	light.setScaleZ(scale*10);
+	//lighting.setLight(light);
 	
 	//TranslateTransition hmm = new TranslateTransition(Duration.seconds(10), meshView);
 	
 	
 	waveTransition transTest = new waveTransition(meshView, mesh, endMesh, 60, 5000);
 	//waveTransition transBack = new waveTransition(meshView, endMesh, mesh, 60);
-	transTest.setRate(1);
+	transTest.setRate(3);
 	transTest.setAutoReverse(true);
 	transTest.setCycleCount(Transition.INDEFINITE);
 
@@ -163,7 +174,7 @@ public class wavePool extends Application {
     pointLight.setTranslateY(-50);
     pointLight.setTranslateZ(0);
     pointLight.setRotate(90);
-    sceneGroup.getChildren().add(pointLight);
+    sceneGroup.getChildren().add(light);
 //    sceneGroup.getChildren().add(ambience);
 	sceneGroup.getChildren().add(meshView);
 	mainStage.setScene(scene);

@@ -8,6 +8,7 @@ import java.util.Set;
 import animals.Sheep;
 import citiesTesting.CityOne;
 import graphicsTesting.CameraController;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -22,16 +23,22 @@ import quad.NotifyObjects;
 import quad.QuadTree;
 
 public class Main extends Application {
-	
 	static List<WorldObject> itemRendered = new ArrayList<WorldObject>();
 	static List<Shape3D> toBeDrawn = new ArrayList<Shape3D>();
 	static ArrayList<ElementVisitor> visitList = new ArrayList<ElementVisitor>();
+	private double x1;
+	private double z1;
+	private double x2;
+	private double z2;
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		
+		
 	//Scene Setup
 		primaryStage.setTitle("Virtual World");
 		Group mainGroup = new Group();
@@ -43,15 +50,15 @@ public class Main extends Application {
 		scene.setCamera(camera);
 		Group cameraGroup = new Group();
 		CameraController pCam = new CameraController.Builder(camera).build();
-	
+		x1 = pCam.getCameraX();
+		z1 = pCam.getCameraZ();
+		
+		
 	//QuadTree Setup
 		QuadTree quad = QuadTree.getInstance();
 		QuadTree.cameraX = pCam.getCameraX();
 		QuadTree.cameraZ = pCam.getCameraZ();
-		double oldCamX = pCam.getCameraX();
-		double oldCamZ = pCam.getCameraZ();
-		double newCamX;
-		double newCamZ;
+		
 		
 		CityOne exampleCity = CityOne.returnObj(mainGroup);
 		
@@ -78,6 +85,7 @@ public class Main extends Application {
 		//mainGroup.getChildren().add(buildingGroup);
 		mainGroup.getChildren().add(cameraGroup);
 		mainGroup.getChildren().addAll(toBeDrawn);
+		
 		//Calls appropriate movement methods from pCam when key press is detected
 		//KeyCodes are stored in a set so multiple commands can be executed at once
 		Set<KeyCode> keySet = new HashSet<KeyCode>();
@@ -183,8 +191,29 @@ public class Main extends Application {
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				x2 = pCam.getCameraX();
+				z2 = pCam.getCameraZ();
+				
+				if(euclid(x1,x2,z1,z2)) {
+					itemRendered.clear();
+					toBeDrawn.clear();
+					mainGroup.getChildren().clear();
+					mainGroup.getChildren().add(cameraGroup);
+				}
+			}
+		}.start();
 	}
+	
+	private boolean euclid(double x1, double x2, double z1, double z2) {
+		return (Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(z2-z1, 2)) > 10);
+	}
+	
 }
+
 
 	
 
