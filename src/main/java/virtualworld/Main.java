@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import animals.Sheep;
 import citiesTesting.CityOne;
 import graphicsTesting.CameraController;
@@ -35,7 +36,7 @@ public class Main extends Application {
 		primaryStage.setTitle("Virtual World");
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
-		scene.setFill(Color.THISTLE);
+		scene.setFill(Color.CYAN);
 	
 	//Camera Setup
 		Camera camera = new PerspectiveCamera(true);
