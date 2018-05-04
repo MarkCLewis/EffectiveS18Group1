@@ -181,7 +181,7 @@ public class Tree extends Application implements WorldObject {
 	 */
 	public Color treeA() {
 
-		axiom = new Branch("a", 7.5, 40, 7.5, 0, 0, 350, 0, s);
+		axiom = new Branch("a", 1, 5, 1, 0, 0, 350, 0, s);
 		// axiom = new Branch("b", 7.5, 40, 7.5, xzCoordinate(), 0,
 		// xzCoordinate(), 0, s);
 		x = axiom.getPositionX();
@@ -206,7 +206,7 @@ public class Tree extends Application implements WorldObject {
 	 */
 	public Color treeB() {
 
-		axiom = new Branch("b", 7.5, 40, 7.5, 0, 0, 350, 0, s);
+		axiom = new Branch("b", 1, 5, 1, 0, 0, 350, 0, s);
 
 		// axiom = new Branch("b", 7.5, 40, 7.5, xzCoordinate(), 0,
 		// xzCoordinate(), 0, s);
