@@ -133,7 +133,7 @@ public class QuadGrid extends Application implements Element {
 		}
 
 		// Camera
-		gc.setStroke(Color.CHOCOLATE);gc.setLineWidth(5);gc.strokeOval(QuadTree.cameraX+200,QuadTree.cameraZ+200,600,600);System.out.println(QuadTree.cameraX+" "+QuadTree.cameraZ);
+		gc.setStroke(Color.CHOCOLATE);gc.setLineWidth(5);gc.strokeOval(QuadTree.cameraX+200,QuadTree.cameraZ+200,600,600);
 	}
 
 	public static void populate() {
