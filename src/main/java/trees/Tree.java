@@ -436,7 +436,7 @@ public class Tree extends Application implements WorldObject {
 		primaryStage.setTitle("Tree");
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 
-		//tree.buildTree();
+		// tree.buildTree();
 		tree.display();
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
@@ -524,7 +524,7 @@ public class Tree extends Application implements WorldObject {
 	public double getSize() {
 		fx = 160 * .75 * (Math.sin(Math.toRadians(45))) / 2;
 		ix = 160 * .75 * (Math.sin(Math.toRadians(-45))) / 2;
-		s = (fx - ix) * height * (fx - ix);
+		s = (fx - ix)/2;
 		return s;
 	}
 
@@ -556,7 +556,7 @@ public class Tree extends Application implements WorldObject {
 
 	@Override
 	public ArrayList<Shape3D> display() {
-	//	buildTree();
+		buildTree();
 		return shapes;
 	}
 }
