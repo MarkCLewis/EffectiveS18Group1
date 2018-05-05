@@ -2,9 +2,7 @@ package terraintesting;
 
 import java.util.ArrayList;
 
-import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.DrawMode;
+import agua.SimplexNoise;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.Shape3D;
 import javafx.scene.shape.TriangleMesh;
@@ -19,9 +17,8 @@ public class TerrainObject implements virtualworld.WorldObject {
 	private final double yWidth;
 	private final double zWidth;
 	private static final int maxScale = 1000;
-	private static final int defaultScale = maxScale;
 	private int levelOfDetail = 0; //Determines the value of current scale based on maxScale
-	private int scale; //close - 100; far - 1000
+	private int scale = maxScale; //close - 100; far - 1000
 	
 	
 	private final long seed;
@@ -216,7 +213,7 @@ public class TerrainObject implements virtualworld.WorldObject {
 	}
 	
 	public static int getDefaultScale() {
-		return defaultScale;
+		return maxScale;
 	}
 	
 	public static long getDefaultSeed() {
@@ -297,6 +294,8 @@ public class TerrainObject implements virtualworld.WorldObject {
 		meshView.setScaleX(scale);
 		meshView.setScaleZ(scale);
 		meshView.setScaleY(scale*10);
+		meshView.setTranslateX(cX);
+		meshView.setTranslateZ(cZ);
 		ArrayList<Shape3D> list = new ArrayList<Shape3D>();
 		list.add(meshView);
 		return list;

@@ -12,7 +12,7 @@ public class TerrainObjectTesting {
 		double y = 12;
 		double xW = 200; 
 		double zW = 200; 
-		double yW = 500;
+		double yW = 200;
 		long seed = 3838;
 		double noise = 0.60;
 		bldr.setXLoc(x);
@@ -39,6 +39,7 @@ public class TerrainObjectTesting {
 			assertTrue(t.getY() == terr.getY());
 			assertTrue(t.getZ() == terr.getZ()/4);
 		}
+		terr.display();
 	}
 	
 	// UUT Copied from TerrainObject file because I don't know what I'm doing
