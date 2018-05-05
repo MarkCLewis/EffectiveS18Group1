@@ -49,7 +49,17 @@ public class CityMaker extends Application {
 		double x = 400.0;
 		double y = 300.0;
 		double z = 200.0;
-
+		
+		//Cities
+		//Making city objects
+		CityOne cOne = CityOne.returnObj(mainGroup);
+		//grid type city
+		CityTwo cTwo = CityTwo.returnObj(mainGroup);
+		//circular city
+		CityThree cThree = CityThree.returnObj(mainGroup);
+		//diamond city
+		
+		
 		//double p = MathStuff.makeCoordinate(-2000, 2000);
 		// making random coordinates^
 		/*

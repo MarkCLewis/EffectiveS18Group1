@@ -6,6 +6,7 @@ import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape3D;
+import terraintesting.TerrainObject;
 import virtualworld.WorldObject;
 
 public class CityOne implements WorldObject {
@@ -44,7 +45,7 @@ public class CityOne implements WorldObject {
 		setSecondaryHouse();
 		setX();
 		setZ();
-		
+		setY();
 		BuildingTypes.Tuple<Double, ArrayList<Shape3D>> tup = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
 		setSize(tup.getA());
 		addToList(tup.getB());
@@ -59,8 +60,9 @@ public class CityOne implements WorldObject {
 		setSecondardRoof();
 		setHouseColor();
 		setSecondaryHouse();
-		setCoordinate(x);
-		setCoordinate(z);
+		setX();
+		setZ();
+		setY();
 		
 		BuildingTypes.Tuple<Double, ArrayList<Shape3D>> tup = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
 		setSize(tup.getA());
@@ -125,10 +127,26 @@ public class CityOne implements WorldObject {
 	
 	public static void setY(){
 		//TODO
+		//y = TerrainObject.getHeight(x, z);
+		y = 0;
 	}
 	
 	public static void setZ(){
 		z = MathStuff.makeCoordinate();
+	}
+	
+	public static void setXTo(double pos){
+		x = pos;
+	}
+	
+	public static void setYTo(double pos){
+		//TODO
+		//y = TerrainObject.getHeight(x, z);
+		y = pos;
+	}
+	
+	public static void setZTo(double pos){
+		z = pos;
 	}
 	
 	public static void addToList(ArrayList<Shape3D> arrLst){

@@ -46,6 +46,7 @@ public class CityTwo implements WorldObject {
 		setSecondaryHouse();
 		setX();
 		setZ();
+		setY();
 		
 		//double sz = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
 		BuildingTypes.Tuple<Double, ArrayList<Shape3D>> tup = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
@@ -63,8 +64,9 @@ public class CityTwo implements WorldObject {
 		setSecondardRoof();
 		setHouseColor();
 		setSecondaryHouse();
-		setCoordinate(x);
-		setCoordinate(z);
+		setX();
+		setZ();
+		setY();
 		
 		BuildingTypes.Tuple<Double, ArrayList<Shape3D>> tup = BuildingTypes.makeCity2(mg, roof1, roof2, house1, house2, x, y, z, num, rand);
 		setSize(tup.getA());
@@ -133,10 +135,26 @@ public class CityTwo implements WorldObject {
 	
 	public static void setY(){
 		//TODO
+		//y = TerrainObject.getHeight(x, z);
+		y = 0;
 	}
 	
 	public static void setZ(){
 		z = MathStuff.makeCoordinate();
+	}
+	
+	public static void setXTo(double pos){
+		x = pos;
+	}
+	
+	public static void setYTo(double pos){
+		//TODO
+		//y = TerrainObject.getHeight(x, z);
+		y = pos;
+	}
+	
+	public static void setZTo(double pos){
+		z = pos;
 	}
 	
 	public static void addToList(ArrayList<Shape3D> arrLst){
