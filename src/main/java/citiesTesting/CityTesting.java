@@ -32,7 +32,7 @@ public class CityTesting extends Application {
 
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
-		scene.setFill(Color.GRAY);
+		//scene.setFill(Color.GRAY);
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		Group cameraGroup = new Group();

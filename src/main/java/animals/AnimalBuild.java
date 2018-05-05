@@ -80,6 +80,7 @@ public class AnimalBuild {
 	
 	public static ArrayList<Shape3D> makeGiraffe(double x, double y, double z) {
 		ArrayList<Shape3D> list = new ArrayList<Shape3D>();
+		
 		PhongMaterial mat = new PhongMaterial();
 		mat.setDiffuseColor(Color.YELLOW);
 		
@@ -121,5 +122,58 @@ public class AnimalBuild {
 		
 		return list;
 
+	}
+	
+	public static ArrayList<Shape3D> makeDuck(double x, double y, double z) {
+		ArrayList<Shape3D> list = new ArrayList<Shape3D>();
+		
+		PhongMaterial mat = new PhongMaterial();
+		mat.setDiffuseColor(Color.YELLOW);
+		
+		PhongMaterial beak = new PhongMaterial();
+		beak.setDiffuseColor(Color.ORANGE);
+		
+		//right back leg
+		Cylinder c = DrawFacade.getCylinderBuilder(.07, .4).transCoords(x, y, z + 0.85).material(mat).build().get();	
+		list.add(c);
+
+		//left back leg
+		Cylinder c1 = DrawFacade.getCylinderBuilder(.07, .4).transCoords(x, y, z + 0.55).material(mat).build().get();	
+		list.add(c1);
+		
+		//body
+		Box b = DrawFacade.getBoxBuilder(0.5, 0.5, 0.5).transCoords(x + 0.1, y - 0.4, z + 0.7).material(mat).build().get();
+		list.add(b);
+		
+		//head
+		Box b2 = DrawFacade.getBoxBuilder(0.3, 0.5, 0.3).transCoords(x + 0.2, y - 0.8, z + 0.7).material(mat).build().get();
+		list.add(b2);
+	
+		//left foot
+		Box b3 = DrawFacade.getBoxBuilder(0.3, 0.1, 0.2).transCoords(x + 0.06, y + 0.2, z + 0.55).material(mat).build().get();
+		list.add(b3);
+		
+		//right foot
+		Box b4 = DrawFacade.getBoxBuilder(0.3, 0.1, 0.2).transCoords(x + 0.06, y + 0.2, z + 0.85).material(mat).build().get();
+		list.add(b4);
+		
+		//top beak
+		Box b5 = DrawFacade.getBoxBuilder(0.25, 0.08, 0.2).transCoords(x + 0.45, y - 0.75, z + 0.71).material(beak).build().get();
+		list.add(b5);
+		
+		//bottom beak
+		Box b6 = DrawFacade.getBoxBuilder(0.25, 0.08, 0.2).transCoords(x + 0.45, y - 0.85, z + 0.71).material(beak).build().get();
+		list.add(b6);
+		
+		//right wing
+		Box b7 = DrawFacade.getBoxBuilder(0.4, 0.3, 0.08).transCoords(x - 0.1, y - 0.35, z + 1).material(mat).build().get();
+		list.add(b7);
+		
+		//left wing
+		Box b8 = DrawFacade.getBoxBuilder(0.4, 0.3, 0.08).transCoords(x - 0.1, y - 0.35, z + 0.4).material(mat).build().get();
+		list.add(b8);
+		
+		return list;
+	
 	}
 }

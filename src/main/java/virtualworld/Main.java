@@ -26,6 +26,7 @@ import quad.AllObjects;
 import quad.ElementVisitor;
 import quad.NotifyObjects;
 import quad.QuadTree;
+import terraintesting.TerrainObjectBasic;
 import trees.Tree;
 
 public class Main extends Application {
@@ -80,6 +81,23 @@ public class Main extends Application {
 		//quad.insert(exampleCity5, quad.getRootNode());
 		
 		System.out.println(itemRendered.size());
+		
+	// Terrain 
+		/*int actualWorldSize = (int) (worldSize*2);
+		int terrainSize = 1000;
+		float noise = (float)0.3;
+		int seed = 3838;
+		int scale = 10;
+		/*ArrayList<TerrainObjectBasic> world = new ArrayList<TerrainObjectBasic>();
+		for(int x=(int) -worldSize; x<worldSize; x+=terrainSize) {
+			for(int z=(int) -worldSize; z<worldSize; z+=terrainSize) {
+				world.add(new TerrainObjectBasic(x, z, terrainSize, scale, noise, seed));
+			}
+		}*/
+		//for(TerrainObjectBasic terr : world) {
+		//TerrainObjectBasic terr = new TerrainObjectBasic(0, 0, terrainSize, scale, noise, seed);
+		//	quad.insert(terr, quad.getRootNode());
+		//}*/
 		
 	//Visitors
 		/**
@@ -139,6 +157,9 @@ public class Main extends Application {
 			 }
 			 if(keySet.contains(KeyCode.SHIFT)) {
 				 pCam.boostOn();
+			 }
+			 if(keySet.contains(KeyCode.L)) {
+				 System.out.println("X = "+camera.getTranslateX()+" Z = "+camera.getTranslateZ()+" Y = "+camera.getTranslateY());
 			 }
 		});
 		
