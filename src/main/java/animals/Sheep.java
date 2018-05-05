@@ -3,12 +3,11 @@ package animals;
 import java.util.ArrayList;
 
 import citiesTesting.MathStuff;
-import javafx.animation.RotateTransition;
+//import javafx.animation.RotateTransition;
 import javafx.geometry.Point3D;
-//import animals.SheepBuild;
 import javafx.scene.Group;
 import javafx.scene.shape.Shape3D;
-import javafx.util.Duration;
+//import javafx.util.Duration;
 import virtualworld.WorldObject;
 
 
@@ -22,7 +21,7 @@ public class Sheep implements WorldObject {
 	static ArrayList<Shape3D> list = new ArrayList<Shape3D>();
 	
 	public Point3D point;
-	public animalTransition moveTransition;
+	//public animalTransition moveTransition;
 	static ArrayList<Shape3D> limbs = new ArrayList<Shape3D>();
 	
 	public static sheep returnObj(Group sgroup) {
@@ -38,7 +37,7 @@ public class Sheep implements WorldObject {
 		
 		
 		
-		ArrayList<Shape3D> Bs = SheepBuild.makeSheep(x,y,z);
+		ArrayList<Shape3D> Bs = AnimalBuild.makeSheep(x,y,z);
 		list.addAll(Bs);
 	}
 	
@@ -57,7 +56,7 @@ public class Sheep implements WorldObject {
 	}
 	
 	public static void setY(){
-		y = MathStuff.makeCoordinate();
+		y = 0;
 	}
 	
 	public static void setZ(){
@@ -122,12 +121,7 @@ public class Sheep implements WorldObject {
 	@Override
 	public boolean notifyOfCamera(double x, double z) {
 		// TODO Auto-generated method stub
-		double dist = Math.sqrt(Math.pow((getXLoc() - x), 2) + Math.pow((getZLoc() - z), 2));
-		
-		if(dist < 50){
-			return true;
-		}
-		else return false;
+		return true;
 	}
 
 	@Override
