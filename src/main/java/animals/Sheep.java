@@ -24,9 +24,9 @@ public class Sheep implements WorldObject {
 	//public animalTransition moveTransition;
 	static ArrayList<Shape3D> limbs = new ArrayList<Shape3D>();
 	
-	public static sheep returnObj(Group sgroup) {
+	public static Sheep returnObj(Group sgroup) {
 		main(sgroup);
-		sheep sh = new sheep();
+		Sheep sh = new Sheep();
 		return sh;
 	}
 	
