@@ -207,8 +207,8 @@ public class Tree extends Application implements WorldObject {
 
 		int nTimes = (times.nextInt((6 - 3) + 1) + 3) - 1;
 		loops = (int) ((Math.pow(3, nTimes - 1) + Math.pow(2, nTimes - 1) - 1));
-		System.out.println("Type A tree generated");
-		System.out.println("Tree size: " + nTimes + " levels");
+	//	System.out.println("Type A tree generated");
+	//	System.out.println("Tree size: " + nTimes + " levels");
 
 		return healthyTree();
 	}
@@ -244,8 +244,8 @@ public class Tree extends Application implements WorldObject {
 
 		int nTimes = (times.nextInt((6 - 3) + 1) + 3) - 1;
 		loops = (int) (Math.pow(2, nTimes) - 1);
-		System.out.println("Type B tree generated");
-		System.out.println("Tree size: " + nTimes + " levels");
+		//System.out.println("Type B tree generated");
+		//System.out.println("Tree size: " + nTimes + " levels");
 
 		return dryTree();
 	}
@@ -275,8 +275,8 @@ public class Tree extends Application implements WorldObject {
 	 */
 	public static double xzCoordinate() {
 
-		int x = -4000;
-		int y = 4000;
+		int x = -6000;
+		int y = 6000;
 		return Math.floor(Math.random() * ((y - x) + 1) + x);
 	}
 
@@ -452,7 +452,7 @@ public class Tree extends Application implements WorldObject {
 			}
 			
 		}
-		System.out.println(shapes.size());
+		//System.out.println(shapes.size());
 		
 		height=Math.abs(height)+axiom.getHeight()/2;
 		

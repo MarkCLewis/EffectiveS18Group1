@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import animals.Giraffe;
+import animals.Pig;
+import animals.Sheep;
 import citiesTesting.CityOne;
 import citiesTesting.CityThree;
 import citiesTesting.CityTwo;
@@ -34,6 +37,8 @@ public class Main extends Application {
 	private double x2;
 	private double z2;
 	
+	private double worldSize = 6000;
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -46,7 +51,7 @@ public class Main extends Application {
 		primaryStage.setTitle("Virtual World");
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
-		scene.setFill(Color.TRANSPARENT);
+		scene.setFill(Color.LIGHTBLUE);
 	
 	//Camera Setup
 		Camera camera = new PerspectiveCamera(true);
@@ -62,18 +67,14 @@ public class Main extends Application {
 		QuadTree.cameraX = pCam.getCameraX();
 		QuadTree.cameraZ = pCam.getCameraZ();
 		
+		quad.insert(new ExampleObject(0, 0, worldSize + 10000), null); //TODO replace with large terrain piece
 		
-		CityOne exampleCity = CityOne.returnObj(mainGroup);
-		CityTwo exampleCity1 = CityTwo.returnObj(mainGroup);
-		CityThree exampleCity2 = CityThree.returnObj(mainGroup);
 		//CityOne exampleCity3 = CityOne.returnObj(mainGroup);
 		//CityOne exampleCity4 = CityOne.returnObj(mainGroup);
 		//CityOne exampleCity5 = CityOne.returnObj(mainGroup);
 		
-		quad.insert(new ExampleObject(0, 0, 6000), null); //TODO replace with large terrain piece
-		quad.insert(exampleCity, quad.getRootNode());
-		quad.insert(exampleCity1, quad.getRootNode());
-		quad.insert(exampleCity2, quad.getRootNode());
+		
+		
 		//quad.insert(exampleCity3, quad.getRootNode());
 		//quad.insert(exampleCity4, quad.getRootNode());
 		//quad.insert(exampleCity5, quad.getRootNode());
@@ -195,21 +196,33 @@ public class Main extends Application {
 		*/
 		//List<sheep> sheepList = new ArrayList<sheep>();
 		//for (int i = 0; i < 100; i++) sheepList.add(animals.sheep.returnObj(mainGroup));
-		//Sheep sheeps = animals.Sheep.returnObj(mainGroup);
-		//for (sheep sheeps : sheepList) {
-		//for (Shape3D sheepShape : sheeps.display()) {
-		//	mainGroup.getChildren().add(sheepShape);
-		//}
-		//}
 		
-		//Tree tree = new Tree();
-		//for (Shape3D treeShape :tree.display()) {
-		//	mainGroup.getChildren().add(treeShape);
-		//}
+		for (int i = 0; i < 10; i++) {
+			CityOne exampleCity = CityOne.returnObj(mainGroup);
+			CityTwo exampleCity1 = CityTwo.returnObj(mainGroup);
+			CityThree exampleCity2 = CityThree.returnObj(mainGroup);
+			quad.insert(exampleCity, quad.getRootNode());
+			quad.insert(exampleCity1, quad.getRootNode());
+			quad.insert(exampleCity2, quad.getRootNode());
+		}
 		
-		//System.out.println(tree.getXLoc());
-		//System.out.println(tree.getZLoc());
-		//quad.insert(tree, quad.getRootNode());
+		for (int i = 0; i < 1000; i++) {
+			Tree tree = new Tree();
+			tree.buildTree();
+			quad.insert(tree, quad.getRootNode());
+		}
+		
+		
+		/**
+		for (int i = 0; i < 300; i++)  {
+			Sheep sheep = Sheep.returnObj(mainGroup);
+			Pig pig = Pig.returnObj(mainGroup);
+			Giraffe giraffe = Giraffe.returnObj(mainGroup);
+			quad.insert(sheep, quad.getRootNode());
+			quad.insert(pig, quad.getRootNode());
+			quad.insert(giraffe, quad.getRootNode());
+		}
+		*/
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
@@ -231,12 +244,12 @@ public class Main extends Application {
 					
 					AllObjects allCollector = new AllObjects();
 					allCollector.visit(quad.getRootNode());
-					//System.out.println("Nodes: " + allCollector.allNodes.size());
-					//System.out.println("WorldObjects: " + allCollector.allWorldObjects.size());
+					System.out.println("Nodes: " + allCollector.allNodes.size());
+					System.out.println("WorldObjects: " + allCollector.allWorldObjects.size());
 					
 					for (WorldObject items : allCollector.allWorldObjects) {
-						System.out.println("WorldObject Coor: " + items.getXLoc() + ", " + items.getZLoc());
-						System.out.println(items.getSize());
+						//System.out.println("WorldObject Coor: " + items.getXLoc() + ", " + items.getZLoc());
+						//System.out.println(items.getSize());
 					}
 					
 					NotifyObjects renderCollector = new NotifyObjects();
