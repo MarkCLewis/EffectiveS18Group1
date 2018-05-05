@@ -133,6 +133,7 @@ public class TerrainShadowDemo extends Application {
 		light.setRotate(45);
 		light.setLayoutX(500);
 		light.setLayoutY(500);
+		light.setTranslateZ(500);
 		light.setScaleX(5);
 		light.setScaleY(10);
 		

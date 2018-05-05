@@ -250,8 +250,8 @@ public class CameraController {
 		x = camera.getTranslateX();
 		theta = yRotate.getAngle()/360.0*2*Math.PI;
 		
-		camera.setTranslateZ(z+Math.sin(theta));
-		camera.setTranslateX(x-Math.cos(theta));
+		camera.setTranslateZ(z+camSpeed*Math.sin(theta));
+		camera.setTranslateX(x-camSpeed*Math.cos(theta));
 	}
 	
 	/**
@@ -262,8 +262,8 @@ public class CameraController {
 		x = camera.getTranslateX();
 		theta = yRotate.getAngle()/360.0*2*Math.PI;
 		
-		camera.setTranslateZ(z-Math.sin(theta));
-		camera.setTranslateX(x+Math.cos(theta));
+		camera.setTranslateZ(z-camSpeed*Math.sin(theta));
+		camera.setTranslateX(x+camSpeed*Math.cos(theta));
 	}
 	
 	/**

@@ -43,7 +43,7 @@ public class Main extends Application {
 		primaryStage.setTitle("Virtual World");
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
-		scene.setFill(Color.BLANCHEDALMOND);
+		scene.setFill(Color.TRANSPARENT);
 	
 	//Camera Setup
 		Camera camera = new PerspectiveCamera(true);
@@ -194,6 +194,9 @@ public class Main extends Application {
 			mainGroup.getChildren().add(treeShape);
 		}
 		
+		System.out.println(tree.getXLoc());
+		System.out.println(tree.getZLoc());
+		quad.insert(tree, quad.getRootNode());
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
@@ -206,24 +209,32 @@ public class Main extends Application {
 				if(euclid(x1,x2,z1,z2)) {
 					x1 = x2;
 					z1 = z2;
+					QuadTree.cameraX = pCam.getCameraX();
+					QuadTree.cameraZ = pCam.getCameraZ();
 					itemRendered.clear();
 					toBeDrawn.clear();
 					mainGroup.getChildren().clear();
-					//scene.setCamera(camera);
 					renderCollector.visit(quad.getRootNode());
 					for (WorldObject items : renderCollector.validObjects) {
 						itemRendered.add((WorldObject) items);
 						toBeDrawn.addAll(items.display());
 					}
-					mainGroup.getChildren().addAll(toBeDrawn);
+					
+					System.out.println(renderCollector.validObjects.size());
+					System.out.println("SIZE" + itemRendered.size());
+					//System.out.println("SIZE" + toBeDrawn.size());
+					scene.setCamera(camera);
 					scene.setRoot(mainGroup);
+					mainGroup.getChildren().addAll(toBeDrawn);
+					primaryStage.setScene(scene);
+					primaryStage.show();
 				}
 			}
 		}.start();
 	}
 	
 	private boolean euclid(double x1, double x2, double z1, double z2) {
-		System.out.println(Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(z2-z1, 2)));
+		//System.out.println(Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(z2-z1, 2)));
 		return (Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(z2-z1, 2)) > 10);
 	}
 	
