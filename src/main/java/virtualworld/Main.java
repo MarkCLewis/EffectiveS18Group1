@@ -218,23 +218,29 @@ public class Main extends Application {
 		//List<sheep> sheepList = new ArrayList<sheep>();
 		//for (int i = 0; i < 100; i++) sheepList.add(animals.sheep.returnObj(mainGroup));
 		
-		for (int i = 0; i < 10; i++) {
+		//for (int i = 0; i < 10; i++) {
+			//CityOne exampleCity = CityOne.returnObj(mainGroup);
 			CityOne exampleCity = CityOne.returnObj(mainGroup);
-			CityTwo exampleCity1 = CityTwo.returnObj(mainGroup);
-			CityThree exampleCity2 = CityThree.returnObj(mainGroup);
+			System.out.println(exampleCity.getXLoc());
+			System.out.println(exampleCity.getZLoc());
+			//CityTwo exampleCity1 = CityTwo.returnObj(mainGroup);
+			//CityThree exampleCity2 = CityThree.returnObj(mainGroup);
 			quad.insert(exampleCity, quad.getRootNode());
-			quad.insert(exampleCity1, quad.getRootNode());
+			//quad.insert(exampleCity1, quad.getRootNode());
+			//quad.insert(exampleCity2, quad.getRootNode());
+			CityTwo exampleCity2 = CityTwo.returnObj(mainGroup);
 			quad.insert(exampleCity2, quad.getRootNode());
-		}
+			System.out.println(exampleCity2.getXLoc());
+			System.out.println(exampleCity2.getZLoc());
+		//}
 		
 		for (int i = 0; i < 1000; i++) {
 			Tree tree = new Tree();
 			tree.buildTree();
 			quad.insert(tree, quad.getRootNode());
 		}
+	
 		
-		
-		/**
 		for (int i = 0; i < 300; i++)  {
 			Sheep sheep = Sheep.returnObj(mainGroup);
 			Pig pig = Pig.returnObj(mainGroup);
@@ -243,7 +249,7 @@ public class Main extends Application {
 			quad.insert(pig, quad.getRootNode());
 			quad.insert(giraffe, quad.getRootNode());
 		}
-		*/
+		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
