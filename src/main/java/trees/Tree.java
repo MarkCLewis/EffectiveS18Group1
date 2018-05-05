@@ -275,8 +275,8 @@ public class Tree extends Application implements WorldObject {
 	 */
 	public static double xzCoordinate() {
 
-		int x = -4000;
-		int y = 4000;
+		int x = -6000;
+		int y = 6000;
 		return Math.floor(Math.random() * ((y - x) + 1) + x);
 	}
 
