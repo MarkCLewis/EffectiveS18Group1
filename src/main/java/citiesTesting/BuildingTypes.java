@@ -163,10 +163,10 @@ public class BuildingTypes{
 			
 			/////make NW house////
 			if(r.nextInt(2)+1 == 1){
-				lst.addAll(CityStuff.makeHouse1(mg, roof1, roof2, house1, house2, x + (radius*Math.cos(45)), y, z + (radius*Math.sin(45))));
+				lst.addAll(CityStuff.makeHouse1(mg, roof1, roof2, house1, house2, x - (radius*Math.cos(45)), y, z + (radius*Math.sin(45))));
 			}
 			else{
-				lst.addAll(CityStuff.makeHouse2(mg, roof1, roof2, house1, house2, x + (radius*Math.cos(45)), y, z + (radius * Math.sin(45))));
+				lst.addAll(CityStuff.makeHouse2(mg, roof1, roof2, house1, house2, x - (radius*Math.cos(45)), y, z + (radius * Math.sin(45))));
 			}
 			
 		}
@@ -258,10 +258,10 @@ public class BuildingTypes{
 				
 				/////make NW house////
 				if(r.nextInt(2)+1 == 1){
-					lst.addAll(CityStuff.makeHouse1(mg, roof1, roof2, house1, house2, x + (radius*Math.cos(45)), y, z + (radius*Math.sin(45))));
+					lst.addAll(CityStuff.makeHouse1(mg, roof1, roof2, house1, house2, x - (radius*Math.cos(45)), y, z + (radius*Math.sin(45))));
 				}
 				else{
-					lst.addAll(CityStuff.makeHouse2(mg, roof1, roof2, house1, house2, x + (radius*Math.cos(45)), y, z + (radius * Math.sin(45))));
+					lst.addAll(CityStuff.makeHouse2(mg, roof1, roof2, house1, house2, x - (radius*Math.cos(45)), y, z + (radius * Math.sin(45))));
 				}
 			}
 		}
