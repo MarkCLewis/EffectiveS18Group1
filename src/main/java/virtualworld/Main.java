@@ -17,6 +17,7 @@ import javafx.application.Application;
 import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
+import javafx.scene.PointLight;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -295,12 +296,57 @@ public class Main extends Application {
 					System.out.println(renderCollector.validObjects.size());
 					System.out.println("SIZE" + itemRendered.size());
 					//System.out.println("SIZE" + toBeDrawn.size());
+					
+					
+					//Point3D lightRotation = new Point3D(mesh.getPoints().get(50), mesh.getPoints().get(51) + 100, mesh.getPoints().get(52));
+					//light.setRotationAxis();
+					
+					
+					/*
+					Light.Distant light = new Light.Distant();
+					light.setAzimuth(0); 
+				    light.setElevation(100);
+				    Lighting lighting = new Lighting();
+				    lighting.setLight(light);
+				    mv.setEffect(lighting);
+					*/
+					
+					//mv.setDrawMode(DrawMode.FILL);
+					//mv.setMaterial(pm);
+					
+					
+					
+					//mainGroup.getChildren().add(light);
+					
 					scene.setCamera(camera);
 					scene.setRoot(mainGroup);
 					mainGroup.getChildren().addAll(toBeDrawn);
 					primaryStage.setScene(scene);
 					primaryStage.show();
 				}
+				
+				/*
+				for(TerrainObjectBasic terr : world) {
+					MeshView mv = terr.getMeshview();
+					mvCopies.add(mv);
+					mainGroup.getChildren().add(mv);
+				}*/
+				PointLight light = new PointLight();
+				light.setRotate(45);
+				light.setLayoutX(500);
+				light.setLayoutY(500);
+				light.setTranslateZ(500);
+				light.setScaleX(5);
+				//light.setScaleY(10);
+				
+				//camera.setTranslateX(500);
+				//camera.setTranslateZ(500);
+				
+				//if(checkCamPosition((int)camera.getTranslateX(), (int)camera.getTranslateZ())) {
+            	//	updateTerrains((int)camera.getTranslateX(), (int)camera.getTranslateZ(), mainGroup);
+            	//}
+				
+				
 			}
 		}.start();
 	}
