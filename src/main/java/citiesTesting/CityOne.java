@@ -35,6 +35,14 @@ public class CityOne implements WorldObject {
 		//Silas wrote these 2 lines
 	}
 	
+	public static CityOne returnObjTest(double myX, double myZ, Group group) {
+		make(myX, myZ, group);
+		CityOne co = new CityOne();
+		return co;
+		//Silas wrote these 2 lines
+	}
+	
+	
 	public static void main(Group group){
 		setGroup(group);
 		setSeed();
@@ -52,16 +60,16 @@ public class CityOne implements WorldObject {
 	}
 	
 	//make it if you already know the object
-	public static void make(int s, Group group){
+	public static void make(double myX, double myZ, Group group){
 		setGroup(group);
-		setSeed(s);
+		setSeed();
 		setRand();
 		setRoofColor();
 		setSecondardRoof();
 		setHouseColor();
 		setSecondaryHouse();
-		setX();
-		setZ();
+		setXTo(myX);
+		setZTo(myZ);
 		setY();
 		
 		BuildingTypes.Tuple<Double, ArrayList<Shape3D>> tup = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
