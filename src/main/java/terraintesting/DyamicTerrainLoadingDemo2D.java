@@ -1,6 +1,8 @@
 package terraintesting;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -18,7 +20,7 @@ public class DyamicTerrainLoadingDemo2D extends Application {
 	//private static final int playerViewDistance = 50;
 	private static int playerX = 200; 
 	private static int playerZ = 200;
-	private static ArrayList<TerrainObject> terrains = new ArrayList<TerrainObject>();
+	private static Set<TerrainObject> terrains = new HashSet<TerrainObject>();
 	
 	public static void main(String[] args)  {
 		TerrainObjectBuilder bldr = new TerrainObjectBuilder();
@@ -112,11 +114,25 @@ public class DyamicTerrainLoadingDemo2D extends Application {
     	});
 	}
 	
+	public void printTerrains() {
+		for(TerrainObject terr : terrains) {
+			System.out.println("cX="+terr.getXLoc()+" cZ="+terr.getZLoc()+" xW="+terr.getX()+" xZ="+terr.getZ());
+		}
+		//for(TerrainObject terr1 : terrains) {
+		//	for(TerrainObject terr2 : terrains) {
+		//		System.out.println(terr1.equals(terr2));
+		//	}
+		//}
+		//System.out.println();
+		System.out.println();
+	}
+	
 	private void notifyandDrawTerrains() {
-		System.out.println(terrains.size());
+		//System.out.println(terrains.size());
+		printTerrains(); 
 		ArrayList<TerrainObject> newTerrains = new ArrayList<TerrainObject>();
 		for(TerrainObject terr : terrains) {
-			System.out.println("Width = "+terr.getX());
+			//System.out.println("Width = "+terr.getX());
 			newTerrains.addAll(terr.notifyAndGiveTerrain(playerX, playerZ));
 		}
 		terrains.addAll(newTerrains);

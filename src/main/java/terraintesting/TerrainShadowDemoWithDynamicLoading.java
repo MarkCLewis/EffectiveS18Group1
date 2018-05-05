@@ -1,4 +1,4 @@
-package graphicsTesting;
+package terraintesting;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,6 +7,7 @@ import java.util.Set;
 import com.sun.scenario.effect.light.SpotLight;
 
 import agua.generateTerrain;
+import graphicsTesting.CameraController;
 import javafx.application.Application;
 import javafx.geometry.Point3D;
 import javafx.scene.AmbientLight;
@@ -30,8 +31,13 @@ import terraintesting.TerrainObjectBuilder;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 
-public class TerrainShadowDemo extends Application {
-
+public class TerrainShadowDemoWithDynamicLoading extends Application {
+	private static final int terrainSize = 1000;
+	private static ArrayList<MeshView> mvCopies = new ArrayList<MeshView>();
+	private static int centerTerrX = 0;
+	private static int centerTerrZ = 0;
+	private static TerrainObjectBasic[] world = setWorldTerrains(centerTerrX, centerTerrZ);
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch(args);
@@ -40,7 +46,7 @@ public class TerrainShadowDemo extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
-		scene.setFill(Color.GRAY);
+		scene.setFill(Color.BLANCHEDALMOND);
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		Group cameraGroup = new Group();
@@ -101,41 +107,16 @@ public class TerrainShadowDemo extends Application {
 			
 		});
 
-		TerrainObjectBuilder bldr = new TerrainObjectBuilder();
-		double x = 0.0; 
-		double z = 0.0; 
-		double y = 0.0;
-		double xW = 200; 
-		double zW = 200; 
-		double yW = 200;
-		long seed = 3838;
-		double noise = 0.60;
-		bldr.setXLoc(x);
-		bldr.setYLoc(y);
-		bldr.setZLoc(z);
-		bldr.setXWidth(xW);
-		bldr.setYWidth(yW);
-		bldr.setZWidth(zW);
-		bldr.setSeed(seed);
-		bldr.setNoise(noise);
 		
-		generateTerrain testPlot = new generateTerrain();
-		float[][] coords = testPlot.generateCoordinates(100, 100, 100, 10, (float).3, (int)seed); //int xRes, int yRes, int zRes, int scale, float noiseLevel, int seed
+
 		
 		
-		TriangleMesh mesh = testPlot.generateTerrain(100, 10, coords);
+		//TriangleMesh mesh = testPlot.generateTerrain(100, 10, coords);
 		
-		MeshView mv = new MeshView(mesh);
-		mv.setCullFace(CullFace.FRONT);
-		mv.setTranslateX(0);
-		//mv.setLayoutX(0);
-		mv.setTranslateZ(0);
+		//MeshView mv = terr1.getMeshview();//new MeshView(mesh);
+		//mv.setCullFace(CullFace.FRONT);
 		
-		//MeshView mv2 = new MeshView(mesh);
-		//mv2.setTranslateX(-990);
-		//mv2.setTranslateZ(0);
-		//mv2.setCullFace(CullFace.FRONT);
-		PhongMaterial pm = new PhongMaterial(Color.GREEN);
+		//PhongMaterial pm = new PhongMaterial(Color.GREEN);
 		
 		PointLight light = new PointLight();
 		//Point3D lightRotation = new Point3D(mesh.getPoints().get(50), mesh.getPoints().get(51) + 100, mesh.getPoints().get(52));
@@ -143,13 +124,13 @@ public class TerrainShadowDemo extends Application {
 		light.setRotate(45);
 		light.setLayoutX(500);
 		light.setLayoutY(500);
-		light.setTranslateZ(0);
+		light.setTranslateZ(500);
 		light.setScaleX(5);
 		light.setScaleY(10);
 		
-		//camera.setLayoutY(50);
-		//camera.setRotate(180);
-
+		camera.setTranslateX(500);
+		camera.setTranslateZ(500);
+		
 		/*
 		Light.Distant light = new Light.Distant();
 		light.setAzimuth(0); 
@@ -159,15 +140,47 @@ public class TerrainShadowDemo extends Application {
 	    mv.setEffect(lighting);
 		*/
 		
-		mv.setDrawMode(DrawMode.FILL);
-		//mv2.setDrawMode(DrawMode.FILL);
-		mv.setMaterial(pm);
-		//mv2.setMaterial(pm);
-		mainGroup.getChildren().add(mv);
-		//mainGroup.getChildren().add(mv2);
-		mainGroup.getChildren().add(light);
+		//mv.setDrawMode(DrawMode.FILL);
+		//mv.setMaterial(pm);
 		
+		for(TerrainObjectBasic terr : world) {
+			MeshView mv = terr.getMeshview();
+			mvCopies.add(mv);
+			mainGroup.getChildren().add(mv);
+		}
+		mainGroup.getChildren().remove(mvCopies.get(0));
+		mainGroup.getChildren().remove(mvCopies.get(1));
+		mainGroup.getChildren().remove(mvCopies.get(2));
+		
+		mainGroup.getChildren().add(light);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+	}
+	
+	public static TerrainObjectBasic[] setWorldTerrains(int x, int z) {
+		TerrainObjectBasic terr5 = new TerrainObjectBasic(x, 		z, 		terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr4 = new TerrainObjectBasic(x+1000, 	z, 		terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr6 = new TerrainObjectBasic(x+1000, 	z+1000, 	terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr2 = new TerrainObjectBasic(x, 		z+1000, 	terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr1 = new TerrainObjectBasic(x-1000,	z+1000, 	terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr3 = new TerrainObjectBasic(x-1000,	z, 		terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr7 = new TerrainObjectBasic(x, 		z-1000, 	terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr8 = new TerrainObjectBasic(x-1000,	z-1000, 	terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr9 = new TerrainObjectBasic(x+1000,		z-1000, 	terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic[] world = {terr1, terr2, terr3, terr4, terr5, terr6, terr7, terr8, terr9};
+		return world;
+	}
+	
+	// returns true if terrain needs to be loaded/unloaded
+	public boolean checkCamPosition(int camX, int camZ) {
+		return camX<centerTerrX || camZ<centerTerrZ || camX>terrainSize+centerTerrX || camZ>terrainSize+centerTerrZ;
+	}
+	//updates terrains and graphics
+	public void updateTerrains(int camX, int camZ, Group g) {
+		if(camZ>terrainSize+centerTerrZ) {
+			g.getChildren().remove(mvCopies.get(6));
+			g.getChildren().remove(mvCopies.get(7));
+			g.getChildren().remove(mvCopies.get(8));
+		}
 	}
 }

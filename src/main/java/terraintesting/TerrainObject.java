@@ -147,24 +147,28 @@ public class TerrainObject implements virtualworld.WorldObject {
 		ArrayList<TerrainObject> ret = new ArrayList<TerrainObject>();
 		
 		if(strictSquareCompare(cX, cZ, xWidth, x, z, renderDist)) {
-			// Case where we the terrain object is entirely contained within the render distance
+			// Special case where we the terrain object is entirely contained within the render distance
 			// Don't split further; render this terrain
 			// Do something with the tree here?
-			System.out.println("Adding terrain (1)");
+			//System.out.println("Adding terrain (1)");
 			ret.add(this);
 		}
 		else {
 			// split terrain further
-			TerrainObject[] children = getChildren();
-			for(TerrainObject child:children) {
-				if(squareCompare(child.cX, child.cZ, child.xWidth, x, z, renderDist)) {
-					// Do something with the tree here?
-					System.out.println("Adding terrain (2)");
-					ret.add(child);
-					child.notifyOfCamera(x, z);
+			if(xWidth>minTerrainWidth) {
+				System.out.println("splitting");
+				TerrainObject[] children = getChildren();
+				for(TerrainObject child:children) {
+					if(squareCompare(child.cX, child.cZ, child.xWidth, x, z, renderDist)) {
+						// Do something with the tree here?
+						//System.out.println("Adding terrain (2) - splitting");
+						System.out.println("CHILD - cX="+child.getXLoc()+" cZ="+child.getZLoc()+" xW="+child.getX()+" xZ="+child.getZ());
+						ret.add(child);
+						ret.addAll(child.notifyAndGiveTerrain(x, z));
+					}
 				}
+				//children.length;
 			}
-			//children.length;
 		}
 		return ret;
 	}
@@ -181,16 +185,22 @@ public class TerrainObject implements virtualworld.WorldObject {
 	 * @return
 	 */
 	private boolean strictSquareCompare(double x1, double z1, double s1, double x2, double z2, double s2) {
-		if(z1+s1/2 > z2+s2/2)
-			return false;
-		if(z1-s1/2 < z2-s2/2)
-			return false;
-		if(x1+s1/2 > x2+s2/2)
-			return false;
-		if(x1-s1/2 < x2-s2/2)
-			return false;
-		else 
+		
+		if(x1 == x2 && z1 == z2) {
 			return true;
+		}
+		
+		double x1lo = x1-s1/2;
+		double x1hi = x1+s1/2;
+		double z1lo = z1-s1/2;
+		double z1hi = z1+s1/2;
+		
+		double x2lo = x2-s2/2;
+		double x2hi = x2+s2/2;
+		double z2lo = z2-s2/2;
+		double z2hi = z2+s2/2;
+		
+		return x1lo>x2lo && x1hi<x2hi && z1lo>z2lo && z1hi<z2hi;
 	}
 	
 	/**
@@ -268,6 +278,7 @@ public class TerrainObject implements virtualworld.WorldObject {
 		//lower righthand corner
 		TerrainObject child4;
 		
+		
 		double childXW, childYW, childZW;
 		childXW = xWidth/2;
 		childYW = yWidth;
@@ -331,5 +342,31 @@ public class TerrainObject implements virtualworld.WorldObject {
 		list.add(meshView);
 		return list;
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if(other.getClass() != this.getClass())  {
+			return false;
+		}
+		else {
+			TerrainObject t = (TerrainObject) other;
+			return 
+				cX == t.cX &&
+				cZ == t.cZ && 
+				xWidth == t.xWidth &&
+				zWidth == t.zWidth;
+		}
+	}
+	
+	@Override
+	public int hashCode() {
+		int res = 23; 
+		res = 57*res + (int)cX;
+		res = 57*res + (int)cZ;
+		res = 57*res + (int)xWidth;
+		res = 57*res + (int)zWidth;
+		return res;
+	}
+	
 }
 
