@@ -165,11 +165,13 @@ public class ShapesDemo extends Application {
 		CityTwo cTwo = CityTwo.returnObj(mainGroup);
 		CityThree cThree = CityThree.returnObj(mainGroup);
 		*/
+		
 		/*
 		ArrayList<Shape3D> lst = new ArrayList<Shape3D>();
 		lst.addAll(CityStuff.makeTemple(mainGroup, Color.RED, Color.RED, Color.BLUE, Color.BLUE, 600.0, 300.0, -500.0));
 		mainGroup.getChildren().addAll(lst);
 		*/
+		
 		/*
 		System.out.println(cOne.getSize());
 		System.out.println(cOne.getX());
