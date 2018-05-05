@@ -16,6 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Box;
+import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Shape3D;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -129,8 +131,40 @@ public class PigMaker extends Application{
 		unison.play();
 		//moveTest.play();
 */		
+
+		//int[] transCords = {0,0,0};
+        //Sheep
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.2, 1, 16.5, 0, .5)); //LFL
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.2, 1, 16.5, 0, 1.5)); //RFL
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.2, 1, 15, 0, 1.5)); //RBL
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.2, 1, 15, 0, .5));  //LBL
+		mainGroup.getChildren().add(bodyShapes.createBox(2, 1, 1.5, 15.75, -1, 1)); //body
+		mainGroup.getChildren().add(bodyShapes.createBox(.7, .7, .7, 17, -1.75, 1)); //head
 		
-/*		//int[] transCords = {0,0,0};
+		//Chicken
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.07, .4, 10, 0, .85)); //RBL
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.07, .4, 10, 0, .55));  //LBL
+		mainGroup.getChildren().add(bodyShapes.createBox(.5, .5, .5, 10.1, -.4, .7)); //body
+		mainGroup.getChildren().add(bodyShapes.createBox(.3, .5, .3, 10.2, -.8, .7)); //head
+		mainGroup.getChildren().add(bodyShapes.createBox(.3, .1, .2, 10.06, .2, .55)); //LFoot
+		mainGroup.getChildren().add(bodyShapes.createBox(.3, .1, .2, 10.06, .2, .85)); //RFoot
+		mainGroup.getChildren().add(bodyShapes.createBox(.25, .08, .2, 10.45, -.75, .71)); //Top beak
+		mainGroup.getChildren().add(bodyShapes.createBox(.25, .08, .2, 10.45, -.85, .71)); //Bottom beak
+		mainGroup.getChildren().add(bodyShapes.createBox(.4, .3, .08, -10.1, -.35, 1)); //Right wing
+		mainGroup.getChildren().add(bodyShapes.createBox(.4, .3, .08, -10.1, -.35, .40)); //Left wing
+		
+		//Giraffe
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.18, 2.2, 6.25, 0, 0.5)); //lfL
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.18, 2.2, 6.25, 0, 1)); //rfL
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.18, 2.2, 5, 0, 1)); //RBL
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.18, 2.2, 5, 0, .5));  //LBL
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.06, 0.2, 6.25, -3.3, .65));  //L ant
+		mainGroup.getChildren().add(bodyShapes.createCylinder(.06, 0.2, 6.25, -3.3, .84));  //R ant
+		mainGroup.getChildren().add(bodyShapes.createBox(1.75, 0.8, 1, 5.63, -.7, .73)); //body
+		mainGroup.getChildren().add(bodyShapes.createBox(.3, 1.75, .3, 6.25, -2, .73)); //neck
+		mainGroup.getChildren().add(bodyShapes.createBox(.7, .4, .4, 6.4, -3, .73)); //head
+		
+		//Pig
 		mainGroup.getChildren().add(bodyShapes.createCylinder(.15, .7, 1.5, 0, .5)); //LFL
 		mainGroup.getChildren().add(bodyShapes.createCylinder(.15, .7, 1.5, 0, 1)); //RFL
 		mainGroup.getChildren().add(bodyShapes.createCylinder(.15, .7, 0, 0, 1)); //RBL
@@ -138,23 +172,6 @@ public class PigMaker extends Application{
 		mainGroup.getChildren().add(bodyShapes.createBox(2, .8, 1, .75, -.7, .73)); //body
 		mainGroup.getChildren().add(bodyShapes.createBox(.6, .6, .6, 2, -1.2, .73)); //head
 		mainGroup.getChildren().add(bodyShapes.createBox(.3, .3, .3, 2.3, -1.1, .73)); //Snout
-*/		
-		//Chicken
-		mainGroup.getChildren().add(bodyShapes.createCylinder(.07, .4, 0, 0, .85)); //RBL
-		mainGroup.getChildren().add(bodyShapes.createCylinder(.07, .4, 0, 0, .55));  //LBL
-		mainGroup.getChildren().add(bodyShapes.createBox(.5, .5, .5, 0.1, -.4, .7)); //body
-		mainGroup.getChildren().add(bodyShapes.createBox(.3, .5, .3, 0.2, -.8, .7)); //head
-		mainGroup.getChildren().add(bodyShapes.createBox(.3, .1, .2, 0.06, .2, .55)); //LFoot
-		mainGroup.getChildren().add(bodyShapes.createBox(.3, .1, .2, 0.06, .2, .85)); //RFoot
-		mainGroup.getChildren().add(bodyShapes.createBox(.25, .08, .2, .45, -.75, .71)); //Top beak
-		mainGroup.getChildren().add(bodyShapes.createBox(.25, .08, .2, .45, -.85, .71)); //Bottom beak
-		mainGroup.getChildren().add(bodyShapes.createBox(.4, .3, .08, -.1, -.35, 1)); //Right wing
-		mainGroup.getChildren().add(bodyShapes.createBox(.4, .3, .08, -.1, -.35, .40)); //Left wing
-
-
-
-
-
 
 		
 		//mainGroup.getChildren().addAll(testSheep.list);
