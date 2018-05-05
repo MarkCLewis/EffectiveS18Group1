@@ -173,8 +173,8 @@ public class CityStuff {
 		mat.setDiffuseColor(cols1);
 		mat.setSpecularColor(cols2);
 		for(int i = 0; i < 2; i++){
-			lst.add(DrawFacade.getCylinderBuilder(5, 40).transCoords(newX, y-20, newZ).material(mat).build().get());
-			lst.add(DrawFacade.getCylinderBuilder(5, 40).transCoords(newX+50, y-20, newZ).material(mat).build().get());
+			lst.add(DrawFacade.getCylinderBuilder(5.0, 40.0).transCoords(newX, y-20, newZ).material(mat).build().get());
+			lst.add(DrawFacade.getCylinderBuilder(5.0, 40.0).transCoords(newX+50, y-20, newZ).material(mat).build().get());
 			/*
 			Cylinder cyl = Shapes.makeCylinder(5.0, 40.0, cols1, cols2, newX, y-20, newZ); 
 			mg.getChildren().add(cyl);
@@ -185,11 +185,11 @@ public class CityStuff {
 			newZ += 80.0;
 			
 		}
-		
-		while(newZ <= z){
-			newZ += 20.0;
-			lst.add(DrawFacade.getCylinderBuilder(5, 40).transCoords(newX, y-20, newZ).material(mat).build().get());
-			lst.add(DrawFacade.getCylinderBuilder(5, 40).transCoords(newX+50, y-20, newZ).material(mat).build().get());
+
+		while(newZ > z){
+			newZ -= 20.0;
+			lst.add(DrawFacade.getCylinderBuilder(5.0, 40.0).transCoords(newX, y-20, newZ).material(mat).build().get());
+			lst.add(DrawFacade.getCylinderBuilder(5.0, 40.0).transCoords(newX+50, y-20, newZ).material(mat).build().get());
 			/*
 			Cylinder cyl = Shapes.makeCylinder(5.0, 40.0, cols1, cols2, newX, 220, newZ); 
 			mg.getChildren().add(cyl);
@@ -205,7 +205,7 @@ public class CityStuff {
 		mat = new PhongMaterial();
 		mat.setDiffuseColor(roof1);
 		mat.setSpecularColor(roof2);
-		lst.add((DrawFacade.getBoxBuilder(80, 5, 40).transCoords(x, y-40, z).material(mat).build().get()));
+		lst.add((DrawFacade.getBoxBuilder(80.0, 5.0, 40.0).transCoords(x, y-40, z).material(mat).build().get()));
 		
 		double l = 80.0;
 		double w = 40.0;
@@ -218,7 +218,7 @@ public class CityStuff {
 			Box b3 = Shapes.makeBox(l, 5.0, w, roof1, roof2, newX+25.0, newY, newZ);
 			mg.getChildren().add(b3);
 			*/
-			lst.add((DrawFacade.getBoxBuilder(l, 5, w).transCoords(newX+25, newY, newZ).material(mat).build().get()));
+			lst.add((DrawFacade.getBoxBuilder(l, 5.0, w).transCoords(newX+25, newY, newZ).material(mat).build().get()));
 		}
 		return lst;
 	}
