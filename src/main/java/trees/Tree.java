@@ -191,11 +191,11 @@ public class Tree extends Application implements WorldObject {
 		 }
 
 		
-		axiom = new Branch("a", 1, 5, 1, randX, 0, randZ, 0, s);
+		//axiom = new Branch("a", 1, 5, 1, randX, 0, randZ, 0, s);
 
-		//axiom = new Branch("a", 1, 5, 1, 0, 0, 350, 0, s);
-		// axiom = new Branch("b", 7.5, 40, 7.5, xzCoordinate(), 0,
-		// xzCoordinate(), 0, s);
+	//	axiom = new Branch("a", 1, 5, 1, 0, 0, 350, 0, s);
+		 axiom = new Branch("b", 1, 5, 1, xzCoordinate(), 0,
+		 xzCoordinate(), 0, s);
 		x = axiom.getPositionX();
 		y = axiom.getPositionY();
 		z = axiom.getPositionZ();
@@ -229,11 +229,11 @@ public class Tree extends Application implements WorldObject {
 
 		//System.out.println(randX);
 		
-		axiom = new Branch("b", 1, 5, 1, randX, 0, 350, 0, s);
+		//axiom = new Branch("b", 1, 5, 1, randX, 0, 350, 0, s);
 		//axiom = new Branch("b", 1, 5, 1, 0, 0, 350, 0, s);
 
-		// axiom = new Branch("b", 7.5, 40, 7.5, xzCoordinate(), 0,
-		// xzCoordinate(), 0, s);
+		 axiom = new Branch("b", 1, 5, 1, xzCoordinate(), 0,
+		 xzCoordinate(), 0, s);
 		x = axiom.getPositionX();
 		y = axiom.getPositionY();
 		z = axiom.getPositionZ();
@@ -250,13 +250,7 @@ public class Tree extends Application implements WorldObject {
 		return dryTree();
 	}
 	
-	public void forest(){
-		for (int i=0; i<50; i++){
-			buildTree();
-		}
-	}
 	
-
 	
 	
 
@@ -276,8 +270,8 @@ public class Tree extends Application implements WorldObject {
 	}
 
 	/**
-	 * Randomly assign x,z coordinates to and how many levels the tree will
-	 * have.
+	 * Randomly assign x,z coordinates to each tree
+	 *
 	 */
 	public static double xzCoordinate() {
 
@@ -458,6 +452,7 @@ public class Tree extends Application implements WorldObject {
 			}
 			
 		}
+		System.out.println(shapes.size());
 		
 		height=Math.abs(height)+axiom.getHeight()/2;
 		
@@ -472,10 +467,10 @@ public class Tree extends Application implements WorldObject {
 		primaryStage.setTitle("Tree");
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
 
-		for (int i=0;i<40;i++){
+//		for (int i=0;i<40;i++){
 			Tree t=new Tree();
 			t.buildTree();
-		}
+//		}
 		
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
@@ -592,7 +587,7 @@ public class Tree extends Application implements WorldObject {
 
 	@Override
 	public ArrayList<Shape3D> display() {
-		buildTree();
+		
 		return shapes;
 	}
 }
