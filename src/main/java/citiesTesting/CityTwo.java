@@ -49,7 +49,7 @@ public class CityTwo implements WorldObject {
 		setY();
 		
 		//double sz = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
-		BuildingTypes.Tuple<Double, ArrayList<Shape3D>> tup = BuildingTypes.makeCity1(mg, roof1, roof2, house1, house2, x, y, z, rand);
+		BuildingTypes.Tuple<Double, ArrayList<Shape3D>> tup = BuildingTypes.makeCity2(mg, roof1, roof2, house1, house2, x, y, z, num, rand);
 		setSize(tup.getA());
 		addToList(tup.getB());
 	}
