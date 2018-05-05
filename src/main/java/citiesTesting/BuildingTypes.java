@@ -17,6 +17,7 @@ import javafx.scene.transform.Rotate;
 import virtualworld.WorldObject;
 
 public class BuildingTypes{
+	
 	//City type 1: square city
 	public static Tuple<Double, ArrayList<Shape3D>> makeCity1(Group mg, Color roof1, Color roof2, Color house1, Color house2, double x, double y, double z, Random r){
 		//Random rand = new Random();

@@ -32,7 +32,7 @@ public class CityTesting extends Application {
 
 		Group mainGroup = new Group();
 		Scene scene = new Scene(mainGroup, 1280, 720, true);
-		//scene.setFill(Color.GRAY);
+		scene.setFill(Color.GRAY);
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		Group cameraGroup = new Group();
@@ -92,6 +92,9 @@ public class CityTesting extends Application {
 
 		//ArrayList<Shape3D> tempList = new ArrayList<Shape3D>();
 		CityOne cOne = CityOne.returnObjTest(-800, 700, mainGroup);
+		//System.out.println((cOne.display().size()));
+		//CityOne cOne1 = CityOne.returnObj(mainGroup);
+		//System.out.println(cOne1.display().size());
 		CityTwo cTwo = CityTwo.returnObjTest(700, 700, mainGroup);
 		CityThree cThree = CityThree.returnObjTest(-700, -700, mainGroup);
 		
