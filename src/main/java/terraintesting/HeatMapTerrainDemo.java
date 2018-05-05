@@ -43,8 +43,8 @@ public class HeatMapTerrainDemo extends Application {
 	}
 	
 	public static void buildElevation() {
-		TerrainGenerationAlgorithm terrainAlgorithm = new NeighborAverageSmoothing();
-		//TerrainGenerationAlgorithm terrainAlgorithm = new FractalTerrain();
+		//TerrainGenerationAlgorithm terrainAlgorithm = new NeighborAverageSmoothing();
+		TerrainGenerationAlgorithm terrainAlgorithm = new FractalTerrain();
 		terrainAlgorithm.generateTerrain(elevation, maxElevation);
 	}
 	
