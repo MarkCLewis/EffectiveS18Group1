@@ -33,7 +33,9 @@ public class NotifyObjects implements ElementVisitor {
   	@Override
   	public void visit(WorldObject item) {
   		boolean notified = item.notifyOfCamera(xCam, zCam);
+  		System.out.println(circleCheck(item));
   		if (circleCheck(item) && notified) {
+  			System.out.println("REached");
 	  		validObjects.add(item);
 	  		toBeDrawn.addAll(item.display());
   		}
@@ -43,14 +45,15 @@ public class NotifyObjects implements ElementVisitor {
   		double xLoc = item.getXLoc();
   		double zLoc = item.getZLoc();
   		double itemR = item.getSize();
-  		double camR = 300;
+  		double camR = 2000;
   		
   		double distance = Math.sqrt(Math.pow((xLoc - xCam), 2) + Math.pow((zLoc - zCam), 2));
-  		
+  		//System.out.println(itemR);
+  		//System.out.println(distance);
   		return (camR > (distance + itemR));
   	}
   	
   	public boolean euclideanCheck(Node n) {
-  		return (Math.sqrt(Math.pow((n.x - xCam), 2) + Math.pow((n.z - zCam), 2)) <= 1000);
+  		return (Math.sqrt(Math.pow((n.x - xCam), 2) + Math.pow((n.z - zCam), 2)) <= 10000);
   	}
 }

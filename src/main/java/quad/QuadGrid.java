@@ -25,8 +25,10 @@ public class QuadGrid extends Application implements Element {
 
 	// Camera movement variables
 	private int boost = 1;
-	private boolean show = false;
-
+	private boolean showCamera = false;
+	private boolean showRendered = false;
+	private boolean showPerson = false;
+	
 	// Quadtree variables
 	static QuadTree quad = QuadTree.getInstance();
 
@@ -71,7 +73,11 @@ public class QuadGrid extends Application implements Element {
 			if (keySet.contains(KeyCode.SHIFT))
 				boost = 5;
 			if (keySet.contains(KeyCode.C))
-				show = !show;
+				showCamera = !showCamera;
+			if (keySet.contains(KeyCode.V))
+				showRendered = !showRendered;
+			if (keySet.contains(KeyCode.X))
+				showPerson = !showPerson;
 		});
 
 		scene.setOnKeyReleased(event -> {
@@ -129,11 +135,21 @@ public class QuadGrid extends Application implements Element {
 			double radius = obj.getRadius() + 3;
 			double x = obj.getXLoc() + 500;
 			double z = obj.getZLoc() + 500;
-			if (show) gc.strokeOval(x - radius, z - radius, radius * 2, radius * 2);
+			if (showRendered) gc.strokeOval(x - radius, z - radius, radius * 2, radius * 2);
 		}
-
+		
+		//Viewer
+		if (showPerson) {
+			gc.setFill(Color.CHOCOLATE);
+			gc.fillOval(QuadTree.cameraX+495, QuadTree.cameraZ+495, 10, 10);
+		}
+		
 		// Camera
-		gc.setStroke(Color.CHOCOLATE);gc.setLineWidth(5);gc.strokeOval(QuadTree.cameraX+200,QuadTree.cameraZ+200,600,600);
+		if (showCamera) {
+			gc.setLineWidth(5);
+			gc.setStroke(Color.CHOCOLATE);
+			gc.strokeOval(QuadTree.cameraX+200,QuadTree.cameraZ+200,600,600);
+		}
 	}
 
 	public static void populate() {

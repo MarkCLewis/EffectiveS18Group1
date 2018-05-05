@@ -569,9 +569,6 @@ public class Tree extends Application implements WorldObject {
 
 	@Override
 	public boolean notifyOfCamera(double x, double z) {
-		if ((Math.abs(this.getX() - x) < 10) || (Math.abs(this.getZ() - z) < 10)) {
-			cameraClose = true;
-		}
 		return true;
 	}
 

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 import citiesTesting.CityOne;
+import citiesTesting.CityThree;
+import citiesTesting.CityTwo;
 import graphicsTesting.CameraController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -17,6 +19,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape3D;
 import javafx.stage.Stage;
+import quad.AllObjects;
 import quad.ElementVisitor;
 import quad.NotifyObjects;
 import quad.QuadTree;
@@ -61,21 +64,31 @@ public class Main extends Application {
 		
 		
 		CityOne exampleCity = CityOne.returnObj(mainGroup);
+		CityTwo exampleCity1 = CityTwo.returnObj(mainGroup);
+		CityThree exampleCity2 = CityThree.returnObj(mainGroup);
+		//CityOne exampleCity3 = CityOne.returnObj(mainGroup);
+		//CityOne exampleCity4 = CityOne.returnObj(mainGroup);
+		//CityOne exampleCity5 = CityOne.returnObj(mainGroup);
 		
 		quad.insert(new ExampleObject(0, 0, 6000), null); //TODO replace with large terrain piece
 		quad.insert(exampleCity, quad.getRootNode());
+		quad.insert(exampleCity1, quad.getRootNode());
+		quad.insert(exampleCity2, quad.getRootNode());
+		//quad.insert(exampleCity3, quad.getRootNode());
+		//quad.insert(exampleCity4, quad.getRootNode());
+		//quad.insert(exampleCity5, quad.getRootNode());
 		
 		System.out.println(itemRendered.size());
 		
 	//Visitors
-		NotifyObjects renderCollector = new NotifyObjects();
+		/**
 		visitList.add((ElementVisitor) renderCollector);
 		renderCollector.visit(quad.getRootNode());
 		for (WorldObject items : renderCollector.validObjects) {
 			itemRendered.add((WorldObject) items);
 			toBeDrawn.addAll(items.display());
 		}
-		
+		**/
 		System.out.println(itemRendered.size());
 		
 		//String[] args = null;
@@ -189,14 +202,14 @@ public class Main extends Application {
 		//}
 		//}
 		
-		Tree tree = new Tree();
-		for (Shape3D treeShape :tree.display()) {
-			mainGroup.getChildren().add(treeShape);
-		}
+		//Tree tree = new Tree();
+		//for (Shape3D treeShape :tree.display()) {
+		//	mainGroup.getChildren().add(treeShape);
+		//}
 		
-		System.out.println(tree.getXLoc());
-		System.out.println(tree.getZLoc());
-		quad.insert(tree, quad.getRootNode());
+		//System.out.println(tree.getXLoc());
+		//System.out.println(tree.getZLoc());
+		//quad.insert(tree, quad.getRootNode());
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
@@ -209,11 +222,24 @@ public class Main extends Application {
 				if(euclid(x1,x2,z1,z2)) {
 					x1 = x2;
 					z1 = z2;
+					System.out.println("x: " + x2 + " z: " + z2);
 					QuadTree.cameraX = pCam.getCameraX();
 					QuadTree.cameraZ = pCam.getCameraZ();
 					itemRendered.clear();
 					toBeDrawn.clear();
 					mainGroup.getChildren().clear();
+					
+					AllObjects allCollector = new AllObjects();
+					allCollector.visit(quad.getRootNode());
+					//System.out.println("Nodes: " + allCollector.allNodes.size());
+					//System.out.println("WorldObjects: " + allCollector.allWorldObjects.size());
+					
+					for (WorldObject items : allCollector.allWorldObjects) {
+						System.out.println("WorldObject Coor: " + items.getXLoc() + ", " + items.getZLoc());
+						System.out.println(items.getSize());
+					}
+					
+					NotifyObjects renderCollector = new NotifyObjects();
 					renderCollector.visit(quad.getRootNode());
 					for (WorldObject items : renderCollector.validObjects) {
 						itemRendered.add((WorldObject) items);
