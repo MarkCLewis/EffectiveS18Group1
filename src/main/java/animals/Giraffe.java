@@ -50,7 +50,7 @@ public class Giraffe implements WorldObject {
 	}
 	
 	public static void setY(){
-		y = MathStuff.makeCoordinate();
+		y = 0;
 	}
 	
 	public static void setZ(){

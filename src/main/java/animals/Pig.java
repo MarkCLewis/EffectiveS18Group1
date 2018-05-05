@@ -32,7 +32,7 @@ public class Pig implements WorldObject {
 		setY();
 		setZ();
 		
-		ArrayList<Shape3D> Bs = PigBuild.makePig(x,y,z);
+		ArrayList<Shape3D> Bs = AnimalBuild.makePig(x,y,z);
 		list.addAll(Bs);
 	}
 	
@@ -51,7 +51,7 @@ public class Pig implements WorldObject {
 	}
 	
 	public static void setY(){
-		y = MathStuff.makeCoordinate();
+		y = 0;
 	}
 	
 	public static void setZ(){
