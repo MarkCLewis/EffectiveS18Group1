@@ -117,7 +117,7 @@ public class TerrainObjectBasic implements virtualworld.WorldObject {
 
 	@Override
 	public double getSize() {
-		return width*width;
+		return width;
 	}
 
 	@Override

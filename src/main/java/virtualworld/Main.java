@@ -88,17 +88,16 @@ public class Main extends Application {
 		float noise = (float)0.3;
 		int seed = 3838;
 		int scale = 10;
-		TerrainObjectBasic[][] world = new TerrainObjectBasic[(int)actualWorldSize/terrainSize][(int)actualWorldSize/terrainSize];
+		/*ArrayList<TerrainObjectBasic> world = new ArrayList<TerrainObjectBasic>();
 		for(int x=(int) -worldSize; x<worldSize; x+=terrainSize) {
 			for(int z=(int) -worldSize; z<worldSize; z+=terrainSize) {
-				world[x][z] = new TerrainObjectBasic(x, z, terrainSize, scale, noise, seed);
+				world.add(new TerrainObjectBasic(x, z, terrainSize, scale, noise, seed));
 			}
-		}
-		for(TerrainObjectBasic[] a : world) {
-				for(TerrainObjectBasic terr : a) {
-					quad.insert(terr, quad.getRootNode());
-				}
-		}
+		}*/
+		//for(TerrainObjectBasic terr : world) {
+		TerrainObjectBasic terr = new TerrainObjectBasic(0, 0, terrainSize, scale, noise, seed);
+			quad.insert(terr, quad.getRootNode());
+		//}
 		
 	//Visitors
 		/**
@@ -158,6 +157,9 @@ public class Main extends Application {
 			 }
 			 if(keySet.contains(KeyCode.SHIFT)) {
 				 pCam.boostOn();
+			 }
+			 if(keySet.contains(KeyCode.L)) {
+				 System.out.println("X = "+camera.getTranslateX()+" Z = "+camera.getTranslateZ()+" Y = "+camera.getTranslateY());
 			 }
 		});
 		
