@@ -26,6 +26,7 @@ import quad.AllObjects;
 import quad.ElementVisitor;
 import quad.NotifyObjects;
 import quad.QuadTree;
+import terraintesting.TerrainObjectBasic;
 import trees.Tree;
 
 public class Main extends Application {
@@ -80,6 +81,24 @@ public class Main extends Application {
 		//quad.insert(exampleCity5, quad.getRootNode());
 		
 		System.out.println(itemRendered.size());
+		
+	// Terrain 
+		int actualWorldSize = (int) (worldSize*2);
+		int terrainSize = 1000;
+		float noise = (float)0.3;
+		int seed = 3838;
+		int scale = 10;
+		TerrainObjectBasic[][] world = new TerrainObjectBasic[(int)actualWorldSize/terrainSize][(int)actualWorldSize/terrainSize];
+		for(int x=(int) -worldSize; x<worldSize; x+=terrainSize) {
+			for(int z=(int) -worldSize; z<worldSize; z+=terrainSize) {
+				world[x][z] = new TerrainObjectBasic(x, z, terrainSize, scale, noise, seed);
+			}
+		}
+		for(TerrainObjectBasic[] a : world) {
+				for(TerrainObjectBasic terr : a) {
+					quad.insert(terr, quad.getRootNode());
+				}
+		}
 		
 	//Visitors
 		/**
