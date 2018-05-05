@@ -1,14 +1,17 @@
 package terraintesting;
 
+import java.util.ArrayList;
+
 import agua.generateTerrain;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
+import javafx.scene.shape.Shape3D;
 import javafx.scene.shape.TriangleMesh;
 
-public class TerrainObjectBasic {
+public class TerrainObjectBasic implements virtualworld.WorldObject {
 	//int xRes, int yRes, int zRes, int scale, float noiseLevel, int seed
 	private final int width; //1000 //this is the width in all 3 dimensions
 	private final int x; //corner coord; not center
@@ -47,11 +50,11 @@ public class TerrainObjectBasic {
 		return width;
 	}
 
-	public int getX() {
+	public int getCornerX() {
 		return x;
 	}
 
-	public int getZ() {
+	public int getCronerZ() {
 		return z;
 	}
 
@@ -77,6 +80,57 @@ public class TerrainObjectBasic {
 
 	public void setSeed(int seed) {
 		this.seed = seed;
+	}
+
+	@Override
+	public double getXLoc() {
+		// TODO Auto-generated method stub
+		return x+width/2;
+	}
+
+	@Override
+	public double getYLoc() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getZLoc() {
+		// TODO Auto-generated method stub
+		return z+width/2;
+	}
+
+	@Override
+	public double getX() {
+		return width;
+	}
+
+	@Override
+	public double getY() {
+		return width;
+	}
+
+	@Override
+	public double getZ() {
+		return width;
+	}
+
+	@Override
+	public double getSize() {
+		return width*width;
+	}
+
+	@Override
+	public boolean notifyOfCamera(double x, double z) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public ArrayList<Shape3D> display() {
+		ArrayList<Shape3D> ret = new ArrayList<Shape3D>();
+		ret.add(getMeshview());
+		return ret;
 	}
 	 
 }
