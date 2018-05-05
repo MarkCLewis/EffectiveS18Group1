@@ -29,6 +29,7 @@ public class CityTwo implements WorldObject {
 	static ArrayList<Shape3D> lst = new ArrayList<Shape3D>();
 
 	public static CityTwo returnObj(Group group) {
+		lst.clear();
 		main(group);
 		CityTwo ct = new CityTwo();
 		return ct;
@@ -235,6 +236,10 @@ public class CityTwo implements WorldObject {
 		}
 		else return false;
 		*/
+	}
+	
+	public void clearList(){
+		lst.clear();
 	}
 
 	@Override
