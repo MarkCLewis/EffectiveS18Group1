@@ -83,7 +83,7 @@ public class Main extends Application {
 		System.out.println(itemRendered.size());
 		
 	// Terrain 
-		int actualWorldSize = (int) (worldSize*2);
+		/*int actualWorldSize = (int) (worldSize*2);
 		int terrainSize = 1000;
 		float noise = (float)0.3;
 		int seed = 3838;
@@ -95,9 +95,9 @@ public class Main extends Application {
 			}
 		}*/
 		//for(TerrainObjectBasic terr : world) {
-		TerrainObjectBasic terr = new TerrainObjectBasic(0, 0, terrainSize, scale, noise, seed);
-			quad.insert(terr, quad.getRootNode());
-		//}
+		//TerrainObjectBasic terr = new TerrainObjectBasic(0, 0, terrainSize, scale, noise, seed);
+		//	quad.insert(terr, quad.getRootNode());
+		//}*/
 		
 	//Visitors
 		/**
