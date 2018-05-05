@@ -1,5 +1,6 @@
 package citiesTesting;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import javafx.application.Application;
@@ -11,6 +12,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.MeshView;
+import javafx.scene.shape.Shape3D;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
@@ -158,10 +160,17 @@ public class ShapesDemo extends Application {
 		*/
 		
 		//Example of how to use City world objects
-		
+		/*
 		CityOne cOne = CityOne.returnObj(mainGroup);
 		CityTwo cTwo = CityTwo.returnObj(mainGroup);
 		CityThree cThree = CityThree.returnObj(mainGroup);
+		*/
+		
+		/*
+		ArrayList<Shape3D> lst = new ArrayList<Shape3D>();
+		lst.addAll(CityStuff.makeTemple(mainGroup, Color.RED, Color.RED, Color.BLUE, Color.BLUE, 600.0, 300.0, -500.0));
+		mainGroup.getChildren().addAll(lst);
+		*/
 		
 		/*
 		System.out.println(cOne.getSize());
