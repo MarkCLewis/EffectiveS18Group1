@@ -95,21 +95,21 @@ public class sheepMaker extends Application{
 		// so 0-4 are the limbs
 		tempList.add(bodyShapes.createBox(2, 1, 1.5, .75, -1, 1));
 		tempList.add(bodyShapes.createBox(.7, .7, .7, 2, -1.7, 1));
-		sheep testSheep = new sheep();
-		sheep.list.addAll(tempList);
+		Sheep testSheep = new Sheep();
+		Sheep.list.addAll(tempList);
 		
 		// this is hardcoded for testing purposes. Sheep needs an shape3d array of the limbs, so that they can rotate
-		sheep.limbs.add(tempList.get(0));
-		sheep.limbs.add(tempList.get(1));
-		sheep.limbs.add(tempList.get(2));
-		sheep.limbs.add(tempList.get(3));
+		Sheep.limbs.add(tempList.get(0));
+		Sheep.limbs.add(tempList.get(1));
+		Sheep.limbs.add(tempList.get(2));
+		Sheep.limbs.add(tempList.get(3));
 		
 		ArrayList<RotateTransition> rt = new ArrayList<RotateTransition>();
 		
 		// Again, this is just temporary.
 		// Ideally, sheep should have A parallel transition field and an animalTransition field (plus getters and setters for each)
 		
-		for(Shape3D sd : sheep.limbs)
+		for(Shape3D sd : Sheep.limbs)
 		{
 			RotateTransition temp = new RotateTransition(Duration.millis(500), sd);
 			temp.setByAngle(90);
@@ -118,7 +118,7 @@ public class sheepMaker extends Application{
 			rt.add(temp);
 		}
 		// also making the head move, why not
-		RotateTransition head = new RotateTransition(Duration.millis(2000), sheep.list.get(5));
+		RotateTransition head = new RotateTransition(Duration.millis(2000), Sheep.list.get(5));
 		head.setByAngle(50);
 		head.setAutoReverse(true);
 		head.setCycleCount(head.INDEFINITE);

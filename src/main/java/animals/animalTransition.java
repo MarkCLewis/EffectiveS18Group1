@@ -7,11 +7,11 @@ import javafx.util.Duration;
 
 public class animalTransition extends Transition{
 
-	private sheep theSheep;
+	private Sheep theSheep;
 	private int maxRange;
 	private Point3D endPoint;
 	static private double distance;
-	public animalTransition(sheep s)
+	public animalTransition(Sheep s)
 	{
 		
 		theSheep = s;
