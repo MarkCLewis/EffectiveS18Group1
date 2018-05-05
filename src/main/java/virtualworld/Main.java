@@ -240,7 +240,7 @@ public class Main extends Application {
 			quad.insert(tree, quad.getRootNode());
 		}
 	
-		
+		/**
 		for (int i = 0; i < 300; i++)  {
 			Sheep sheep = Sheep.returnObj(mainGroup);
 			Pig pig = Pig.returnObj(mainGroup);
@@ -248,7 +248,7 @@ public class Main extends Application {
 			quad.insert(sheep, quad.getRootNode());
 			quad.insert(pig, quad.getRootNode());
 			quad.insert(giraffe, quad.getRootNode());
-		}
+		}*/
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
