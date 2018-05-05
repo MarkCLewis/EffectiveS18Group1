@@ -3,7 +3,7 @@ package terraintesting;
 import agua.SimplexNoise;
 
 public class SimplexNoise2 /*implements TerrainGenerationAlgorithm*/ {
-	//written for testing purposes only
+	//for testing purposes only
 	//originally coded by Stefan Gustavson
 	//Optimizations by Peter Eastman
 	//mostly just to change the random and to make it display
