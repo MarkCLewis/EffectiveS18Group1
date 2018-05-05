@@ -1,0 +1,17 @@
+// Terrain 
+	int actualWorldSize = worldSize*2;
+	int terrainSize = 1000;
+	float noise = 0.3;
+	int seed = 3838;
+	int scale = 10;
+	TerrainObjectBasic[][] world = new TerrainObjectBasic[(int)actualWorldSize/terrainsize][(int)actualWorldSize/terrainsize];
+	for(int x=-worldSize; x<WorldSize; x+=terrainSize) {
+		for(int z=-worldSize; z<WorldSize; z+=terrainSize) {
+			world[x][z] = new TerrainObjectBasic(x, z, terrainSize, scale, noise, seed);
+		}
+	}
+	for(TerrainObjectBasic[] a : world) {
+			for(TerrainObjectBasic terr : a) {
+				quad.insert(terr);
+			}
+	}
