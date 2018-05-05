@@ -8,7 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-public class TerrainObjectDisplayDemo extends Application {
+public class TerrainObjectDisplayDemo2D extends Application {
 	
 	
 	public static void main(String[] args) {

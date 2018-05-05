@@ -1,8 +1,8 @@
 package terraintesting;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
-import agua.SimplexNoise;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.Shape3D;
 import javafx.scene.shape.TriangleMesh;
@@ -25,7 +25,7 @@ public class TerrainObject implements virtualworld.WorldObject {
 	private final double noise;
 	private static final long defaultSeed = 0L;
 	private static final double defaultNoise = 0.5;
-	private static final double renderDist = 1000; //Width of the box around the camera that's rendered
+	private static final double renderDist = 50;//1000; //Width of the box around the camera that's rendered
 	
 	public TerrainObject(double cX, double cY, double cZ, double xW, double yW, double zW, int scale, long seed, double noise) {
 		if(noise<0.0 || noise>1.0)
@@ -138,6 +138,37 @@ public class TerrainObject implements virtualworld.WorldObject {
 		}
 	}
 	
+	public ArrayList<TerrainObject> notifyAndGiveTerrain(double x, double z) {
+		// Idea behind this algorithm -
+			// Given the square patch of Terrain to generate (centered at the point passed in and with a side length of renderDist)
+			// subdivide TerrainObject into quadrants of children until you get terrain objects that are entirely contained within (or coincident with)
+			// The patch of terrain around the camera to render. These are the only TerrainObjects to render
+		double minTerrainWidth = 10; //TODO - don't let terrain tiles get too small
+		ArrayList<TerrainObject> ret = new ArrayList<TerrainObject>();
+		
+		if(strictSquareCompare(cX, cZ, xWidth, x, z, renderDist)) {
+			// Case where we the terrain object is entirely contained within the render distance
+			// Don't split further; render this terrain
+			// Do something with the tree here?
+			System.out.println("Adding terrain (1)");
+			ret.add(this);
+		}
+		else {
+			// split terrain further
+			TerrainObject[] children = getChildren();
+			for(TerrainObject child:children) {
+				if(squareCompare(child.cX, child.cZ, child.xWidth, x, z, renderDist)) {
+					// Do something with the tree here?
+					System.out.println("Adding terrain (2)");
+					ret.add(child);
+					child.notifyOfCamera(x, z);
+				}
+			}
+			//children.length;
+		}
+		return ret;
+	}
+	
 	/**
 	 * Utility method that tells whether or not the first square is contained within the second
 	 * 
@@ -238,9 +269,9 @@ public class TerrainObject implements virtualworld.WorldObject {
 		TerrainObject child4;
 		
 		double childXW, childYW, childZW;
-		childXW = xWidth/4;
+		childXW = xWidth/2;
 		childYW = yWidth;
-		childZW = zWidth/4;
+		childZW = zWidth/2;
 		//int childLOD = levelOfDetail+1;
 		
 		//Common fields across all children
