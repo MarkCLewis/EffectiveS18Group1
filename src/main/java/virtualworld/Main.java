@@ -20,6 +20,7 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.MeshView;
 import javafx.scene.shape.Shape3D;
 import javafx.stage.Stage;
 import quad.AllObjects;
@@ -37,6 +38,11 @@ public class Main extends Application {
 	private double z1;
 	private double x2;
 	private double z2;
+	private static final int terrainSize = 1000;
+	private static ArrayList<MeshView> mvCopies = new ArrayList<MeshView>();
+	private static int centerTerrX = 0;
+	private static int centerTerrZ = 0;
+	private static TerrainObjectBasic[] world = setWorldTerrains(centerTerrX, centerTerrZ);
 	
 	private double worldSize = 6000;
 	
@@ -303,6 +309,181 @@ public class Main extends Application {
 		//System.out.println(Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(z2-z1, 2)));
 		return (Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(z2-z1, 2)) > 10);
 	}
+	
+	public static TerrainObjectBasic[] setWorldTerrains(int x, int z) {
+		//Forward strip
+		TerrainObjectBasic terr1 = new TerrainObjectBasic(x-terrainSize, z+terrainSize, terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr2 = new TerrainObjectBasic(x, z+terrainSize, terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr3 = new TerrainObjectBasic(x+terrainSize, z+terrainSize, terrainSize, 10, (float) 0.3, 3838);
+		//Middle strip
+		TerrainObjectBasic terr4 = new TerrainObjectBasic(x-terrainSize, z, terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr5 = new TerrainObjectBasic(x, z, terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr6 = new TerrainObjectBasic(x+terrainSize, z, terrainSize, 10, (float) 0.3, 3838);
+		//Backward strip
+		TerrainObjectBasic terr7 = new TerrainObjectBasic(x-terrainSize, z-terrainSize, terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr8 = new TerrainObjectBasic(x, z-terrainSize, terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr9 = new TerrainObjectBasic(x+terrainSize, z-terrainSize, terrainSize, 10, (float) 0.3, 3838);
+		/*
+		TerrainObjectBasic terr5 = new TerrainObjectBasic(x, 		z, 		terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr4 = new TerrainObjectBasic(x+1000, 	z, 		terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr6 = new TerrainObjectBasic(x+1000, 	z+1000, 	terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr2 = new TerrainObjectBasic(x, 		z+1000, 	terrainSize, 10, (float) 0.3, 3838);
+		//TerrainObjectBasic terr1 = new TerrainObjectBasic(x-1000,	z+1000, 	terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr3 = new TerrainObjectBasic(x-1000,	z, 		terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr7 = new TerrainObjectBasic(x, 		z-1000, 	terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr8 = new TerrainObjectBasic(x-1000,	z-1000, 	terrainSize, 10, (float) 0.3, 3838);
+		TerrainObjectBasic terr9 = new TerrainObjectBasic(x+1000,		z-1000, 	terrainSize, 10, (float) 0.3, 3838);*/
+		TerrainObjectBasic[] world = {terr1, terr2, terr3, terr4, terr5, terr6, terr7, terr8, terr9};
+		return world;
+	}
+	
+	public boolean checkCamPosition(int camX, int camZ) {
+		return camX<centerTerrX || camZ<centerTerrZ || camX>terrainSize+centerTerrX || camZ>terrainSize+centerTerrZ;
+	}
+	
+	//updates terrains and graphics
+		public void updateTerrains(int camX, int camZ, Group g) {
+			if(camZ>terrainSize+centerTerrZ) {
+				//unload backstrip
+				g.getChildren().remove(mvCopies.get(7-1));
+				g.getChildren().remove(mvCopies.get(8-1));
+				g.getChildren().remove(mvCopies.get(9-1));
+				centerTerrZ+=terrainSize;
+				//Build new forward strip
+				TerrainObjectBasic terr1 = new TerrainObjectBasic(centerTerrX-terrainSize, centerTerrZ+terrainSize, terrainSize, 10, (float) 0.3, 3838);
+				TerrainObjectBasic terr2 = new TerrainObjectBasic(centerTerrX, centerTerrZ+terrainSize, terrainSize, 10, (float) 0.3, 3838);
+				TerrainObjectBasic terr3 = new TerrainObjectBasic(centerTerrX+terrainSize, centerTerrZ+terrainSize, terrainSize, 10, (float) 0.3, 3838);
+				
+				world[7-1] = world[4-1];
+				world[8-1] = world[5-1];
+				world[9-1] = world[6-1];
+				
+				world[4-1] = world[1-1];
+				world[5-1] = world[2-1];
+				world[6-1] = world[3-1];
+				
+				world[1-1] = terr1;
+				world[2-1] = terr2;
+				world[3-1] = terr3;
+
+				mvCopies.remove(9-1);
+				mvCopies.remove(8-1);
+				mvCopies.remove(7-1);
+				
+				mvCopies.add(1-1, terr1.getMeshview());
+				mvCopies.add(2-1, terr2.getMeshview());
+				mvCopies.add(3-1, terr3.getMeshview());
+				
+				/*mvCopies.add(1-1, terr1.getMeshview());
+				mvCopies.add(2-1, terr2.getMeshview());
+				mvCopies.add(3-1, terr3.getMeshview());*/
+				
+				g.getChildren().add(mvCopies.get(1-1));
+				g.getChildren().add(mvCopies.get(2-1));
+				g.getChildren().add(mvCopies.get(3-1));
+			}
+			else if(camZ<centerTerrZ) {
+				g.getChildren().remove(mvCopies.get(1-1));
+				g.getChildren().remove(mvCopies.get(2-1));
+				g.getChildren().remove(mvCopies.get(3-1));
+				centerTerrZ-=terrainSize;
+				TerrainObjectBasic terr7 = new TerrainObjectBasic(centerTerrX-terrainSize, centerTerrZ-terrainSize, terrainSize, 10, (float) 0.3, 3838);
+				TerrainObjectBasic terr8 = new TerrainObjectBasic(centerTerrX, centerTerrZ-terrainSize, terrainSize, 10, (float) 0.3, 3838);
+				TerrainObjectBasic terr9 = new TerrainObjectBasic(centerTerrX+terrainSize, centerTerrZ-terrainSize, terrainSize, 10, (float) 0.3, 3838);
+				
+				world[1-1] = world[4-1];
+				world[2-1] = world[5-1];
+				world[3-1] = world[6-1];
+				
+				world[4-1] = world[7-1];
+				world[5-1] = world[8-1];
+				world[6-1] = world[9-1];
+				
+				world[7-1] = terr7;
+				world[8-1] = terr8;
+				world[9-1] = terr9;
+				
+				mvCopies.remove(3-1);
+				mvCopies.remove(2-1);
+				mvCopies.remove(1-1);
+				
+				mvCopies.add(7-1, terr7.getMeshview());
+				mvCopies.add(8-1, terr8.getMeshview());
+				mvCopies.add(9-1, terr9.getMeshview());
+				
+				g.getChildren().add(mvCopies.get(7-1));
+				g.getChildren().add(mvCopies.get(8-1));
+				g.getChildren().add(mvCopies.get(9-1));
+				System.out.println(mvCopies.size());
+			}
+			else if(camX>terrainSize+centerTerrX) {
+				g.getChildren().remove(mvCopies.get(1-1));
+				g.getChildren().remove(mvCopies.get(4-1));
+				g.getChildren().remove(mvCopies.get(7-1));
+				centerTerrX+=terrainSize;
+				TerrainObjectBasic terr3 = new TerrainObjectBasic(centerTerrX+terrainSize, centerTerrZ+terrainSize, terrainSize, 10, (float) 0.3, 3838);
+				TerrainObjectBasic terr6 = new TerrainObjectBasic(centerTerrX+terrainSize, centerTerrZ, terrainSize, 10, (float) 0.3, 3838);
+				TerrainObjectBasic terr9 = new TerrainObjectBasic(centerTerrX+terrainSize, centerTerrZ-terrainSize, terrainSize, 10, (float) 0.3, 3838);
+				
+				world[1-1] = world[2-1];
+				world[4-1] = world[5-1];
+				world[7-1] = world[8-1];
+				
+				world[2-1] = world[3-1];
+				world[5-1] = world[6-1];
+				world[8-1] = world[9-1];
+				
+				world[3-1] = terr3;
+				world[9-1] = terr6;
+				world[9-1] = terr9;
+				
+				mvCopies.remove(7-1);
+				mvCopies.remove(4-1);
+				mvCopies.remove(1-1);
+				
+				mvCopies.add(3-1, terr3.getMeshview());
+				mvCopies.add(6-1, terr6.getMeshview());
+				mvCopies.add(9-1, terr9.getMeshview());
+				
+				g.getChildren().add(mvCopies.get(3-1));
+				g.getChildren().add(mvCopies.get(6-1));
+				g.getChildren().add(mvCopies.get(9-1));
+			}
+			else if(camX<centerTerrX) {
+				g.getChildren().remove(mvCopies.get(3-1));
+				g.getChildren().remove(mvCopies.get(6-1));
+				g.getChildren().remove(mvCopies.get(9-1));
+				centerTerrX-=terrainSize;
+				TerrainObjectBasic terr1 = new TerrainObjectBasic(centerTerrX-terrainSize, centerTerrZ+terrainSize, terrainSize, 10, (float) 0.3, 3838);
+				TerrainObjectBasic terr4 = new TerrainObjectBasic(centerTerrX-terrainSize, centerTerrZ, terrainSize, 10, (float) 0.3, 3838);
+				TerrainObjectBasic terr7 = new TerrainObjectBasic(centerTerrX-terrainSize, centerTerrZ-terrainSize, terrainSize, 10, (float) 0.3, 3838);
+				
+				world[3-1] = world[2-1];
+				world[6-1] = world[5-1];
+				world[9-1] = world[8-1];
+				
+				world[2-1] = world[1-1];
+				world[5-1] = world[4-1];
+				world[8-1] = world[7-1];
+				
+				world[1-1] = terr1;
+				world[4-1] = terr4;
+				world[7-1] = terr7;
+				
+				
+				mvCopies.remove(9-1);
+				mvCopies.remove(6-1);
+				mvCopies.remove(3-1);
+				
+				mvCopies.add(1-1, terr1.getMeshview());
+				mvCopies.add(4-1, terr4.getMeshview());
+				mvCopies.add(7-1, terr7.getMeshview());
+				
+				g.getChildren().add(mvCopies.get(1-1));
+				g.getChildren().add(mvCopies.get(4-1));
+				g.getChildren().add(mvCopies.get(7-1));
+			}
+		}
 	
 }
 

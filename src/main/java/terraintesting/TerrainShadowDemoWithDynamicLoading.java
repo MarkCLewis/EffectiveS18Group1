@@ -225,9 +225,9 @@ public class TerrainShadowDemoWithDynamicLoading extends Application {
 			world[8-1] = terr8;
 			world[9-1] = terr9;
 			
-			mvCopies.remove(1-1);
-			mvCopies.remove(2-1);
 			mvCopies.remove(3-1);
+			mvCopies.remove(2-1);
+			mvCopies.remove(1-1);
 			
 			mvCopies.add(7-1, terr7.getMeshview());
 			mvCopies.add(8-1, terr8.getMeshview());
@@ -238,87 +238,72 @@ public class TerrainShadowDemoWithDynamicLoading extends Application {
 			g.getChildren().add(mvCopies.get(9-1));
 			System.out.println(mvCopies.size());
 		}
-		if(camZ>terrainSize+centerTerrZ) {
-			//unload backstrip
-			g.getChildren().remove(mvCopies.get(7-1));
-			g.getChildren().remove(mvCopies.get(8-1));
-			g.getChildren().remove(mvCopies.get(9-1));
-			centerTerrZ+=terrainSize;
-			//Build new forward strip
-			TerrainObjectBasic terr1 = new TerrainObjectBasic(centerTerrX-terrainSize, centerTerrZ+terrainSize, terrainSize, 10, (float) 0.3, 3838);
-			TerrainObjectBasic terr2 = new TerrainObjectBasic(centerTerrX, centerTerrZ+terrainSize, terrainSize, 10, (float) 0.3, 3838);
-			TerrainObjectBasic terr3 = new TerrainObjectBasic(centerTerrX+terrainSize, centerTerrZ+terrainSize, terrainSize, 10, (float) 0.3, 3838);
-			
-			world[7-1] = world[4-1];
-			world[8-1] = world[5-1];
-			world[9-1] = world[6-1];
-			
-			world[4-1] = world[1-1];
-			world[5-1] = world[2-1];
-			world[6-1] = world[3-1];
-			
-			world[1-1] = terr1;
-			world[2-1] = terr2;
-			world[3-1] = terr3;
-			mvCopies.remove(9-1);
-			mvCopies.remove(8-1);
-			mvCopies.remove(7-1);
-			
-			mvCopies.add(1-1, terr1.getMeshview());
-			mvCopies.add(2-1, terr2.getMeshview());
-			mvCopies.add(3-1, terr3.getMeshview());
-			
-			mvCopies.add(1-1, terr1.getMeshview());
-			mvCopies.add(2-1, terr2.getMeshview());
-			mvCopies.add(3-1, terr3.getMeshview());
-			
-			g.getChildren().add(mvCopies.get(1-1));
-			g.getChildren().add(mvCopies.get(2-1));
-			g.getChildren().add(mvCopies.get(3-1));
-		}
-		if(camZ>terrainSize+centerTerrZ) {
-			//unload backstrip
-			g.getChildren().remove(mvCopies.get(7-1));
-			g.getChildren().remove(mvCopies.get(8-1));
-			g.getChildren().remove(mvCopies.get(9-1));
-			centerTerrZ+=terrainSize;
-			//Build new forward strip
-			TerrainObjectBasic terr1 = new TerrainObjectBasic(centerTerrX-terrainSize, centerTerrZ+terrainSize, terrainSize, 10, (float) 0.3, 3838);
-			TerrainObjectBasic terr2 = new TerrainObjectBasic(centerTerrX, centerTerrZ+terrainSize, terrainSize, 10, (float) 0.3, 3838);
-			TerrainObjectBasic terr3 = new TerrainObjectBasic(centerTerrX+terrainSize, centerTerrZ+terrainSize, terrainSize, 10, (float) 0.3, 3838);
-			
-			world[7-1] = world[4-1];
-			world[8-1] = world[5-1];
-			world[9-1] = world[6-1];
-			
-			world[4-1] = world[1-1];
-			world[5-1] = world[2-1];
-			world[6-1] = world[3-1];
-			
-			world[1-1] = terr1;
-			world[2-1] = terr2;
-			world[3-1] = terr3;
-			mvCopies.remove(9-1);
-			mvCopies.remove(8-1);
-			mvCopies.remove(7-1);
-			
-			mvCopies.add(1-1, terr1.getMeshview());
-			mvCopies.add(2-1, terr2.getMeshview());
-			mvCopies.add(3-1, terr3.getMeshview());
-			
-			mvCopies.add(1-1, terr1.getMeshview());
-			mvCopies.add(2-1, terr2.getMeshview());
-			mvCopies.add(3-1, terr3.getMeshview());
-			
-			g.getChildren().add(mvCopies.get(1-1));
-			g.getChildren().add(mvCopies.get(2-1));
-			g.getChildren().add(mvCopies.get(3-1));
-		}
-		else if(camZ<centerTerrZ) {
-			//TODO
-		}
 		else if(camX>terrainSize+centerTerrX) {
-			//TODO
+			g.getChildren().remove(mvCopies.get(1-1));
+			g.getChildren().remove(mvCopies.get(4-1));
+			g.getChildren().remove(mvCopies.get(7-1));
+			centerTerrX+=terrainSize;
+			TerrainObjectBasic terr3 = new TerrainObjectBasic(centerTerrX+terrainSize, centerTerrZ+terrainSize, terrainSize, 10, (float) 0.3, 3838);
+			TerrainObjectBasic terr6 = new TerrainObjectBasic(centerTerrX+terrainSize, centerTerrZ, terrainSize, 10, (float) 0.3, 3838);
+			TerrainObjectBasic terr9 = new TerrainObjectBasic(centerTerrX+terrainSize, centerTerrZ-terrainSize, terrainSize, 10, (float) 0.3, 3838);
+			
+			world[1-1] = world[2-1];
+			world[4-1] = world[5-1];
+			world[7-1] = world[8-1];
+			
+			world[2-1] = world[3-1];
+			world[5-1] = world[6-1];
+			world[8-1] = world[9-1];
+			
+			world[3-1] = terr3;
+			world[9-1] = terr6;
+			world[9-1] = terr9;
+			
+			mvCopies.remove(7-1);
+			mvCopies.remove(4-1);
+			mvCopies.remove(1-1);
+			
+			mvCopies.add(3-1, terr3.getMeshview());
+			mvCopies.add(6-1, terr6.getMeshview());
+			mvCopies.add(9-1, terr9.getMeshview());
+			
+			g.getChildren().add(mvCopies.get(3-1));
+			g.getChildren().add(mvCopies.get(6-1));
+			g.getChildren().add(mvCopies.get(9-1));
+		}
+		else if(camX<centerTerrX) {
+			g.getChildren().remove(mvCopies.get(3-1));
+			g.getChildren().remove(mvCopies.get(6-1));
+			g.getChildren().remove(mvCopies.get(9-1));
+			centerTerrX-=terrainSize;
+			TerrainObjectBasic terr1 = new TerrainObjectBasic(centerTerrX-terrainSize, centerTerrZ+terrainSize, terrainSize, 10, (float) 0.3, 3838);
+			TerrainObjectBasic terr4 = new TerrainObjectBasic(centerTerrX-terrainSize, centerTerrZ, terrainSize, 10, (float) 0.3, 3838);
+			TerrainObjectBasic terr7 = new TerrainObjectBasic(centerTerrX-terrainSize, centerTerrZ-terrainSize, terrainSize, 10, (float) 0.3, 3838);
+			
+			world[3-1] = world[2-1];
+			world[6-1] = world[5-1];
+			world[9-1] = world[8-1];
+			
+			world[2-1] = world[1-1];
+			world[5-1] = world[4-1];
+			world[8-1] = world[7-1];
+			
+			world[1-1] = terr1;
+			world[4-1] = terr4;
+			world[7-1] = terr7;
+			
+			
+			mvCopies.remove(9-1);
+			mvCopies.remove(6-1);
+			mvCopies.remove(3-1);
+			
+			mvCopies.add(1-1, terr1.getMeshview());
+			mvCopies.add(4-1, terr4.getMeshview());
+			mvCopies.add(7-1, terr7.getMeshview());
+			
+			g.getChildren().add(mvCopies.get(1-1));
+			g.getChildren().add(mvCopies.get(4-1));
+			g.getChildren().add(mvCopies.get(7-1));
 		}
 	}
 	
