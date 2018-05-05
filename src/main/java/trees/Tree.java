@@ -244,8 +244,8 @@ public class Tree extends Application implements WorldObject {
 
 		int nTimes = (times.nextInt((6 - 3) + 1) + 3) - 1;
 		loops = (int) (Math.pow(2, nTimes) - 1);
-		System.out.println("Type B tree generated");
-		System.out.println("Tree size: " + nTimes + " levels");
+		//System.out.println("Type B tree generated");
+		//System.out.println("Tree size: " + nTimes + " levels");
 
 		return dryTree();
 	}
@@ -452,7 +452,7 @@ public class Tree extends Application implements WorldObject {
 			}
 			
 		}
-		System.out.println(shapes.size());
+		//System.out.println(shapes.size());
 		
 		height=Math.abs(height)+axiom.getHeight()/2;
 		
