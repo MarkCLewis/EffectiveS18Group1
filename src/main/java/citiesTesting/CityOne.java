@@ -231,7 +231,7 @@ public class CityOne implements WorldObject {
 	public void clearList(){
 		lst.clear();
 	}
-
+	
 	@Override
 	public ArrayList<Shape3D> display() {
 		// TODO Auto-generated method stub
